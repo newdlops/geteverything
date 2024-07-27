@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "geteverything"
+version = "0.1.0"
+description = ""
+authors = ["newdlops <newdlops@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.0.6"
+sqlparse = "0.5.0"
+asgiref = "3.8.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

@@ -1,0 +1,19 @@
+# admin/BUILD.bazel
+package(default_visibility = ["//visibility:public"])
+
+load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_runtime")
+
+py_binary(
+    name = "runserver",
+    srcs = ["manage.py"],
+    main = "manage.py",
+    args = ["runserver"],
+    deps = [
+        "//admin/admin:admin_lib",
+    ],
+    imports = [ "."],
+    env= {
+    "DJANGO_SETTINGS_MODULE":"admin.settings",
+    },
+    visibility = ["//visibility:public"],
+)
