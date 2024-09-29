@@ -10,19 +10,12 @@ django.setup()
 
 
 from scrapy.crawler import CrawlerProcess
-from spider import MySpider
+from scrapy.utils.project import get_project_settings
+from spider import CoolNJoySpider
 
 def crawl():
-    process = CrawlerProcess(settings={
-        "FEEDS": {
-            "/tmp/output.json": {"format": "json"},
-        },
-    })
+    process = CrawlerProcess(get_project_settings())
 
     # 스파이더를 실행합니다.
-    process.crawl(MySpider)
+    process.crawl(CoolNJoySpider)
     process.start()
-
-    # 결과 파일을 읽고 반환합니다.
-    with open('/tmp/output.json') as f:
-        data = json.load(f)
