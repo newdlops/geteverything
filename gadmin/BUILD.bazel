@@ -9,8 +9,8 @@ py_binary(
     main = "manage.py",
     args = ["runserver"],
     deps = [
-        "//admin/admin:admin_lib",
-        "//admin/coolnjoy:coolnjoy_lib"
+        "//gadmin/admin:admin_lib",
+        "//gadmin/coolnjoy:coolnjoy_lib"
     ],
     imports = [ "."],
     env= {

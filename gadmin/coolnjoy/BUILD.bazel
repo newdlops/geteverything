@@ -1,0 +1,14 @@
+package(default_visibility = ["//visibility:public"])
+load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_runtime")
+
+py_library(
+    name = "coolnjoy_lib",
+    srcs = glob(["**/*.py"]),
+    deps = [
+        "@poetry//:sqlparse",
+        "@poetry//:django",
+        "@poetry//:asgiref",
+        "@poetry//:psycopg",
+    ],
+    visibility = ["//visibility:public"],
+)

@@ -1,0 +1,5 @@
+requests
+django==5.1
+sqlparse==0.5.0
+asgiref==3.8.1
+Scrapy==2.11.2

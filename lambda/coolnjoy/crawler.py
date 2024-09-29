@@ -5,17 +5,12 @@ import json
 import os
 import django
 
-
-
 os.environ['DJANGO_SETTINGS_MODULE'] = 'admin.settings'
 django.setup()
 
 
 from scrapy.crawler import CrawlerProcess
 from spider import MySpider
-
-from coolnjoy.models import CoolNJoyDeal
-
 
 def crawl():
     process = CrawlerProcess(settings={
