@@ -10,6 +10,7 @@ py_binary(
     args = ["runserver"],
     deps = [
         "//admin/admin:admin_lib",
+        "//admin/coolnjoy:coolnjoy_lib"
     ],
     imports = [ "."],
     env= {

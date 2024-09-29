@@ -10,6 +10,9 @@ python = "^3.12"
 django = "^5.0.6"
 sqlparse = "0.5.0"
 asgiref = "3.8.1"
+scrapy = "2.11.2"
+psycopg = "^3.2.1"
+psycopg2-binary = "^2.9.9"
 
 [build-system]
 requires = ["poetry-core"]

@@ -1,3 +1,4 @@
 bazel-*
 venv
 .ijwb
+.aws-sam

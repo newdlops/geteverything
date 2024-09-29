@@ -2,14 +2,13 @@ package(default_visibility = ["//visibility:public"])
 load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_runtime")
 
 py_library(
-    name = "admin_lib",
-#    srcs = ["asgi.py","settings.py", "urls.py", "wsgi.py", "__init__.py"],
+    name = "coolnjoy_lambda_lib",
     srcs = glob(["**/*.py"]),
     deps = [
         "@poetry//:sqlparse",
         "@poetry//:django",
         "@poetry//:asgiref",
-        "@poetry//:psycopg",
+        "@poetry//:scrapy"
     ],
     visibility = ["//visibility:public"],
 )
