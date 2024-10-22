@@ -10,7 +10,6 @@ class CoolNJoyDeal(models.Model):
     recommend_count = models.IntegerField(verbose_name='추천수', default=0)
     create_at = models.DateTimeField(default=datetime.now(), verbose_name='생성일')
     crawled_at = models.DateTimeField(default=datetime.now(), verbose_name='수집일')
-
     content = models.CharField(max_length=2048, verbose_name='내용',blank=True, null=True)
     a_link = models.CharField(max_length=512, verbose_name='링크 주소1',blank=True, null=True)
     a_link2 = models.CharField(max_length=512, verbose_name='링크 주소2',blank=True, null=True)

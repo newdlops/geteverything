@@ -5,8 +5,10 @@ import os
 import django
 import datetime
 
-from coolnjoy.models import CoolNJoyDeal
 from scrapy import Request
+from item import CoolNJoyItem
+from item_pipeline import CoolNJoyPipeline
+
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'admin.settings'
 django.setup()
@@ -15,6 +17,9 @@ class CoolNJoySpider(scrapy.Spider):
   name = "cool_n_joy_spider"
   custom_settings = {
     'DOWNLOAD_DELAY': 2,
+    'ITEM_PIPELINES': {
+      'item_pipeline.CoolNJoyPipeline': 300,
+    }
   }
 
 
@@ -60,19 +65,4 @@ class CoolNJoySpider(scrapy.Spider):
     input_format = '%Y.%m.%d %H:%M'
     create_time = datetime.datetime.strptime(create_at, input_format)
 
-    CoolNJoyDeal(
-        cool_n_joy_id = data['cool_n_joy_id'],
-        url = data['url'],
-        subject = data['subject'],
-        category = data['category'],
-        price = data['price'],
-        recommend_count = data['recommend_count'],
-        content = content,
-        a_link = a_link,
-        a_link2 = a_link2,
-        b_link = b_link,
-        img = img,
-        create_at = create_time
-    ).save()
-
-    yield None
+    yield CoolNJoyItem(dict(**data, content=content, a_link=a_link, a_link2=a_link2, b_link=b_link, img=img, create_at=create_time))

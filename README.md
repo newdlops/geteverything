@@ -8,6 +8,10 @@ Django프레임워크는 ORM과 Admin을 담당하고 Lamda는 크롤링을 담�
 빌드는 Bazel을 이용해서 monorepo형식을 취한다.
 
 ### 1. Django
+#### 1.1 콘솔 실행
+spider나 코드의 수동 테스트를 위해서 파이썬 콘솔에서 실행한다.
+
+
 
 ### 2. AWS SAM
 #### 2.1 설치

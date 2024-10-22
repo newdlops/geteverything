@@ -8,7 +8,8 @@ py_library(
         "@poetry//:sqlparse",
         "@poetry//:django",
         "@poetry//:asgiref",
-        "@poetry//:scrapy"
+        "@poetry//:scrapy",
+        "//gadmin/coolnjoy:coolnjoy_lib",
     ],
     visibility = ["//visibility:public"],
 )
