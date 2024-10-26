@@ -2,3 +2,4 @@ bazel-*
 venv
 .ijwb
 .aws-sam
+template.yaml
