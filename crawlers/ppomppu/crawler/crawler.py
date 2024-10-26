@@ -12,7 +12,7 @@ django.setup()
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 if __name__ == 'crawler.crawler':
-    from spider import PpomppuSpider
+    from spider import PpomppuSpider # noqa
 else:
     from ..spider import PpomppuSpider
 def crawl():

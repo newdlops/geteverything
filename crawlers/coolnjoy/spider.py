@@ -58,7 +58,7 @@ class CoolNJoySpider(scrapy.Spider):
       "x-requested-with": "XMLHttpRequest",
     }
 
-    for i in range(1, total_page+2):
+    for i in range(1, total_page+3):
         yield scrapy.Request(
             f"https://coolenjoy.net/bbs/jirum?page={i}",
             callback=self.parse,
