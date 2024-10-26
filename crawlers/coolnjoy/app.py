@@ -1,9 +1,10 @@
 import json
 
 # import requests
-
-import os
-import crawler
+if __name__ == 'app':
+    from crawler import crawl
+else:
+    from .crawler import crawl
 
 def lambda_handler(event, context):
     """
@@ -16,7 +17,7 @@ def lambda_handler(event, context):
     #     print(e)
 
     #     raise e
-    crawler.crawl()
+    crawl()
 
 
     return {

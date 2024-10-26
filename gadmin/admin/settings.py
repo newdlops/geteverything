@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'ppomppu.apps.PpomppuConfig',
     'coolnjoy.apps.CoolnjoyConfig',
     'django.contrib.admin',
     'django.contrib.auth',

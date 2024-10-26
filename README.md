@@ -11,7 +11,16 @@ Django프레임워크는 ORM과 Admin을 담당하고 Lamda는 크롤링을 담�
 #### 1.1 콘솔 실행
 spider나 코드의 수동 테스트를 위해서 파이썬 콘솔에서 실행한다.
 
+#### 1.2 앱 추가
+````angular2html
+python manage.py startapp [app_name]
+````
 
+#### 1.3 모델 마이그레이션
+````angular2html
+python manage.py migrate
+python manage.py makemigrations polls
+````
 
 ### 2. AWS SAM
 #### 2.1 설치
@@ -46,6 +55,11 @@ sam local start-api --env-vars locals.json --warm-containers EAGER
 sam local start-api
 ```
 #### 2.3 배포
+
+최초 배포시
+sam deploy --guided
+이후
+sam deploy
 
 ### 3. Lambda
 

@@ -1,0 +1,15 @@
+package(default_visibility = ["//visibility:public"])
+load("@rules_python//python:defs.bzl", "py_binary", "py_library", "py_runtime")
+
+py_library(
+    name = "ppomppu_lambda_lib",
+    srcs = glob(["**/*.py"]),
+    deps = [
+        "@poetry//:sqlparse",
+        "@poetry//:django",
+        "@poetry//:asgiref",
+        "@poetry//:scrapy",
+        "//gadmin/ppomppu:ppomppu_lib",
+    ],
+    visibility = ["//visibility:public"],
+)

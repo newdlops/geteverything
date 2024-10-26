@@ -11,11 +11,13 @@ django.setup()
 
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
-from spider import CoolNJoySpider
-
+if __name__ == 'crawler.crawler':
+    from spider import PpomppuSpider
+else:
+    from ..spider import PpomppuSpider
 def crawl():
     process = CrawlerProcess(get_project_settings())
 
     # 스파이더를 실행합니다.
-    process.crawl(CoolNJoySpider)
+    process.crawl(PpomppuSpider)
     process.start()
