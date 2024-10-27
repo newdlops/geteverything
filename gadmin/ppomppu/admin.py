@@ -6,6 +6,6 @@ from ppomppu.models import PpomppuDeal
 
 @admin.register(PpomppuDeal)
 class PpomppuAdmin(admin.ModelAdmin):
-    list_display=['cool_n_joy_id','category', 'subject', 'create_at', 'recommend_count']
+    list_display=['article_id','category', 'subject', 'create_at', 'recommend_count']
 
 # Register your models here.

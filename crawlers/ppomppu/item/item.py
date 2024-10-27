@@ -2,16 +2,20 @@ from scrapy.item import Item, Field
 
 
 class PpomppuItem(Item):
-    url = Field()
+    article_id = Field()
+    origin_url = Field()
+    shop_url_1 = Field()
+    shop_name = Field()
+    thumbnail = Field()
     subject = Field()
+    content = Field() #
     category = Field()
-    price = Field()
+    price = Field() #
+    delivery_price = Field() #
     recommend_count = Field()
+    dislike_count = Field()
+    view_count = Field()
     create_at = Field()
-    crawled_at = Field()
-    content = Field()
-    a_link = Field()
-    a_link2 = Field()
-    b_link = Field()
-    img = Field()
-    cool_n_joy_id = Field()
+    update_at = Field() #
+    crawled_at = Field() #
+    is_end = Field() #

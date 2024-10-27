@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'ppomppu.apps.PpomppuConfig',
     'coolnjoy.apps.CoolnjoyConfig',
+    'deals.apps.DealsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
