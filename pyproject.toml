@@ -13,6 +13,8 @@ asgiref = "3.8.1"
 scrapy = "2.11.2"
 psycopg = "^3.2.1"
 psycopg2-binary = "^2.9.9"
+scrapy-rotating-proxies = "^0.6.2"
+rotating-free-proxies = "^0.1.2"
 
 [build-system]
 requires = ["poetry-core"]
