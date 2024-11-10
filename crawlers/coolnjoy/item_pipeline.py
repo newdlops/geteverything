@@ -1,5 +1,5 @@
 import re
-from datetime import timezone
+from datetime import datetime
 
 from deals.models import Deal
 from itemadapter import ItemAdapter
@@ -26,25 +26,32 @@ class CoolNJoyPipeline:
         else:
             if '원' in price:
                 currency = 'WON'
-            price = re.sub(r'[,원$]', '', price)
+            price = float(re.sub(r'[,원$]', '', price))
 
+        if not isinstance(price, float):
+            price = 0
 
-        cool_n_joy_item, _ = Deal.objects.get_or_create(article_id=COOLNJOY_PREFIX + c_item["article_id"])
+        shop_name_pattern = r'^\[(.*?)\].*?$'
+        shop_name = re.match(shop_name_pattern, c_item.get("subject", "")).group(1)
 
-        cool_n_joy_item.origin_url = c_item.get("origin_url", "")
-        cool_n_joy_item.subject = c_item.get("subject", "")
-        cool_n_joy_item.category = c_item.get("category", "")
-        cool_n_joy_item.price = price
+        cool_n_joy_item, _ = Deal.objects.get_or_create(article_id=COOLNJOY_PREFIX + c_item["article_id"],
+                                                        defaults={
+                                                            'origin_url': c_item.get("origin_url", ""),
+                                                            'shop_url_1': c_item.get("shop_url_1", ""),
+                                                            'shop_name': shop_name,
+                                                            'thumbnail': c_item.get("thumbnail", ""),
+                                                            'subject': c_item.get("subject", ""),
+                                                            'category': c_item.get("category", ""),
+                                                            'crawled_at': datetime.now(),
+                                                            'create_at': c_item.get("create_at"),
+                                                            'price': price,
+                                                            'currency': currency,
+                                                            'community_name': 'coolnjoy',
+                                                        })
+
         cool_n_joy_item.recommend_count = c_item.get("recommend_count", "")
-        if c_item.get("created_at"):
-            cool_n_joy_item.create_at = c_item.get("create_at")
-        if c_item.get("crawled_at"):
-            cool_n_joy_item.crawled_at = c_item.get("crawled_at")
-        cool_n_joy_item.content = c_item.get("content", "")
-        cool_n_joy_item.shop_url_1 = c_item.get("shop_url_1", "")
-        cool_n_joy_item.thumbnail = c_item.get("thumbnail", "")
-        cool_n_joy_item.currency = currency
-        cool_n_joy_item.community_name = 'coolnjoy'
+        cool_n_joy_item.view_count = c_item.get("view_count", 0)
+        cool_n_joy_item.update_at = datetime.now()
 
         cool_n_joy_item.save()
 

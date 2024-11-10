@@ -55,9 +55,7 @@ class PpomppuPipeline:
         crawl_item.recommend_count = c_item.get("recommend_count", 0)
         crawl_item.dislike_count = c_item.get("dislike_count", 0)
         crawl_item.view_count = c_item.get("view_count", 0)
-
         crawl_item.update_at = datetime.now()
-
 
         crawl_item.save()
 

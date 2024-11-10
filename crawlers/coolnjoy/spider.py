@@ -7,6 +7,7 @@ import datetime
 
 from scrapy import Request
 from twisted.scripts.htmlizer import header
+from w3lib.html import remove_tags, replace_escape_chars, strip_html5_whitespace
 
 if __name__ == 'spider':
   from item import CoolNJoyItem
@@ -58,7 +59,7 @@ class CoolNJoySpider(scrapy.Spider):
       "x-requested-with": "XMLHttpRequest",
     }
 
-    for i in range(1, total_page+3):
+    for i in range(1, total_page+1):
         yield scrapy.Request(
             f"https://coolenjoy.net/bbs/jirum?page={i}",
             callback=self.parse,
@@ -75,9 +76,9 @@ class CoolNJoySpider(scrapy.Spider):
       # reply_count = li.css() TODO: 원글 댓글수
       price = li.css('font::text').get().strip()
       recommend_count = li.css('.rank-icon_vote::text').get().strip()
-
+      view_count = int(replace_escape_chars(remove_tags(li.css('div:has(i.fa-eye).float-left').get())).replace('조회',''))
       data = {
-        'origin_url': origin_url, 'article_id': article_id,
+        'origin_url': origin_url, 'article_id': article_id, 'view_count': view_count,
         'subject': subject, 'category': category, 'price': price, 'recommend_count': recommend_count
       }
       yield Request(url=origin_url, callback=self.detail_parse, cb_kwargs=dict(data=data), meta={'cookiejar': response.meta['cookiejar']})

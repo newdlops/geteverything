@@ -13,4 +13,5 @@ class CoolNJoyItem(Item):
     thumbnail = Field()
     article_id = Field()
     shop_name = Field()
+    view_count = Field()
 
