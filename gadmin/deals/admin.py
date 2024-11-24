@@ -6,5 +6,5 @@ from deals.models import Deal
 
 @admin.register(Deal)
 class DealAdmin(admin.ModelAdmin):
-    list_display=['category', 'subject', 'create_at', 'recommend_count']
-
+    list_display=['community_name', 'category', 'subject', 'create_at', 'recommend_count', 'view_count']
+    list_display_links = ['subject']

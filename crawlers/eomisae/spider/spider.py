@@ -40,7 +40,7 @@ class EomisaeSpider(scrapy.Spider):
 
     # 수집할 웹사이트의 URL을 지정합니다.
     def start_requests(self):
-        total_page = 1
+        total_page = 5
 
         for i in range(1, total_page+1):
             yield scrapy.Request(

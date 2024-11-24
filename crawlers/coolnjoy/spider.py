@@ -38,7 +38,7 @@ class CoolNJoySpider(scrapy.Spider):
                 ]
 
   def start_requests(self):
-    total_page = 1
+    total_page = 5
 
     headers = {
       "accept": "*/*",

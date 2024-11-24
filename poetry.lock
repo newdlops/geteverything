@@ -1125,6 +1125,16 @@ socks = ["pysocks (>=1.5.6,!=1.5.7,<2.0)"]
 zstd = ["zstandard (>=0.18.0)"]
 
 [[package]]
+name = "uwsgi"
+version = "2.0.28"
+description = "The uWSGI server"
+optional = false
+python-versions = "*"
+files = [
+    {file = "uwsgi-2.0.28.tar.gz", hash = "sha256:79ca1891ef2df14508ab0471ee8c0eb94bd2d51d03f32f90c4bbe557ab1e99d0"},
+]
+
+[[package]]
 name = "w3lib"
 version = "2.2.1"
 description = "Library of web-related functions"
@@ -1189,4 +1199,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "71f1d01d87f688ae92986ccc16f23e054256958b1c465953c9ab6d07f8e1e1c4"
+content-hash = "73678784f9572a0bb58373ed9a81b6b1f306646c7d6e0b2782f444956bb3afad"

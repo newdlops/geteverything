@@ -31,7 +31,7 @@ class ArcaSpider(scrapy.Spider):
 
     # 수집할 웹사이트의 URL을 지정합니다.
     def start_requests(self):
-        total_page = 1
+        total_page = 5
 
         headers = {
             "accept": "*/*",

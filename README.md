@@ -22,6 +22,14 @@ python manage.py migrate
 python manage.py makemigrations polls
 ````
 
+#### 1.4 배포
+배포는 docker 이미지로 uwsgi를 사용하도록 이미지를 배포한다
+````angular2html
+docker build -t my-django-app . --platform=linux/amd64
+docker save -o django.tar my-django-app
+docker load -i django.tar
+````
+
 ### 2. AWS SAM
 #### 2.1 설치
 아래 링크를 참조하여 SAM CLI를 설치한다
