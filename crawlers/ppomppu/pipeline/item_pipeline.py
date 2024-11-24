@@ -17,7 +17,7 @@ class PpomppuPipeline:
         c_item = ItemAdapter(item)
 
         date_format = '%Y-%m-%d %H:%M'
-        create_at = datetime.strptime(c_item.get("create_at"), date_format)
+        write_at = datetime.strptime(c_item.get("write_at"), date_format)
 
         remove_pattern = r'[ㄱ-ㅎ가-힣|\\(\),/ ~]'
         pattern = r'(?<!\d)(?:\d{1,3}(?:,\d{3})+|\d+)(?:[ㄱ-ㅎ가-힣])*(?=[^1234567890ㄱ-ㅎ가-힣]*/\s*|$)'
@@ -39,14 +39,14 @@ class PpomppuPipeline:
 
         crawl_item, _ = Deal.objects.get_or_create(article_id=PPOMPPU_PREFIX + c_item["article_id"],
                                                           defaults={
-                                                              'origin_url': c_item.get("origin_url", ""),
+                                                              'origin_url':  f'https://www.ppomppu.co.kr/zboard/{c_item.get("origin_url", "")}',
                                                               'shop_url_1': c_item.get("shop_url_1", ""),
                                                               'shop_name': c_item.get("shop_name", ""),
                                                               'thumbnail': c_item.get("thumbnail", ""),
                                                               'subject': c_item.get("subject", ""),
                                                               'category': c_item.get("category", ""),
                                                               'crawled_at': datetime.now(),
-                                                              'create_at': create_at,
+                                                              'write_at': write_at,
                                                               'price': price,
                                                               'community_name': 'PPOMPPU',
                                                           })

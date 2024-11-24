@@ -1,6 +1,7 @@
 import re
-from datetime import datetime
-from locale import currency
+from datetime import datetime, tzinfo
+from zoneinfo import ZoneInfo  # Python 3.9 이상
+
 
 from deals.models import Deal
 from itemadapter import ItemAdapter
@@ -19,8 +20,8 @@ class ArcaPipeline:
         c_item = ItemAdapter(item)
 
         date_format = '%Y-%m-%d %H:%M:%S'
-        create_at = datetime.strptime(c_item.get("create_at"), date_format)
-
+        utc = ZoneInfo('UTC')
+        write_at = datetime.strptime(c_item.get("write_at"), date_format).replace(tzinfo=utc)
         price = c_item.get("price", 0)
         currency = 'WON'
         if '$' in price:
@@ -38,11 +39,11 @@ class ArcaPipeline:
                                                           defaults={
                                                               'shop_url_1': c_item.get("shop_url_1", ""),
                                                               'shop_name': c_item.get("shop_name", ""),
-                                                              'thumbnail': c_item.get("thumbnail", ""),
+                                                              'thumbnail': f'https:{c_item.get("thumbnail", "")}',
                                                               'subject': c_item.get("subject", ""),
                                                               'category': c_item.get("category", ""),
                                                               'crawled_at': datetime.now(),
-                                                              'create_at': create_at,
+                                                              'write_at': write_at,
                                                               'delivery_price': delivery_price,
                                                               'community_name': 'ARCA',
                                                               'price': price,

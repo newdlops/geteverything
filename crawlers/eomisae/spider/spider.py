@@ -3,8 +3,9 @@ import re
 import scrapy
 import os
 import django
+import traceback
 
-from w3lib.html import remove_tags, replace_escape_chars, strip_html5_whitespace
+from w3lib.html import replace_escape_chars, strip_html5_whitespace
 
 from scrapy import Request
 if __name__ == 'spider.spider':
@@ -76,6 +77,8 @@ class EomisaeSpider(scrapy.Spider):
                     yield Request(url=origin_url, callback=self.detail_parse, cb_kwargs=dict(data=data), headers=self.headers, meta={'cookiejar': response.meta['cookiejar']})
             except Exception as e:
                 print(f'목록 불러오는중에 에러 발생 : {e}')
+                traceback.print_exc()
+                raise Exception(f'목록 불러오는중 에러 발생')
 
     def detail_parse(self, response, data):
         try:
@@ -84,11 +87,13 @@ class EomisaeSpider(scrapy.Spider):
             btm_area = response.css('div.btm_area span')
             recommend_count = btm_area[2].css('b::text').get()
             # dislike_count = btm_area[0].css('b::text').get()
-            create_at = btm_area[5].css('::text').get()
+            write_at = btm_area[5].css('::text').get()
             view_count = btm_area[1].css('b::text').get()
             shop_url_1 = response.css('td.extra_url a::attr(href)').get()
 
 
-            yield EomisaeItem(dict(**data, shop_url_1=shop_url_1, recommend_count=recommend_count, create_at=create_at, view_count=view_count))
+            yield EomisaeItem(dict(**data, shop_url_1=shop_url_1, recommend_count=recommend_count, write_at=write_at, view_count=view_count, category=category))
         except Exception as e:
             print(f'상세 페이지 불러오는중에 에러 발생 : {e}')
+            traceback.print_exc()
+            raise Exception(f'상세 페이지 불러오는중 에러 발생')

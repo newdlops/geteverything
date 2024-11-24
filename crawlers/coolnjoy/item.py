@@ -8,6 +8,7 @@ class CoolNJoyItem(Item):
     price = Field()
     recommend_count = Field()
     create_at = Field()
+    write_at = Field()
     crawled_at = Field()
     shop_url_1 = Field()
     thumbnail = Field()

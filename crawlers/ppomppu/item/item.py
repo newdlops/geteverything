@@ -16,6 +16,7 @@ class PpomppuItem(Item):
     dislike_count = Field()
     view_count = Field()
     create_at = Field()
+    write_at = Field()
     update_at = Field() #
     crawled_at = Field() #
     is_end = Field() #

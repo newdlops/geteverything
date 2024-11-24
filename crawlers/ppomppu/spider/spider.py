@@ -3,7 +3,7 @@ import re
 import scrapy
 import os
 import django
-
+import traceback
 from w3lib.html import remove_tags
 
 from scrapy import Request
@@ -77,6 +77,8 @@ class PpomppuSpider(scrapy.Spider):
                     yield Request(url=detail_page_url, callback=self.detail_parse, cb_kwargs=dict(data=data), meta={'cookiejar': response.meta['cookiejar']})
             except Exception as e:
                 print(f'목록 불러오는중에 에러 발생 : {e}')
+                traceback.print_exc()
+                raise Exception(f'목록 불러오는중 에러 발생')
 
     def detail_parse(self, response, data):
         try:
@@ -85,7 +87,9 @@ class PpomppuSpider(scrapy.Spider):
             recommend_count = response.css('span#vote_list_btn_txt::text').get()
             dislike_count = response.css('span#vote_anti_list_btn_txt::text').get()
             content = response.css('td.board-contents').get()
-            create_at = response.css('ul.topTitle-mainbox li::text')[0].get()[4:]
-            yield PpomppuItem(dict(**data, shop_url_1=shop_url_1, recommend_count=recommend_count, dislike_count=dislike_count, content=content, create_at=create_at))
+            write_at = response.css('ul.topTitle-mainbox li::text')[0].get()[4:]
+            yield PpomppuItem(dict(**data, shop_url_1=shop_url_1, recommend_count=recommend_count, dislike_count=dislike_count, content=content, write_at=write_at))
         except Exception as e:
             print(f'상세 페이지 불러오는중에 에러 발생 : {e}')
+            traceback.print_exc()
+            raise Exception(f'상세 페이지 불러오는중 에러 발생')

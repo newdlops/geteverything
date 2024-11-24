@@ -1,5 +1,6 @@
 from datetime import datetime
 from django.db import models
+from django.template.defaultfilters import default
 
 
 class Deal(models.Model):
@@ -18,7 +19,8 @@ class Deal(models.Model):
     recommend_count = models.IntegerField(verbose_name='추천수', default=0)
     dislike_count = models.IntegerField(verbose_name='비추수', default=0)
     view_count = models.IntegerField(verbose_name='조회수', default=0)
-    create_at = models.DateTimeField(auto_now_add=True, verbose_name='원글 작성일')
+    create_at = models.DateTimeField(auto_now_add=True, verbose_name='크롤링 일자')
+    write_at = models.DateTimeField(default=datetime(2024, 1, 1, 00, 00, 00), verbose_name='원글 작성일')
     update_at = models.DateTimeField(auto_now=True, verbose_name='업데이트일시')
     crawled_at = models.DateTimeField(default=datetime.now, verbose_name='크롤링 수집일')
     is_end = models.BooleanField(verbose_name='종료여부', default=False)

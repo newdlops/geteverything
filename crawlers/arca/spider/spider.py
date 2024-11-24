@@ -3,6 +3,7 @@ import re
 import scrapy
 import os
 import django
+import traceback
 
 from w3lib.html import remove_tags, replace_escape_chars, strip_html5_whitespace
 
@@ -56,7 +57,7 @@ class ArcaSpider(scrapy.Spider):
             try:
                 origin_url = article.css('a.title.hybrid-title::attr(href)').get()
 
-                id_pattern = r'\/b\/hotdeal\/(.*?)\?p=1'
+                id_pattern = r'\/b\/hotdeal\/(.*?)\?p=\d'
                 article_id = re.match(id_pattern, origin_url).groups()[0]
                 thumbnail = article.css('.vrow-preview img::attr(src)').get()
                 subject = strip_html5_whitespace(replace_escape_chars(article.css('a.title.hybrid-title::text')[1].get()))
@@ -78,6 +79,8 @@ class ArcaSpider(scrapy.Spider):
                     yield Request(url=detail_page_url, callback=self.detail_parse, cb_kwargs=dict(data=data), meta={'cookiejar': response.meta['cookiejar']})
             except Exception as e:
                 print(f'목록 불러오는중에 에러 발생 : {e}')
+                traceback.print_exc()
+                raise Exception(f'목록 불러오는중 에러 발생')
 
     def detail_parse(self, response, data):
         try:
@@ -85,11 +88,13 @@ class ArcaSpider(scrapy.Spider):
             info_spans = article_info.css('span')
             recommend_count = info_spans[1].css('::text').get()
             dislike_count = info_spans[4].css('::text').get()
-            create_at = info_spans[11].css('time::text').get()
+            write_at = info_spans[11].css('time::text').get()
             view_count = info_spans[10].css('::text').get()
             shop_url_1 = response.css('tbody tr a::text').get()
 
 
-            yield ArcaItem(dict(**data, shop_url_1=shop_url_1, recommend_count=recommend_count, dislike_count=dislike_count, create_at=create_at, view_count=view_count))
+            yield ArcaItem(dict(**data, shop_url_1=shop_url_1, recommend_count=recommend_count, dislike_count=dislike_count, view_count=view_count, write_at=write_at))
         except Exception as e:
             print(f'상세 페이지 불러오는중에 에러 발생 : {e}')
+            traceback.print_exc()
+            raise Exception(f'상세 페이지 불러오는중 에러 발생')

@@ -5,9 +5,9 @@ import os
 import django
 import datetime
 
+from zoneinfo import ZoneInfo
 from scrapy import Request
-from twisted.scripts.htmlizer import header
-from w3lib.html import remove_tags, replace_escape_chars, strip_html5_whitespace
+from w3lib.html import remove_tags, replace_escape_chars
 
 if __name__ == 'spider':
   from item import CoolNJoyItem
@@ -89,9 +89,9 @@ class CoolNJoySpider(scrapy.Spider):
     # a_link2 = (a_link2 := response.css('div.view-content.fr-view a::text').get()) and a_link2.strip()
     shop_url_1 = (shop_url_1 := response.css('.pl-3 a::text').get()) and shop_url_1.strip()
     thumbnail = (img := response.css('div.view-content.fr-view img::attr(href)').get()) and img.strip()
-    create_at = (create_at := response.css('time.f-xs::text').get()) and create_at.strip()
-
+    write_at = (create_at := response.css('time.f-xs::text').get()) and create_at.strip()
     input_format = '%Y.%m.%d %H:%M'
-    create_time = datetime.datetime.strptime(create_at, input_format)
+    utc = ZoneInfo('UTC')
+    create_time = datetime.datetime.strptime(write_at, input_format)
 
-    yield CoolNJoyItem(dict(**data, shop_url_1=shop_url_1, thumbnail=thumbnail, create_at=create_time))
+    yield CoolNJoyItem(dict(**data, shop_url_1=shop_url_1, thumbnail=thumbnail, write_at=create_time))

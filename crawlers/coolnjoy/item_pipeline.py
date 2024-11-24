@@ -43,7 +43,7 @@ class CoolNJoyPipeline:
                                                             'subject': c_item.get("subject", ""),
                                                             'category': c_item.get("category", ""),
                                                             'crawled_at': datetime.now(),
-                                                            'create_at': c_item.get("create_at"),
+                                                            'write_at': c_item.get("write_at"),
                                                             'price': price,
                                                             'currency': currency,
                                                             'community_name': 'coolnjoy',

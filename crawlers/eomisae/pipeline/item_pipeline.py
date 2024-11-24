@@ -1,7 +1,6 @@
 import re
 from datetime import datetime
-from locale import currency
-
+from zoneinfo import ZoneInfo
 from deals.models import Deal
 from itemadapter import ItemAdapter
 
@@ -19,7 +18,7 @@ class EomisaePipeline:
         c_item = ItemAdapter(item)
 
         date_format = '%Y-%m-%d %H:%M:%S'
-        create_at = datetime.strptime(c_item.get("create_at"), date_format)
+        write_at = datetime.strptime(c_item.get("write_at"), date_format)
 
         crawl_item, _ = Deal.objects.get_or_create(article_id=EOMISAE_PREFIX + c_item["article_id"],
                                                           defaults={
@@ -29,7 +28,7 @@ class EomisaePipeline:
                                                               'subject': c_item.get("subject", ""),
                                                               'category': c_item.get("category", ""),
                                                               'crawled_at': datetime.now(),
-                                                              'create_at': create_at,
+                                                              'write_at': write_at,
                                                               'delivery_price': 0,
                                                               'community_name': 'EOMISAE',
                                                               'price': 0,
