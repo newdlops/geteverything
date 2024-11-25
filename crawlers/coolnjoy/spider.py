@@ -76,9 +76,9 @@ class CoolNJoySpider(scrapy.Spider):
       # reply_count = li.css() TODO: 원글 댓글수
       price = li.css('font::text').get().strip()
       recommend_count = li.css('.rank-icon_vote::text').get().strip()
-      view_count = int(replace_escape_chars(remove_tags(li.css('div:has(i.fa-eye).float-left').get())).replace('조회',''))
+      # view_count = int(replace_escape_chars(remove_tags(li.css('div:has(i.fa-eye).float-left').get())).replace('조회',''))
       data = {
-        'origin_url': origin_url, 'article_id': article_id, 'view_count': view_count,
+        'origin_url': origin_url, 'article_id': article_id,
         'subject': subject, 'category': category, 'price': price, 'recommend_count': recommend_count
       }
       yield Request(url=origin_url, callback=self.detail_parse, cb_kwargs=dict(data=data), meta={'cookiejar': response.meta['cookiejar']})
@@ -90,8 +90,9 @@ class CoolNJoySpider(scrapy.Spider):
     shop_url_1 = (shop_url_1 := response.css('.pl-3 a::text').get()) and shop_url_1.strip()
     thumbnail = (img := response.css('div.view-content.fr-view img::attr(href)').get()) and img.strip()
     write_at = (create_at := response.css('time.f-xs::text').get()) and create_at.strip()
+    view_count = int(replace_escape_chars(remove_tags(response.css('li:has(i.fa-eye).pr-3').get()).replace(',','')).replace('조회',''))
     input_format = '%Y.%m.%d %H:%M'
     utc = ZoneInfo('UTC')
     create_time = datetime.datetime.strptime(write_at, input_format)
 
-    yield CoolNJoyItem(dict(**data, shop_url_1=shop_url_1, thumbnail=thumbnail, write_at=create_time))
+    yield CoolNJoyItem(dict(**data, shop_url_1=shop_url_1, thumbnail=thumbnail, write_at=create_time, view_count=view_count))
