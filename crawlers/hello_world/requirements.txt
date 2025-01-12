@@ -3,3 +3,6 @@ django==5.1
 sqlparse==0.5.0
 asgiref==3.8.1
 Scrapy==2.11.2
+selenium==4.27.1
+chromedriver-binary==131.0.6778.108
+webdriver-manager==4.0.2
