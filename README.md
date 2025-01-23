@@ -1,15 +1,18 @@
 # GET EVERYTHING PROJECT
+핫딜을 찾아 여기저기 방황하지 않게 모든걸 긁어오는 말그대로 '겟 에브리띵'을 위한 프로젝트
 
+## 프로젝트 구조
 
-# 프로젝트 구조
-
-프로젝트는 크게 AWS Lambda와 Django 프레임워크로 구성되어 있다.
+프로젝트는 크게 AWS Lambda와 Django로 구성되어 있다.
 Django프레임워크는 ORM과 Admin을 담당하고 Lamda는 크롤링을 담당한다.
 빌드는 Bazel을 이용해서 monorepo형식을 취한다.
 
 ### 1. Django
 #### 1.1 콘솔 실행
 spider나 코드의 수동 테스트를 위해서 파이썬 콘솔에서 실행한다.
+```angular2html
+python manage.py shell
+```
 
 #### 1.2 앱 추가
 ````angular2html
@@ -70,11 +73,12 @@ sam deploy --guided
 sam deploy
 
 ### 3. Lambda
-
+크롤링은 항시 가동하는 서버가 켜져있기보다는 AWS Lambda를 통해서 이루어진다. 배포는 SAM으로 진행한다.
 
 ### 4. Bazel
-
+django와 lambda를 아우르는 모노레포를 구성하기 위해서 Bazel을 도입중이다.(영원히 못할 가능성도 있지만...)
         
 ### 5. Scrapy
+본 프로젝트의 크롤링은 Scrapy가 담당하고 있다. spider를 통해서 수집된 정보를 pipeline에서 django orm으로 디비에 저장한다.
 
 [Scrapy 메뉴얼](https://scrapy.org/)
