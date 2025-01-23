@@ -20,7 +20,8 @@ resolve_s3 = true
 stack_name = "get-every-thing"
 s3_prefix = "get-every-thing"
 region = "ap-northeast-2"
-image_repositories = []
+image_repositories = ["HelloWorldImageFunction=258271552100.dkr.ecr.ap-northeast-2.amazonaws.com/geteverythinge7965d45/helloworldimagefunctiond7c9bba5repo", "FMKoreaImageFunction=258271552100.dkr.ecr.ap-northeast-2.amazonaws.com/geteverythinge7965d45/fmkoreaimagefunction4cb03bacrepo"]
+disable_rollback = true
 
 [default.package.parameters]
 resolve_s3 = true

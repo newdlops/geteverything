@@ -92,41 +92,30 @@ def lambda_handler(event, context):
     #     # Send some context about this error to Lambda Logs
     #     print(e)
     print("22222222222222")
-    # chromedriver_binary.add_chromedriver_to_path()
     chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--headless=new")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-setuid-sandbox")
     chrome_options.add_argument("--single-process")
     chrome_options.add_argument("--disable-gpu")
-    chrome_options.add_argument("--disable-extensions")
-    chrome_options.add_argument("--disable-dev-shm-using")
-    chrome_options.add_argument("--remote-debugging-port=9222")
-    chrome_options.add_argument('--dns-prefetch-disable')
-    chrome_options.add_argument("start-maximized")
-    chrome_options.add_argument("disable-infobars")
-    chrome_options.add_argument(r"user-data-dir=.\cookies\\test")
+    chrome_options.add_argument("--window-size=1280X1696")
+    # chrome_options.add_argument("--disable-extensions")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument('--profile-directory=Default')
+    chrome_options.add_argument("--user-data-dir=/tmp/user-data")
+    chrome_options.add_argument("--data-path=/tmp/data")
+    chrome_options.add_argument("--disk-cache-dir=/tmp/cache")
     chrome_options.binary_location = '/opt/chrome/chrome'
-    # chrome_options.binary_location = '/opt/chrome/chrome-headless-shell'
-    # chrome_options.binary_location = '/opt/chromedriver'
-    # print("크롬드라이버:"+chromedriver_binary.chromedriver_filename)
-    service = Service(executable_path="/opt/chromedriver")
-    # service = Service(executable_path="/opt/chrome/chrome-headless-shell")
-    # service = Service(ChromeDriverManager().install())
-
-    #     raise e
-    # driver = init_web_driver()
     try:
-        driver  = webdriver.Chrome(service=service, options=chrome_options)
+        driver  = webdriver.Chrome(service=Service("/opt/chromedriver"), options=chrome_options)
         driver.get("http://www.python.org")
+        print(driver.title)
     except Exception as e:
         print("에러", e)
-    print(driver.title)
     print("로그가 잘되는지 테스트")
     return {
         "statusCode": 200,
         "body": json.dumps({
             "message": "hello world",
-            # "location": ip.text.replace("\n", "")
         }),
     }

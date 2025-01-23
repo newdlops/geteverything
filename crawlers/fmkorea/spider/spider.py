@@ -7,10 +7,11 @@ from scrapy import Request
 if __name__ == 'spider.spider':
     from item import FmKoreaItem # noqa
     from pipeline import FmKoreaPipeline # noqa
+    from middlewares import SeleniumMiddleware # noqa
 else:
     from ..item import FmKoreaItem
     from ..pipeline import FmKoreaPipeline
-
+    from ..middlewares import SeleniumMiddleware
 
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'admin.settings'
@@ -19,51 +20,21 @@ django.setup()
 class FmKoreaSpider(scrapy.Spider):
     name = "fm_korea_spider"
     custom_settings = {
-        'DOWNLOAD_DELAY': 1,
+        'DOWNLOAD_DELAY': 2,
         'ITEM_PIPELINES': {
             FmKoreaPipeline: 300,
         },
         'CONCURRENT_REQUESTS': 1,
         'USER_AGENT': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
         'DOWNLOADER_MIDDLEWARES' : {
-        'rotating_free_proxies.middlewares.RotatingProxyMiddleware': 610,
-        'rotating_free_proxies.middlewares.BanDetectionMiddleware': 620,
-        'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 110,
+            SeleniumMiddleware: 100,
         },
-        'NUMBER_OF_PROXIES_TO_FETCH': 10,
-        'ROTATING_PROXY_LIST' : [
-            '8.213.129.15:8080',
-            '8.213.129.15:9090',
-            '120.26.0.11:8880',
-            '171.247.96.248:1080',
-            '62.23.184.84:8080',
-            '192.169.214.249:45108',
-            '118.99.96.173:8080',
-            '45.224.149.230:999',
-            '115.147.20.37:8082',
-            '103.176.97.166:8080',
-            '180.180.175.11:8080',
-            '8.213.222.157:4000',
-            '95.43.244.15:4153',
-            '39.175.75.52:30001',
-            '120.26.52.35:8081',
-            '103.168.44.191:8083',
-            '150.136.4.250:3128',
-            '43.255.113.232:85',
-            '145.239.54.185:80',
-            '39.102.213.213:80',
-            '200.24.146.95:999',
-            '47.238.134.126:80',
-            '123.56.1.50:3129',
-            '39.102.214.152:80',
-            '177.53.154.218:999',
-        ]
     }
 
 
     # 수집할 웹사이트의 URL을 지정합니다.
     def start_requests(self):
-        total_page = 1
+        total_page = 10
 
         headers = {
             "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
@@ -105,7 +76,7 @@ class FmKoreaSpider(scrapy.Spider):
         try:
             table = response.css('table.hotdeal_table')
             tr = table.css('tr')
-            shop_url_1 = tr[0].css('a::attr(src)').get()
+            shop_url_1 = tr[0].css('div.xe_content a::text').get()
             shop_name = tr[1].css('div.xe_content::text').get()
             community_name = '펨코'
             price = tr[3].css('div.xe_content::text').get()

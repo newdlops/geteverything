@@ -1,0 +1,7 @@
+venv
+bazel-bin
+bazel-geteverything
+bazel-out
+bazel-testlogs
+.ijwb
+.git

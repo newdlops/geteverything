@@ -1,5 +1,5 @@
 import json
-
+import os
 # import requests
 if __name__ == 'app':
     from crawler import crawl
@@ -17,6 +17,8 @@ def lambda_handler(event, context):
     #     print(e)
 
     #     raise e
+    print("데이터베이스 설정 : " + os.getenv('DATABASE_HOST', 'None'))
+
     crawl()
 
 
