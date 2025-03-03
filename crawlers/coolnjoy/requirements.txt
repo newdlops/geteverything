@@ -4,5 +4,7 @@ sqlparse==0.5.0
 asgiref==3.8.1
 scrapy==2.11.2
 psycopg==3.2.1
+django-filter==25.1
+djangorestframework==3.15.2
 psycopg-binary
 
