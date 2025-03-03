@@ -1,4 +1,4 @@
-
+import os
 from scrapy import signals
 from scrapy.http import HtmlResponse
 from scrapy.utils.python import to_bytes
@@ -9,6 +9,10 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+import logging
+
+logging.getLogger("selenium").setLevel(logging.ERROR)
+logging.getLogger("urllib3").setLevel(logging.WARNING)
 
 
 class SeleniumMiddleware(object):
@@ -34,7 +38,7 @@ class SeleniumMiddleware(object):
         chrome_options.add_argument("--data-path=/tmp/data")
         chrome_options.add_argument("--disk-cache-dir=/tmp/cache")
         chrome_options.binary_location = '/opt/chrome/chrome' # 로컬에서는 주석처리한다.
-        driver  = webdriver.Chrome(service=Service("/opt/chromedriver"), options=chrome_options) # 로컬에서는 주석처리
+        driver  = webdriver.Chrome(service=Service(executable_path="/opt/chromedriver", service_log_path=os.devnull), options=chrome_options) # 로컬에서는 주석처리
         # driver  = webdriver.Chrome() # 운영에서 주석
         self.driver = driver
 

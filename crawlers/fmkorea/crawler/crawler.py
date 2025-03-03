@@ -12,7 +12,9 @@ if __name__ == 'crawler.crawler':
 else:
     from ..spider import FmKoreaSpider
 def crawl():
-    process = CrawlerProcess(get_project_settings())
+    settings = get_project_settings()
+    settings.set('LOG_LEVEL', 'ERROR')
+    process = CrawlerProcess(settings)
 
     # 스파이더를 실행합니다.
     process.crawl(FmKoreaSpider)

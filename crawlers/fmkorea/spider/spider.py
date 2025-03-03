@@ -20,6 +20,7 @@ django.setup()
 class FmKoreaSpider(scrapy.Spider):
     name = "fm_korea_spider"
     custom_settings = {
+        "LOG_LEVEL": "ERROR",
         'DOWNLOAD_DELAY': 2,
         'ITEM_PIPELINES': {
             FmKoreaPipeline: 300,

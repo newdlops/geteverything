@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-#qj2^#a3liq&&6k0_6r!zxn(zzdfg^h-&m^s5_#%#lqr%=82c-
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '52.79.88.160',
+    '3.37.61.71',
     'localhost'
 ]
 
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -91,7 +92,7 @@ DATABASES = {
         "NAME": env("DATABASE_NAME", "geteverything"),
         "USER": env("DATABASE_USER", "getev"),
         "PASSWORD": env("DATABASE_PASSWORD", "getev908070"),
-        "HOST": env("DATABASE_HOST", "geteverything.cpmauw886rl1.ap-northeast-2.rds.amazonaws.com"),
+        "HOST": env("DATABASE_HOST", "getev3.ctckuw2w4u3n.ap-northeast-2.rds.amazonaws.com"),
         "PORT": env("DATABASE_PORT", 5432),
     }
 }

@@ -25,7 +25,7 @@ RUN python3 -m pip install -r /tmp/requirements.txt -q
 COPY crawlers/fmkorea/ /var/task/
 COPY gadmin/ /var/task
 
-ENV DATABASE_HOST "geteverything.cpmauw886rl1.ap-northeast-2.rds.amazonaws.com"
+ENV DATABASE_HOST "getev3.ctckuw2w4u3n.ap-northeast-2.rds.amazonaws.com"
 ENV DATABASE_NAME "geteverything"
 ENV DATABASE_PASSWORD "getev908070"
 ENV DATABASE_PORT "5432"

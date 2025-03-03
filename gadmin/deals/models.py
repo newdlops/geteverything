@@ -1,6 +1,5 @@
 from datetime import datetime
 from django.db import models
-from django.template.defaultfilters import default
 
 
 class Deal(models.Model):
