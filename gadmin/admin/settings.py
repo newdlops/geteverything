@@ -90,10 +90,10 @@ DATABASES = {
     # }
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": env("DATABASE_NAME", "geteverything"),
-        "USER": env("DATABASE_USER", "getev"),
-        "PASSWORD": env("DATABASE_PASSWORD", "getev908070"),
-        "HOST": env("DATABASE_HOST", "getev3.ctckuw2w4u3n.ap-northeast-2.rds.amazonaws.com"),
+        "NAME": env("DATABASE_NAME", ""),
+        "USER": env("DATABASE_USER", ""),
+        "PASSWORD": env("DATABASE_PASSWORD", ""),
+        "HOST": env("DATABASE_HOST", ""),
         "PORT": env("DATABASE_PORT", 5432),
     }
 }
