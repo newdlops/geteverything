@@ -18,9 +18,13 @@ from django.contrib import admin
 from django.urls import path
 from user.views.kakao_login_api_view import KakaoLoginAPIView
 from user.views.kakao_signup_api_view import KakaoSignupAPIView
+from user.views.logout_view import LogoutView
+from user.views.user_update_view import UserUpdateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/kakaologin/', KakaoLoginAPIView.as_view(), name='kakao-login'),
     path('api/kakaosignup/', KakaoSignupAPIView.as_view(), name='kakao-signup'),
+    path('api/logout/', LogoutView.as_view(), name='logout'),
+    path('api/user/update', UserUpdateView.as_view(), name='user-update'),
 ]
