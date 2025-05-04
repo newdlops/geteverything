@@ -19,6 +19,7 @@ distlib==0.3.8
 Django==5.1
 django-filter==25.1
 djangorestframework==3.15.2
+djangorestframework_simplejwt==5.5.0
 dulwich==0.21.7
 fastjsonschema==2.20.0
 filelock==3.15.4
@@ -52,6 +53,7 @@ pyasn1==0.6.0
 pyasn1_modules==0.4.0
 pycparser==2.22
 PyDispatcher==2.0.7
+PyJWT==2.9.0
 pyOpenSSL==24.2.1
 pyproject_hooks==1.1.0
 PySocks==1.7.1

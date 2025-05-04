@@ -252,3 +252,4 @@ staticfiles
 uwsgi.ini
 chromedriver/
 crawlers/fmkorea/Dockerfile
+/.git/

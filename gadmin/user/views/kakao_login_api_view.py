@@ -2,6 +2,7 @@ import requests
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework_simplejwt.tokens import RefreshToken
 from serializer.kakao_token_serializer import KakaoTokenSerializer
 from user.models import User
 
@@ -30,17 +31,21 @@ class KakaoLoginAPIView(APIView):
         # DB에서 해당 카카오 ID를 가진 유저가 존재하는지 확인
         try:
             user = User.objects.get(kakao_id=kakao_id)
-            user.access_token = access_token
-            user.refresh_token = refresh_token
+            user.access_token = access_token # 카카오 토큰
+            user.refresh_token = refresh_token # 카카오 토큰
             user.save()
             # 유저가 존재하면, 로그인 성공 처리(예: JWT 토큰 발급 등)
+            refresh = RefreshToken.for_user(user)
+            service_access_token = str(refresh.access_token)
+            service_refresh_token = str(refresh)
+
             return Response({
                 "detail": "로그인 성공",
                 "id": user.id,
                 "user_id": user.user_id,
                 "email": user.email,
-                "access_token": user.access_token,
-                "refresh_token": user.refresh_token,
+                "access_token": service_access_token,
+                "refresh_token": service_refresh_token,
                 # "token": 발급한_토큰 (예: JWT)
             }, status=status.HTTP_200_OK)
         except User.DoesNotExist:

@@ -39,6 +39,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'forum.apps.ForumConfig',
     'user.apps.UserConfig',
     'ppomppu.apps.PpomppuConfig',
     'coolnjoy.apps.CoolnjoyConfig',
