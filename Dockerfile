@@ -14,12 +14,9 @@ COPY pyproject.toml /app/
 COPY requirements.txt /app/
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-# RUN pip install django
-# RUN pip install poetry
-# RUN poetry install
 # Copy Django project
 COPY ./gadmin /app/
-RUN python manage.py collectstatic -c -n
+RUN python manage.py collectstatic --clear --noinput
 # Expose port
 EXPOSE 8000
 
