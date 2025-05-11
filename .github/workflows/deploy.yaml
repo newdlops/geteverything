@@ -27,8 +27,8 @@ jobs:
           DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
           DATABASE_USER: ${{ secrets.DATABASE_USER }}
         with:
-          files: gadmin/uwsgi.ini.template
-          output-files: gadmin/uwsgi.ini
+          input: gadmin/uwsgi.ini.template
+          output: gadmin/uwsgi.ini
 
       # 3. Docker 이미지 빌드
       - name: Build Docker image
