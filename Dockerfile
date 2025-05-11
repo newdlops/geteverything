@@ -19,7 +19,7 @@ RUN pip install -r requirements.txt
 # RUN poetry install
 # Copy Django project
 COPY ./gadmin /app/
-
+RUN python manage.py collectstatic -c -n
 # Expose port
 EXPOSE 8000
 
