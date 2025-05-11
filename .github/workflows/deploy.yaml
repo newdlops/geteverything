@@ -20,7 +20,7 @@ jobs:
           driver: docker
 
       - name: Substitute variables in template
-        uses: danielr1996/envsubst-action@v1
+        uses: danielr1996/envsubst-action@1.1.0
         env:
           DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
           DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
