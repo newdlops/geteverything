@@ -1,3 +1,4 @@
+from django.db.models import Count
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, SAFE_METHODS
 from rest_framework.response import Response
@@ -8,7 +9,7 @@ from serializer.post_serializer import PostSerializer
 from serializer.comment_serializer import CommentSerializer
 
 class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.order_by('-created_at')
+    queryset = Post.objects.annotate(comment_count=Count('comments')).order_by('-created_at')
     serializer_class = PostSerializer
     authentication_classes = [UserAuthentication]
     permission_classes = [IsAuthenticatedOrReadOnly]
