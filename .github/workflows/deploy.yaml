@@ -9,42 +9,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-#      # 1. 리포지토리 체크아웃
-#      - name: Checkout repository
-#        uses: actions/checkout@v3
-#
-#      # 2. Buildx 설치 및 설정
-#      - name: Set up Docker Buildx
-#        uses: docker/setup-buildx-action@v3
-#        with:
-#          driver: docker
-#
-#      # 3. Docker 이미지 빌드
-#      - name: Build Docker image
-#        run: docker build -t myapp:latest .
-#
-#      # 4. Docker 이미지를 docker.jar로 저장
-#      - name: Save image as docker.jar
-#        run: |
-#          docker save myapp:latest | gzip > docker.jar
-#
-#      # 5. 아티팩트 업로드
-#      - name: Upload docker.jar artifact
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: docker-image
-#          path: docker.jar
-#
-#      # 6. EC2로 파일 전송
-#      - name: Copy docker.jar to EC2
-#        uses: appleboy/scp-action@v1
-#        with:
-#          host: ${{ secrets.EC2_HOST }}
-#          username: ${{ secrets.EC2_USER }}
-#          key: ${{ secrets.EC2_SSH_KEY }}
-#          port: 22
-#          source: docker.jar
-#          target: /home/${{ secrets.EC2_USER }}/
+      # 1. 리포지토리 체크아웃
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Buildx 설치 및 설정
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver: docker
+
+      # 3. Docker 이미지 빌드
+      - name: Build Docker image
+        run: docker build -t my-django-app . --platform=linux/amd64
+
+      # 4. Docker 이미지를 docker.jar로 저장
+      - name: Save image as django.tar
+        run: |
+          docker save -o django.tar my-django-app
+
+      # 5. 아티팩트 업로드
+      - name: Upload docker.jar artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: docker-image
+          path: django.tar
+
+      # 6. EC2로 파일 전송
+      - name: Copy docker.jar to EC2
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          source: docker.jar
+          target: /docker/django/
 
       - name: Restart Docker Container
         uses: appleboy/ssh-action@master
