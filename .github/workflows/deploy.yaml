@@ -30,7 +30,7 @@ jobs:
 
       # 5. 아티팩트 업로드
       - name: Upload docker.jar artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: docker-image
           path: django.tar
