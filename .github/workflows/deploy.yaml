@@ -44,7 +44,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           source: django.tar
-          target: /docker/django/
+          target: /home/ec2-user/docker/django/
 
       - name: Restart Docker Container
         uses: appleboy/ssh-action@master
