@@ -21,6 +21,11 @@ jobs:
 
       - name: Substitute variables in template
         uses: danielr1996/envsubst-action@v1
+        env:
+          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+          DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          DATABASE_USER: ${{ secrets.DATABASE_USER }}
         with:
           files: gadmin/uwsgi.ini.template
           output-files: gadmin/uwsgi.ini
