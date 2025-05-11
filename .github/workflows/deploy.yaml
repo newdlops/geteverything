@@ -43,7 +43,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
-          source: docker.jar
+          source: django.tar
           target: /docker/django/
 
       - name: Restart Docker Container
@@ -55,4 +55,8 @@ jobs:
           port: 22
           script: |
             cd docker/django
-            ls
+            docker load -i django.tar
+            docker stack rm django
+            docker stack deploy -c docker-compose.yml django
+            rm django.tar
+            
