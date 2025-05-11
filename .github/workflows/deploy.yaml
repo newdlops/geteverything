@@ -54,10 +54,5 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           script: |
-            cd docker/quickback/app/build
-            cp -r src ..
-            cp -r config ..
-            cd ..
-            rm -rf build
-            cd ..
-            docker stack deploy -c docker-compose.yml qback
+            cd docker/django
+            ls
