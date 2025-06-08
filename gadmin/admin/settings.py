@@ -155,10 +155,10 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 SIMPLE_JWT = {
     # 액세스 토큰 만료 시간 (기본: 5분)
-    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=10),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
 
     # 리프레시 토큰 만료 시간 (기본: 1일)
-    'REFRESH_TOKEN_LIFETIME': timedelta(seconds=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(minutes=10),
 
     # 토큰 생성 시 만료 연장 기능 사용 여부
     'ROTATE_REFRESH_TOKENS': False,
