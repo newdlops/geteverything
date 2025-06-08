@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+from datetime import timedelta
 env = os.environ.get
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -151,3 +152,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # summernote
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+SIMPLE_JWT = {
+    # 액세스 토큰 만료 시간 (기본: 5분)
+    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=10),
+
+    # 리프레시 토큰 만료 시간 (기본: 1일)
+    'REFRESH_TOKEN_LIFETIME': timedelta(seconds=30),
+
+    # 토큰 생성 시 만료 연장 기능 사용 여부
+    'ROTATE_REFRESH_TOKENS': False,
+
+    # 슬라이딩 토큰 사용 시
+    # 'SLIDING_TOKEN_LIFETIME': timedelta(minutes=30),
+    # 'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+}
