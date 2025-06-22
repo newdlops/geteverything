@@ -1,6 +1,6 @@
 
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, SAFE_METHODS
 from rest_framework.pagination import CursorPagination
 
 from deals.models import Deal
@@ -19,3 +19,9 @@ class DealViewSet(viewsets.ModelViewSet):
     authentication_classes = [UserAuthentication]
     permission_classes = [IsAuthenticatedOrReadOnly]
     pagination_class = DealPagination
+
+    def get_authenticators(self):
+        # SAFE_METHODS(GET/HEAD/OPTIONS)에서는 인증 스킵
+        if self.request.method in SAFE_METHODS:
+            return []
+        return super().get_authenticators()
