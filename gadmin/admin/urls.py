@@ -28,5 +28,6 @@ urlpatterns = [
     path('api/logout/', LogoutView.as_view(), name='logout'),
     path('api/user/update', UserUpdateView.as_view(), name='user-update'),
     path('api/', include('forum.urls')),
+    path('api/', include('deals.urls')),
     path('summernote/', include('django_summernote.urls')),
 ]

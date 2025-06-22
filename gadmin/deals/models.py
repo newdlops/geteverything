@@ -1,3 +1,4 @@
+from django.db.models import Manager
 from datetime import datetime
 from django.db import models
 
@@ -23,6 +24,8 @@ class Deal(models.Model):
     update_at = models.DateTimeField(auto_now=True, verbose_name='업데이트일시')
     crawled_at = models.DateTimeField(default=datetime.now, verbose_name='크롤링 수집일')
     is_end = models.BooleanField(verbose_name='종료여부', default=False)
+
+    objects = Manager()
 
     class Meta:
         db_table='deals'
