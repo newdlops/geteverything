@@ -1,28 +1,64 @@
+from django.http import StreamingHttpResponse
 from django.contrib import admin
-
-from import_export import resources
-from import_export.admin import ImportExportMixin
-from import_export.formats import base_formats
-
+import xlsx_streaming
 from deals.models import Deal
 from django.utils.html import format_html
+from .export_filelds_action_form import ExportFieldsActionForm
+from django_admin_action_forms import AdminActionFormsMixin, action_with_form
 
 # Register your models here.
 
-class DealResource(resources.ModelResource):
-    chunk_size=500
-    class Meta:
-        model=Deal
-
 
 @admin.register(Deal)
-class DealAdmin(ImportExportMixin, admin.ModelAdmin):
-    resource_class = DealResource
-    formats = [base_formats.XLSX, base_formats.XLS, base_formats.CSV]
-    list_display=['community_name', 'category', 'subject', 'write_at', 'create_at', 'recommend_count', 'view_count', 'origin_link', 'shop_url']
+class DealAdmin(AdminActionFormsMixin, admin.ModelAdmin):
+    list_display=[
+        'community_name',
+        'category',
+        'subject',
+        'write_at',
+        'create_at',
+        'recommend_count',
+        'view_count',
+        'origin_link',
+        'shop_url',
+        'article_id', #
+        'shop_name',
+        'thumbnail',
+        'price',
+        'currency',
+        'delivery_price',
+        'dislike_count',
+        'update_at',
+        'crawled_at',
+        'is_end'
+    ]
     list_display_links = ['subject']
     list_filter = ['community_name', 'category']
-    list_per_page   = 500
+
+    @action_with_form(
+        ExportFieldsActionForm,
+        description="Stream XLSX Download"
+    )
+    def action_stream_xlsx(self, request, queryset):
+        """
+        쿼리셋을 xlsx_streaming으로 스트림 생성 후 StreamingHttpResponse로 반환
+        """
+        # values_list에 내보낼 컬럼 지정
+        qs_values = queryset.values_list('community_name', 'category', 'subject', 'write_at', 'create_at', 'recommend_count', 'view_count')
+        stream = xlsx_streaming.stream_queryset_as_xlsx(
+            qs_values,
+            batch_size=100
+        )
+        response = StreamingHttpResponse(
+            stream,
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+        response['Content-Disposition'] = 'attachment; filename="deal_export.xlsx"'
+        return response
+
+    # action_stream_xlsx.short_description = "Stream XLSX Download"
+    # action_form = ExportFieldsActionForm
+    actions = ['action_stream_xlsx']
 
     def origin_link(self, obj):
         return format_html('<a href="{}" target="_blank" rel="noopener noreferrer">{}</a>', obj.origin_url, obj.origin_url)

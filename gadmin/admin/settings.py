@@ -53,9 +53,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_summernote',
-    'import_export',
+    'django_admin_action_forms',
 ]
-IMPORT_EXPORT_CHUNK_SIZE = 500
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
