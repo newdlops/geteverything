@@ -39,7 +39,7 @@ class DealAdmin(AdminActionFormsMixin, admin.ModelAdmin):
         ExportFieldsActionForm,
         description="Stream XLSX Download"
     )
-    def action_stream_xlsx(self, request, queryset):
+    def action_stream_xlsx(self, request, queryset, form):
         """
         쿼리셋을 xlsx_streaming으로 스트림 생성 후 StreamingHttpResponse로 반환
         """
