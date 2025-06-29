@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from import_export import resources
 from import_export.admin import ImportExportMixin
+from import_export.formats import base_formats
 
 from deals.models import Deal
 from django.utils.html import format_html
@@ -16,6 +17,7 @@ class DealResource(resources.ModelResource):
 @admin.register(Deal)
 class DealAdmin(ImportExportMixin, admin.ModelAdmin):
     resource_class = DealResource
+    formats = [base_formats.XLSX, base_formats.XLS, base_formats.CSV]
     list_display=['community_name', 'category', 'subject', 'write_at', 'create_at', 'recommend_count', 'view_count', 'origin_link', 'shop_url']
     list_display_links = ['subject']
     list_filter = ['community_name', 'category']
