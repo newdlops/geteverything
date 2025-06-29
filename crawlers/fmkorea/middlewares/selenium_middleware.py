@@ -1,4 +1,6 @@
 import os
+import time
+
 from scrapy import signals
 from scrapy.http import HtmlResponse
 from scrapy.utils.python import to_bytes
@@ -23,6 +25,14 @@ class SeleniumMiddleware(object):
         crawler.signals.connect(middleware.spider_closed, signals.spider_closed)
         return middleware
 
+    def interceptor(self, request):
+        # 모든 기본 헤더 삭제
+        for h in list(request.headers.keys()):
+            del request.headers[h]
+        # 최소한의 헤더만 설정
+        request.headers['User-Agent'] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36'
+        # Referer, Origin, Host 등 전부 없음
+
     def spider_opened(self, spider):
         chrome_options = webdriver.ChromeOptions()
         chrome_options.add_argument("--headless=new")
@@ -37,9 +47,12 @@ class SeleniumMiddleware(object):
         chrome_options.add_argument("--user-data-dir=/tmp/user-data")
         chrome_options.add_argument("--data-path=/tmp/data")
         chrome_options.add_argument("--disk-cache-dir=/tmp/cache")
+
+        # 로컬에서 테스트할 경우에 아래 두 줄을 주석처리한 후 테스트 한다. '/opt/chrome', '/opt/chromedriver'는 이미지 상에 존재하는 폴더이므로 주석처리
         chrome_options.binary_location = '/opt/chrome/chrome' # 로컬에서는 주석처리한다.
         driver  = webdriver.Chrome(service=Service(executable_path="/opt/chromedriver", service_log_path=os.devnull), options=chrome_options) # 로컬에서는 주석처리
         # driver  = webdriver.Chrome() # 운영에서 주석
+        driver.request_interceptor = self.interceptor
         self.driver = driver
 
     def spider_closed(self, spider):
@@ -48,8 +61,20 @@ class SeleniumMiddleware(object):
     def process_request( self, request, spider ):
         self.driver.get( request.url )
         print('드라이버 사용함')
-        wait = WebDriverWait(self.driver, 10)
-        element = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "bd")))
+
+
+        wait = WebDriverWait(self.driver, 30)
+        # element = wait.until(EC.presence_of_element_located((By.TAG_NAME, "title")))
+        # wait.until(
+        #     lambda d: d.execute_script("return sessionStorage.getItem('PHPSESSID') !== null;")
+        # )
+        # for i in range(1,3):
+        #     link = wait.until(
+        #         EC.element_to_be_clickable((By.TAG_NAME, "a"))  # 또는 By.PARTIAL_LINK_TEXT, By.CSS_SELECTOR 등
+        #     )
+        #     link.click()
+        #     element = wait.until(EC.presence_of_element_located((By.TAG_NAME, "title")))
+        #     time.sleep(1)
 
         body = to_bytes( text=self.driver.page_source )
         # print(body)

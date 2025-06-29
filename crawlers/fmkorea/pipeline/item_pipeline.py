@@ -9,6 +9,7 @@ COMMUNITY_NAME = 'FMKOREA'
 class FmKoreaPipeline:
     def open_spider(self, spider):
         print(f'{COMMUNITY_NAME} 크롤링 시작')
+        print("현재 KST:", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
 
     def close_spider(self, spider):
         print(f'{COMMUNITY_NAME} 크롤링 종료')
