@@ -10,6 +10,7 @@ from django.utils.html import format_html
 # Register your models here.
 
 class DealResource(resources.ModelResource):
+    chunk_size=500
     class Meta:
         model=Deal
 
@@ -21,6 +22,7 @@ class DealAdmin(ImportExportMixin, admin.ModelAdmin):
     list_display=['community_name', 'category', 'subject', 'write_at', 'create_at', 'recommend_count', 'view_count', 'origin_link', 'shop_url']
     list_display_links = ['subject']
     list_filter = ['community_name', 'category']
+    list_per_page   = 500
 
     def origin_link(self, obj):
         return format_html('<a href="{}" target="_blank" rel="noopener noreferrer">{}</a>', obj.origin_url, obj.origin_url)

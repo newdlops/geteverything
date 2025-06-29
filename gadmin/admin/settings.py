@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'django_summernote',
     'import_export',
 ]
+IMPORT_EXPORT_CHUNK_SIZE = 500
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
