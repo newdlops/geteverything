@@ -1,12 +1,21 @@
 from django.contrib import admin
 
+from import_export import resources
+from import_export.admin import ImportExportMixin
+
 from deals.models import Deal
 from django.utils.html import format_html
 
 # Register your models here.
 
+class DealResource(resources.ModelResource):
+    class Meta:
+        model=Deal
+
+
 @admin.register(Deal)
-class DealAdmin(admin.ModelAdmin):
+class DealAdmin(ImportExportMixin, admin.ModelAdmin):
+    resource_class = DealResource
     list_display=['community_name', 'category', 'subject', 'write_at', 'create_at', 'recommend_count', 'view_count', 'origin_link', 'shop_url']
     list_display_links = ['subject']
     list_filter = ['community_name', 'category']
