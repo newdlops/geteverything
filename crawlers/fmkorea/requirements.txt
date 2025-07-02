@@ -13,3 +13,5 @@ psycopg-binary
 django-summernote==0.8.20.0
 scrapy-rotating-proxies
 lxml==5.4.0
+xlsx_streaming
+django-admin-action-forms

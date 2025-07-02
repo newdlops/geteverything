@@ -71,7 +71,7 @@ class FmKoreaSpider(scrapy.Spider):
 
         for i in range(1, total_page + 1):
             yield scrapy.Request(
-                f"https://www.fmkorea.com/?mid=hotdeal&sort_index=pop&order_type=desc&listStyle=webzine&cpage=4&page={i}",
+                f"https://www.fmkorea.com/?mid=hotdeal&sort_index=&order_type=desc&listStyle=webzine&cpage=4&page={i}",
                 callback=self.parse,
                 meta={'cookiejar': 1},
                 headers=headers
@@ -93,7 +93,7 @@ class FmKoreaSpider(scrapy.Spider):
                     'thumbnail': thumbnail,
                 }
 
-                yield Request(url=f'https://www.fmkorea.com/?mid=hotdeal&sort_index=pop&order_type=desc&document_srl={article_id}&listStyle=webzine&cpage=1', callback=self.detail_parse, cb_kwargs=dict(data=data), meta={'cookiejar': response.meta['cookiejar']})
+                yield Request(url=f'https://www.fmkorea.com/?mid=hotdeal&sort_index=&order_type=desc&document_srl={article_id}&listStyle=webzine&cpage=1', callback=self.detail_parse, cb_kwargs=dict(data=data), meta={'cookiejar': response.meta['cookiejar']})
             except Exception as e:
                 print(f'목록 불러오는중에 에러 발생 : {e}')
 

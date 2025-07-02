@@ -9,3 +9,5 @@ djangorestframework==3.15.2
 psycopg-binary
 django-summernote==0.8.20.0
 lxml==5.4.0
+xlsx_streaming
+django-admin-action-forms

@@ -10,7 +10,7 @@ from user.user_authentication import UserAuthentication
 
 class DealPagination(CursorPagination):
     page_size = 30
-    ordering = "-create_at"
+    ordering = "-write_at"
     cursor_query_param = "cursor"
 
 class DealViewSet(viewsets.ModelViewSet):
