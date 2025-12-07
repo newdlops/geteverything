@@ -13,6 +13,16 @@ jobs:
         run: |
           pwd
           ls -R
+      - name: Copy file with raw scp
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+      
+          scp -o StrictHostKeyChecking=no \
+            test.py \
+            ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/root/docker/django/    
+
       # 6. VM으로 파일 전송
       - name: Copy docker.jar to VM
         uses: appleboy/scp-action@v1
