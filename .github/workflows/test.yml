@@ -8,8 +8,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Show files
-        run: ls -lh
+      - name: debug ls
+        image: alpine
+        commands:
+          - pwd
+          - ls -R
+        run: ls
       # 6. VM으로 파일 전송
       - name: Copy docker.jar to VM
         uses: appleboy/scp-action@v1
