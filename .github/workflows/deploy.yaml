@@ -10,11 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. 리포지토리 체크아웃
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Buildx 설치 및 설정
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
         with:
@@ -31,23 +29,22 @@ jobs:
           input: gadmin/uwsgi.ini.template
           output: gadmin/uwsgi.ini
 
-      # 3. Docker 이미지 빌드
+      - name: Generate .env in docker/django
+        run: |
+          cat > .env << 'EOF'
+          DATABASE_HOST=${{ secrets.DATABASE_HOST }}
+          DATABASE_NAME=${{ secrets.DATABASE_NAME }}
+          DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
+          DATABASE_USER=${{ secrets.DATABASE_USER }}
+          EOF
+
       - name: Build Docker image
         run: docker build -t my-django-app . --platform=linux/amd64
 
-      # 4. Docker 이미지를 docker.jar로 저장
       - name: Save image as django.tar
         run: |
           docker save -o django.tar my-django-app
 
-      # 5. 아티팩트 업로드
-      - name: Upload docker.jar artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: docker-image
-          path: django.tar
-
-      # 6. VM으로 파일 전송
       - name: Copy docker.jar to VM
         uses: appleboy/scp-action@v1
         with:
@@ -55,7 +52,9 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: 22
-          source: django.tar
+          source: |
+            django.tar
+            .env
           target: /home/docker/django/
 
       - name: Restart Docker Container
