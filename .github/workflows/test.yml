@@ -9,6 +9,13 @@ jobs:
 
     steps:
 
+      # 5. 아티팩트 업로드
+      - name: Upload docker.jar artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-image
+          path: test.py
+
       # 6. VM으로 파일 전송
       - name: Copy docker.jar to VM
         uses: appleboy/scp-action@v1
