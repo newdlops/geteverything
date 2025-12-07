@@ -67,7 +67,7 @@ jobs:
             docker load -i django.tar
             docker run --rm \
             --env-file django.env \
-            django:latest \
+            my-django-app \
             python manage.py migrate --noinput
             docker stack rm django
             docker stack deploy -c docker-compose.yml django
