@@ -2,8 +2,8 @@ name: Build and Deploy Docker Image
 
 on:
   workflow_dispatch:
-#  push:
-#    branches: [ main ]
+  push:
+    branches: [ main ]
 
 jobs:
   build_and_deploy:
@@ -56,7 +56,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: 22
           source: django.tar
-          target: /root/docker/django/
+          target: /home/docker/django/
 
       - name: Restart Docker Container
         uses: appleboy/ssh-action@master
