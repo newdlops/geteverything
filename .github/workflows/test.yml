@@ -9,11 +9,9 @@ jobs:
 
     steps:
       - name: debug ls
-        image: alpine
-        commands:
-          - pwd
-          - ls -R
-        run: ls
+        run: |
+          pwd
+          ls -R
       # 6. VM으로 파일 전송
       - name: Copy docker.jar to VM
         uses: appleboy/scp-action@v1
