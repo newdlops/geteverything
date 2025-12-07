@@ -31,7 +31,7 @@ jobs:
 
       - name: Generate .env in docker/django
         run: |
-          cat > .env << 'EOF'
+          cat > django.env << 'EOF'
           DATABASE_HOST=${{ secrets.DATABASE_HOST }}
           DATABASE_NAME=${{ secrets.DATABASE_NAME }}
           DATABASE_PASSWORD=${{ secrets.DATABASE_PASSWORD }}
@@ -54,7 +54,7 @@ jobs:
           port: 22
           source: |
             django.tar
-            .env
+            django.env
           target: /home/docker/django/
 
       - name: Restart Docker Container
@@ -69,7 +69,7 @@ jobs:
             docker load -i django.tar
             docker run --rm \
             --network django_default \
-            --env-file .env \
+            --env-file django.env \
             django:latest \
             python manage.py migrate --noinput
             docker stack rm django
