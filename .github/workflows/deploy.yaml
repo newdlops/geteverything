@@ -11,7 +11,7 @@ jobs:
     steps:
       # 1. 리포지토리 체크아웃
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # 2. Buildx 설치 및 설정
       - name: Set up Docker Buildx
@@ -46,27 +46,32 @@ jobs:
           name: docker-image
           path: django.tar
 
-      # 6. EC2로 파일 전송
-      - name: Copy docker.jar to EC2
+      # 6. VM으로 파일 전송
+      - name: Copy docker.jar to VM
         uses: appleboy/scp-action@v1
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
           port: 22
           source: django.tar
-          target: /home/ec2-user/docker/django/
+          target: /root/docker/django/
 
       - name: Restart Docker Container
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
           port: 22
           script: |
             cd docker/django
             docker load -i django.tar
+            docker run --rm \
+            --network django_default \
+            --env-file .env \
+            django:latest \
+            python manage.py migrate --noinput
             docker stack rm django
             docker stack deploy -c docker-compose.yml django
             rm django.tar

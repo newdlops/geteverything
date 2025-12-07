@@ -40,6 +40,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'favorite_deal.apps.FavoriteDealConfig',
     'forum.apps.ForumConfig',
     'user.apps.UserConfig',
     'ppomppu.apps.PpomppuConfig',
