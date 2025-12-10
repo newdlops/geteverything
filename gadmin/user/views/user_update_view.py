@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from serializer.authSerializer import AuthSerializer
-from user.models import User
+from gadmin.user.models import User
 
 class UserUpdateView(APIView):
     def post(self, request):

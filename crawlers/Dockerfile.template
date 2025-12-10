@@ -1,0 +1,67 @@
+FROM python:3.12-slim
+
+RUN apt-get update
+
+# Install Chromium
+
+ENV CHROME_BIN=/bin/chromium
+ENV CHROMEDRIVER_PATH=/bin/chromedriver
+ENV PYTHONUNBUFFERED=1
+
+RUN apt-get update && apt-get install -y \
+    chromium \
+    chromium-driver \
+    fonts-liberation \
+    libnss3 \
+    libasound2 \
+    libatk1.0-0 \
+    libatk-bridge2.0-0 \
+    libx11-xcb1 \
+    libx11-6 \
+    libxcb1 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxfixes3 \
+    libxrandr2 \
+    libxrender1 \
+    libxext6 \
+    libxi6 \
+    libxkbcommon0 \
+    libgtk-3-0 \
+    libgbm1 \
+    libxshmfence1 \
+    libdrm2 \
+    && rm -rf /var/lib/apt/lists/*
+RUN apt-get install -y tzdata \
+ && ln -sf /usr/share/zoneinfo/Asia/Seoul /etc/localtime
+# Install Python dependencies for function
+COPY crawlers/requirements.txt /tmp/
+RUN python3 -m pip install --upgrade pip -q
+#RUN python3 -m pip install psycopg[binary]
+RUN python3 -m pip install -r /tmp/requirements.txt -q
+#RUN python3 -m pip uninstall -r dataclasses -q
+RUN python3 -m pip uninstall -y typing dataclasses
+#COPY --from=stage /opt/chrome /opt/chrome
+#COPY --from=stage /opt/chromedriver /opt/chromedriver
+
+# copy main.py
+COPY crawlers/ /var/task/crawlers
+COPY gadmin/ /var/task/gadmin
+
+ENV DJANGO_SETTINGS_MODULE=admin.settings
+ENV DATABASE_HOST=${DATABASE_HOST}
+ENV DATABASE_NAME=${DATABASE_NAME}
+ENV DATABASE_PASSWORD=${DATABASE_PASSWORD}
+ENV DATABASE_USER=${DATABASE_USER}
+ENV DATABASE_PORT=5432
+ENV TZ="Asia/Seoul"
+
+# 4) 파이썬 모듈 경로 & Django settings
+ENV PYTHONPATH=/var/task
+# 실제 settings 경로에 맞게 수정 (예시는 gadmin/gadmin/settings.py 구조일 때)
+ENV DJANGO_SETTINGS_MODULE=gadmin.admin.settings
+
+
+WORKDIR /var/task
+
+CMD [ "python", "crawlers/run_queue.py" ]

@@ -1,19 +1,14 @@
-import os
-import django
-
-os.environ['DJANGO_SETTINGS_MODULE'] = 'admin.settings'
-django.setup()
-
-
+from crawlers import django_setup
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
-if __name__ == 'crawler.crawler':
-    from spider import ArcaSpider # noqa
-else:
-    from ..spider import ArcaSpider
+from crawlers.arca.spider import ArcaSpider
+
 def crawl():
     process = CrawlerProcess(get_project_settings())
 
     # 스파이더를 실행합니다.
     process.crawl(ArcaSpider)
     process.start()
+
+if __name__ == "__main__":
+    crawl()

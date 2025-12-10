@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from coolnjoy.models import CoolNJoyDeal
+from gadmin.coolnjoy.models import CoolNJoyDeal
 
 
 # Register your models here.

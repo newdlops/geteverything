@@ -1,6 +1,4 @@
 import scrapy
-import os
-import django
 from w3lib.html import remove_tags, replace_escape_chars
 
 from scrapy import Request
@@ -12,10 +10,6 @@ else:
     from ..item import FmKoreaItem
     from ..pipeline import FmKoreaPipeline
     from ..middlewares import SeleniumMiddleware
-
-
-os.environ['DJANGO_SETTINGS_MODULE'] = 'admin.settings'
-django.setup()
 
 class FmKoreaSpider(scrapy.Spider):
     name = "fm_korea_spider"

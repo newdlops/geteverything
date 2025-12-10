@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from serializer.kakao_token_serializer import KakaoTokenSerializer
-from user.models import User
+from gadmin.user.models import User
 
 class KakaoLoginAPIView(APIView):
     def post(self, request):

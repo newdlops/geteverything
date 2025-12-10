@@ -49,9 +49,9 @@ class SeleniumMiddleware(object):
         chrome_options.add_argument("--disk-cache-dir=/tmp/cache")
 
         # 로컬에서 테스트할 경우에 아래 두 줄을 주석처리한 후 테스트 한다. '/opt/chrome', '/opt/chromedriver'는 이미지 상에 존재하는 폴더이므로 주석처리
-        chrome_options.binary_location = '/opt/chrome/chrome' # 로컬에서는 주석처리한다.
-        driver  = webdriver.Chrome(service=Service(executable_path="/opt/chromedriver", service_log_path=os.devnull), options=chrome_options) # 로컬에서는 주석처리
-        # driver  = webdriver.Chrome() # 운영에서 주석
+        chrome_options.binary_location = '/bin/chromium' # 로컬에서는 주석처리한다.
+        driver  = webdriver.Chrome(service=Service(executable_path="/bin/chromedriver", service_log_path=os.devnull), options=chrome_options) # 로컬에서는 주석처리
+        # driver  = webdriver.Chrome() # 운영에서 주석처리 로컬에서는 살림
         driver.request_interceptor = self.interceptor
         self.driver = driver
 

@@ -1,1 +1,1 @@
-from .item_pipeline import *
+from .item_pipeline import FmKoreaPipeline

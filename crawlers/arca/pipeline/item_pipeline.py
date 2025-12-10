@@ -3,7 +3,7 @@ from datetime import datetime, tzinfo
 from zoneinfo import ZoneInfo  # Python 3.9 이상
 
 
-from deals.models import Deal
+from gadmin.deals.models import Deal
 from itemadapter import ItemAdapter
 
 ARCA_PREFIX = 'arca'

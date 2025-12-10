@@ -1,1 +1,1 @@
-from .selenium_middleware import *
+from .selenium_middleware import SeleniumMiddleware

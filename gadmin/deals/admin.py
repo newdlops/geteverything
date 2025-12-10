@@ -3,7 +3,7 @@ from django.http import StreamingHttpResponse
 from django.contrib import admin
 import xlsx_streaming
 import itertools
-from deals.models import Deal
+from gadmin.deals.models import Deal
 from django.utils.html import format_html
 from .export_filelds_action_form import ExportFieldsActionForm
 from django_admin_action_forms import AdminActionFormsMixin, action_with_form

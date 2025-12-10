@@ -40,12 +40,12 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
-    'favorite_deal.apps.FavoriteDealConfig',
-    'forum.apps.ForumConfig',
-    'user.apps.UserConfig',
-    'ppomppu.apps.PpomppuConfig',
-    'coolnjoy.apps.CoolnjoyConfig',
-    'deals.apps.DealsConfig',
+    'gadmin.favorite_deal.apps.FavoriteDealConfig',
+    'gadmin.forum.apps.ForumConfig',
+    'gadmin.user.apps.UserConfig',
+    'gadmin.ppomppu.apps.PpomppuConfig',
+    'gadmin.coolnjoy.apps.CoolnjoyConfig',
+    'gadmin.deals.apps.DealsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

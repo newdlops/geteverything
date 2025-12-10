@@ -27,11 +27,11 @@ RUN python3 -m pip uninstall -y typing dataclasses
 COPY crawlers/fmkorea/ /var/task/
 COPY gadmin/ /var/task
 
-ENV DATABASE_HOST "getev3.ctckuw2w4u3n.ap-northeast-2.rds.amazonaws.com"
-ENV DATABASE_NAME "geteverything"
-ENV DATABASE_PASSWORD "Dkyscd908070"
-ENV DATABASE_PORT "5432"
-ENV DATABASE_USER "getev"
+ENV DATABASE_HOST ""
+ENV DATABASE_NAME ""
+ENV DATABASE_PASSWORD ""
+ENV DATABASE_PORT ""
+ENV DATABASE_USER ""
 ENV TZ="Asia/Seoul"
 
 WORKDIR /var/task

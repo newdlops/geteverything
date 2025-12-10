@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from ppomppu.models import PpomppuDeal
+from gadmin.ppomppu.models import PpomppuDeal
 
 # Register your models here.
 

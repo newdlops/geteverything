@@ -1,6 +1,6 @@
 import re
 from datetime import datetime
-from deals.models import Deal
+from gadmin.deals.models import Deal
 from itemadapter import ItemAdapter
 
 PPOMPPU_PREFIX = 'ppompu'

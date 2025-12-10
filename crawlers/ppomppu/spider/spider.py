@@ -1,8 +1,4 @@
-import re
-
 import scrapy
-import os
-import django
 import traceback
 from w3lib.html import remove_tags
 
@@ -13,11 +9,6 @@ if __name__ == 'spider.spider':
 else:
     from ..item import PpomppuItem
     from ..pipeline import PpomppuPipeline
-
-
-
-os.environ['DJANGO_SETTINGS_MODULE'] = 'admin.settings'
-django.setup()
 
 class PpomppuSpider(scrapy.Spider):
     name = "ppomppu_spider"

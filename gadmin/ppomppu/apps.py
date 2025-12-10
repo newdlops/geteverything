@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class PpomppuConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'ppomppu'
+    name = 'gadmin.ppomppu'

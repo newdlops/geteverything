@@ -1,6 +1,6 @@
 from django.db.models import Manager
 
-from user.models import User
+from gadmin.user.models import User
 from django.db import models
 
 # front의 post 구조

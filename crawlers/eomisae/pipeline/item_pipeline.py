@@ -1,7 +1,7 @@
 import re
 from datetime import datetime
 from zoneinfo import ZoneInfo
-from deals.models import Deal
+from gadmin.deals.models import Deal
 from itemadapter import ItemAdapter
 
 EOMISAE_PREFIX = 'eomisae'

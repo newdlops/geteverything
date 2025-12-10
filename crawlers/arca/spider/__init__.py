@@ -1,1 +1,1 @@
-from .spider import *
+from .spider import ArcaSpider

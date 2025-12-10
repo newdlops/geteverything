@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from serializer.kakao_token_serializer import KakaoTokenSerializer
-from user.models import User
+from gadmin.user.models import User
 
 
 class KakaoSignupAPIView(APIView):

@@ -1,0 +1,68 @@
+name: Build and Deploy Docker Image for Django Server
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'crawlers/**'
+      - '.github/workflows/crawler-deploy.yaml'
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver: docker
+
+      - name: Substitute variables in template
+        uses: danielr1996/envsubst-action@1.1.0
+        env:
+          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+          DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          DATABASE_USER: ${{ secrets.DATABASE_USER }}
+        with:
+          input: crawlers/Dockerfile.template
+          output: crawlers/Dockerfile
+
+      - name: Build Docker image
+        run: docker build -t crawler-image . --platform=linux/amd64
+
+      - name: Save image as crawler.tar
+        run: |
+          docker save -o crawler.tar crawler-image
+
+      - name: Copy docker.jar to VM
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.CRAWLER_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          source: "crawler.tar"
+          target: /home/crawler/
+
+#      - name: Restart Docker Container
+#        uses: appleboy/ssh-action@master
+#        with:
+#          host: ${{ secrets.CRAWLER_HOST }}
+#          username: ${{ secrets.SSH_USER }}
+#          key: ${{ secrets.SSH_KEY }}
+#          port: 22
+#          script: |
+#            cd /home/docker/django
+#            docker load -i django.tar
+#            docker run --rm \
+#            --env-file django.env \
+#            my-django-app \
+#            python manage.py migrate --noinput
+#            docker stack rm django
+#            docker stack deploy -c docker-compose.yml django
+#            rm django.tar
+
