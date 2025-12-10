@@ -1,9 +1,5 @@
 FROM python:3.12-slim
-
-RUN apt-get update
-
 # Install Chromium
-
 ENV CHROME_BIN=/bin/chromium
 ENV CHROMEDRIVER_PATH=/bin/chromedriver
 ENV PYTHONUNBUFFERED=1
