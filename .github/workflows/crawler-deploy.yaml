@@ -32,7 +32,7 @@ jobs:
           output: crawlers/Dockerfile
 
       - name: Build Docker image
-        run: docker build -f crawlers/Dockerfile -t crawler-image . --platform=linux/amd64/v8
+        run: docker build -f crawlers/Dockerfile -t crawler-image . --platform=linux/arm64/v8
 
       - name: Save image as crawler.tar
         run: |
