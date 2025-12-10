@@ -1,4 +1,4 @@
-name: Build and Deploy Docker Image for Django Server
+name: Build and Deploy Docker Image for Crawler
 
 on:
   workflow_dispatch:
@@ -32,7 +32,7 @@ jobs:
           output: crawlers/Dockerfile
 
       - name: Build Docker image
-        run: docker build -t crawler-image . --platform=linux/amd64
+        run: docker build -f crawlers/Dockerfile -t crawler-image . --platform=linux/amd64
 
       - name: Save image as crawler.tar
         run: |
@@ -48,21 +48,23 @@ jobs:
           source: "crawler.tar"
           target: /home/crawler/
 
-#      - name: Restart Docker Container
-#        uses: appleboy/ssh-action@master
-#        with:
-#          host: ${{ secrets.CRAWLER_HOST }}
-#          username: ${{ secrets.SSH_USER }}
-#          key: ${{ secrets.SSH_KEY }}
-#          port: 22
-#          script: |
-#            cd /home/docker/django
-#            docker load -i django.tar
+      - name: Restart Docker Container
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.CRAWLER_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+            cd /home/crawler/
+            docker load -i crawler.tar
+            
+            
+
 #            docker run --rm \
 #            --env-file django.env \
 #            my-django-app \
 #            python manage.py migrate --noinput
 #            docker stack rm django
-#            docker stack deploy -c docker-compose.yml django
-#            rm django.tar
+#            rm crawler.tar
 
