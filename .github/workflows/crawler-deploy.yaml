@@ -32,7 +32,7 @@ jobs:
           output: crawlers/Dockerfile
 
       - name: Build Docker image
-        run: docker build -f crawlers/Dockerfile -t crawler-image . --platform=linux/amd64
+        run: docker build -f crawlers/Dockerfile -t crawler-image . --platform=linux/amd64/v8
 
       - name: Save image as crawler.tar
         run: |
@@ -58,8 +58,13 @@ jobs:
           script: |
             cd /home/crawler/
             docker load -i crawler.tar
-            
-            
+            docker run -d \
+            --name crawler \
+            --cpus="2" \
+            --memory="12g" \
+            -v /home/crawler/logs:/var/task/logs \
+            crawler-image \
+            sh -c "mkdir -p /logs && python -m crawlers.run_queue 2>&1 | tee -a /logs/crawler.log"
 
 #            docker run --rm \
 #            --env-file django.env \
