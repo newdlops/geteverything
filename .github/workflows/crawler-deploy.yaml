@@ -62,12 +62,11 @@ jobs:
             cd /home/crawler/
             docker load -i crawler.tar
             docker run -d \
-            --name crawler \
             --cpus="2" \
             --memory="12g" \
             -v /home/crawler/logs:/var/task/logs \
             crawler-image \
-            sh -c "mkdir -p /logs && python -m crawlers.run_queue 2>&1 | tee -a /logs/crawler.log"
+            sh -c "mkdir -p /var/task/logs && python -m crawlers.run_queue 2>&1 | tee -a /var/task/logs/crawler.log"
 
 #            docker run --rm \
 #            --env-file django.env \
