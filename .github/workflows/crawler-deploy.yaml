@@ -64,7 +64,7 @@ jobs:
             docker stop crawlers-bot 2>/dev/null || echo "crawlers-bot 컨테이너 없음, skip"
             docker rm crawlers-bot 2>/dev/null || echo "crawlers-bot 컨테이너 삭제할 것 없음, skip"
             docker run -d \
-            --name crawlers-bot
+            --name crawlers-bot \
             --cpus="2" \
             --memory="12g" \
             -v /home/crawler/logs:/var/task/logs \
