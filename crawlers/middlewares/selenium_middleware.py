@@ -110,7 +110,7 @@ class SeleniumMiddleware(object):
         try:
             self._wait_cloudflare_done(timeout=20)
         except TimeoutException:
-            self.driver.save_screenshot("/tmp/debug_error.png")
+            self.driver.save_screenshot("/debug_error.png")
             spider.logger.warning(f"Cloudflare 대기 해제 안 됨 (20초 내): {request.url}")
 
         body = to_bytes( text=self.driver.page_source )
