@@ -75,7 +75,7 @@ class SeleniumMiddleware(object):
         driver = uc.Chrome(
             options=chrome_options,
             driver_executable_path="/bin/chromedriver", # 경로가 확실하다면 지정, 아니면 생략하여 자동 다운로드 유도
-            # use_subprocess=True,
+            use_subprocess=True,
         )
         # driver  = webdriver.Chrome() # 운영에서 주석처리 로컬에서는 살림
 
