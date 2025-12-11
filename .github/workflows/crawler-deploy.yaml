@@ -15,41 +15,42 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up QEMU
-        uses: docker/setup-qemu-action@v3
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-        with:
-          driver: docker
-
-      - name: Substitute variables in template
-        uses: danielr1996/envsubst-action@1.1.0
+      - name: Build crawler image on VM
+        uses: appleboy/ssh-action@master
         env:
           DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
           DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
           DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
           DATABASE_USER: ${{ secrets.DATABASE_USER }}
         with:
-          input: crawlers/Dockerfile.template
-          output: crawlers/Dockerfile
-
-      - name: Build Docker image
-        run: docker build -f crawlers/Dockerfile -t crawler-image . --platform=linux/arm64/v8
-
-      - name: Save image as crawler.tar
-        run: |
-          docker save -o crawler.tar crawler-image
-
-      - name: Copy docker.jar to VM
-        uses: appleboy/scp-action@v1
-        with:
           host: ${{ secrets.CRAWLER_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: 22
-          source: "crawler.tar"
-          target: /home/crawler/
+          script: |
+            set -e
+            cd /home/crawler/build/geteverything
+            
+            echo "[1] git fetch & reset"
+            git fetch origin
+            git reset --hard origin/main
+            
+            
+            if ! command -v envsubst >/dev/null 2>&1; then
+              sudo apt-get update -y || sudo yum update -y || true
+              sudo apt-get install -y gettext-base || sudo yum install -y gettext || true
+            fi
+            echo "[2] Dockerfile template작성"
+            envsubst < crawlers/Dockerfile.template > crawlers/Dockerfile
+
+            echo "[3] docker build (캐시 자동 사용)"
+            docker build \
+              -t crawler:latest \
+              -f crawler/Dockerfile \
+              .
+
+            echo "이미지 빌드 종료"
+
 
       - name: Restart Docker Container
         uses: appleboy/ssh-action@master

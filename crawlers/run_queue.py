@@ -83,6 +83,7 @@ async def producer():
         await asyncio.sleep(1 * 60)
 
 async def main():
+    print(f"[Info {datetime.now()}]크롤링 서버 시작")
     semaphore = asyncio.Semaphore(MAX_CONCURRENT)
 
     # 워커 여러 개 생성 (실제로는 MAX_CONCURRENT보다 적당히 크게 3~5 정도)
@@ -95,3 +96,4 @@ async def main():
 
 if __name__ == "__main__":
     asyncio.run(main())
+    print(f"[Info {datetime.now()}]크롤링 서버 종료")
