@@ -79,14 +79,14 @@ class SeleniumMiddleware(object):
         )
         # driver  = webdriver.Chrome() # 운영에서 주석처리 로컬에서는 살림
 
-        # stealth(driver,
-        #         languages=["en-US", "en"],
-        #         vendor="Google Inc.",
-        #         platform="Win32",
-        #         webgl_vendor="Intel Inc.",
-        #         renderer="Intel Iris OpenGL Engine",
-        #         fix_hairline=True,
-        #         )
+        stealth(driver,
+                languages=["en-US", "en"],
+                vendor="Google Inc.",
+                platform="Win32",
+                webgl_vendor="Intel Inc.",
+                renderer="Intel Iris OpenGL Engine",
+                fix_hairline=True,
+                )
 
 
         self.driver = driver
@@ -239,8 +239,8 @@ class SeleniumMiddleware(object):
         print(f"[Info : {datetime.now()}]{spider.name}이 드라이버 사용함")
 
         try:
-            self._handle_cloudflare_challenge()
-            # self._wait_cloudflare_done(timeout=20)
+            # self._handle_cloudflare_challenge()
+            self._wait_cloudflare_done(timeout=20)
         except TimeoutException:
             self.driver.save_screenshot("/var/task/logs/debug_error.png")
             spider.logger.warning(f"Cloudflare 대기 해제 안 됨 (20초 내): {request.url}")
