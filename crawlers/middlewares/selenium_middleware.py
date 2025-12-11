@@ -88,11 +88,12 @@ class SeleniumMiddleware(object):
         #         fix_hairline=True,
         #         )
 
+
+        self.driver = driver
         # [핵심 수정] 브라우저가 켜진 직후, 강제로 크기를 주입합니다.
         # 이것이 없으면 VM에서 종종 800x600으로 시작해서 "Out of bounds" 에러가 납니다.
         self.driver.set_window_size(1920, 1080)
         self.driver.maximize_window() # 한 번 더 확실하게
-        self.driver = driver
 
     def spider_closed(self, spider):
         self.driver.close()
