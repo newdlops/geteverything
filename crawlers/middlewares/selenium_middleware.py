@@ -173,31 +173,52 @@ class SeleniumMiddleware(object):
             print(f"[Warning] 2단계 실패: {e}")
 
         # -------------------------------------------------------
-        # 3단계: 최후의 수단 - 좌표 무차별 클릭 (좌표 공격)
+        # 3단계: 동적 좌표 계산 클릭 (수정됨)
         # -------------------------------------------------------
-        # 화면 중앙에 체크박스가 있으므로, 해당 영역을 물리적으로 클릭합니다.
-        # VM 해상도가 1920x1080이라고 하셨으므로 중앙 좌표는 (960, 540) 부근입니다.
-        print("[Info] 3단계: 좌표 기반 클릭 시도 (Blind Click)")
+        print("[Info] 3단계: 화면 중앙 클릭 시도 (Dynamic Center Click)")
         try:
+            # 현재 브라우저의 실제 크기를 가져옵니다.
+            size = self.driver.get_window_size()
+            width = size['width']
+            height = size['height']
+
+            print(f"[Debug] 현재 브라우저 크기: {width} x {height}")
+
+            if width < 100 or height < 100:
+                print("[Error] 브라우저 창이 너무 작습니다! 강제 리사이즈 시도.")
+                self.driver.set_window_size(1920, 1080)
+                width = 1920
+                height = 1080
+
+            # 정중앙 좌표 계산
+            center_x = width // 2
+            center_y = height // 2
+
+            # Cloudflare 박스는 보통 정중앙보다 살짝 위(약 100px)에 위치함
+            target_y = center_y - 50
+
             action = ActionChains(self.driver)
-            # 중앙에서 약간 왼쪽 위/아래 등 3군데 정도 찍어봅니다.
-            # Cloudflare 박스 위치: 보통 수직 중앙보다 살짝 위에 뜸
 
-            # 1. 정중앙
-            action.move_by_offset(960, 540).click().perform()
-            time.sleep(0.5)
-            # 좌표 초기화 (move_by_offset은 현재 위치 기준이므로 리셋 필요)
-            action.move_by_offset(-960, -540).perform()
+            # [중요] move_by_offset은 '현재 마우스 위치' 기준이므로
+            # 먼저 (0,0)으로 보내고 이동하거나, 요소가 없으니 body 기준으로 이동해야 함.
+            # 가장 안전한 방법: reset_actions() 후 move_to_element_with_offset 사용
 
-            # 2. 약간 왼쪽 위 (체크박스 아이콘 위치 추정)
-            # 박스 전체가 아니라 '체크박스' 작은 네모를 눌러야 할 때를 대비
-            # Cloudflare 위젯은 보통 중앙 정렬이므로 X: 850~950 사이, Y: 400~500 사이
-            action.move_by_offset(900, 450).click().perform()
+            # body 태그 찾기 (기준점)
+            body = self.driver.find_element(By.TAG_NAME, "body")
+
+            # body의 왼쪽 위(0,0)를 기준으로 중앙으로 이동
+            action.move_to_element_with_offset(body, center_x, target_y).click().perform()
+            print(f"[Info] 클릭 실행 좌표: ({center_x}, {target_y})")
+
+            time.sleep(1)
+
+            # 혹시 모르니 약간 아래도 한번 더 클릭 (더블 탭 전략)
+            action.move_to_element_with_offset(body, center_x, target_y + 60).click().perform()
 
         except Exception as e:
             print(f"[Error] 3단계 실패: {e}")
 
-        time.sleep(3)
+        time.sleep(5) # 클릭 후 통과 대기
 
     def process_request( self, request, spider ):
         self.driver.get( request.url )
