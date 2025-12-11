@@ -80,7 +80,7 @@ class FmKoreaSpider(scrapy.Spider):
                 origin_url = f'https://www.fmkorea.com/{article_id}'
                 thumbnail = li.css('img.thumb::attr(src)').get()
                 category = li.css('span.category a::text').get()
-                subject = replace_escape_chars(remove_tags(li.css('h3.title a::text').get()))
+                subject = replace_escape_chars(remove_tags(li.css('h3.title::attr(data-original-title)').get()))
                 data = {
                     'origin_url': origin_url, 'article_id': article_id,
                     'subject': subject, 'category': category,
