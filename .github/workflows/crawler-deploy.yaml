@@ -45,8 +45,8 @@ jobs:
 
             echo "[3] docker build (캐시 자동 사용)"
             docker build \
-              -t crawler:latest \
-              -f crawler/Dockerfile \
+              -t crawler-image \
+              -f crawlers/Dockerfile \
               .
 
             echo "이미지 빌드 종료"
