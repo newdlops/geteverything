@@ -77,14 +77,14 @@ class SeleniumMiddleware(object):
         )
         # driver  = webdriver.Chrome() # 운영에서 주석처리 로컬에서는 살림
 
-        # stealth(driver,
-        #         languages=["en-US", "en"],
-        #         vendor="Google Inc.",
-        #         platform="Win32",
-        #         webgl_vendor="Intel Inc.",
-        #         renderer="Intel Iris OpenGL Engine",
-        #         fix_hairline=True,
-        #         )
+        stealth(driver,
+                languages=["en-US", "en"],
+                vendor="Google Inc.",
+                platform="Win32",
+                webgl_vendor="Intel Inc.",
+                renderer="Intel Iris OpenGL Engine",
+                fix_hairline=True,
+                )
 
         self.driver = driver
 
