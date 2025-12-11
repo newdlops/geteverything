@@ -1,4 +1,6 @@
 import re
+import traceback
+from datetime import datetime
 
 import scrapy
 from w3lib.html import remove_tags, replace_escape_chars, strip_html5_whitespace
@@ -86,9 +88,10 @@ class ArcaSpider(scrapy.Spider):
                 if article_id != '':
                     yield Request(url=detail_page_url, callback=self.detail_parse, cb_kwargs=dict(data=data), meta={'cookiejar': response.meta['cookiejar']})
             except Exception as e:
-                print(f'목록 불러오는중에 에러 발생 : {e}')
+                traceback.print_exc()
+                print(f'[Error :{datetime.now()}]아카라이브 목록 불러오는중에 에러 발생 : {e}')
 
-    def detail_parse(self, response, data):
+    def detail_parse(self, response, data, datatime=None):
         try:
             article_info = response.css('div.article-info')
             info_spans = article_info.css('span')
@@ -101,4 +104,5 @@ class ArcaSpider(scrapy.Spider):
 
             yield ArcaItem(dict(**data, shop_url_1=shop_url_1, recommend_count=recommend_count, dislike_count=dislike_count, view_count=view_count, write_at=write_at))
         except Exception as e:
-            print(f'상세 페이지 불러오는중에 에러 발생 : {e}')
+            traceback.print_exc()
+            print(f'[Error :{datetime.now()}]아카라이브 상세 페이지 불러오는중에 에러 발생 : {e}')

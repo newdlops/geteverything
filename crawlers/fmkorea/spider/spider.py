@@ -1,3 +1,6 @@
+import traceback
+from datetime import datetime
+
 import scrapy
 from w3lib.html import remove_tags, replace_escape_chars
 
@@ -84,7 +87,8 @@ class FmKoreaSpider(scrapy.Spider):
 
                 yield Request(url=f'https://www.fmkorea.com/?mid=hotdeal&sort_index=&order_type=desc&document_srl={article_id}&listStyle=webzine&cpage=1', callback=self.detail_parse, cb_kwargs=dict(data=data), meta={'cookiejar': response.meta['cookiejar']})
             except Exception as e:
-                print(f'목록 불러오는중에 에러 발생 : {e}')
+                traceback.print_exc()
+                print(f'[Error :{datetime.now()}]fmkorea 목록 불러오는중에 에러 발생 : {e}')
 
     def detail_parse(self, response, data):
         # print(f'디테일 {response.body}')
@@ -128,6 +132,5 @@ class FmKoreaSpider(scrapy.Spider):
                                    comment_count=comment_count,
                                    create_at=create_at))
         except Exception as e:
-            import traceback
             traceback.print_exc()
-            print(f'상세 페이지 불러오는중에 에러 발생 : {e}')
+            print(f'[Error :{datetime.now()}] fmkorea 상세 페이지 불러오는중에 에러 발생 : {e}')
