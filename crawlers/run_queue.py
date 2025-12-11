@@ -29,9 +29,9 @@ async def run_spider(job: Job):
     # 여기서 실제 scrapy 실행 (venv 경로/프로젝트 경로 맞춰서 수정)
     proc = await asyncio.create_subprocess_exec(
         "python", "-m", f"crawlers.{job.site_name}.crawler.crawler",
-        stdout=asyncio.subprocess.PIPE,
+        # stdout=asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE,
-        # stdout=sys.stdout,
+        stdout=sys.stdout,
         # stderr=sys.stderr,
     )
     stdout, stderr = await proc.communicate()
