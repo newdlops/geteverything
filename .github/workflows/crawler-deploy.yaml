@@ -61,8 +61,9 @@ jobs:
           port: 22
           script: |
             cd /home/crawler/
-            docker load -i crawler.tar
+            docker stop crawlers-bot
             docker run -d \
+            --name=crawlers-bot
             --cpus="2" \
             --memory="12g" \
             -v /home/crawler/logs:/var/task/logs \
