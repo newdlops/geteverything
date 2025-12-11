@@ -69,18 +69,22 @@ class SeleniumMiddleware(object):
 
         # 로컬에서 테스트할 경우에 아래 두 줄을 주석처리한 후 테스트 한다. '/opt/chrome', '/opt/chromedriver'는 이미지 상에 존재하는 폴더이므로 주석처리
         chrome_options.binary_location = '/bin/chromium' # 로컬에서는 주석처리한다.
-        driver  = uc.Chrome(service=Service(executable_path="/bin/chromedriver", service_log_path=os.devnull), options=chrome_options) # 로컬에서는 주석처리
+        # driver = uc.Chrome(service=Service(executable_path="/bin/chromedriver", service_log_path=os.devnull), options=chrome_options) # 로컬에서는 주석처리
+        driver = uc.Chrome(
+            options=chrome_options,
+            driver_executable_path="/bin/chromedriver", # 경로가 확실하다면 지정, 아니면 생략하여 자동 다운로드 유도
+            version_main=131 # (선택) 설치된 크롬 버전의 메이저 버전을 명시하면 더 안정적
+        )
         # driver  = webdriver.Chrome() # 운영에서 주석처리 로컬에서는 살림
-        driver.request_interceptor = self.interceptor
 
-        stealth(driver,
-                languages=["en-US", "en"],
-                vendor="Google Inc.",
-                platform="Win32",
-                webgl_vendor="Intel Inc.",
-                renderer="Intel Iris OpenGL Engine",
-                fix_hairline=True,
-                )
+        # stealth(driver,
+        #         languages=["en-US", "en"],
+        #         vendor="Google Inc.",
+        #         platform="Win32",
+        #         webgl_vendor="Intel Inc.",
+        #         renderer="Intel Iris OpenGL Engine",
+        #         fix_hairline=True,
+        #         )
 
         self.driver = driver
 
