@@ -1,24 +1,13 @@
 import re
 
 import scrapy
-import os
-import django
-import traceback
-
 from w3lib.html import remove_tags, replace_escape_chars, strip_html5_whitespace
 
 from scrapy import Request
-if __name__ == 'spider.spider':
-    from item import ArcaItem # noqa
-    from pipeline import ArcaPipeline # noqa
-else:
-    from ..item import ArcaItem
-    from ..pipeline import ArcaPipeline
+from crawlers.arca.item import ArcaItem
+from crawlers.arca.pipeline import ArcaPipeline
+from crawlers.middlewares import SeleniumMiddleware
 
-
-
-os.environ['DJANGO_SETTINGS_MODULE'] = 'admin.settings'
-django.setup()
 
 class ArcaSpider(scrapy.Spider):
     name = "arca_spider"
@@ -26,7 +15,26 @@ class ArcaSpider(scrapy.Spider):
         'DOWNLOAD_DELAY': 1,
         'ITEM_PIPELINES': {
             ArcaPipeline: 300,
-        }
+        },
+        'CONCURRENT_REQUESTS': 1,
+        'USER_AGENT': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+        'DOWNLOADER_MIDDLEWARES' : {
+            'rotating_proxies.middlewares.RotatingProxyMiddleware': 610,
+            'rotating_proxies.middlewares.BanDetectionMiddleware': 620,
+            SeleniumMiddleware: 700,
+        },
+        'ROTATING_PROXY_LIST': [
+            '123.141.181.8:5031',    # 수집: free‑proxy‑list.net :contentReference[oaicite:1]{index=1}
+            '123.141.181.1:5031',    # 수집: free‑proxy‑list.net :contentReference[oaicite:2]{index=2}
+            '59.7.246.4:80',         # 수집: free‑proxy‑list.net :contentReference[oaicite:3]{index=3}
+            '118.47.179.203:80',     # 수집: free‑proxy‑list.net :contentReference[oaicite:4]{index=4}
+            '123.140.146.20:5031',   # 수집: free‑proxy‑list.net :contentReference[oaicite:5]{index=5}
+            '146.56.162.25:80',      # 수집: ProxyScrape :contentReference[oaicite:6]{index=6}
+            '8.213.128.90:50001',    # 수집: ProxyScrape :contentReference[oaicite:7]{index=7}
+            '123.141.181.7:5031',    # 수집: proxy‑list.download :contentReference[oaicite:8]{index=8}
+            '13.125.7.17:3128',      # 수집: FineProxy :contentReference[oaicite:9]{index=9}
+            '123.140.160.99:5031',   # 수집: FineProxy :contentReference[oaicite:10]{index=10}
+        ],
     }
 
 
@@ -79,8 +87,6 @@ class ArcaSpider(scrapy.Spider):
                     yield Request(url=detail_page_url, callback=self.detail_parse, cb_kwargs=dict(data=data), meta={'cookiejar': response.meta['cookiejar']})
             except Exception as e:
                 print(f'목록 불러오는중에 에러 발생 : {e}')
-                traceback.print_exc()
-                raise Exception(f'목록 불러오는중 에러 발생')
 
     def detail_parse(self, response, data):
         try:
@@ -96,5 +102,3 @@ class ArcaSpider(scrapy.Spider):
             yield ArcaItem(dict(**data, shop_url_1=shop_url_1, recommend_count=recommend_count, dislike_count=dislike_count, view_count=view_count, write_at=write_at))
         except Exception as e:
             print(f'상세 페이지 불러오는중에 에러 발생 : {e}')
-            traceback.print_exc()
-            raise Exception(f'상세 페이지 불러오는중 에러 발생')

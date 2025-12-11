@@ -2,14 +2,9 @@ import scrapy
 from w3lib.html import remove_tags, replace_escape_chars
 
 from scrapy import Request
-if __name__ == 'spider.spider':
-    from item import FmKoreaItem # noqa
-    from pipeline import FmKoreaPipeline # noqa
-    from middlewares import SeleniumMiddleware # noqa
-else:
-    from ..item import FmKoreaItem
-    from ..pipeline import FmKoreaPipeline
-    from ..middlewares import SeleniumMiddleware
+from crawlers.fmkorea.item import FmKoreaItem
+from crawlers.fmkorea.pipeline import FmKoreaPipeline
+from crawlers.middlewares import SeleniumMiddleware
 
 class FmKoreaSpider(scrapy.Spider):
     name = "fm_korea_spider"
