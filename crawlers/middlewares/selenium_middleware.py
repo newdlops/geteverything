@@ -1,4 +1,5 @@
 import os
+import random
 import time
 from datetime import datetime
 
@@ -8,6 +9,7 @@ from scrapy.utils.python import to_bytes
 
 from selenium import webdriver
 from selenium.common import TimeoutException
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
@@ -103,12 +105,70 @@ class SeleniumMiddleware(object):
 
         wait.until(not_cloudflare_page)
 
+    def _handle_cloudflare_challenge(self):
+        """
+        Cloudflare Turnstile(체크박스)을 찾아서 클릭하는 로직
+        """
+        try:
+            # 1. iframe이 뜰 때까지 잠시 대기
+            time.sleep(3)
+
+            # 2. Turnstile iframe 찾기 (Cloudflare 위젯은 보통 iframe 안에 있음)
+            # 여러 종류의 iframe이 있을 수 있으니 src 속성 등으로 찾습니다.
+            frames = self.driver.find_elements(By.TAG_NAME, "iframe")
+            challenge_frame = None
+
+            for frame in frames:
+                src = frame.get_attribute("src")
+                # 보통 challenge 혹은 turnstile 이라는 단어가 URL에 포함됨
+                if src and ("challenge-platform" in src or "turnstile" in src):
+                    challenge_frame = frame
+                    break
+
+            if challenge_frame:
+                print(f"[Info] Cloudflare iframe 발견. 진입 시도.")
+                # iframe 내부로 포커스 이동
+                self.driver.switch_to.frame(challenge_frame)
+
+                # 3. 체크박스 요소 찾기
+                # iframe 내부의 body나 checkbox wrapper를 클릭하면 됨
+                time.sleep(1)
+                checkbox = WebDriverWait(self.driver, 5).until(
+                    EC.element_to_be_clickable((By.XPATH, "//input[@type='checkbox'] | //div[@id='challenge-stage'] | //body"))
+                )
+
+                # 4. 사람처럼 마우스 이동 후 클릭 (ActionChains 사용)
+                action = ActionChains(self.driver)
+
+                # 약간의 오차를 주어 마우스 이동 (봇 탐지 회피)
+                action.move_to_element_with_offset(checkbox, random.randint(1, 5), random.randint(1, 5))
+                action.pause(random.uniform(0.1, 0.5)) # 잠시 멈춤
+                action.click()
+                action.perform()
+
+                print(f"[Info] 체크박스 클릭 완료. 메인 프레임으로 복귀.")
+                self.driver.switch_to.default_content() # 다시 메인 페이지로 복귀
+
+                # 5. 클릭 후 통과될 때까지 대기
+                time.sleep(5)
+            else:
+                print("[Info] Cloudflare iframe을 못 찾음 (이미 통과했거나 다른 유형)")
+
+        except Exception as e:
+            print(f"[Warning] Cloudflare 처리 중 에러 발생 (이미 통과했으면 무시): {e}")
+            # 에러 나도 일단 메인 프레임으로 복귀는 시도
+            try:
+                self.driver.switch_to.default_content()
+            except:
+                pass
+
     def process_request( self, request, spider ):
         self.driver.get( request.url )
         print(f"[Info : {datetime.now()}]{spider.name}이 드라이버 사용함")
 
         try:
-            self._wait_cloudflare_done(timeout=20)
+            self._handle_cloudflare_challenge()
+            # self._wait_cloudflare_done(timeout=20)
         except TimeoutException:
             self.driver.save_screenshot("/var/task/logs/debug_error.png")
             spider.logger.warning(f"Cloudflare 대기 해제 안 됨 (20초 내): {request.url}")
