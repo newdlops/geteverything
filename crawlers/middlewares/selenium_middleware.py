@@ -106,61 +106,94 @@ class SeleniumMiddleware(object):
         wait.until(not_cloudflare_page)
 
     def _handle_cloudflare_challenge(self):
-        """
-        Cloudflare Turnstile(체크박스)을 찾아서 클릭하는 로직
-        """
+        print("[Info] Cloudflare 우회 시도 시작...")
+
+        # -------------------------------------------------------
+        # 1단계: Shadow DOM 내부의 체크박스 찾기 (최신 Cloudflare 대응)
+        # -------------------------------------------------------
         try:
-            # 1. iframe이 뜰 때까지 잠시 대기
+            print("[Info] 1단계: Shadow DOM 탐색 시도")
+            # 자바스크립트로 Shadow DOM 내부의 input 요소 찾아서 클릭
+            self.driver.execute_script("""
+                let target = document.querySelector('input[type=checkbox]');
+                if (!target) {
+                    // Shadow DOM 안에 숨어있는 경우 (Deep Search)
+                    function findInShadow(root) {
+                        let el = root.querySelector('input[type=checkbox]');
+                        if (el) return el;
+                        let walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT, null, false);
+                        while(node = walker.nextNode()) {
+                            if (node.shadowRoot) {
+                                let found = findInShadow(node.shadowRoot);
+                                if (found) return found;
+                            }
+                        }
+                        return null;
+                    }
+                    target = findInShadow(document.body);
+                }
+                if (target) target.click();
+            """)
             time.sleep(3)
+        except Exception as e:
+            print(f"[Warning] 1단계 실패: {e}")
 
-            # 2. Turnstile iframe 찾기 (Cloudflare 위젯은 보통 iframe 안에 있음)
-            # 여러 종류의 iframe이 있을 수 있으니 src 속성 등으로 찾습니다.
+        # -------------------------------------------------------
+        # 2단계: iframe이 있다면 무조건 진입 (이름 필터링 제거)
+        # -------------------------------------------------------
+        try:
+            # 이름 따지지 않고 모든 iframe을 뒤져봅니다.
             frames = self.driver.find_elements(By.TAG_NAME, "iframe")
-            challenge_frame = None
+            print(f"[Info] 발견된 iframe 개수: {len(frames)}")
 
-            for frame in frames:
-                src = frame.get_attribute("src")
-                # 보통 challenge 혹은 turnstile 이라는 단어가 URL에 포함됨
-                if src and ("challenge-platform" in src or "turnstile" in src):
-                    challenge_frame = frame
-                    break
+            for i, frame in enumerate(frames):
+                try:
+                    # iframe 위치와 크기 확인 (너무 작거나 안 보이는건 패스)
+                    if frame.size['width'] > 0 and frame.size['height'] > 0:
+                        print(f"[Info] iframe[{i}] 진입 시도...")
+                        self.driver.switch_to.frame(frame)
 
-            if challenge_frame:
-                print(f"[Info] Cloudflare iframe 발견. 진입 시도.")
-                # iframe 내부로 포커스 이동
-                self.driver.switch_to.frame(challenge_frame)
+                        # 체크박스 찾기 시도
+                        checkbox = self.driver.find_elements(By.XPATH, "//input[@type='checkbox']")
+                        if checkbox:
+                            print(f"[Info] iframe[{i}] 에서 체크박스 발견! 클릭!")
+                            ActionChains(self.driver).move_to_element(checkbox[0]).click().perform()
+                            self.driver.switch_to.default_content()
+                            time.sleep(3)
+                            return # 성공했으면 종료
 
-                # 3. 체크박스 요소 찾기
-                # iframe 내부의 body나 checkbox wrapper를 클릭하면 됨
-                time.sleep(1)
-                checkbox = WebDriverWait(self.driver, 5).until(
-                    EC.element_to_be_clickable((By.XPATH, "//input[@type='checkbox'] | //div[@id='challenge-stage'] | //body"))
-                )
+                        self.driver.switch_to.default_content() # 복귀
+                except:
+                    self.driver.switch_to.default_content()
+        except Exception as e:
+            print(f"[Warning] 2단계 실패: {e}")
 
-                # 4. 사람처럼 마우스 이동 후 클릭 (ActionChains 사용)
-                action = ActionChains(self.driver)
+        # -------------------------------------------------------
+        # 3단계: 최후의 수단 - 좌표 무차별 클릭 (좌표 공격)
+        # -------------------------------------------------------
+        # 화면 중앙에 체크박스가 있으므로, 해당 영역을 물리적으로 클릭합니다.
+        # VM 해상도가 1920x1080이라고 하셨으므로 중앙 좌표는 (960, 540) 부근입니다.
+        print("[Info] 3단계: 좌표 기반 클릭 시도 (Blind Click)")
+        try:
+            action = ActionChains(self.driver)
+            # 중앙에서 약간 왼쪽 위/아래 등 3군데 정도 찍어봅니다.
+            # Cloudflare 박스 위치: 보통 수직 중앙보다 살짝 위에 뜸
 
-                # 약간의 오차를 주어 마우스 이동 (봇 탐지 회피)
-                action.move_to_element_with_offset(checkbox, random.randint(1, 5), random.randint(1, 5))
-                action.pause(random.uniform(0.1, 0.5)) # 잠시 멈춤
-                action.click()
-                action.perform()
+            # 1. 정중앙
+            action.move_by_offset(960, 540).click().perform()
+            time.sleep(0.5)
+            # 좌표 초기화 (move_by_offset은 현재 위치 기준이므로 리셋 필요)
+            action.move_by_offset(-960, -540).perform()
 
-                print(f"[Info] 체크박스 클릭 완료. 메인 프레임으로 복귀.")
-                self.driver.switch_to.default_content() # 다시 메인 페이지로 복귀
-
-                # 5. 클릭 후 통과될 때까지 대기
-                time.sleep(5)
-            else:
-                print("[Info] Cloudflare iframe을 못 찾음 (이미 통과했거나 다른 유형)")
+            # 2. 약간 왼쪽 위 (체크박스 아이콘 위치 추정)
+            # 박스 전체가 아니라 '체크박스' 작은 네모를 눌러야 할 때를 대비
+            # Cloudflare 위젯은 보통 중앙 정렬이므로 X: 850~950 사이, Y: 400~500 사이
+            action.move_by_offset(900, 450).click().perform()
 
         except Exception as e:
-            print(f"[Warning] Cloudflare 처리 중 에러 발생 (이미 통과했으면 무시): {e}")
-            # 에러 나도 일단 메인 프레임으로 복귀는 시도
-            try:
-                self.driver.switch_to.default_content()
-            except:
-                pass
+            print(f"[Error] 3단계 실패: {e}")
+
+        time.sleep(3)
 
     def process_request( self, request, spider ):
         self.driver.get( request.url )
