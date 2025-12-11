@@ -18,6 +18,9 @@ logging.getLogger("urllib3").setLevel(logging.WARNING)
 
 
 class SeleniumMiddleware(object):
+    def __init__(self):
+        self.driver = None
+
     @classmethod
     def from_crawler(cls, crawler):
         middleware = cls()
@@ -44,9 +47,21 @@ class SeleniumMiddleware(object):
         # chrome_options.add_argument("--disable-extensions")
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument('--profile-directory=Default')
-        chrome_options.add_argument("--user-data-dir=/tmp/user-data")
-        chrome_options.add_argument("--data-path=/tmp/data")
-        chrome_options.add_argument("--disk-cache-dir=/tmp/cache")
+        # 스파이더 이름별로 프로필/캐시 디렉터리 분리
+        base_dir = "/tmp/selenium"
+        os.makedirs(base_dir, exist_ok=True)
+    
+        user_data_dir = os.path.join(base_dir, f"user-data-{spider.name}")
+        data_path = os.path.join(base_dir, f"data-{spider.name}")
+        cache_dir = os.path.join(base_dir, f"cache-{spider.name}")
+    
+        chrome_options.add_argument(f"--user-data-dir={user_data_dir}")
+        chrome_options.add_argument(f"--data-path={data_path}")
+        chrome_options.add_argument(f"--disk-cache-dir={cache_dir}")
+        
+        # chrome_options.add_argument("--user-data-dir=/tmp/user-data")
+        # chrome_options.add_argument("--data-path=/tmp/data")
+        # chrome_options.add_argument("--disk-cache-dir=/tmp/cache")
 
         # 로컬에서 테스트할 경우에 아래 두 줄을 주석처리한 후 테스트 한다. '/opt/chrome', '/opt/chromedriver'는 이미지 상에 존재하는 폴더이므로 주석처리
         chrome_options.binary_location = '/bin/chromium' # 로컬에서는 주석처리한다.
