@@ -4,7 +4,8 @@ from scrapy.utils.project import get_project_settings
 from crawlers.arca.spider import ArcaSpider
 
 def crawl():
-    process = CrawlerProcess(get_project_settings())
+    settings = get_project_settings()
+    process = CrawlerProcess(settings)
 
     # 스파이더를 실행합니다.
     process.crawl(ArcaSpider)

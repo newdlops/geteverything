@@ -14,15 +14,15 @@ from crawlers.middlewares import SeleniumMiddleware
 class ArcaSpider(scrapy.Spider):
     name = "arca_spider"
     custom_settings = {
-        'DOWNLOAD_DELAY': 1,
+        'DOWNLOAD_DELAY': 10,
         'ITEM_PIPELINES': {
             ArcaPipeline: 300,
         },
         'CONCURRENT_REQUESTS': 1,
         'USER_AGENT': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
         'DOWNLOADER_MIDDLEWARES' : {
-            'rotating_proxies.middlewares.RotatingProxyMiddleware': 610,
-            'rotating_proxies.middlewares.BanDetectionMiddleware': 620,
+            # 'rotating_proxies.middlewares.RotatingProxyMiddleware': 610,
+            # 'rotating_proxies.middlewares.BanDetectionMiddleware': 620,
             SeleniumMiddleware: 700,
         },
         'ROTATING_PROXY_LIST': [
@@ -45,20 +45,28 @@ class ArcaSpider(scrapy.Spider):
         total_page = 5
 
         headers = {
-            "accept": "*/*",
+            "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
             "accept-encoding": "gzip, deflate, br, zstd",
             "accept-language": "ko,en-US;q=0.9,en;q=0.8,ja;q=0.7,ko-KR;q=0.6,la;q=0.5,ru;q=0.4",
             "cache-control": "no-cache",
-            "connection": "keep-alive",
             "pragma": "no-cache",
-            "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
+            "priority": "u=0, i",
+            "sec-ch-ua": "\"Google Chrome\";v=\"137\", \"Chromium\";v=\"137\", \"Not/A)Brand\";v=\"24\"",
+            "sec-ch-ua-mobile": "?0",
+            "sec-ch-ua-platform": "\"macOS\"",
+            "sec-fetch-dest": "document",
+            "sec-fetch-mode": "navigate",
+            "sec-fetch-site": "none",
+            "sec-fetch-user": "?1",
+            "upgrade-insecure-requests": "1",
+            "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
         }
 
         for i in range(1, total_page+1):
             yield scrapy.Request(
                 f"https://arca.live/b/hotdeal?p={i}",
                 callback=self.parse,
-                # headers=headers,
+                headers=headers,
                 meta={'cookiejar': i}
             )
 

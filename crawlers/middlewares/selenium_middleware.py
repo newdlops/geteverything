@@ -7,10 +7,13 @@ from scrapy.http import HtmlResponse
 from scrapy.utils.python import to_bytes
 
 from selenium import webdriver
+from selenium.common import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+
+from selenium_stealth import stealth
 
 import logging
 
@@ -69,30 +72,42 @@ class SeleniumMiddleware(object):
         driver  = webdriver.Chrome(service=Service(executable_path="/bin/chromedriver", service_log_path=os.devnull), options=chrome_options) # 로컬에서는 주석처리
         # driver  = webdriver.Chrome() # 운영에서 주석처리 로컬에서는 살림
         driver.request_interceptor = self.interceptor
+
+        stealth(driver,
+                languages=["en-US", "en"],
+                vendor="Google Inc.",
+                platform="Win32",
+                webgl_vendor="Intel Inc.",
+                renderer="Intel Iris OpenGL Engine",
+                fix_hairline=True,
+                )
+
         self.driver = driver
 
     def spider_closed(self, spider):
         self.driver.close()
 
+    def _wait_cloudflare_done(self, timeout=20):
+        wait = WebDriverWait(self.driver, timeout)
+
+        def not_cloudflare_page(driver):
+            src = driver.page_source.lower()
+            # Cloudflare 대기 페이지의 흔한 텍스트를 기준으로 간단 체크
+            if "just a moment" in src and "cloudflare" in src:
+                return False
+            return True
+
+        wait.until(not_cloudflare_page)
+
     def process_request( self, request, spider ):
         self.driver.get( request.url )
         print(f"[Info : {datetime.now()}]{spider.name}이 드라이버 사용함")
 
-
-        wait = WebDriverWait(self.driver, 30)
-        # element = wait.until(EC.presence_of_element_located((By.TAG_NAME, "title")))
-        # wait.until(
-        #     lambda d: d.execute_script("return sessionStorage.getItem('PHPSESSID') !== null;")
-        # )
-        # for i in range(1,3):
-        #     link = wait.until(
-        #         EC.element_to_be_clickable((By.TAG_NAME, "a"))  # 또는 By.PARTIAL_LINK_TEXT, By.CSS_SELECTOR 등
-        #     )
-        #     link.click()
-        #     element = wait.until(EC.presence_of_element_located((By.TAG_NAME, "title")))
-        #     time.sleep(1)
+        try:
+            self._wait_cloudflare_done(timeout=20)
+        except TimeoutException:
+            spider.logger.warning(f"Cloudflare 대기 해제 안 됨 (20초 내): {request.url}")
 
         body = to_bytes( text=self.driver.page_source )
-        # print(body)
         print(f"[Info : {datetime.now()}]{spider.name}이 드라이버로 잘 긁어옴 사용함")
         return HtmlResponse( url=request.url, body=body, encoding='utf-8', request=request )
