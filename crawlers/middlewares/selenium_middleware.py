@@ -75,19 +75,23 @@ class SeleniumMiddleware(object):
         driver = uc.Chrome(
             options=chrome_options,
             driver_executable_path="/bin/chromedriver", # 경로가 확실하다면 지정, 아니면 생략하여 자동 다운로드 유도
-            version_main=131 # (선택) 설치된 크롬 버전의 메이저 버전을 명시하면 더 안정적
+            use_subprocess=True,
         )
         # driver  = webdriver.Chrome() # 운영에서 주석처리 로컬에서는 살림
 
-        stealth(driver,
-                languages=["en-US", "en"],
-                vendor="Google Inc.",
-                platform="Win32",
-                webgl_vendor="Intel Inc.",
-                renderer="Intel Iris OpenGL Engine",
-                fix_hairline=True,
-                )
+        # stealth(driver,
+        #         languages=["en-US", "en"],
+        #         vendor="Google Inc.",
+        #         platform="Win32",
+        #         webgl_vendor="Intel Inc.",
+        #         renderer="Intel Iris OpenGL Engine",
+        #         fix_hairline=True,
+        #         )
 
+        # [핵심 수정] 브라우저가 켜진 직후, 강제로 크기를 주입합니다.
+        # 이것이 없으면 VM에서 종종 800x600으로 시작해서 "Out of bounds" 에러가 납니다.
+        self.driver.set_window_size(1920, 1080)
+        self.driver.maximize_window() # 한 번 더 확실하게
         self.driver = driver
 
     def spider_closed(self, spider):
