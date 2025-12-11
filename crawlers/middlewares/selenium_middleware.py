@@ -12,7 +12,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+import undetected_chromedriver as uc
 from selenium_stealth import stealth
 
 import logging
@@ -69,7 +69,7 @@ class SeleniumMiddleware(object):
 
         # 로컬에서 테스트할 경우에 아래 두 줄을 주석처리한 후 테스트 한다. '/opt/chrome', '/opt/chromedriver'는 이미지 상에 존재하는 폴더이므로 주석처리
         chrome_options.binary_location = '/bin/chromium' # 로컬에서는 주석처리한다.
-        driver  = webdriver.Chrome(service=Service(executable_path="/bin/chromedriver", service_log_path=os.devnull), options=chrome_options) # 로컬에서는 주석처리
+        driver  = uc.Chrome(service=Service(executable_path="/bin/chromedriver", service_log_path=os.devnull), options=chrome_options) # 로컬에서는 주석처리
         # driver  = webdriver.Chrome() # 운영에서 주석처리 로컬에서는 살림
         driver.request_interceptor = self.interceptor
 
