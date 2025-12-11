@@ -184,8 +184,8 @@ class SeleniumMiddleware(object):
             height = size['height']
 
             print(f"[Debug] 현재 브라우저 크기: {width} x {height}")
-            step_x = 80  # 가로 간격 (Cloudflare 박스 크기 고려)
-            step_y = 80  # 세로 간격
+            step_x = 10  # 가로 간격 (Cloudflare 박스 크기 고려)
+            step_y = 10  # 세로 간격
 
             # 2. 탐색 영역 설정 (화면 중앙부 위주로 효율적 탐색)
             # 너무 외곽은 클릭해봤자 의미가 없으므로 제외합니다.
