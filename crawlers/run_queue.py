@@ -30,13 +30,13 @@ async def run_spider(job: Job):
     proc = await asyncio.create_subprocess_exec(
         "python", "-m", f"crawlers.{job.site_name}.crawler.crawler",
         # stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.PIPE,
+        # stderr=asyncio.subprocess.PIPE,
         stdout=sys.stdout,
-        # stderr=sys.stderr,
+        stderr=sys.stderr,
     )
     stdout, stderr = await proc.communicate()
     print(f"[END] {job} exit={proc.returncode}")
-    if proc.returncode != 0:
+    if proc.returncode != 0 and stderr:
         print(f"[ERROR] {job} stderr={stderr.decode(errors='ignore')}")
 
 async def worker(semaphore: asyncio.Semaphore):
