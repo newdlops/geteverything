@@ -1,5 +1,6 @@
 import os
 import time
+from datetime import datetime
 
 from scrapy import signals
 from scrapy.http import HtmlResponse
@@ -50,15 +51,15 @@ class SeleniumMiddleware(object):
         # 스파이더 이름별로 프로필/캐시 디렉터리 분리
         base_dir = "/tmp/selenium"
         os.makedirs(base_dir, exist_ok=True)
-    
+
         user_data_dir = os.path.join(base_dir, f"user-data-{spider.name}")
         data_path = os.path.join(base_dir, f"data-{spider.name}")
         cache_dir = os.path.join(base_dir, f"cache-{spider.name}")
-    
+
         chrome_options.add_argument(f"--user-data-dir={user_data_dir}")
         chrome_options.add_argument(f"--data-path={data_path}")
         chrome_options.add_argument(f"--disk-cache-dir={cache_dir}")
-        
+
         # chrome_options.add_argument("--user-data-dir=/tmp/user-data")
         # chrome_options.add_argument("--data-path=/tmp/data")
         # chrome_options.add_argument("--disk-cache-dir=/tmp/cache")
@@ -75,7 +76,7 @@ class SeleniumMiddleware(object):
 
     def process_request( self, request, spider ):
         self.driver.get( request.url )
-        print('드라이버 사용함')
+        print(f"[Info : {datetime.now()}]{spider.name}이 드라이버 사용함")
 
 
         wait = WebDriverWait(self.driver, 30)
@@ -93,5 +94,5 @@ class SeleniumMiddleware(object):
 
         body = to_bytes( text=self.driver.page_source )
         # print(body)
-        print('잘 긁어옴')
+        print(f"[Info : {datetime.now()}]{spider.name}이 드라이버로 잘 긁어옴 사용함")
         return HtmlResponse( url=request.url, body=body, encoding='utf-8', request=request )
