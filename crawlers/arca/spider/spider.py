@@ -19,7 +19,7 @@ class ArcaSpider(scrapy.Spider):
             ArcaPipeline: 300,
         },
         'CONCURRENT_REQUESTS': 1,
-        'USER_AGENT': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
+        # 'USER_AGENT': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
         'DOWNLOADER_MIDDLEWARES' : {
             # 'rotating_proxies.middlewares.RotatingProxyMiddleware': 610,
             # 'rotating_proxies.middlewares.BanDetectionMiddleware': 620,
