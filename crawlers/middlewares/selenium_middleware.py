@@ -34,6 +34,7 @@ class SeleniumMiddleware(object):
         self._cookiejars = {}
         self._active_cookiejar = None
         self._active_netloc = None
+        self._settings = None
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -52,6 +53,7 @@ class SeleniumMiddleware(object):
 
     def spider_opened(self, spider):
         # WebDriver는 첫 request에서 (proxy/cookiejar를 보고) 지연 생성합니다.
+        self._settings = spider.crawler.settings
         os.makedirs("/tmp/selenium", exist_ok=True)
 
     def _normalize_proxy(self, proxy):
@@ -258,26 +260,81 @@ class SeleniumMiddleware(object):
         self._destroy_driver(spider)
 
     def _wait_cloudflare_done(self, timeout=20):
-        wait = WebDriverWait(self.driver, timeout)
+        wait = WebDriverWait(self.driver, timeout, poll_frequency=0.25)
 
         def not_cloudflare_page(driver):
-            src = driver.page_source.lower()
-            # Cloudflare 대기 페이지의 흔한 텍스트를 기준으로 간단 체크
+            # title 기반(빠름)으로 먼저 판단하고, 애매하면 HTML도 확인합니다.
+            try:
+                title = (driver.title or "").lower()
+                if "just a moment" in title:
+                    return False
+            except Exception:
+                pass
+
+            src = (driver.page_source or "").lower()
+            if "cf-chl" in src:
+                return False
             if "just a moment" in src and "cloudflare" in src:
+                return False
+            if "challenge-platform" in src and ("turnstile" in src or "cloudflare" in src):
                 return False
             return True
 
         wait.until(not_cloudflare_page)
 
+    def _is_cloudflare_challenge_page(self) -> bool:
+        if self.driver is None:
+            return False
+
+        try:
+            title = (self.driver.title or "").lower()
+            if "just a moment" in title:
+                return True
+            if "cloudflare" in title and ("attention required" in title or "access denied" in title):
+                return True
+        except Exception:
+            pass
+
+        try:
+            src = (self.driver.page_source or "").lower()
+        except Exception:
+            return False
+
+        if "cf-chl" in src:
+            return True
+        if "just a moment" in src and "cloudflare" in src:
+            return True
+        if "challenge-platform" in src and ("turnstile" in src or "cloudflare" in src):
+            return True
+        return False
+
     def _handle_cloudflare_challenge(self):
-        print("[Info] Cloudflare: 키보드(Tab+Space) 접근법 시도")
-        time.sleep(3)
+        if not self._is_cloudflare_challenge_page():
+            return
+
+        timeout_seconds = 6
+        pre_delay_seconds = 0.5
+        tab_attempts = 3
+        tab_pause_seconds = 0.15
+        space_pause_seconds = 0.2
+
+        if self._settings is not None:
+            timeout_seconds = self._settings.getint("SELENIUM_CLOUDFLARE_TIMEOUT", timeout_seconds)
+            pre_delay_seconds = self._settings.getfloat("SELENIUM_CLOUDFLARE_PRE_DELAY", pre_delay_seconds)
+            tab_attempts = self._settings.getint("SELENIUM_CLOUDFLARE_TAB_ATTEMPTS", tab_attempts)
+            tab_pause_seconds = self._settings.getfloat("SELENIUM_CLOUDFLARE_TAB_PAUSE", tab_pause_seconds)
+            space_pause_seconds = self._settings.getfloat("SELENIUM_CLOUDFLARE_SPACE_PAUSE", space_pause_seconds)
+
+        start = time.monotonic()
+        print("[Info] Cloudflare challenge detected: quick solve attempt")
+        if pre_delay_seconds > 0:
+            time.sleep(pre_delay_seconds)
 
         # 1. 포커스 강제 이동 (Shadow DOM 뚫기)
         try:
             # 체크박스 요소를 찾아서 JS로 'focus' 상태만 만듭니다 (클릭 X)
             # 클릭은 Selenium의 물리 키보드 입력으로 처리합니다.
-            self.driver.execute_script("""
+            focused = self.driver.execute_script("""
                 let target = document.querySelector('input[type=checkbox]');
                 if (!target) {
                     // Shadow DOM 탐색
@@ -301,35 +358,39 @@ class SeleniumMiddleware(object):
                 }
                 return false;
             """)
-
-            time.sleep(0.5)
-
-            # 2. 물리적 키보드 'Space' 입력 발송
-            # 포커스가 잡힌 상태에서 스페이스바를 누르면 클릭과 동일한 효과
-            action = ActionChains(self.driver)
-            action.send_keys(Keys.SPACE).perform()
-            print("[Info] Space 키 입력 완료")
+            if focused:
+                # 2. 물리적 키보드 'Space' 입력 발송
+                ActionChains(self.driver).send_keys(Keys.SPACE).perform()
+                time.sleep(space_pause_seconds)
+                print("[Info] Space 키 입력 완료")
 
         except Exception as e:
             print(f"[Warning] 키보드 접근 실패: {e}")
 
         # 3. 만약 JS 포커스가 실패했다면? -> 맹목적 Tab 연타
         # Turnstile은 보통 페이지의 첫 번째나 두 번째 'Tab' 위치에 있습니다.
-        print("[Info] 맹목적 Tab 연타 시도")
+        print("[Info] fallback: Tab+Space attempts")
         try:
-            action = ActionChains(self.driver)
-            # 화면 빈 곳 클릭해서 포커스 초기화
-            action.move_by_offset(10, 10).click().perform()
-            action.reset_actions()
+            # 화면 빈 곳 클릭해서 포커스 초기화 (실패해도 무시)
+            try:
+                ActionChains(self.driver).move_by_offset(10, 10).click().perform()
+            except Exception:
+                pass
 
-            # Tab을 5번 정도 누르면서 매번 Space를 눌러봄 (얻어 걸리기 전략)
-            for _ in range(5):
-                action.send_keys(Keys.TAB).pause(0.2).send_keys(Keys.SPACE).pause(0.5).perform()
+            # Tab을 몇 번 누르면서 매번 Space를 눌러봄
+            for _ in range(max(0, tab_attempts)):
+                ActionChains(self.driver).send_keys(Keys.TAB).pause(tab_pause_seconds).send_keys(Keys.SPACE).pause(space_pause_seconds).perform()
+                if not self._is_cloudflare_challenge_page():
+                    break
 
         except Exception as e:
             print(f"[Error] Tab 연타 실패: {e}")
 
-        time.sleep(5)
+        remaining = max(0.0, float(timeout_seconds) - (time.monotonic() - start))
+        if remaining > 0:
+            self._wait_cloudflare_done(timeout=remaining)
+        elif self._is_cloudflare_challenge_page():
+            raise TimeoutException(f"Cloudflare challenge not cleared within {timeout_seconds}s")
 
     def _handle_cloudflare_challenge1(self):
         print("[Info] Cloudflare 우회 시도 시작...")
@@ -482,7 +543,10 @@ class SeleniumMiddleware(object):
                 self.driver.save_screenshot(screenshot_path)
             except Exception:
                 pass
-            spider.logger.warning(f"Cloudflare 대기 해제 안 됨 (20초 내): {request.url}")
+            cf_timeout = 6
+            if self._settings is not None:
+                cf_timeout = self._settings.getint("SELENIUM_CLOUDFLARE_TIMEOUT", cf_timeout)
+            spider.logger.warning(f"Cloudflare 대기 해제 안 됨 ({cf_timeout}초 내): {request.url} (screenshot={screenshot_path})")
 
         self._persist_cookiejar(spider, cookiejar_key, self.driver.current_url or request.url)
         body = to_bytes( text=self.driver.page_source )
