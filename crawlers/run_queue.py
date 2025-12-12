@@ -56,10 +56,10 @@ async def producer():
     예: 각 사이트를 30분마다 한 번씩 돌리는 스케줄.
     """
     sites = [
-        "ppomppu",
-        "fmkorea",
-        "eomisae",
-        "coolnjoy",
+        # "ppomppu",
+        # "fmkorea",
+        # "eomisae",
+        # "coolnjoy",
         "arca",
     ]
 

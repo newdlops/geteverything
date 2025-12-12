@@ -11,7 +11,7 @@ from scrapy.utils.python import to_bytes
 
 from selenium import webdriver
 from selenium.common import TimeoutException
-from selenium.webdriver import ActionChains
+from selenium.webdriver import ActionChains, Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
@@ -131,6 +131,68 @@ class SeleniumMiddleware(object):
         wait.until(not_cloudflare_page)
 
     def _handle_cloudflare_challenge(self):
+        print("[Info] Cloudflare: 키보드(Tab+Space) 접근법 시도")
+        time.sleep(3)
+
+        # 1. 포커스 강제 이동 (Shadow DOM 뚫기)
+        try:
+            # 체크박스 요소를 찾아서 JS로 'focus' 상태만 만듭니다 (클릭 X)
+            # 클릭은 Selenium의 물리 키보드 입력으로 처리합니다.
+            self.driver.execute_script("""
+                let target = document.querySelector('input[type=checkbox]');
+                if (!target) {
+                    // Shadow DOM 탐색
+                    function findInShadow(root) {
+                        let el = root.querySelector('input[type=checkbox]');
+                        if (el) return el;
+                        let walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT, null, false);
+                        while(node = walker.nextNode()) {
+                            if (node.shadowRoot) {
+                                let found = findInShadow(node.shadowRoot);
+                                if (found) return found;
+                            }
+                        }
+                        return null;
+                    }
+                    target = findInShadow(document.body);
+                }
+                if (target) {
+                    target.focus(); // [핵심] 마우스 대신 포커스만 줌
+                    return true;
+                }
+                return false;
+            """)
+
+            time.sleep(0.5)
+
+            # 2. 물리적 키보드 'Space' 입력 발송
+            # 포커스가 잡힌 상태에서 스페이스바를 누르면 클릭과 동일한 효과
+            action = ActionChains(self.driver)
+            action.send_keys(Keys.SPACE).perform()
+            print("[Info] Space 키 입력 완료")
+
+        except Exception as e:
+            print(f"[Warning] 키보드 접근 실패: {e}")
+
+        # 3. 만약 JS 포커스가 실패했다면? -> 맹목적 Tab 연타
+        # Turnstile은 보통 페이지의 첫 번째나 두 번째 'Tab' 위치에 있습니다.
+        print("[Info] 맹목적 Tab 연타 시도")
+        try:
+            action = ActionChains(self.driver)
+            # 화면 빈 곳 클릭해서 포커스 초기화
+            action.move_by_offset(10, 10).click().perform()
+            action.reset_actions()
+
+            # Tab을 5번 정도 누르면서 매번 Space를 눌러봄 (얻어 걸리기 전략)
+            for _ in range(5):
+                action.send_keys(Keys.TAB).pause(0.2).send_keys(Keys.SPACE).pause(0.5).perform()
+
+        except Exception as e:
+            print(f"[Error] Tab 연타 실패: {e}")
+
+        time.sleep(5)
+
+    def _handle_cloudflare_challenge1(self):
         print("[Info] Cloudflare 우회 시도 시작...")
 
         # -------------------------------------------------------
@@ -259,8 +321,8 @@ class SeleniumMiddleware(object):
         print(f"[Info : {datetime.now()}]{spider.name}이 드라이버 사용함")
 
         try:
-            # self._handle_cloudflare_challenge()
-            self._wait_cloudflare_done(timeout=20)
+            self._handle_cloudflare_challenge()
+            # self._wait_cloudflare_done(timeout=20)
         except TimeoutException:
             self.driver.save_screenshot("/var/task/logs/debug_error.png")
             spider.logger.warning(f"Cloudflare 대기 해제 안 됨 (20초 내): {request.url}")
