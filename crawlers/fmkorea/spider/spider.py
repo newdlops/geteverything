@@ -71,9 +71,11 @@ class FmKoreaSpider(scrapy.Spider):
 
     def parse(self, response):
         # print(f'목록{response.body}')
-        print(f'FMKOREA목록 처리')
+        print(f'FMKOREA목록 처리 {response}')
         try:
-            for li in response.css('div.fm_best_widget li'):
+            list = response.css('div.fm_best_widget li')
+            print(f'FMKOREA {len(list)}개 리스트 발견')
+            for li in list:
                 article_id = li.css('h3.title a::attr(href)').get()[1:]
                 origin_url = f'https://www.fmkorea.com/{article_id}'
                 thumbnail = li.css('img.thumb::attr(src)').get()
@@ -92,7 +94,7 @@ class FmKoreaSpider(scrapy.Spider):
 
     def detail_parse(self, response, data):
         # print(f'디테일 {response.body}')
-        print(f'디테일처리')
+        print(f'FMKOREA디테일처리')
         try:
             table = response.css('table.hotdeal_table')
             community_name = '펨코'

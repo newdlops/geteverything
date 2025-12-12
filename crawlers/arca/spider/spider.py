@@ -72,6 +72,7 @@ class ArcaSpider(scrapy.Spider):
 
     def parse(self, response):
         try:
+            print(f'arca 목록 처리 {response}')
             for article in response.css('div.list-table.hybrid .vrow.hybrid'):
                 origin_url = article.css('a.title.hybrid-title::attr(href)').get()
 
