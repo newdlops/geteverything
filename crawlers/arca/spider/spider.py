@@ -73,7 +73,9 @@ class ArcaSpider(scrapy.Spider):
     def parse(self, response):
         try:
             print(f'arca 목록 처리 {response.body}')
-            for article in response.css('div.list-table.hybrid .vrow.hybrid'):
+            list = response.css('div.list-table.hybrid .vrow.hybrid')
+            print(f'arca {len(list)}개 발견')
+            for article in list:
                 origin_url = article.css('a.title.hybrid-title::attr(href)').get()
 
                 id_pattern = r'\/b\/hotdeal\/(.*?)\?p=\d'
@@ -102,6 +104,7 @@ class ArcaSpider(scrapy.Spider):
 
     def detail_parse(self, response, data, datatime=None):
         try:
+            print(f'arca 디테일 처리')
             article_info = response.css('div.article-info')
             info_spans = article_info.css('span')
             recommend_count = info_spans[1].css('::text').get()

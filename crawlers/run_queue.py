@@ -43,7 +43,7 @@ from pathlib import Path
 
 
 # DEFAULT_SITES: tuple[str, ...] = ("ppomppu", "fmkorea", "eomisae", "coolnjoy", "arca")
-DEFAULT_SITES: tuple[str, ...] = ("fmkorea", "arca")
+DEFAULT_SITES: tuple[str, ...] = ("arca")
 DEFAULT_SELENIUM_SITES: set[str] = {"fmkorea", "arca"}
 
 

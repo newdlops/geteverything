@@ -71,7 +71,7 @@ class FmKoreaSpider(scrapy.Spider):
 
     def parse(self, response):
         # print(f'목록{response.body}')
-        print(f'FMKOREA목록 처리 {response.body}')
+        print(f'FMKOREA목록 처리')
         try:
             list = response.css('div.fm_best_widget li')
             print(f'FMKOREA {len(list)}개 리스트 발견')
