@@ -66,7 +66,7 @@ class ArcaSpider(scrapy.Spider):
             yield scrapy.Request(
                 f"https://arca.live/b/hotdeal?p={i}",
                 callback=self.parse,
-                headers=headers,
+                # headers=headers,
                 meta={'cookiejar': i}
             )
 

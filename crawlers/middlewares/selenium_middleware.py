@@ -41,7 +41,7 @@ class SeleniumMiddleware(object):
         for h in list(request.headers.keys()):
             del request.headers[h]
         # 최소한의 헤더만 설정
-        request.headers['User-Agent'] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36'
+        # request.headers['User-Agent'] = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36'
         # Referer, Origin, Host 등 전부 없음
 
     def spider_opened(self, spider):
