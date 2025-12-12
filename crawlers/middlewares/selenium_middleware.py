@@ -4,6 +4,7 @@ import shutil
 import time
 import uuid
 from datetime import datetime
+from urllib.parse import urlparse
 
 from scrapy import signals
 from scrapy.http import HtmlResponse
@@ -28,6 +29,11 @@ logging.getLogger("urllib3").setLevel(logging.WARNING)
 class SeleniumMiddleware(object):
     def __init__(self):
         self.driver = None
+        self._driver_proxy = None
+        self._temp_driver_path = None
+        self._cookiejars = {}
+        self._active_cookiejar = None
+        self._active_netloc = None
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -45,23 +51,60 @@ class SeleniumMiddleware(object):
         # Referer, Origin, Host 등 전부 없음
 
     def spider_opened(self, spider):
+        # WebDriver는 첫 request에서 (proxy/cookiejar를 보고) 지연 생성합니다.
+        os.makedirs("/tmp/selenium", exist_ok=True)
 
-        # -----------------------------------------------------------
-        original_driver_path = "/bin/chromedriver"
+    def _normalize_proxy(self, proxy):
+        if not proxy:
+            return None
+        if isinstance(proxy, bytes):
+            proxy = proxy.decode("utf-8", errors="ignore")
+        proxy = str(proxy).strip()
+        if not proxy:
+            return None
+        if "://" not in proxy:
+            proxy = f"http://{proxy}"
+        return proxy
 
-        # 랜덤한 이름을 붙여서 이전 실행의 잠금(Lock)과 충돌하지 않게 함
+    def _url_parts(self, url: str):
+        parsed = urlparse(url)
+        return parsed.scheme or "http", parsed.netloc
+
+    def _copy_chromedriver(self, spider):
+        original_driver_path = os.environ.get("CHROMEDRIVER_PATH", "/bin/chromedriver")
+
         temp_driver_filename = f"chromedriver_{uuid.uuid4()}"
         temp_driver_path = os.path.join("/tmp", temp_driver_filename)
 
-        # 파일 복사 및 권한 설정
         try:
             shutil.copy2(original_driver_path, temp_driver_path)
-            os.chmod(temp_driver_path, 0o755) # 실행 권한 부여
+            os.chmod(temp_driver_path, 0o755)  # 실행 권한 부여
             spider.logger.info(f"Driver copied to: {temp_driver_path}")
+            return temp_driver_path
         except Exception as e:
             spider.logger.error(f"드라이버 복사 실패: {e}")
-            raise e
-        # -----------------------------------------------------------
+            raise
+
+    def _destroy_driver(self, spider):
+        if self.driver is not None:
+            try:
+                self.driver.quit()
+            except Exception:
+                pass
+        self.driver = None
+        self._driver_proxy = None
+        self._active_cookiejar = None
+        self._active_netloc = None
+
+        if self._temp_driver_path:
+            try:
+                os.remove(self._temp_driver_path)
+            except Exception:
+                pass
+            self._temp_driver_path = None
+
+    def _create_driver(self, spider, proxy: str | None):
+        self._temp_driver_path = self._copy_chromedriver(spider)
 
         chrome_options = uc.ChromeOptions()
         chrome_options.add_argument("--headless=new")
@@ -85,16 +128,19 @@ class SeleniumMiddleware(object):
         chrome_options.add_argument(f"--data-path={data_path}")
         chrome_options.add_argument(f"--disk-cache-dir={cache_dir}")
 
+        if proxy:
+            chrome_options.add_argument(f"--proxy-server={proxy}")
+
         # chrome_options.add_argument("--user-data-dir=/tmp/user-data")
         # chrome_options.add_argument("--data-path=/tmp/data")
         # chrome_options.add_argument("--disk-cache-dir=/tmp/cache")
 
         # 로컬에서 테스트할 경우에 아래 두 줄을 주석처리한 후 테스트 한다. '/opt/chrome', '/opt/chromedriver'는 이미지 상에 존재하는 폴더이므로 주석처리
-        chrome_options.binary_location = '/bin/chromium' # 로컬에서는 주석처리한다.
+        chrome_options.binary_location = os.environ.get("CHROME_BINARY", "/bin/chromium")  # 로컬에서는 주석처리한다.
         # driver = uc.Chrome(service=Service(executable_path="/bin/chromedriver", service_log_path=os.devnull), options=chrome_options) # 로컬에서는 주석처리
         driver = uc.Chrome(
             options=chrome_options,
-            driver_executable_path=temp_driver_path, # 경로가 확실하다면 지정, 아니면 생략하여 자동 다운로드 유도
+            driver_executable_path=self._temp_driver_path, # 경로가 확실하다면 지정, 아니면 생략하여 자동 다운로드 유도
             use_subprocess=True,
         )
         # driver  = webdriver.Chrome() # 운영에서 주석처리 로컬에서는 살림
@@ -109,14 +155,107 @@ class SeleniumMiddleware(object):
                 )
 
 
-        self.driver = driver
+        page_load_timeout = spider.crawler.settings.getint("SELENIUM_PAGE_LOAD_TIMEOUT", 60)
+        script_timeout = spider.crawler.settings.getint("SELENIUM_SCRIPT_TIMEOUT", 60)
+        driver.set_page_load_timeout(page_load_timeout)
+        driver.set_script_timeout(script_timeout)
+
+        try:
+            driver.execute_cdp_cmd("Network.enable", {})
+        except Exception:
+            pass
+
         # [핵심 수정] 브라우저가 켜진 직후, 강제로 크기를 주입합니다.
         # 이것이 없으면 VM에서 종종 800x600으로 시작해서 "Out of bounds" 에러가 납니다.
-        self.driver.set_window_size(1920, 1080)
-        self.driver.maximize_window() # 한 번 더 확실하게
+        driver.set_window_size(1920, 1080)
+        try:
+            driver.maximize_window()  # 한 번 더 확실하게
+        except Exception:
+            pass
+
+        return driver
+
+    def _ensure_driver(self, spider, proxy: str | None):
+        proxy = self._normalize_proxy(proxy)
+        if self.driver is not None and self._driver_proxy == proxy:
+            return
+        if self.driver is not None:
+            spider.logger.info(f"Proxy changed -> restart Chrome: {self._driver_proxy} -> {proxy}")
+        self._destroy_driver(spider)
+        self.driver = self._create_driver(spider, proxy)
+        self._driver_proxy = proxy
+
+    def _clear_browser_cookies(self, spider):
+        if self.driver is None:
+            return
+        try:
+            self.driver.execute_cdp_cmd("Network.clearBrowserCookies", {})
+            return
+        except Exception:
+            pass
+        try:
+            self.driver.delete_all_cookies()
+        except Exception:
+            pass
+
+    def _set_cookies_for_url(self, spider, cookies, url: str):
+        if self.driver is None or not cookies:
+            return
+        scheme, netloc = self._url_parts(url)
+        if not netloc:
+            return
+        base_url = f"{scheme}://{netloc}/"
+
+        for cookie in cookies:
+            name = cookie.get("name")
+            value = cookie.get("value")
+            if not name or value is None:
+                continue
+            params = {"name": name, "value": value, "url": base_url}
+            if cookie.get("path"):
+                params["path"] = cookie["path"]
+            if "secure" in cookie:
+                params["secure"] = cookie["secure"]
+            if "httpOnly" in cookie:
+                params["httpOnly"] = cookie["httpOnly"]
+            if cookie.get("sameSite"):
+                params["sameSite"] = cookie["sameSite"]
+            if "expiry" in cookie:
+                params["expires"] = cookie["expiry"]
+            try:
+                self.driver.execute_cdp_cmd("Network.setCookie", params)
+            except Exception:
+                continue
+
+    def _apply_cookiejar(self, spider, cookiejar_key: str, url: str):
+        scheme, netloc = self._url_parts(url)
+        if not netloc:
+            return
+
+        if cookiejar_key == self._active_cookiejar and netloc == self._active_netloc:
+            return
+
+        self._clear_browser_cookies(spider)
+        cookies = self._cookiejars.get(cookiejar_key, {}).get(netloc, [])
+        self._set_cookies_for_url(spider, cookies, url)
+
+        self._active_cookiejar = cookiejar_key
+        self._active_netloc = netloc
+
+    def _persist_cookiejar(self, spider, cookiejar_key: str, url: str):
+        if self.driver is None:
+            return
+        scheme, netloc = self._url_parts(url)
+        if not netloc:
+            return
+        try:
+            cookies = self.driver.get_cookies()
+        except Exception:
+            return
+        self._cookiejars.setdefault(cookiejar_key, {})[netloc] = cookies
 
     def spider_closed(self, spider):
-        self.driver.close()
+        self._destroy_driver(spider)
 
     def _wait_cloudflare_done(self, timeout=20):
         wait = WebDriverWait(self.driver, timeout)
@@ -317,16 +456,35 @@ class SeleniumMiddleware(object):
         time.sleep(5) # 클릭 후 통과 대기
 
     def process_request( self, request, spider ):
-        self.driver.get( request.url )
-        print(f"[Info : {datetime.now()}]{spider.name}이 드라이버 사용함")
+        proxy = request.meta.get("proxy")
+        cookiejar_key = str(request.meta.get("cookiejar", 0))
+
+        self._ensure_driver(spider, proxy)
+        self._apply_cookiejar(spider, cookiejar_key, request.url)
+
+        try:
+            self.driver.get(request.url)
+        except TimeoutException:
+            screenshot_path = f"/tmp/selenium_timeout_{spider.name}_{uuid.uuid4()}.png"
+            try:
+                self.driver.save_screenshot(screenshot_path)
+            except Exception:
+                pass
+            spider.logger.warning(f"page load timeout: {request.url} (screenshot={screenshot_path})")
+        print(f"[Info : {datetime.now()}]{spider.name}이 드라이버 사용함 (proxy={self._driver_proxy}, cookiejar={cookiejar_key})")
 
         try:
             self._handle_cloudflare_challenge()
             # self._wait_cloudflare_done(timeout=20)
         except TimeoutException:
-            self.driver.save_screenshot("/var/task/logs/debug_error.png")
+            screenshot_path = f"/tmp/selenium_cloudflare_timeout_{spider.name}_{uuid.uuid4()}.png"
+            try:
+                self.driver.save_screenshot(screenshot_path)
+            except Exception:
+                pass
             spider.logger.warning(f"Cloudflare 대기 해제 안 됨 (20초 내): {request.url}")
 
+        self._persist_cookiejar(spider, cookiejar_key, self.driver.current_url or request.url)
         body = to_bytes( text=self.driver.page_source )
         print(f"[Info : {datetime.now()}]{spider.name}이 드라이버로 잘 긁어옴 사용함")
         return HtmlResponse( url=request.url, body=body, encoding='utf-8', request=request )
