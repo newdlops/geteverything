@@ -21,8 +21,8 @@ class ArcaSpider(scrapy.Spider):
         'CONCURRENT_REQUESTS': 1,
         # 'USER_AGENT': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
         'DOWNLOADER_MIDDLEWARES' : {
-            'rotating_proxies.middlewares.RotatingProxyMiddleware': 610,
-            'rotating_proxies.middlewares.BanDetectionMiddleware': 620,
+            # 'rotating_proxies.middlewares.RotatingProxyMiddleware': 610,
+            # 'rotating_proxies.middlewares.BanDetectionMiddleware': 620,
             SeleniumMiddleware: 700,
         },
         'ROTATING_PROXY_LIST': [
@@ -72,7 +72,7 @@ class ArcaSpider(scrapy.Spider):
 
     def parse(self, response):
         try:
-            print(f'arca 목록 처리 {response}')
+            print(f'arca 목록 처리 {response.body}')
             for article in response.css('div.list-table.hybrid .vrow.hybrid'):
                 origin_url = article.css('a.title.hybrid-title::attr(href)').get()
 

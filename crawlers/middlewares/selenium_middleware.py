@@ -1,6 +1,7 @@
 import os
 import random
 import shutil
+import sys
 import time
 import uuid
 from datetime import datetime
@@ -72,8 +73,84 @@ class SeleniumMiddleware(object):
         parsed = urlparse(url)
         return parsed.scheme or "http", parsed.netloc
 
+    def _is_exec_file(self, path: str | None) -> bool:
+        if not path:
+            return False
+        return os.path.isfile(path) and os.access(path, os.X_OK)
+
+    def _resolve_chrome_binary(self) -> str | None:
+        env_candidates = [
+            os.environ.get("CHROME_BINARY"),
+            os.environ.get("CHROME_BIN"),  # Dockerfile에서 사용
+            os.environ.get("GOOGLE_CHROME_BIN"),
+        ]
+        candidates: list[str] = [p for p in env_candidates if p]
+
+        if sys.platform.startswith("linux"):
+            candidates += [
+                "/bin/chromium",
+                "/usr/bin/chromium",
+                "/usr/bin/chromium-browser",
+                "/usr/bin/google-chrome",
+                "/usr/bin/google-chrome-stable",
+                "/opt/chrome/chrome",
+            ]
+            which_names = ("chromium", "chromium-browser", "google-chrome", "google-chrome-stable")
+        elif sys.platform == "darwin":
+            candidates += [
+                "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                "/Applications/Chromium.app/Contents/MacOS/Chromium",
+                "/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary",
+            ]
+            which_names = ("google-chrome", "chromium", "chrome")
+        else:
+            which_names = ("chrome", "chromium", "google-chrome", "msedge")
+
+        for name in which_names:
+            found = shutil.which(name)
+            if found:
+                candidates.append(found)
+
+        for path in candidates:
+            if self._is_exec_file(path):
+                return path
+        return None
+
+    def _resolve_chromedriver(self) -> str | None:
+        env_candidates = [
+            os.environ.get("CHROMEDRIVER_PATH"),
+            os.environ.get("CHROMEDRIVER"),
+        ]
+        candidates: list[str] = [p for p in env_candidates if p]
+
+        if sys.platform.startswith("linux"):
+            candidates += [
+                "/bin/chromedriver",
+                "/usr/bin/chromedriver",
+                "/opt/chromedriver",
+                "/opt/chromedriver/chromedriver",
+            ]
+        elif sys.platform == "darwin":
+            candidates += [
+                "/opt/homebrew/bin/chromedriver",
+                "/usr/local/bin/chromedriver",
+            ]
+
+        found = shutil.which("chromedriver")
+        if found:
+            candidates.append(found)
+
+        for path in candidates:
+            if self._is_exec_file(path):
+                return path
+        return None
+
     def _copy_chromedriver(self, spider):
-        original_driver_path = os.environ.get("CHROMEDRIVER_PATH", "/bin/chromedriver")
+        original_driver_path = self._resolve_chromedriver()
+        if not original_driver_path:
+            spider.logger.warning("chromedriver 경로를 찾지 못했습니다. (로컬 테스트면 설치/경로 설정 필요)")
+            spider.logger.warning("CHROMEDRIVER_PATH 또는 PATH의 chromedriver를 확인하세요.")
+            return None
 
         temp_driver_filename = f"chromedriver_{uuid.uuid4()}"
         temp_driver_path = os.path.join("/tmp", temp_driver_filename)
@@ -137,14 +214,21 @@ class SeleniumMiddleware(object):
         # chrome_options.add_argument("--data-path=/tmp/data")
         # chrome_options.add_argument("--disk-cache-dir=/tmp/cache")
 
-        # 로컬에서 테스트할 경우에 아래 두 줄을 주석처리한 후 테스트 한다. '/opt/chrome', '/opt/chromedriver'는 이미지 상에 존재하는 폴더이므로 주석처리
-        chrome_options.binary_location = os.environ.get("CHROME_BINARY", "/bin/chromium")  # 로컬에서는 주석처리한다.
-        # driver = uc.Chrome(service=Service(executable_path="/bin/chromedriver", service_log_path=os.devnull), options=chrome_options) # 로컬에서는 주석처리
-        driver = uc.Chrome(
-            options=chrome_options,
-            driver_executable_path=self._temp_driver_path, # 경로가 확실하다면 지정, 아니면 생략하여 자동 다운로드 유도
-            use_subprocess=True,
-        )
+        chrome_binary = self._resolve_chrome_binary()
+        if chrome_binary:
+            chrome_options.binary_location = chrome_binary
+        else:
+            spider.logger.warning("Chrome/Chromium 바이너리 경로를 찾지 못했습니다. (로컬 테스트면 설치/경로 설정 필요)")
+            spider.logger.warning("CHROME_BIN 또는 CHROME_BINARY 환경변수로 지정할 수 있습니다.")
+
+        uc_kwargs = {
+            "options": chrome_options,
+            "use_subprocess": True,
+        }
+        if self._temp_driver_path:
+            uc_kwargs["driver_executable_path"] = self._temp_driver_path
+
+        driver = uc.Chrome(**uc_kwargs)
         # driver  = webdriver.Chrome() # 운영에서 주석처리 로컬에서는 살림
 
         stealth(driver,
