@@ -1,6 +1,8 @@
 import os
 import random
+import shutil
 import time
+import uuid
 from datetime import datetime
 
 from scrapy import signals
@@ -43,6 +45,24 @@ class SeleniumMiddleware(object):
         # Referer, Origin, Host 등 전부 없음
 
     def spider_opened(self, spider):
+
+        # -----------------------------------------------------------
+        original_driver_path = "/bin/chromedriver"
+
+        # 랜덤한 이름을 붙여서 이전 실행의 잠금(Lock)과 충돌하지 않게 함
+        temp_driver_filename = f"chromedriver_{uuid.uuid4()}"
+        temp_driver_path = os.path.join("/tmp", temp_driver_filename)
+
+        # 파일 복사 및 권한 설정
+        try:
+            shutil.copy2(original_driver_path, temp_driver_path)
+            os.chmod(temp_driver_path, 0o755) # 실행 권한 부여
+            spider.logger.info(f"Driver copied to: {temp_driver_path}")
+        except Exception as e:
+            spider.logger.error(f"드라이버 복사 실패: {e}")
+            raise e
+        # -----------------------------------------------------------
+
         chrome_options = uc.ChromeOptions()
         chrome_options.add_argument("--headless=new")
         chrome_options.add_argument("--no-sandbox")
@@ -74,7 +94,7 @@ class SeleniumMiddleware(object):
         # driver = uc.Chrome(service=Service(executable_path="/bin/chromedriver", service_log_path=os.devnull), options=chrome_options) # 로컬에서는 주석처리
         driver = uc.Chrome(
             options=chrome_options,
-            driver_executable_path="/bin/chromedriver", # 경로가 확실하다면 지정, 아니면 생략하여 자동 다운로드 유도
+            driver_executable_path=temp_driver_path, # 경로가 확실하다면 지정, 아니면 생략하여 자동 다운로드 유도
             use_subprocess=True,
         )
         # driver  = webdriver.Chrome() # 운영에서 주석처리 로컬에서는 살림
