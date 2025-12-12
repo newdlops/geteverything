@@ -1,3 +1,18 @@
+"""
+Scrapy Downloader Middleware: Selenium(undetected-chromedriver) 기반 렌더링 미들웨어.
+
+이 미들웨어는 Scrapy의 downloader 단계에서 요청을 가로채서(`process_request`)
+Selenium으로 페이지를 렌더링한 뒤 `HtmlResponse`로 되돌려 줍니다.
+
+추가로 아래를 "best-effort"로 맞춥니다.
+- Proxy: `request.meta['proxy']` -> Chrome `--proxy-server` (proxy 변경 시 드라이버 재시작 필요)
+- CookieJar: `request.meta['cookiejar']` -> Selenium 쿠키 주입/저장(도메인 단위)
+
+NOTE(리뷰)
+- Selenium은 리소스(메모리/CPU)를 많이 사용합니다. 필요한 요청만 Selenium으로 보내도록 범위를 제한하는 게 안전합니다.
+- Proxy를 요청 단위로 자주 바꾸면 Chrome 재시작이 잦아져 성능이 크게 떨어질 수 있습니다.
+"""
+
 import os
 import random
 import shutil
@@ -5,6 +20,7 @@ import sys
 import time
 import uuid
 from datetime import datetime
+from http.cookies import SimpleCookie
 from urllib.parse import urlparse
 
 from scrapy import signals
@@ -28,13 +44,27 @@ logging.getLogger("urllib3").setLevel(logging.WARNING)
 
 
 class SeleniumMiddleware(object):
+    """
+    Scrapy Downloader Middleware 구현체.
+
+    - `from_crawler`에서 spider open/close 시그널을 연결합니다.
+    - `spider_opened`: Settings 주입(드라이버는 첫 request에서 지연 생성)
+    - `spider_closed`: 드라이버/임시 파일 정리
+    """
+
     def __init__(self):
         self.driver = None
+        # 현재 드라이버에 적용된 proxy. 요청 meta의 proxy가 바뀌면 드라이버 재시작.
         self._driver_proxy = None
+        # /tmp에 복사해둔 chromedriver 경로(잠금 충돌 방지 목적). driver 종료 시 삭제.
         self._temp_driver_path = None
+        # Scrapy cookiejar 개념을 Selenium 쪽에서 흉내 내기 위한 저장소.
+        # 구조: {cookiejar_key: {netloc: [selenium_cookie_dict...]}}
         self._cookiejars = {}
+        # 현재 driver에 적용된 cookiejar/netloc (불필요한 clear/set 반복 방지)
         self._active_cookiejar = None
         self._active_netloc = None
+        # spider settings 캐시(Cloudflare 타임아웃 등 동작 파라미터)
         self._settings = None
 
     @classmethod
@@ -45,6 +75,8 @@ class SeleniumMiddleware(object):
         return middleware
 
     def interceptor(self, request):
+        # NOTE: 현재 코드에서는 이 메서드를 호출하지 않습니다.
+        #       필요하다면 `process_request` 초반에 호출하거나 별도 미들웨어로 분리하세요.
         # 모든 기본 헤더 삭제
         for h in list(request.headers.keys()):
             del request.headers[h]
@@ -58,6 +90,8 @@ class SeleniumMiddleware(object):
         os.makedirs("/tmp/selenium", exist_ok=True)
 
     def _normalize_proxy(self, proxy):
+        # Scrapy meta proxy는 보통 "http://host:port" 또는 "host:port" 형태입니다.
+        # Chrome `--proxy-server`는 scheme이 포함되면 더 예측 가능해서 보정합니다.
         if not proxy:
             return None
         if isinstance(proxy, bytes):
@@ -70,15 +104,76 @@ class SeleniumMiddleware(object):
         return proxy
 
     def _url_parts(self, url: str):
+        # 쿠키 저장/주입 시 도메인(netloc) 기준으로 묶기 위해 분해합니다.
         parsed = urlparse(url)
         return parsed.scheme or "http", parsed.netloc
 
+    def _header_to_str(self, headers, name: str) -> str | None:
+        value = headers.get(name)
+        if not value:
+            return None
+        if isinstance(value, (list, tuple)):
+            value = value[0] if value else None
+        if value is None:
+            return None
+        if isinstance(value, bytes):
+            return value.decode("utf-8", errors="ignore")
+        return str(value)
+
+    def _parse_cookie_header(self, cookie_header: str) -> list[dict]:
+        cookie = SimpleCookie()
+        cookie.load(cookie_header)
+        return [{"name": key, "value": morsel.value} for key, morsel in cookie.items()]
+
+    def _normalize_cookie(self, cookie: dict) -> dict:
+        """
+        다양한 쿠키 포맷(dict)을 Selenium/CDP에 주입 가능한 형태로 정규화합니다.
+
+        지원 키(가능하면):
+        - name/value
+        - path, secure, httpOnly, sameSite
+        - expiry(초 단위 epoch), 또는 expires/expirationDate(-> expiry로 변환)
+        """
+        name = cookie.get("name")
+        value = cookie.get("value")
+        if not name or value is None:
+            return {}
+
+        normalized = {"name": name, "value": value}
+
+        if cookie.get("path"):
+            normalized["path"] = cookie["path"]
+        if "secure" in cookie:
+            normalized["secure"] = bool(cookie["secure"])
+        if "httpOnly" in cookie:
+            normalized["httpOnly"] = bool(cookie["httpOnly"])
+        if cookie.get("sameSite"):
+            normalized["sameSite"] = cookie["sameSite"]
+
+        expiry = cookie.get("expiry")
+        if expiry is None:
+            expiry = cookie.get("expires")
+        if expiry is None:
+            expiry = cookie.get("expirationDate")
+        if expiry is not None:
+            try:
+                normalized["expiry"] = int(expiry)
+            except Exception:
+                pass
+
+        return normalized
+
     def _is_exec_file(self, path: str | None) -> bool:
+        # 경로가 실제 실행 가능한 파일인지 검사합니다.
         if not path:
             return False
         return os.path.isfile(path) and os.access(path, os.X_OK)
 
     def _resolve_chrome_binary(self) -> str | None:
+        # 로컬(mac)/컨테이너(linux) 모두에서 자동으로 Chrome/Chromium 바이너리를 찾습니다.
+        # - env var 우선(CHROME_BINARY/CHROME_BIN)
+        # - OS별 흔한 설치 경로
+        # - PATH 탐색(shutil.which)
         env_candidates = [
             os.environ.get("CHROME_BINARY"),
             os.environ.get("CHROME_BIN"),  # Dockerfile에서 사용
@@ -117,6 +212,10 @@ class SeleniumMiddleware(object):
         return None
 
     def _resolve_chromedriver(self) -> str | None:
+        # 로컬/컨테이너 모두에서 chromedriver를 찾습니다.
+        # - env var 우선(CHROMEDRIVER_PATH/CHROMEDRIVER)
+        # - OS별 흔한 설치 경로
+        # - PATH 탐색(shutil.which)
         env_candidates = [
             os.environ.get("CHROMEDRIVER_PATH"),
             os.environ.get("CHROMEDRIVER"),
@@ -146,6 +245,9 @@ class SeleniumMiddleware(object):
         return None
 
     def _copy_chromedriver(self, spider):
+        # 드라이버 바이너리를 /tmp로 복사하는 이유:
+        # - 동시 실행/재시작에서 "기존 실행의 lock" 충돌을 줄이기 위함
+        # - 컨테이너/서버리스에서 원본 경로가 읽기전용일 수 있음
         original_driver_path = self._resolve_chromedriver()
         if not original_driver_path:
             spider.logger.warning("chromedriver 경로를 찾지 못했습니다. (로컬 테스트면 설치/경로 설정 필요)")
@@ -165,6 +267,8 @@ class SeleniumMiddleware(object):
             raise
 
     def _destroy_driver(self, spider):
+        # NOTE: `close()`는 탭만 닫을 수 있어 프로세스가 남을 수 있습니다.
+        #       안정적으로 자원 정리를 위해 `quit()`를 사용합니다.
         if self.driver is not None:
             try:
                 self.driver.quit()
@@ -183,6 +287,9 @@ class SeleniumMiddleware(object):
             self._temp_driver_path = None
 
     def _create_driver(self, spider, proxy: str | None):
+        # Chrome 인스턴스를 생성합니다.
+        # - 프로필/캐시를 spider 이름으로 분리(/tmp/selenium)해 충돌을 줄입니다.
+        # - proxy는 Chrome 인스턴스 단위로만 적용됩니다(요청 단위 proxy 변경 시 재시작 필요).
         self._temp_driver_path = self._copy_chromedriver(spider)
 
         chrome_options = uc.ChromeOptions()
@@ -231,6 +338,8 @@ class SeleniumMiddleware(object):
         driver = uc.Chrome(**uc_kwargs)
         # driver  = webdriver.Chrome() # 운영에서 주석처리 로컬에서는 살림
 
+        # selenium-stealth는 브라우저 fingerprint 관련 값을 조정합니다.
+        # NOTE(리뷰): 대상 사이트 정책에 저촉될 수 있으니 사용 범위를 신중히 관리하세요.
         stealth(driver,
                 languages=["en-US", "en"],
                 vendor="Google Inc.",
@@ -247,6 +356,7 @@ class SeleniumMiddleware(object):
         driver.set_script_timeout(script_timeout)
 
         try:
+            # CDP(cookie API)를 사용하기 위해 Network 도메인을 활성화합니다.
             driver.execute_cdp_cmd("Network.enable", {})
         except Exception:
             pass
@@ -262,6 +372,7 @@ class SeleniumMiddleware(object):
         return driver
 
     def _ensure_driver(self, spider, proxy: str | None):
+        # 요청의 proxy가 바뀌면 Chrome을 재시작해서 proxy를 반영합니다.
         proxy = self._normalize_proxy(proxy)
         if self.driver is not None and self._driver_proxy == proxy:
             return
@@ -272,6 +383,8 @@ class SeleniumMiddleware(object):
         self._driver_proxy = proxy
 
     def _clear_browser_cookies(self, spider):
+        # cookiejar 전환 시 브라우저 쿠키를 초기화합니다.
+        # 가능하면 CDP로 빠르게 지우고, 실패하면 Selenium API로 fallback.
         if self.driver is None:
             return
         try:
@@ -285,6 +398,8 @@ class SeleniumMiddleware(object):
             pass
 
     def _set_cookies_for_url(self, spider, cookies, url: str):
+        # Selenium 쿠키(dict)를 CDP로 주입합니다.
+        # NOTE: 도메인/경로/만료 등 모든 속성은 best-effort로 반영됩니다.
         if self.driver is None or not cookies:
             return
         scheme, netloc = self._url_parts(url)
@@ -314,6 +429,10 @@ class SeleniumMiddleware(object):
                 continue
 
     def _apply_cookiejar(self, spider, cookiejar_key: str, url: str):
+        # Scrapy의 `meta['cookiejar']`를 Selenium에 반영합니다.
+        # cookiejar 또는 도메인이 바뀌면:
+        # 1) 브라우저 쿠키를 비우고
+        # 2) 해당 cookiejar+도메인에 저장해둔 쿠키를 주입합니다.
         scheme, netloc = self._url_parts(url)
         if not netloc:
             return
@@ -329,6 +448,7 @@ class SeleniumMiddleware(object):
         self._active_netloc = netloc
 
     def _persist_cookiejar(self, spider, cookiejar_key: str, url: str):
+        # Selenium이 획득한 쿠키를 cookiejar 저장소에 저장합니다(다음 요청에서 재주입).
         if self.driver is None:
             return
         scheme, netloc = self._url_parts(url)
@@ -344,6 +464,8 @@ class SeleniumMiddleware(object):
         self._destroy_driver(spider)
 
     def _wait_cloudflare_done(self, timeout=20):
+        # 챌린지/대기 페이지가 사라질 때까지 제한 시간 내에서만 대기합니다.
+        # NOTE: 사이트/환경에 따라 탐지 문자열은 조정이 필요할 수 있습니다.
         wait = WebDriverWait(self.driver, timeout, poll_frequency=0.25)
 
         def not_cloudflare_page(driver):
@@ -367,6 +489,8 @@ class SeleniumMiddleware(object):
         wait.until(not_cloudflare_page)
 
     def _is_cloudflare_challenge_page(self) -> bool:
+        # title/page_source 기반의 휴리스틱으로 "챌린지/대기 페이지" 여부를 판별합니다.
+        # NOTE: 오탐/미탐이 가능하므로 운영에선 로깅/지표로 보정하는 편이 안전합니다.
         if self.driver is None:
             return False
 
@@ -393,6 +517,8 @@ class SeleniumMiddleware(object):
         return False
 
     def _handle_cloudflare_challenge(self):
+        # NOTE(리뷰): 이 메서드는 특정 "챌린지 UI 상호작용"을 시도합니다.
+        # 정책/법적 리스크가 있을 수 있으니 사용 범위와 timeout을 보수적으로 운영하세요.
         if not self._is_cloudflare_challenge_page():
             print("[Info] Cloudflare challenge not detected")
             return
@@ -478,51 +604,77 @@ class SeleniumMiddleware(object):
             raise TimeoutException(f"Cloudflare challenge not cleared within {timeout_seconds}s")
 
     def solver_init(self, request):
-        if request.meta.get('bypass_cloudflare', False):
-            import requests
+        """
+        (선택) Selenium 드라이버에 "외부에서 전달된" 세션 컨텍스트를 주입합니다.
 
-            payload = {
-                "cmd": "request.get",
-                "url": request.url,
-                "maxTimeout": 60000
-            }
-            fs_resp = requests.post("http://localhost:8191/v1", json=payload).json()
+        이 함수는 쿠키를 "획득"하지 않습니다. 스파이더/호출자 측에서 아래 중 하나로 전달해주면
+        Selenium에 적용합니다.
 
-            if fs_resp.get('status') == 'ok':
-                cookies = fs_resp['solution']['cookies']
-                user_agent = fs_resp['solution']['userAgent']
+        지원 입력
+        - `request.meta['selenium_seed_session'] = {'user_agent': str, 'cookies': list[dict] | dict}`
+        - 또는 `request.meta['selenium_user_agent']`, `request.meta['selenium_cookies']`
+        - 또는 `request.meta['selenium_cookie_header']` (예: "a=b; c=d")
 
-                # 2. 로컬 Selenium 드라이버 설정
-                # 중요: 쿠키를 세팅하기 위해선 해당 도메인에 먼저 진입하거나 CDP를 써야 함
-                # 여기서는 CDP(Chrome DevTools Protocol)로 설정하는 게 가장 깔끔함
-                self.driver.execute_cdp_cmd('Network.setUserAgentOverride', {"userAgent": user_agent})
+        동작
+        - userAgent는 CDP로 override (다음 네비게이션부터 적용)
+        - cookies는 CDP(Network.setCookie)로 주입 (도메인은 request.url 기준)
+        """
+        if self.driver is None:
+            return
 
-                # 도메인 진입 전 404 페이지 등으로 이동하거나,
-                # 바로 get 후 쿠키 심고 refresh 하는 방법 사용
-                self.driver.get(request.url)
+        seed = request.meta.get("selenium_seed_session")
+        if not isinstance(seed, dict):
+            seed = {}
+        user_agent = seed.get("user_agent") or request.meta.get("selenium_user_agent") or self._header_to_str(request.headers, "User-Agent")
 
-                for cookie in cookies:
-                    # Selenium add_cookie는 domain 등 엄격하게 체크하므로 필요한 필드만 정제
-                    cookie_dict = {
-                        'name': cookie['name'],
-                        'value': cookie['value'],
-                        # 'domain': cookie['domain'] # 상황에 따라 제외 필요할 수 있음
-                    }
-                    try:
-                        self.driver.add_cookie(cookie_dict)
-                    except:
-                        pass
+        cookies_raw = seed.get("cookies")
+        if cookies_raw is None:
+            cookies_raw = request.meta.get("selenium_cookies")
 
-                # 3. 쿠키 장착 후 새로고침 (이제 뚫립니다)
-                self.driver.refresh()
+        cookie_header = request.meta.get("selenium_cookie_header") or self._header_to_str(request.headers, "Cookie")
+
+        if not user_agent and not cookies_raw and not cookie_header:
+            return
+
+        try:
+            if user_agent:
+                self.driver.execute_cdp_cmd("Network.setUserAgentOverride", {"userAgent": user_agent})
+        except Exception:
+            pass
+
+        cookies: list[dict] = []
+        if cookie_header:
+            try:
+                cookies.extend(self._parse_cookie_header(cookie_header))
+            except Exception:
+                pass
+
+        if isinstance(cookies_raw, dict):
+            cookies.extend([{"name": k, "value": v} for k, v in cookies_raw.items()])
+        elif isinstance(cookies_raw, list):
+            cookies.extend([c for c in cookies_raw if isinstance(c, dict)])
+
+        if not cookies:
+            return
+
+        normalized = [self._normalize_cookie(c) for c in cookies]
+        normalized = [c for c in normalized if c]
+        if not normalized:
+            return
+
+        # NOTE: cookiejar 전환은 _apply_cookiejar에서 수행합니다.
+        # 여기서는 "추가 주입"만 담당하고, 결과는 _persist_cookiejar가 저장합니다.
+        self._set_cookies_for_url(None, normalized, request.url)
 
     def process_request( self, request, spider ):
+        # Scrapy Request -> Selenium 렌더링 -> HtmlResponse 반환.
+        # (Scrapy downloader를 타지 않으므로, 대상 요청에만 미들웨어를 적용하는 편이 좋습니다.)
         proxy = request.meta.get("proxy")
-        self.solver_init(request)
         cookiejar_key = str(request.meta.get("cookiejar", 0))
 
         self._ensure_driver(spider, proxy)
         self._apply_cookiejar(spider, cookiejar_key, request.url)
+        self.solver_init(request)
 
         try:
             self.driver.get(request.url)
