@@ -72,8 +72,8 @@ class FmKoreaSpider(scrapy.Spider):
     def parse(self, response):
         # print(f'목록{response.body}')
         print(f'FMKOREA목록 처리')
-        for li in response.css('div.fm_best_widget li'):
-            try:
+        try:
+            for li in response.css('div.fm_best_widget li'):
                 article_id = li.css('h3.title a::attr(href)').get()[1:]
                 origin_url = f'https://www.fmkorea.com/{article_id}'
                 thumbnail = li.css('img.thumb::attr(src)').get()
@@ -86,9 +86,9 @@ class FmKoreaSpider(scrapy.Spider):
                 }
 
                 yield Request(url=f'https://www.fmkorea.com/?mid=hotdeal&sort_index=&order_type=desc&document_srl={article_id}&listStyle=webzine&cpage=1', callback=self.detail_parse, cb_kwargs=dict(data=data), meta={'cookiejar': response.meta['cookiejar']})
-            except Exception as e:
-                traceback.print_exc()
-                print(f'[Error :{datetime.now()}]fmkorea 목록 불러오는중에 에러 발생 : {e}')
+        except Exception as e:
+            traceback.print_exc()
+            print(f'[Error :{datetime.now()}]fmkorea 목록 불러오는중에 에러 발생 : {e}')
 
     def detail_parse(self, response, data):
         # print(f'디테일 {response.body}')

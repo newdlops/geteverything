@@ -71,8 +71,8 @@ class ArcaSpider(scrapy.Spider):
             )
 
     def parse(self, response):
-        for article in response.css('div.list-table.hybrid .vrow.hybrid'):
-            try:
+        try:
+            for article in response.css('div.list-table.hybrid .vrow.hybrid'):
                 origin_url = article.css('a.title.hybrid-title::attr(href)').get()
 
                 id_pattern = r'\/b\/hotdeal\/(.*?)\?p=\d'
@@ -95,9 +95,9 @@ class ArcaSpider(scrapy.Spider):
                 detail_page_url = f"https://arca.live{origin_url}"
                 if article_id != '':
                     yield Request(url=detail_page_url, callback=self.detail_parse, cb_kwargs=dict(data=data), meta={'cookiejar': response.meta['cookiejar']})
-            except Exception as e:
-                traceback.print_exc()
-                print(f'[Error :{datetime.now()}]아카라이브 목록 불러오는중에 에러 발생 : {e}')
+        except Exception as e:
+            traceback.print_exc()
+            print(f'[Error :{datetime.now()}]아카라이브 목록 불러오는중에 에러 발생 : {e}')
 
     def detail_parse(self, response, data, datatime=None):
         try:
