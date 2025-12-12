@@ -72,7 +72,7 @@ class ArcaSpider(scrapy.Spider):
 
     def parse(self, response):
         try:
-            print(f'arca 목록 처리 {response.body}')
+            print(f'arca 목록 처리')
             list = response.css('div.list-table.hybrid .vrow.hybrid')
             print(f'arca {len(list)}개 발견')
             for article in list:

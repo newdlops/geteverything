@@ -477,8 +477,48 @@ class SeleniumMiddleware(object):
         elif self._is_cloudflare_challenge_page():
             raise TimeoutException(f"Cloudflare challenge not cleared within {timeout_seconds}s")
 
+    def solver_init(self, request):
+        if request.meta.get('bypass_cloudflare', False):
+            import requests
+
+            payload = {
+                "cmd": "request.get",
+                "url": request.url,
+                "maxTimeout": 60000
+            }
+            fs_resp = requests.post("http://localhost:8191/v1", json=payload).json()
+
+            if fs_resp.get('status') == 'ok':
+                cookies = fs_resp['solution']['cookies']
+                user_agent = fs_resp['solution']['userAgent']
+
+                # 2. 로컬 Selenium 드라이버 설정
+                # 중요: 쿠키를 세팅하기 위해선 해당 도메인에 먼저 진입하거나 CDP를 써야 함
+                # 여기서는 CDP(Chrome DevTools Protocol)로 설정하는 게 가장 깔끔함
+                self.driver.execute_cdp_cmd('Network.setUserAgentOverride', {"userAgent": user_agent})
+
+                # 도메인 진입 전 404 페이지 등으로 이동하거나,
+                # 바로 get 후 쿠키 심고 refresh 하는 방법 사용
+                self.driver.get(request.url)
+
+                for cookie in cookies:
+                    # Selenium add_cookie는 domain 등 엄격하게 체크하므로 필요한 필드만 정제
+                    cookie_dict = {
+                        'name': cookie['name'],
+                        'value': cookie['value'],
+                        # 'domain': cookie['domain'] # 상황에 따라 제외 필요할 수 있음
+                    }
+                    try:
+                        self.driver.add_cookie(cookie_dict)
+                    except:
+                        pass
+
+                # 3. 쿠키 장착 후 새로고침 (이제 뚫립니다)
+                self.driver.refresh()
+
     def process_request( self, request, spider ):
         proxy = request.meta.get("proxy")
+        self.solver_init(request)
         cookiejar_key = str(request.meta.get("cookiejar", 0))
 
         self._ensure_driver(spider, proxy)
