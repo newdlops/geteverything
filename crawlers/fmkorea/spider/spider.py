@@ -71,7 +71,7 @@ class FmKoreaSpider(scrapy.Spider):
 
     def parse(self, response):
         # print(f'목록{response.body}')
-        print(f'목록 처리')
+        print(f'FMKOREA목록 처리')
         for li in response.css('div.fm_best_widget li'):
             try:
                 article_id = li.css('h3.title a::attr(href)').get()[1:]
