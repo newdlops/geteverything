@@ -78,6 +78,7 @@ class PpomppuSpider(scrapy.Spider):
             recommend_count = response.css('span#vote_list_btn_txt::text').get()
             dislike_count = response.css('span#vote_anti_list_btn_txt::text').get()
             # content = response.css('td.board-contents').get()
+            content = ''
             write_at = response.css('ul.topTitle-mainbox li::text')[0].get()[4:]
             yield PpomppuItem(dict(**data, shop_url_1=shop_url_1, recommend_count=recommend_count, dislike_count=dislike_count, content=content, write_at=write_at))
         except Exception as e:
