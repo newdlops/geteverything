@@ -18,7 +18,7 @@ class User(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     kakao_id = models.CharField(max_length=255, unique=True, null=True, blank=True)  # 소셜 플랫폼에서 제공하는 고유 식별자
-    user_id = models.CharField(max_length=255, unique=True, null=False, default=uuid.uuid4()) # 유저 아이디
+    user_id = models.CharField(max_length=255, unique=True, null=False, default=uuid.uuid4) # 유저 아이디
     email = models.CharField(max_length=255, null=True, blank=True) # 유저 이메일
     is_active = models.BooleanField(default=True) # 유저 활성화 여부
     is_authenticated = models.BooleanField(default=True)
