@@ -69,7 +69,9 @@ class ArcaSpider(scrapy.Spider):
                 f"https://arca.live/b/hotdeal?p={i}",
                 callback=self.parse,
                 # headers=headers,
-                meta={'cookiejar': i}
+                meta={
+                    'use_flaresolverr': True,
+                    'cookiejar': i}
             )
 
     def parse(self, response):
