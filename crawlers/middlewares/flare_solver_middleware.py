@@ -1,0 +1,63 @@
+import json
+import requests
+from scrapy.http import HtmlResponse
+
+class FlareSolverrMiddleware:
+    def __init__(self, flaresolverr_url):
+        self.flaresolverr_url = flaresolverr_url
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        # settings.py에서 URL을 가져옴
+        return cls(
+            flaresolverr_url=crawler.settings.get('FLARESOLVERR_URL', 'http://localhost:8191/v1')
+        )
+
+    def process_request(self, request, spider):
+        # 1. 메타 태그를 확인해 FlareSolverr를 탈지 말지 결정
+        if not request.meta.get('use_flaresolverr', False):
+            return None  # 일반 요청은 그냥 통과
+
+        spider.logger.info(f"FlareSolverr로 요청 중: {request.url}")
+
+        # 2. FlareSolverr API 요청 페이로드 구성
+        payload = {
+            "cmd": "request.get",
+            "url": request.url,
+            "maxTimeout": 60000,
+            # 세션이 필요하면 아래 주석 해제 (spider에서 session_id 관리 필요)
+            # "session": request.meta.get('session_id')
+        }
+
+        try:
+            # 3. FlareSolverr 호출
+            resp = requests.post(
+                self.flaresolverr_url,
+                headers={"Content-Type": "application/json"},
+                json=payload,
+                timeout=70 # requests 자체 타임아웃은 넉넉하게
+            )
+
+            resp_data = resp.json()
+
+            if resp_data.get('status') == 'ok':
+                solution = resp_data.get('solution')
+                html_source = solution['response']
+
+                # 4. Scrapy가 처리할 수 있는 Response 객체로 변환하여 반환
+                # 이렇게 리턴하면 다운로더를 거치지 않고 바로 spider.parse로 갑니다.
+                return HtmlResponse(
+                    url=request.url,
+                    status=200,
+                    body=html_source,
+                    encoding='utf-8',
+                    request=request
+                )
+            else:
+                spider.logger.error(f"FlareSolverr Error: {resp_data.get('message')}")
+                # 에러 시 재시도 로직 등을 추가하거나 None을 반환해 일반 요청으로 넘길 수 있음
+                return None
+
+        except Exception as e:
+            spider.logger.error(f"FlareSolverr 연결 실패: {e}")
+            return None

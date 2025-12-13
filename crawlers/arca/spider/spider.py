@@ -8,7 +8,7 @@ from w3lib.html import remove_tags, replace_escape_chars, strip_html5_whitespace
 from scrapy import Request
 from crawlers.arca.item import ArcaItem
 from crawlers.arca.pipeline import ArcaPipeline
-from crawlers.middlewares import SeleniumMiddleware
+from crawlers.middlewares import SeleniumMiddleware, FlareSolverrMiddleware
 
 
 class ArcaSpider(scrapy.Spider):
@@ -23,7 +23,8 @@ class ArcaSpider(scrapy.Spider):
         'DOWNLOADER_MIDDLEWARES' : {
             # 'rotating_proxies.middlewares.RotatingProxyMiddleware': 610,
             # 'rotating_proxies.middlewares.BanDetectionMiddleware': 620,
-            SeleniumMiddleware: 700,
+            # SeleniumMiddleware: 700,
+            FlareSolverrMiddleware: 700,
         },
         'ROTATING_PROXY_LIST': [
             '123.141.181.8:5031',    # 수집: free‑proxy‑list.net :contentReference[oaicite:1]{index=1}

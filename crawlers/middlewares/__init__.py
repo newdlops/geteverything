@@ -1,1 +1,2 @@
 from .selenium_middleware import SeleniumMiddleware
+from .flare_solver_middleware import FlareSolverrMiddleware
