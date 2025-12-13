@@ -16,10 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from user.views.kakao_login_api_view import KakaoLoginAPIView
-from user.views.kakao_signup_api_view import KakaoSignupAPIView
-from user.views.logout_view import LogoutView
-from user.views.user_update_view import UserUpdateView
+from gadmin.user.views.kakao_login_api_view import KakaoLoginAPIView
+from gadmin.user.views.kakao_signup_api_view import KakaoSignupAPIView
+from gadmin.user.views.logout_view import LogoutView
+from gadmin.user.views.user_update_view import UserUpdateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
