@@ -100,7 +100,7 @@ class ArcaSpider(scrapy.Spider):
 
                 detail_page_url = f"https://arca.live{origin_url}"
                 if article_id != '':
-                    yield Request(url=detail_page_url, callback=self.detail_parse, cb_kwargs=dict(data=data), meta={'cookiejar': response.meta['cookiejar']})
+                    yield Request(url=detail_page_url, callback=self.detail_parse, cb_kwargs=dict(data=data), meta={'use_flaresolverr': True, 'cookiejar': response.meta['cookiejar']})
         except Exception as e:
             traceback.print_exc()
             print(f'[Error :{datetime.now()}]아카라이브 목록 불러오는중에 에러 발생 : {e}')
