@@ -5,6 +5,7 @@ from scrapy.http import HtmlResponse
 class FlareSolverrMiddleware:
     def __init__(self, flaresolverr_url):
         self.flaresolverr_url = flaresolverr_url
+        self.cached_cookies = {} # 도메인별 쿠키 저장소
 
     @classmethod
     def from_crawler(cls, crawler):
