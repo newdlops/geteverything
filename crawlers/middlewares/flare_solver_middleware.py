@@ -35,7 +35,7 @@ class FlareSolverrMiddleware:
                 self.flaresolverr_url,
                 headers={"Content-Type": "application/json"},
                 json=payload,
-                timeout=70 # requests 자체 타임아웃은 넉넉하게
+                timeout=60000 # requests 자체 타임아웃은 넉넉하게
             )
 
             resp_data = resp.json()
