@@ -16,10 +16,10 @@ http = :8000
 disable-logging = true
 
 # Set working directory
-chdir = /app
+chdir = /app/gadmin
 
 # Static files serving
-static-map = /static=/app/staticfiles
+static-map = /static=/app/gadmin/staticfiles
 
 # Django-specific settings
 env = DJANGO_SETTINGS_MODULE=admin.settings
