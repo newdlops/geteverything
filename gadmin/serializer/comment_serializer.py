@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from forum.models.post import Comment
+from gadmin.forum.models.post import Comment
 
 class CommentSerializer(serializers.ModelSerializer):
     replies = serializers.SerializerMethodField()

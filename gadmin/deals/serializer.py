@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from deals.models import Deal
+from gadmin.deals.models import Deal
 
 class DealSerializer(serializers.ModelSerializer):
 

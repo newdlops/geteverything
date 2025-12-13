@@ -1,6 +1,6 @@
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.exceptions import AuthenticationFailed
-from user.models import User
+from gadmin.user.models import User
 
 class UserAuthentication(JWTAuthentication):
     """

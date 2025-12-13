@@ -3,10 +3,10 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, SAFE_METHODS
 from rest_framework.response import Response
 
-from user.user_authentication import UserAuthentication
-from forum.models.post import Post, Comment
-from serializer.post_serializer import PostSerializer
-from serializer.comment_serializer import CommentSerializer
+from gadmin.user.user_authentication import UserAuthentication
+from gadmin.forum.models.post import Post, Comment
+from gadmin.serializer.post_serializer import PostSerializer
+from gadmin.serializer.comment_serializer import CommentSerializer
 
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.annotate(comment_count=Count('comments')).order_by('-created_at')

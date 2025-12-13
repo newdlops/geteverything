@@ -3,9 +3,9 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, SAFE_METHODS
 from rest_framework.pagination import CursorPagination
 
-from deals.models import Deal
-from deals.serializer import DealSerializer
-from user.user_authentication import UserAuthentication
+from gadmin.deals.models import Deal
+from gadmin.deals.serializer import DealSerializer
+from gadmin.user.user_authentication import UserAuthentication
 
 
 class DealPagination(CursorPagination):

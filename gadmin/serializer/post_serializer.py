@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from forum.models.post import Post, Comment
+from gadmin.forum.models.post import Post, Comment
 
 
 class PostSerializer(serializers.ModelSerializer):
