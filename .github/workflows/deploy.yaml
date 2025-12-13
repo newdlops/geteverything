@@ -88,7 +88,7 @@ jobs:
 #        run: |
 #          docker save -o django.tar my-django-app
 #
-      - name: Copy docker.jar to VM
+      - name: Copy docker.env to VM
         uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -110,7 +110,7 @@ jobs:
             docker run --rm \
             --env-file django.env \
             my-django-app \
-            python manage.py migrate --noinput
+            python gadmin/manage.py migrate --noinput
             docker stack rm django
             docker stack deploy -c docker-compose.yml django
             
