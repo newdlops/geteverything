@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'django_summernote',
+    'gadmin.summernote_appconfig.DjangoSummernotePinnedAutoFieldConfig',
     'django_admin_action_forms',
 ]
 
