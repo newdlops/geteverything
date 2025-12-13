@@ -26,6 +26,7 @@ class ArcaSpider(scrapy.Spider):
             # SeleniumMiddleware: 700,
             FlareSolverrMiddleware: 700,
         },
+        'FLARESOLVERR_URL' : 'http://localhost:8191/v1',
         'ROTATING_PROXY_LIST': [
             '123.141.181.8:5031',    # 수집: free‑proxy‑list.net :contentReference[oaicite:1]{index=1}
             '123.141.181.1:5031',    # 수집: free‑proxy‑list.net :contentReference[oaicite:2]{index=2}
