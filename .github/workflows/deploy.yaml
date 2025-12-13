@@ -107,7 +107,6 @@ jobs:
           port: 22
           script: |
             cd /home/docker/django
-#            docker load -i django.tar
             docker run --rm \
             --env-file django.env \
             my-django-app \
@@ -115,4 +114,4 @@ jobs:
             docker stack rm django
             docker stack deploy -c docker-compose.yml django
             rm django.tar
-
+            
