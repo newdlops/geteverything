@@ -21,5 +21,5 @@ RUN python gadmin/manage.py collectstatic --clear --noinput
 EXPOSE 8000
 
 # Run uwsgi
-CMD ["uwsgi", "--ini", "./gadmin/uwsgi.ini"]
+CMD ["uwsgi", "--ini", "/gadmin/uwsgi.ini"]
 #CMD ["python", "-V"]
