@@ -4,7 +4,7 @@ FROM python:3.12
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ENV DJANGO_SETTINGS_MODULE=admin.settings
+ENV DJANGO_SETTINGS_MODULE=gadmin.admin.settings
 
 # Set working directory
 WORKDIR /app
