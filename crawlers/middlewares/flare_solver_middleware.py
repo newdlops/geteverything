@@ -1,36 +1,65 @@
 import json
 import requests
 from scrapy.http import HtmlResponse
+from scrapy.exceptions import IgnoreRequest
+from urllib.parse import urlparse
 
 class FlareSolverrMiddleware:
     def __init__(self, flaresolverr_url):
         self.flaresolverr_url = flaresolverr_url
-        self.cached_cookies = {} # 도메인별 쿠키 저장소
+        # 도메인별 쿠키와 User-Agent를 저장할 캐시
+        self.cached_cookies = {}
+        self.cached_user_agents = {}
 
     @classmethod
     def from_crawler(cls, crawler):
-        # settings.py에서 URL을 가져옴
         return cls(
             flaresolverr_url=crawler.settings.get('FLARESOLVERR_URL', 'http://localhost:8191/v1')
         )
 
+    def _get_domain(self, url):
+        return urlparse(url).netloc
+
     def process_request(self, request, spider):
-        # 1. 메타 태그를 확인해 FlareSolverr를 탈지 말지 결정
+        # 1. FlareSolverr 사용 설정이 없으면 패스
         if not request.meta.get('use_flaresolverr', False):
-            return None  # 일반 요청은 그냥 통과
+            return None
 
-        spider.logger.info(f"FlareSolverr로 요청 중: {request.url}")
+        domain = self._get_domain(request.url)
 
-        # 1. 이미 캐싱된 유효한 쿠키가 있으면 FlareSolverr를 건너뜀
-        domain = request.url.split('/')[2]
+        # 2. [핵심] 이미 유효한 쿠키가 캐시에 있는 경우 -> FlareSolverr 건너뛰기
         if domain in self.cached_cookies:
-            # 기존 요청에 쿠키를 심어서 보냄 (일반 Scrapy 속도)
-            request.cookies.update(self.cached_cookies[domain])
-            return None # None을 반환하면 Scrapy 기본 다운로더가 처리함
+            # spider.logger.debug(f"⚡ [Cache Hit] FlareSolverr 생략: {request.url}")
+            request.cookies = self.cached_cookies[domain]
+            request.headers['User-Agent'] = self.cached_user_agents[domain]
+            return None  # None을 반환하면 Scrapy 기본 다운로더가 작동 (빠름)
 
-        # 2. 쿠키가 없으면 FlareSolverr 호출
-        spider.logger.info(f"⚡ 쿠키 획득을 위해 FlareSolverr 호출: {request.url}")
+        # 3. 쿠키가 없으면 FlareSolverr 호출 (느림)
+        spider.logger.info(f"🐢 [Cache Miss] FlareSolverr 호출 중: {request.url}")
+        return self._call_flaresolverr(request, spider)
 
+    def process_response(self, request, response, spider):
+        # 1. FlareSolverr를 안 쓰는 요청은 패스
+        if not request.meta.get('use_flaresolverr', False):
+            return response
+
+        # 2. 만약 쿠키를 썼는데도 403/503(Cloudflare 차단)이 떴다면? -> 쿠키 만료됨
+        if response.status in [403, 503]:
+            domain = self._get_domain(request.url)
+            spider.logger.warning(f"🚫 [Blocked] 쿠키 만료 감지. 재발급 시도: {request.url}")
+
+            # 캐시 삭제
+            if domain in self.cached_cookies:
+                del self.cached_cookies[domain]
+                del self.cached_user_agents[domain]
+
+            # FlareSolverr로 강제 재요청 (여기서 새 쿠키를 얻어옴)
+            return self._call_flaresolverr(request, spider)
+
+        return response
+
+    def _call_flaresolverr(self, request, spider):
+        """FlareSolverr API를 호출하고 결과를 Scrapy Response로 반환하며 쿠키를 캐싱함"""
         payload = {
             "cmd": "request.get",
             "url": request.url,
@@ -38,20 +67,25 @@ class FlareSolverrMiddleware:
         }
 
         try:
-            resp = requests.post(self.flaresolverr_url, json=payload, headers={"Content-Type": "application/json"})
+            resp = requests.post(
+                self.flaresolverr_url,
+                json=payload,
+                headers={"Content-Type": "application/json"},
+                timeout=70
+            )
             data = resp.json()
 
             if data.get('status') == 'ok':
                 solution = data.get('solution')
+                domain = self._get_domain(request.url)
 
-                # 3. [핵심] 쿠키 저장
+                # [중요] 새로 얻은 쿠키와 UA를 캐싱
                 cookies_dict = {c['name']: c['value'] for c in solution['cookies']}
                 self.cached_cookies[domain] = cookies_dict
+                self.cached_user_agents[domain] = solution['userAgent']
 
-                # 4. User-Agent도 맞춰줘야 안 튕김
-                request.headers['User-Agent'] = solution['userAgent']
+                spider.logger.info(f"✅ [Solved] 새 쿠키 획득 성공 ({domain})")
 
-                # 첫 요청은 FlareSolverr가 가져온 결과를 그대로 반환
                 return HtmlResponse(
                     url=request.url,
                     status=200,
@@ -59,54 +93,10 @@ class FlareSolverrMiddleware:
                     encoding='utf-8',
                     request=request
                 )
-        except Exception:
+            else:
+                spider.logger.error(f"FlareSolverr Error: {data.get('message')}")
+                return None # 에러 시 일반 요청으로 넘기거나 재시도 로직 필요
+
+        except Exception as e:
+            spider.logger.error(f"FlareSolverr 연결 실패: {e}")
             return None
-    #
-    # def process_request(self, request, spider):
-    #     # 1. 메타 태그를 확인해 FlareSolverr를 탈지 말지 결정
-    #     if not request.meta.get('use_flaresolverr', False):
-    #         return None  # 일반 요청은 그냥 통과
-    #
-    #     spider.logger.info(f"FlareSolverr로 요청 중: {request.url}")
-    #
-    #     # 2. FlareSolverr API 요청 페이로드 구성
-    #     payload = {
-    #         "cmd": "request.get",
-    #         "url": request.url,
-    #         "maxTimeout": 60000,
-    #         # 세션이 필요하면 아래 주석 해제 (spider에서 session_id 관리 필요)
-    #         # "session": request.meta.get('session_id')
-    #     }
-    #
-    #     try:
-    #         # 3. FlareSolverr 호출
-    #         resp = requests.post(
-    #             self.flaresolverr_url,
-    #             headers={"Content-Type": "application/json"},
-    #             json=payload,
-    #             timeout=60000 # requests 자체 타임아웃은 넉넉하게
-    #         )
-    #
-    #         resp_data = resp.json()
-    #
-    #         if resp_data.get('status') == 'ok':
-    #             solution = resp_data.get('solution')
-    #             html_source = solution['response']
-    #
-    #             # 4. Scrapy가 처리할 수 있는 Response 객체로 변환하여 반환
-    #             # 이렇게 리턴하면 다운로더를 거치지 않고 바로 spider.parse로 갑니다.
-    #             return HtmlResponse(
-    #                 url=request.url,
-    #                 status=200,
-    #                 body=html_source,
-    #                 encoding='utf-8',
-    #                 request=request
-    #             )
-    #         else:
-    #             spider.logger.error(f"FlareSolverr Error: {resp_data.get('message')}")
-    #             # 에러 시 재시도 로직 등을 추가하거나 None을 반환해 일반 요청으로 넘길 수 있음
-    #             return None
-    #
-    #     except Exception as e:
-    #         spider.logger.error(f"FlareSolverr 연결 실패: {e}")
-    #         return None
