@@ -1,6 +1,6 @@
 [uwsgi]
 # Django settings
-module = admin.wsgi:application
+module = gadmin.admin.wsgi:application
 
 # Master process
 master = true
