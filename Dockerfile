@@ -20,6 +20,7 @@ RUN python gadmin/manage.py collectstatic --clear --noinput
 # Expose port
 EXPOSE 8000
 
+WORKDIR /app/gadmin
 # Run uwsgi
-CMD ["uwsgi", "--ini", "/gadmin/uwsgi.ini"]
+CMD ["uwsgi", "--ini", "uwsgi.ini"]
 #CMD ["python", "-V"]
