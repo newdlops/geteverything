@@ -10,7 +10,7 @@ class FlareSolverrMiddleware:
     def from_crawler(cls, crawler):
         # settings.py에서 URL을 가져옴
         return cls(
-            flaresolverr_url=crawler.settings.get('FLARESOLVERR_URL', 'http://host.docker.internal:8191/v1')
+            flaresolverr_url=crawler.settings.get('FLARESOLVERR_URL', 'http://localhost:8191/v1')
         )
 
     def process_request(self, request, spider):
