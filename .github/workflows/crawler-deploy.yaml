@@ -69,6 +69,7 @@ jobs:
             --cpus="2" \
             --memory="12g" \
             --privileged \
+            --add-host host.docker.internal:host-gateway \
             -v /home/crawler/logs:/var/task/logs \
             crawler-image \
             sh -c "mkdir -p /var/task/logs && python -m crawlers.run_queue 2>&1 | tee -a /var/task/logs/crawler.log"
