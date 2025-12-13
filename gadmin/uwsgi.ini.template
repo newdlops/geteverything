@@ -16,7 +16,7 @@ http = :8000
 disable-logging = true
 
 # Set working directory
-chdir = /app/gadmin
+chdir = /app
 
 # Static files serving
 static-map = /static=/app/gadmin/staticfiles
