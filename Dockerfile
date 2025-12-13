@@ -5,6 +5,7 @@ FROM python:3.12
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV DJANGO_SETTINGS_MODULE=gadmin.admin.settings
+ENV PYTHONPATH=/app
 
 # Set working directory
 WORKDIR /app
@@ -22,5 +23,5 @@ EXPOSE 8000
 
 WORKDIR /app/gadmin
 # Run uwsgi
-CMD ["./gadmin/uwsgi", "--ini", "./gadmin/uwsgi.ini"]
+CMD ["uwsgi", "--ini", "uwsgi.ini"]
 #CMD ["python", "-V"]

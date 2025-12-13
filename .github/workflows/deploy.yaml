@@ -86,7 +86,7 @@ jobs:
             docker run --rm \
             --env-file django.env \
             my-django-app \
-            python gadmin/manage.py migrate --noinput
+            python /app/gadmin/manage.py migrate --noinput
             docker stack rm django
             docker stack deploy -c docker-compose.yml django
             
