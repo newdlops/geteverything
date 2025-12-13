@@ -113,5 +113,4 @@ jobs:
             python manage.py migrate --noinput
             docker stack rm django
             docker stack deploy -c docker-compose.yml django
-            rm django.tar
             
