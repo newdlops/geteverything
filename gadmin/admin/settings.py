@@ -67,7 +67,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'admin.urls'
+ROOT_URLCONF = 'gadmin.admin.urls'
 
 TEMPLATES = [
     {
