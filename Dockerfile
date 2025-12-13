@@ -22,5 +22,5 @@ EXPOSE 8000
 
 WORKDIR /app/gadmin
 # Run uwsgi
-CMD ["uwsgi", "--ini", "uwsgi.ini"]
+CMD ["./gadmin/uwsgi", "--ini", "./gadmin/uwsgi.ini"]
 #CMD ["python", "-V"]
