@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
 
 
-      - name: Build crawler image on VM
+      - name: Build django image on VM
         uses: appleboy/ssh-action@master
         env:
           DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
@@ -26,7 +26,7 @@ jobs:
           DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
           DATABASE_USER: ${{ secrets.DATABASE_USER }}
         with:
-          host: ${{ secrets.CRAWLER_HOST }}
+          host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           envs: DATABASE_HOST,DATABASE_NAME,DATABASE_PASSWORD,DATABASE_USER
