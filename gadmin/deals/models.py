@@ -1,6 +1,8 @@
 from django.db.models import Manager
 from datetime import datetime
 from django.db import models
+from pgvector.django import VectorField, HnswIndex
+
 
 
 class Deal(models.Model):
@@ -12,6 +14,7 @@ class Deal(models.Model):
     shop_name = models.CharField(max_length=64, verbose_name='쇼핑몰이름', blank=True, null=True)
     thumbnail = models.URLField(max_length=512, verbose_name='썸네일', blank=True, null=True)
     subject = models.CharField(max_length=512, verbose_name='제목', blank=True, null=True)
+    subject_trgm_vector = VectorField(dimensions=1024, null=True, editable=False)
     category = models.CharField(max_length=32, verbose_name='카테고리', blank=True, null=True)
     price = models.IntegerField(verbose_name='가격', default=0)
     currency = models.CharField(max_length=32, verbose_name='단위', blank=True, null=True)
@@ -29,3 +32,13 @@ class Deal(models.Model):
 
     class Meta:
         db_table='deals'
+        indexes = [
+            # cosine 검색용 HNSW 인덱스
+            HnswIndex(
+                name="hotdeal_subject_trgm_vec_hnsw",
+                fields=["subject_trgm_vector"],
+                m=16,
+                ef_construction=64,
+                opclasses=["vector_cosine_ops"],
+            ),
+        ]
