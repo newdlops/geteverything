@@ -21,6 +21,7 @@ jobs:
 
       - name: Build django image on VM
         uses: appleboy/ssh-action@master
+        timeout-minutes: 60
         env:
           DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
           DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
