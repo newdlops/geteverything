@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="PYTHON_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="django" name="Django">
+      <configuration>
+        <option name="rootFolder" value="$MODULE_DIR$/admin" />
+        <option name="settingsModule" value="settings.py" />
+        <option name="manageScript" value="$MODULE_DIR$/manage.py" />
+        <option name="environment" value="&lt;map&gt;&#10;  &lt;entry&gt;&#10;    &lt;string&gt;DJANGO_SETTINGS_MODULE&lt;/string&gt;&#10;    &lt;string&gt;admin.settings&lt;/string&gt;&#10;  &lt;/entry&gt;&#10;  &lt;entry&gt;&#10;    &lt;string&gt;DATABASE_NAME&lt;/string&gt;&#10;    &lt;string&gt;getev&lt;/string&gt;&#10;  &lt;/entry&gt;&#10;  &lt;entry&gt;&#10;    &lt;string&gt;PYTHONUNBUFFERED&lt;/string&gt;&#10;    &lt;string&gt;1&lt;/string&gt;&#10;  &lt;/entry&gt;&#10;  &lt;entry&gt;&#10;    &lt;string&gt;DATABASE_HOST&lt;/string&gt;&#10;    &lt;string&gt;168.107.63.171&lt;/string&gt;&#10;  &lt;/entry&gt;&#10;  &lt;entry&gt;&#10;    &lt;string&gt;DATABASE_HOST2&lt;/string&gt;&#10;    &lt;string&gt;getev3.ctckuw2w4u3n.ap-northeast-2.rds.amazonaws.com&lt;/string&gt;&#10;  &lt;/entry&gt;&#10;  &lt;entry&gt;&#10;    &lt;string&gt;DATABASE_PORT&lt;/string&gt;&#10;    &lt;string&gt;5432&lt;/string&gt;&#10;  &lt;/entry&gt;&#10;  &lt;entry&gt;&#10;    &lt;string&gt;DATABASE_PASSWORD2&lt;/string&gt;&#10;    &lt;string&gt;Dkyscd908070&lt;/string&gt;&#10;  &lt;/entry&gt;&#10;  &lt;entry&gt;&#10;    &lt;string&gt;DATABASE_USER2&lt;/string&gt;&#10;    &lt;string&gt;getev&lt;/string&gt;&#10;  &lt;/entry&gt;&#10;  &lt;entry&gt;&#10;    &lt;string&gt;DATABASE_PORT2&lt;/string&gt;&#10;    &lt;string&gt;5432&lt;/string&gt;&#10;  &lt;/entry&gt;&#10;  &lt;entry&gt;&#10;    &lt;string&gt;DATABASE_NAME2&lt;/string&gt;&#10;    &lt;string&gt;geteverything&lt;/string&gt;&#10;  &lt;/entry&gt;&#10;  &lt;entry&gt;&#10;    &lt;string&gt;DATABASE_PASSWORD&lt;/string&gt;&#10;    &lt;string&gt;dkycd@908070&lt;/string&gt;&#10;  &lt;/entry&gt;&#10;  &lt;entry&gt;&#10;    &lt;string&gt;DATABASE_USER&lt;/string&gt;&#10;    &lt;string&gt;admin&lt;/string&gt;&#10;  &lt;/entry&gt;&#10;&lt;/map&gt;" />
+        <option name="doNotUseTestRunner" value="false" />
+        <option name="trackFilePattern" value="migrations" />
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/staticfiles" />
+    </content>
+    <orderEntry type="jdk" jdkName="Python 3.12 (venv)" jdkType="Python SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+  <component name="TemplatesService">
+    <option name="TEMPLATE_CONFIGURATION" value="Django" />
+  </component>
+</module>
