@@ -1,0 +1,7 @@
+curl -L -X POST 'http://localhost:8191/v1' \
+-H 'Content-Type: application/json' \
+--data-raw '{
+"cmd": "request.get",
+"url": "https://arca.live/b/hotdeal?p=1",
+"maxTimeout": 60000
+}'
