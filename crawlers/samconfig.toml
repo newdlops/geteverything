@@ -1,0 +1,10 @@
+version = 0.1
+[default.deploy.parameters]
+stack_name = "sam-app"
+resolve_s3 = true
+s3_prefix = "sam-app"
+region = "ap-northeast-2"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+disable_rollback = true
+image_repositories = ["HelloWorldImageFunction=061051225577.dkr.ecr.ap-northeast-2.amazonaws.com/samapp7427b055/helloworldimagefunctiond7c9bba5repo", "FMKoreaImageFunction=061051225577.dkr.ecr.ap-northeast-2.amazonaws.com/samapp7427b055/fmkoreaimagefunction4cb03bacrepo"]
