@@ -1,0 +1,14 @@
+{
+  "schema_version": "codeidx.mcp/0.1",
+  "server": "codeidx-mcp-control",
+  "transport": "http",
+  "url": "http://127.0.0.1:63341/start",
+  "health_url": "http://127.0.0.1:63341/health",
+  "workspace_id": "ws_c65132874d1b",
+  "pid": 28129,
+  "token": "bf7fa0b7d6dba532db77ff6022cbe607fdb738b96e993129",
+  "mcp_endpoint": "http://127.0.0.1:63343/mcp",
+  "started_at": "2026-09-13T02:32:44.779Z",
+  "updated_at": "2026-09-13T02:32:44.779Z",
+  "lease_expires_at": "2026-09-13T02:33:44.779Z"
+}
