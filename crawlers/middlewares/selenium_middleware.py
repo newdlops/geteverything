@@ -16,7 +16,9 @@ NOTE(리뷰)
 import os
 import random
 import shutil
+import shlex
 import sys
+import tempfile
 import time
 import uuid
 from datetime import datetime
@@ -28,7 +30,7 @@ from scrapy.http import HtmlResponse
 from scrapy.utils.python import to_bytes
 
 from selenium import webdriver
-from selenium.common import TimeoutException
+from selenium.common import TimeoutException, WebDriverException
 from selenium.webdriver import ActionChains, Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
@@ -58,6 +60,7 @@ class SeleniumMiddleware(object):
         self._driver_proxy = None
         # /tmp에 복사해둔 chromedriver 경로(잠금 충돌 방지 목적). driver 종료 시 삭제.
         self._temp_driver_path = None
+        self._browser_wrapper_path = None
         # Scrapy cookiejar 개념을 Selenium 쪽에서 흉내 내기 위한 저장소.
         # 구조: {cookiejar_key: {netloc: [selenium_cookie_dict...]}}
         self._cookiejars = {}
@@ -286,6 +289,24 @@ class SeleniumMiddleware(object):
                 pass
             self._temp_driver_path = None
 
+        if self._browser_wrapper_path:
+            try:
+                os.remove(self._browser_wrapper_path)
+            except OSError:
+                pass
+            self._browser_wrapper_path = None
+
+    def _quiet_browser_binary(self, binary, directory):
+        # undetected-chromedriver starts Chrome with undrained stdout/stderr pipes.
+        # Chrome can block in pipe_write even while the WebDriver timeout waits.
+        # exec preserves its PID; only native browser output is discarded.
+        descriptor, path = tempfile.mkstemp(prefix='chrome-launch-', dir=directory)
+        with os.fdopen(descriptor, 'w') as stream:
+            stream.write('#!/bin/sh\nexec ' + shlex.quote(binary) + ' "$@" >/dev/null 2>&1\n')
+        os.chmod(path, 0o700)
+        self._browser_wrapper_path = path
+        return path
+
     def _create_driver(self, spider, proxy: str | None):
         # Chrome 인스턴스를 생성합니다.
         # - 프로필/캐시를 spider 이름으로 분리(/tmp/selenium)해 충돌을 줄입니다.
@@ -302,6 +323,13 @@ class SeleniumMiddleware(object):
         # chrome_options.add_argument("--disable-extensions")
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument('--profile-directory=Default')
+        block_media = spider.crawler.settings.getbool(
+            "SELENIUM_BLOCK_MEDIA", os.getenv("SELENIUM_BLOCK_MEDIA", "1")
+        )
+        if block_media:
+            chrome_options.add_experimental_option(
+                "prefs", {"profile.managed_default_content_settings.images": 2}
+            )
         # 스파이더 이름별로 프로필/캐시 디렉터리 분리
         base_dir = "/tmp/selenium"
         os.makedirs(base_dir, exist_ok=True)
@@ -323,7 +351,8 @@ class SeleniumMiddleware(object):
 
         chrome_binary = self._resolve_chrome_binary()
         if chrome_binary:
-            chrome_options.binary_location = chrome_binary
+            chrome_options.binary_location = (self._quiet_browser_binary(chrome_binary, base_dir)
+                                               if sys.platform.startswith('linux') else chrome_binary)
         else:
             spider.logger.warning("Chrome/Chromium 바이너리 경로를 찾지 못했습니다. (로컬 테스트면 설치/경로 설정 필요)")
             spider.logger.warning("CHROME_BIN 또는 CHROME_BINARY 환경변수로 지정할 수 있습니다.")
@@ -358,8 +387,14 @@ class SeleniumMiddleware(object):
         try:
             # CDP(cookie API)를 사용하기 위해 Network 도메인을 활성화합니다.
             driver.execute_cdp_cmd("Network.enable", {})
+            if block_media:
+                driver.execute_cdp_cmd("Network.setBlockedURLs", {"urls": [
+                    "*.woff", "*.woff?*", "*.woff2", "*.woff2?*",
+                    "*.ttf", "*.ttf?*", "*.mp4", "*.mp4?*",
+                    "*.webm", "*.webm?*", "*.mp3", "*.mp3?*",
+                ]})
         except Exception:
-            pass
+            spider.logger.warning("Chrome network resource controls could not be configured")
 
         # [핵심 수정] 브라우저가 켜진 직후, 강제로 크기를 주입합니다.
         # 이것이 없으면 VM에서 종종 800x600으로 시작해서 "Out of bounds" 에러가 납니다.
@@ -676,6 +711,25 @@ class SeleniumMiddleware(object):
         self._apply_cookiejar(spider, cookiejar_key, request.url)
         self.solver_init(request)
 
+        try:
+            return self._render_response(request, spider, cookiejar_key)
+        finally:
+            self._release_page(spider)
+
+    def _release_page(self, spider):
+        if self.driver is None or not spider.crawler.settings.getbool(
+            "SELENIUM_IDLE_BLANK_PAGE", os.getenv("SELENIUM_IDLE_BLANK_PAGE", "1")
+        ):
+            return
+        try:
+            # HTML과 쿠키를 확보한 뒤 타이머, 광고, 영상의 대기 중 실행을 멈춥니다.
+            # 브라우저 세션과 프로필은 다음 요청에서도 재사용합니다.
+            self.driver.get("about:blank")
+        except WebDriverException:
+            spider.logger.warning("Could not release rendered page; closing Chrome")
+            self._destroy_driver(spider)
+
+    def _render_response(self, request, spider, cookiejar_key):
         try:
             self.driver.get(request.url)
         except TimeoutException:
