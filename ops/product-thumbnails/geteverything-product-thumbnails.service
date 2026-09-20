@@ -1,0 +1,25 @@
+[Unit]
+Description=Generate product thumbnails immediately after crawler commits
+After=docker.service network-online.target
+Requires=docker.service
+StartLimitIntervalSec=300
+StartLimitBurst=3
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /usr/local/lib/geteverything-thumbnails/run.py --watch
+ExecStop=/usr/bin/docker stop --time 50 geteverything-thumbnail-worker
+Restart=on-failure
+RestartSec=15
+TimeoutStopSec=65
+Nice=15
+IOWeight=10
+MemoryMax=64M
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/run
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

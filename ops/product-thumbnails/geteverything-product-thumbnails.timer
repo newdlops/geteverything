@@ -1,0 +1,12 @@
+[Unit]
+Description=Collect and expire product thumbnails every minute
+
+[Timer]
+OnBootSec=90
+OnUnitInactiveSec=60
+RandomizedDelaySec=5
+Persistent=true
+Unit=geteverything-product-thumbnails.service
+
+[Install]
+WantedBy=timers.target
