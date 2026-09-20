@@ -1,0 +1,20 @@
+version: "3.8"
+services:
+  django:
+    deploy:
+      labels:
+        traefik.enable: "true"
+        traefik.swarm.network: traefiknet
+        traefik.http.routers.django-admin-http.entrypoints: http
+        traefik.http.routers.django-admin-http.rule: "Host(`158.180.67.53`) && (Path(`/admin`) || PathPrefix(`/admin/`) || PathPrefix(`/static/`) || PathPrefix(`/media/`) || Path(`/summernote`) || PathPrefix(`/summernote/`))"
+        traefik.http.routers.django-admin-http.service: django
+        traefik.http.services.django.loadbalancer.server.port: "8000"
+    volumes:
+      - type: bind
+        source: /var/lib/geteverything-storage/snapshots
+        target: /var/lib/geteverything-storage/snapshots
+        read_only: true
+      - type: bind
+        source: /var/lib/geteverything-thumbnails/objects
+        target: /var/lib/geteverything-thumbnails/objects
+        read_only: true

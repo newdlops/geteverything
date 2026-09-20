@@ -1,0 +1,12 @@
+[Unit]
+Description=Measure geteverything storage every minute
+
+[Timer]
+OnBootSec=30
+OnUnitInactiveSec=60
+RandomizedDelaySec=5
+AccuracySec=1
+Unit=geteverything-storage.service
+
+[Install]
+WantedBy=timers.target

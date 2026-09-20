@@ -1,0 +1,19 @@
+[Unit]
+Description=Collect geteverything storage usage
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /usr/local/lib/geteverything-storage/collect.py
+TimeoutStartSec=50
+Nice=19
+CPUQuota=10%
+MemoryMax=96M
+IOWeight=10
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/var/lib/geteverything-storage
+

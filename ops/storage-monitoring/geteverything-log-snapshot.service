@@ -1,0 +1,17 @@
+[Unit]
+Description=Bounded redacted crawler log snapshot
+After=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /usr/local/lib/geteverything-storage/logs.py
+TimeoutStartSec=25
+Nice=19
+CPUQuota=10%
+MemoryMax=64M
+IOWeight=10
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/var/lib/geteverything-storage

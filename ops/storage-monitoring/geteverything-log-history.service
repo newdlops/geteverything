@@ -1,0 +1,18 @@
+[Unit]
+Description=Incremental bounded log history collection or synchronization
+After=network-online.target docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/flock --nonblock /var/lib/geteverything-storage/history.lock /usr/bin/python3 /usr/local/lib/geteverything-storage/history.py
+TimeoutStartSec=40
+Nice=19
+CPUQuota=20%
+MemoryMax=64M
+IOWeight=10
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/var/lib/geteverything-storage
+
