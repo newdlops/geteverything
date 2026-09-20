@@ -16,7 +16,7 @@ Key environment variables:
 - `CRAWLER_SITES`: comma-separated site list (e.g., "ppomppu,fmkorea")
 - `CRAWLER_MAX_CONCURRENT`: total concurrent spiders (default depends on CPU)
 - `CRAWLER_MAX_SELENIUM`: concurrent Selenium spiders cap (default depends on CPU)
-- `CRAWLER_SELENIUM_SITES`: comma-separated selenium sites (default: "fmkorea,arca")
+- `CRAWLER_SELENIUM_SITES`: comma-separated selenium sites (default: "fmkorea")
 - `CRAWLER_INTERVAL_SECONDS`: default interval between successful runs
 - `CRAWLER_INTERVAL_<SITE>_SECONDS`: per-site interval override
 - `CRAWLER_MAX_RUNTIME_SECONDS`: default max runtime per run (seconds)
@@ -24,6 +24,7 @@ Key environment variables:
 - `CRAWLER_JITTER_SECONDS`: startup jitter to avoid spikes
 - `CRAWLER_BACKOFF_BASE_SECONDS`: base backoff on failure
 - `CRAWLER_BACKOFF_MAX_SECONDS`: max backoff on repeated failures
+- `CRAWLER_BACKOFF_MIN_<SITE>_SECONDS`: optional per-site minimum failure delay
 
 Shutdown:
 - On SIGINT/SIGTERM, terminates running spiders (SIGTERM -> SIGKILL after grace).
@@ -43,8 +44,6 @@ from pathlib import Path
 
 
 DEFAULT_SITES: tuple[str, ...] = ("ppomppu", "fmkorea", "eomisae", "coolnjoy", "arca")
-# DEFAULT_SITES: tuple[str, ...] = ("arca",)
-# DEFAULT_SELENIUM_SITES: set[str] = {"fmkorea", "arca"}
 DEFAULT_SELENIUM_SITES: set[str] = {"fmkorea",}
 
 
@@ -284,24 +283,15 @@ async def _site_loop(
 
     failures = 0
     while not stop_event.is_set():
-        async with overall_sem:
-            if site.uses_selenium:
-                async with selenium_sem:
-                    exit_code = await _run_spider_once(
-                        site,
-                        project_root=project_root,
-                        child_env=child_env,
-                        stop_event=stop_event,
-                        running=running,
-                    )
-            else:
-                exit_code = await _run_spider_once(
-                    site,
-                    project_root=project_root,
-                    child_env=child_env,
-                    stop_event=stop_event,
-                    running=running,
-                )
+        exit_code = await _run_spider_once_with_limits(
+            site,
+            project_root=project_root,
+            child_env=child_env,
+            stop_event=stop_event,
+            overall_sem=overall_sem,
+            selenium_sem=selenium_sem,
+            running=running,
+        )
 
         if stop_event.is_set():
             return
@@ -314,6 +304,7 @@ async def _site_loop(
         failures += 1
         backoff = min(backoff_max_seconds, backoff_base_seconds * (2 ** min(failures, 6)))
         backoff = int(backoff * random.uniform(0.8, 1.2))
+        backoff = max(backoff, _env_int(f"CRAWLER_BACKOFF_MIN_{site.name.upper()}_SECONDS", 0))
         _log(f"failed exit={exit_code} -> backoff {backoff}s (failures={failures})", site=site.name)
         await _sleep_or_stop(stop_event, backoff)
 
