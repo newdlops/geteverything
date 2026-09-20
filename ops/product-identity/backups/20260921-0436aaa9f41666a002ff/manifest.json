@@ -3,6 +3,8 @@
   "source_host": "168.107.29.18",
   "captured_at": "2026-09-21",
   "status_at_capture": "training",
+  "step_at_capture": 282,
+  "total_steps": 984,
   "files": {
     "checkpoint/adapter_model.safetensors": {
       "bytes": 2557776,

@@ -3,6 +3,7 @@
 - source host: `168.107.29.18`
 - training run: `0436aaa9f41666a002ff`
 - captured: 2026-09-21 (KST)
+- captured training step: `282/984`
 - purpose: 서버 손실에 대비한 중간 재개 지점
 - status at capture: `training`
 
