@@ -5,6 +5,15 @@
   "status_at_capture": "training",
   "step_at_capture": 282,
   "total_steps": 984,
+  "final_status": "rejected",
+  "final_step": 984,
+  "best_step": 738,
+  "final_validation_loss": 0.12428597007097016,
+  "baseline_correct": 12,
+  "candidate_correct": 31,
+  "candidate_valid": 52,
+  "candidate_false_merge": 2,
+  "candidate_p95_seconds": 33.395,
   "files": {
     "checkpoint/adapter_model.safetensors": {
       "bytes": 2557776,
@@ -29,6 +38,30 @@
     "meta/status.json": {
       "bytes": 1306,
       "sha256": "ee443350394202dcb207d08190b1c1b1508fa8799829ef6e0daf64194e3b0ae6"
+    },
+    "best/adapter_model.safetensors": {
+      "bytes": 2557776,
+      "sha256": "d67b4ebe8d5f4e997f6712eca2a3da2c53688aa1c10e3a7e08dd1dd734c13ec1"
+    },
+    "best/adapter_config.json": {
+      "bytes": 1054,
+      "sha256": "b3043ce998649aeb67a109ddbc9fb6228666a8d7b047d80fabf32a9a3292ff03"
+    },
+    "adapter.gguf": {
+      "bytes": 2557440,
+      "sha256": "aa2dbb82272f48ac76708e238559d95b9dc992a2e8f2c3f00e9345eb76dec1ae"
+    },
+    "evaluation.json": {
+      "bytes": 2897,
+      "sha256": "e11cd88de9181d751a052a58d52b1734cd757bf6bb3c0f973922dfaeec6eb4b1"
+    },
+    "generation-progress.json": {
+      "bytes": 72661,
+      "sha256": "b0f1771d641044a4636c2611cf1c166292e41de3e1275ce6dcae77e927175f56"
+    },
+    "meta/final-status.json": {
+      "bytes": 2897,
+      "sha256": "e11cd88de9181d751a052a58d52b1734cd757bf6bb3c0f973922dfaeec6eb4b1"
     }
   }
 }
