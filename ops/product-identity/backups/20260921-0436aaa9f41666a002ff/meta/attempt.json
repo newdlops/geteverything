@@ -1,0 +1,19 @@
+{
+  "at": 1789892494.1629755,
+  "dataset_sha256": "790882de66ff649e6c9b2104c68a2e6dda8516a55b385208e83219fa970fe782",
+  "operator_count": 0,
+  "attempts": 1,
+  "complete": false,
+  "policy_sha256": "0309be20cfcaf8eb82fb713caf65560c950cd3f1986640919d17f847b1895837",
+  "curriculum_sha256": "4389d509296dfc55635c494739b91133d6d7aaf488d251161ddc7a525d04d923",
+  "policy": {
+    "epochs": 4,
+    "max_steps": 1200,
+    "rank": 16,
+    "learning_rate": 8e-05,
+    "cpu": 0.35,
+    "evaluation_cpu": 0.35,
+    "training_hours": 18,
+    "evaluation_hours": 4
+  }
+}

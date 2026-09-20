@@ -1,0 +1,32 @@
+{
+  "run_id": "0436aaa9f41666a002ff",
+  "source_host": "168.107.29.18",
+  "captured_at": "2026-09-21",
+  "status_at_capture": "training",
+  "files": {
+    "checkpoint/adapter_model.safetensors": {
+      "bytes": 2557776,
+      "sha256": "cf80e38e17565713de75f04bcecde66001b8297f9e50c28ca44238fdb49c5f0a"
+    },
+    "checkpoint/optimizer.pt": {
+      "bytes": 5124165,
+      "sha256": "d994463f3ec5e8ba31f2d0e8e30163d8010b25f05d41a5e3311cb6da2f17c1f9"
+    },
+    "checkpoint/adapter_config.json": {
+      "bytes": 1054,
+      "sha256": "b3043ce998649aeb67a109ddbc9fb6228666a8d7b047d80fabf32a9a3292ff03"
+    },
+    "meta/dataset.json": {
+      "bytes": 136259,
+      "sha256": "7f6cc965b95e6a4f568b56d40d936116496fda896755833e189dcf05f48d3e0e"
+    },
+    "meta/attempt.json": {
+      "bytes": 557,
+      "sha256": "c8f94d7baeeedb46febcf4507a149001e4d3af19e7b8fb054fffaf12de901693"
+    },
+    "meta/status.json": {
+      "bytes": 1306,
+      "sha256": "ee443350394202dcb207d08190b1c1b1508fa8799829ef6e0daf64194e3b0ae6"
+    }
+  }
+}
