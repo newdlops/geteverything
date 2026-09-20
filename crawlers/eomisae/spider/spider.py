@@ -4,10 +4,13 @@ import scrapy
 import os
 import django
 import traceback
+from urllib.parse import parse_qs, urlsplit
 
 from w3lib.html import replace_escape_chars, strip_html5_whitespace
 
 from scrapy import Request
+from crawlers.utils.links import absolute_url, product_link
+from crawlers.availability import AvailabilitySpiderMixin
 if __name__ == 'spider.spider':
     from item import EomisaeItem # noqa
     from pipeline import EomisaePipeline # noqa
@@ -20,7 +23,8 @@ else:
 os.environ['DJANGO_SETTINGS_MODULE'] = 'admin.settings'
 django.setup()
 
-class EomisaeSpider(scrapy.Spider):
+class EomisaeSpider(AvailabilitySpiderMixin, scrapy.Spider):
+    availability_site = 'eomisae'
     name = "eomisae_spider"
     custom_settings = {
         'DOWNLOAD_DELAY': 2,
@@ -51,15 +55,25 @@ class EomisaeSpider(scrapy.Spider):
                 meta={'cookiejar': i}
             )
 
+        yield from self.availability_rechecks()
+
     def parse(self, response):
         for article in response.css('div.card_el'):
             try:
-                origin_url = article.css('a.pjax.hx::attr(href)').get()
-
-                id_pattern = r'document_srl\=(\d*?)$'
-                article_id = re.search(id_pattern, origin_url).group(1)
-                thumbnail = article.css('img.tmb::attr(src)').get()
-                subject = strip_html5_whitespace(replace_escape_chars(article.css('h3 a.pjax::text').get()))
+                href = article.css('a.pjax.hx::attr(href)').get()
+                if not href:
+                    continue
+                origin_url = response.urljoin(href)
+                parsed_url = urlsplit(origin_url)
+                article_id = parse_qs(parsed_url.query).get('document_srl', [''])[0]
+                article_id = article_id or parsed_url.path.rstrip('/').rsplit('/', 1)[-1]
+                if not article_id.isdigit():
+                    continue
+                thumbnail = absolute_url(article.css('img.tmb::attr(src)').get(), response.url)
+                subject_text = article.css('h3 a.pjax').xpath('string()').get()
+                if not subject_text:
+                    continue
+                subject = strip_html5_whitespace(replace_escape_chars(subject_text))
 
 
 
@@ -74,7 +88,7 @@ class EomisaeSpider(scrapy.Spider):
                 }
 
                 if article_id != '':
-                    yield Request(url=origin_url, callback=self.detail_parse, cb_kwargs=dict(data=data), headers=self.headers, meta={'cookiejar': response.meta['cookiejar']})
+                    yield self.deal_request(url=origin_url, data=data, headers=self.headers, meta={'cookiejar': response.meta['cookiejar']})
             except Exception as e:
                 print(f'목록 불러오는중에 에러 발생 : {e}')
                 traceback.print_exc()
@@ -89,7 +103,7 @@ class EomisaeSpider(scrapy.Spider):
             # dislike_count = btm_area[0].css('b::text').get()
             write_at = btm_area[5].css('::text').get()
             view_count = btm_area[1].css('b::text').get()
-            shop_url_1 = response.css('td.extra_url a::attr(href)').get()
+            shop_url_1 = product_link(response, 'td.extra_url a')
 
 
             yield EomisaeItem(dict(**data, shop_url_1=shop_url_1, recommend_count=recommend_count, write_at=write_at, view_count=view_count, category=category))

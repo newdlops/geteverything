@@ -8,8 +8,11 @@ from scrapy import Request
 from crawlers.fmkorea.item import FmKoreaItem
 from crawlers.fmkorea.pipeline import FmKoreaPipeline
 from crawlers.middlewares import SeleniumMiddleware
+from crawlers.utils.links import absolute_url, product_link
+from crawlers.availability import AvailabilitySpiderMixin
 
-class FmKoreaSpider(scrapy.Spider):
+class FmKoreaSpider(AvailabilitySpiderMixin, scrapy.Spider):
+    availability_site = 'fmkorea'
     name = "fm_korea_spider"
     custom_settings = {
         "LOG_LEVEL": "ERROR",
@@ -69,6 +72,8 @@ class FmKoreaSpider(scrapy.Spider):
                 headers=headers
             )
 
+        yield from self.availability_rechecks()
+
     def parse(self, response):
         # print(f'목록{response.body}')
         print(f'FMKOREA목록 처리')
@@ -78,7 +83,7 @@ class FmKoreaSpider(scrapy.Spider):
             for li in list:
                 article_id = li.css('h3.title a::attr(href)').get()[1:]
                 origin_url = f'https://www.fmkorea.com/{article_id}'
-                thumbnail = li.css('img.thumb::attr(data-original)').get()
+                thumbnail = absolute_url(li.css('img.thumb::attr(data-original),img.thumb::attr(src)').get(), response.url)
                 category = li.css('span.category a::text').get()
                 subject = replace_escape_chars(remove_tags(li.css('h3.title::attr(data-original-title)').get()))
                 data = {
@@ -87,7 +92,7 @@ class FmKoreaSpider(scrapy.Spider):
                     'thumbnail': thumbnail,
                 }
 
-                yield Request(url=f'https://www.fmkorea.com/?mid=hotdeal&sort_index=&order_type=desc&document_srl={article_id}&listStyle=webzine&cpage=1', callback=self.detail_parse, cb_kwargs=dict(data=data), meta={'cookiejar': response.meta['cookiejar']})
+                yield self.deal_request(url=origin_url, data=data, meta={'cookiejar': response.meta['cookiejar']})
         except Exception as e:
             traceback.print_exc()
             print(f'[Error :{datetime.now()}]fmkorea 목록 불러오는중에 에러 발생 : {e}')
@@ -109,7 +114,7 @@ class FmKoreaSpider(scrapy.Spider):
 
             tr = table.css('tr')
             if len(tr) > 0:
-                shop_url_1 = tr[0].css('div.xe_content a::text').get()
+                shop_url_1 = product_link(response, 'table.hotdeal_table tr:first-child div.xe_content a')
                 shop_name = tr[1].css('div.xe_content::text').get()
                 price = tr[3].css('div.xe_content::text').get()
                 delivery_price = tr[4].css('div.xe_content::text').get()

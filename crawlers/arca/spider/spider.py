@@ -9,9 +9,12 @@ from scrapy import Request
 from crawlers.arca.item import ArcaItem
 from crawlers.arca.pipeline import ArcaPipeline
 from crawlers.middlewares import SeleniumMiddleware, FlareSolverrMiddleware
+from crawlers.utils.links import absolute_url, product_link
+from crawlers.availability import AvailabilitySpiderMixin
 
 
-class ArcaSpider(scrapy.Spider):
+class ArcaSpider(AvailabilitySpiderMixin, scrapy.Spider):
+    availability_site = 'arca'
     name = "arca_spider"
     custom_settings = {
         'DOWNLOAD_DELAY': 10,
@@ -24,7 +27,7 @@ class ArcaSpider(scrapy.Spider):
             # 'rotating_proxies.middlewares.RotatingProxyMiddleware': 610,
             # 'rotating_proxies.middlewares.BanDetectionMiddleware': 620,
             # SeleniumMiddleware: 700,
-            FlareSolverrMiddleware: 700,
+            FlareSolverrMiddleware: 650,
         },
         'ROTATING_PROXY_LIST': [
             '123.141.181.8:5031',    # 수집: free‑proxy‑list.net :contentReference[oaicite:1]{index=1}
@@ -73,6 +76,8 @@ class ArcaSpider(scrapy.Spider):
                     'cookiejar': i}
             )
 
+        yield from self.availability_rechecks()
+
     def parse(self, response):
         try:
             print(f'arca 목록 처리')
@@ -83,7 +88,7 @@ class ArcaSpider(scrapy.Spider):
 
                 id_pattern = r'\/b\/hotdeal\/(.*?)\?p=\d'
                 article_id = re.match(id_pattern, origin_url).groups()[0]
-                thumbnail = article.css('.vrow-preview img::attr(src)').get()
+                thumbnail = absolute_url(article.css('.vrow-preview img::attr(src)').get(), response.url)
                 subject = strip_html5_whitespace(replace_escape_chars(article.css('a.title.hybrid-title::text')[1].get()))
 
                 category = article.css('.col-title a.badge::text').get()
@@ -100,7 +105,7 @@ class ArcaSpider(scrapy.Spider):
 
                 detail_page_url = f"https://arca.live{origin_url}"
                 if article_id != '':
-                    yield Request(url=detail_page_url, callback=self.detail_parse, cb_kwargs=dict(data=data), meta={'use_flaresolverr': True, 'cookiejar': response.meta['cookiejar']})
+                    yield self.deal_request(url=detail_page_url, data=data, meta={'use_flaresolverr': True, 'cookiejar': response.meta['cookiejar']})
         except Exception as e:
             traceback.print_exc()
             print(f'[Error :{datetime.now()}]아카라이브 목록 불러오는중에 에러 발생 : {e}')
@@ -114,7 +119,7 @@ class ArcaSpider(scrapy.Spider):
             dislike_count = info_spans[4].css('::text').get()
             write_at = info_spans[11].css('time::text').get()
             view_count = info_spans[10].css('::text').get()
-            shop_url_1 = response.css('tbody tr a::text').get()
+            shop_url_1 = product_link(response, 'tbody tr a')
 
 
             yield ArcaItem(dict(**data, shop_url_1=shop_url_1, recommend_count=recommend_count, dislike_count=dislike_count, view_count=view_count, write_at=write_at))

@@ -8,8 +8,11 @@ def crawl():
     process = CrawlerProcess(get_project_settings())
 
     # 스파이더를 실행합니다.
-    process.crawl(PpomppuSpider)
+    crawler = process.create_crawler(PpomppuSpider)
+    process.crawl(crawler)
     process.start()
+    if not crawler.stats.get_value('item_scraped_count', 0):
+        raise RuntimeError('Ppomppu crawl finished without successfully processed items')
 
 if __name__ == "__main__":
     crawl()

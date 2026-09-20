@@ -1,6 +1,7 @@
 import re
 
 import scrapy
+from crawlers.availability import AvailabilitySpiderMixin
 import os
 import django
 import datetime
@@ -20,7 +21,8 @@ else:
 os.environ['DJANGO_SETTINGS_MODULE'] = 'admin.settings'
 django.setup()
 
-class CoolNJoySpider(scrapy.Spider):
+class CoolNJoySpider(AvailabilitySpiderMixin, scrapy.Spider):
+  availability_site = 'coolnjoy'
   name = "cool_n_joy_spider"
   custom_settings = {
     'DOWNLOAD_DELAY': 2,
@@ -67,6 +69,8 @@ class CoolNJoySpider(scrapy.Spider):
             meta={'cookiejar': i}
         )
 
+    yield from self.availability_rechecks()
+
   def parse(self, response):
     for li in response.css('li.d-md-table-row'):
       origin_url = li.css('a.na-subject::attr(href)').get().strip()
@@ -81,16 +85,21 @@ class CoolNJoySpider(scrapy.Spider):
         'origin_url': origin_url, 'article_id': article_id,
         'subject': subject, 'category': category, 'price': price, 'recommend_count': recommend_count
       }
-      yield Request(url=origin_url, callback=self.detail_parse, cb_kwargs=dict(data=data), meta={'cookiejar': response.meta['cookiejar']})
+      yield self.deal_request(url=origin_url, data=data, meta={'cookiejar': response.meta['cookiejar']})
 
   def detail_parse(self, response, data):
     # content = response.css('div.view-content.fr-view::text').getall()
     # a_link = (a_link := response.css('div.view-content.fr-view a::attr(href)').get()) and a_link.strip()
     # a_link2 = (a_link2 := response.css('div.view-content.fr-view a::text').get()) and a_link2.strip()
-    shop_url_1 = (shop_url_1 := response.css('.pl-3 a::text').get()) and shop_url_1.strip()
-    thumbnail = (img := response.css('div.view-content.fr-view img::attr(href)').get()) and img.strip()
+    from crawlers.utils.links import absolute_url, product_link
+    shop_url_1 = product_link(response, '.pl-3 a')
+    thumbnail = absolute_url(response.css('div.view-content.fr-view img::attr(data-original),div.view-content.fr-view img::attr(src)').get(), response.url)
     write_at = (create_at := response.css('time.f-xs::text').get()) and create_at.strip()
-    view_count = int(replace_escape_chars(remove_tags(response.css('li:has(i.fa-eye).pr-3').get()).replace(',','')).replace('조회',''))
+    view_markup = response.css('li:has(i.fa-eye).pr-3').get()
+    if not view_markup or not write_at:
+      self.logger.warning("Skipping incomplete deal detail: %s", response.url)
+      return
+    view_count = int(replace_escape_chars(remove_tags(view_markup).replace(',','')).replace('조회',''))
     input_format = '%Y.%m.%d %H:%M'
     utc = ZoneInfo('UTC')
     create_time = datetime.datetime.strptime(write_at, input_format)
