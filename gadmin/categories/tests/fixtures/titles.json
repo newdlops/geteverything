@@ -1,0 +1,3005 @@
+{
+  "provenance": "500 public titles, 100 per site. Root labels reviewed by the coding assistant, not human-certified. Regression sample, not an untouched production accuracy estimate.",
+  "titles": [
+    {
+      "id": 128436,
+      "site": "ARCA",
+      "title": "허니버터칩 40g 16봉",
+      "expected_root": "food"
+    },
+    {
+      "id": 96197,
+      "site": "ARCA",
+      "title": "미국산 프리미엄 우삼겹 구이용 샤브용 250g X 6팩 (총 1.5kg)",
+      "expected_root": "food"
+    },
+    {
+      "id": 115838,
+      "site": "ARCA",
+      "title": "에이카랩스 불소치약 혼합 고불소 함유 10개입 1450 외",
+      "expected_root": "home"
+    },
+    {
+      "id": 117939,
+      "site": "ARCA",
+      "title": "AMD 9800X3D+RTX5070Ti+32GB+2TB_MANLI 완본체",
+      "expected_root": "computer"
+    },
+    {
+      "id": 120574,
+      "site": "ARCA",
+      "title": "두바이 쫀득 찰떡파이 3개",
+      "expected_root": "food"
+    },
+    {
+      "id": 91627,
+      "site": "ARCA",
+      "title": "코카콜라 제로 350ml 24캔 + 코크 26년 달력증정",
+      "expected_root": "food"
+    },
+    {
+      "id": 117029,
+      "site": "ARCA",
+      "title": "동원 통그릴 비엔나 1kg 2봉(코인딜)",
+      "expected_root": "food"
+    },
+    {
+      "id": 128421,
+      "site": "ARCA",
+      "title": "리스테린 그린티마일드 750ml 4개+펌프+100ml 2개",
+      "expected_root": "home"
+    },
+    {
+      "id": 100688,
+      "site": "ARCA",
+      "title": "필라델피아 크림치즈 1.36kg 임박 외",
+      "expected_root": "food"
+    },
+    {
+      "id": 99201,
+      "site": "ARCA",
+      "title": "ZOTAC 5070ti SOLID",
+      "expected_root": "computer"
+    },
+    {
+      "id": 102591,
+      "site": "ARCA",
+      "title": "오리온 촉촉한초코칩, 320g, 5개",
+      "expected_root": "food"
+    },
+    {
+      "id": 97749,
+      "site": "ARCA",
+      "title": "유혜광 수제 통 등심 돈까스 16장",
+      "expected_root": "food"
+    },
+    {
+      "id": 110972,
+      "site": "ARCA",
+      "title": "스타벅스 캡슐커피 10캡슐 x 5박스 골라담기 + 머그컵",
+      "expected_root": "food"
+    },
+    {
+      "id": 127779,
+      "site": "ARCA",
+      "title": "우리/신한) 26년 수확 국내산 달달하고 단단한 햇 양파 중 5kg",
+      "expected_root": "food"
+    },
+    {
+      "id": 122121,
+      "site": "ARCA",
+      "title": "에디파이어 MR5 BT 유무선 스피커",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 131926,
+      "site": "ARCA",
+      "title": "스프라이트 킨사이다 355ml 24개",
+      "expected_root": "food"
+    },
+    {
+      "id": 91274,
+      "site": "ARCA",
+      "title": "라인바싸 탄산수 500ml PET 7종 1박스 20입",
+      "expected_root": "food"
+    },
+    {
+      "id": 118622,
+      "site": "ARCA",
+      "title": "Grand Theft Auto V 인핸스드",
+      "expected_root": "games"
+    },
+    {
+      "id": 127344,
+      "site": "ARCA",
+      "title": "마운틴듀 제로 355ml 24개",
+      "expected_root": "food"
+    },
+    {
+      "id": 92618,
+      "site": "ARCA",
+      "title": "금풍제과 보리건빵(1kg)",
+      "expected_root": "food"
+    },
+    {
+      "id": 123455,
+      "site": "ARCA",
+      "title": "다이제샌드 바닐라밀크 10개+나샌드 크림치즈 10개",
+      "expected_root": "food"
+    },
+    {
+      "id": 109966,
+      "site": "ARCA",
+      "title": "스마일복권",
+      "expected_root": "unknown"
+    },
+    {
+      "id": 108712,
+      "site": "ARCA",
+      "title": "말차에몽 190ml x 24개",
+      "expected_root": "food"
+    },
+    {
+      "id": 131465,
+      "site": "ARCA",
+      "title": "펩시 제로슈거 라임향 500ml 20개",
+      "expected_root": "food"
+    },
+    {
+      "id": 122930,
+      "site": "ARCA",
+      "title": "서린컴퓨터 7800X3D_RX 9070 XT 16GB_RAM 32GB_V100 ARGB MINI 블랙 조립PC",
+      "expected_root": "computer"
+    },
+    {
+      "id": 121151,
+      "site": "ARCA",
+      "title": "샤오미 미지아 모니터 조명 스크린바 1s",
+      "expected_root": "computer"
+    },
+    {
+      "id": 123879,
+      "site": "ARCA",
+      "title": "파워에이드 900ml 12입",
+      "expected_root": "food"
+    },
+    {
+      "id": 130034,
+      "site": "ARCA",
+      "title": "펩시제로라임 210ml 30캔+355ml 24캔",
+      "expected_root": "food"
+    },
+    {
+      "id": 126838,
+      "site": "ARCA",
+      "title": "네멤) 안성탕면 20개",
+      "expected_root": "food"
+    },
+    {
+      "id": 123583,
+      "site": "ARCA",
+      "title": "프레시) 비비고 남도떡갈비 2팩",
+      "expected_root": "food"
+    },
+    {
+      "id": 124764,
+      "site": "ARCA",
+      "title": "스파클생수 500ml 100병 무라벨생수",
+      "expected_root": "food"
+    },
+    {
+      "id": 101897,
+      "site": "ARCA",
+      "title": "Crucial 32GB DDR5 RAM 키트 (2x16GB), 4800MHz",
+      "expected_root": "computer"
+    },
+    {
+      "id": 115475,
+      "site": "ARCA",
+      "title": "떠먹는 아이스크림 구구크러스트 홈 660ml x 6개",
+      "expected_root": "food"
+    },
+    {
+      "id": 126935,
+      "site": "ARCA",
+      "title": "오뚜기 참깨라면 115g, 4개",
+      "expected_root": "food"
+    },
+    {
+      "id": 109642,
+      "site": "ARCA",
+      "title": "조선호텔 특제육수 포기김치 4kg",
+      "expected_root": "food"
+    },
+    {
+      "id": 110836,
+      "site": "ARCA",
+      "title": "네멤)구글 기프트카드 1만",
+      "expected_root": "services"
+    },
+    {
+      "id": 125481,
+      "site": "ARCA",
+      "title": "야구르트 1971 제로 190ml 24팩/48팩",
+      "expected_root": "food"
+    },
+    {
+      "id": 126217,
+      "site": "ARCA",
+      "title": "티멤 코카콜라 제로, 350ml, 24개 재입고",
+      "expected_root": "food"
+    },
+    {
+      "id": 126457,
+      "site": "ARCA",
+      "title": "레쓰비 카페타임 라떼 240ml 30캔",
+      "expected_root": "food"
+    },
+    {
+      "id": 120912,
+      "site": "ARCA",
+      "title": "오뚜기 진라면 매운맛 120g, 10개",
+      "expected_root": "food"
+    },
+    {
+      "id": 97096,
+      "site": "ARCA",
+      "title": "기가바이트 27인치 게이밍 모니터 슈퍼 IPS QHD 144Hz 리얼 180Hz GS27QA",
+      "expected_root": "computer"
+    },
+    {
+      "id": 104784,
+      "site": "ARCA",
+      "title": "구글플레이 기프트카드",
+      "expected_root": "services"
+    },
+    {
+      "id": 115539,
+      "site": "ARCA",
+      "title": "(로켓직구)씨게이트 바라쿠다 24TB ST24000DM001",
+      "expected_root": "computer"
+    },
+    {
+      "id": 119811,
+      "site": "ARCA",
+      "title": "삼성 오디세이 G5 S32FG500 게이밍모니터 32인치 QHD",
+      "expected_root": "computer"
+    },
+    {
+      "id": 128797,
+      "site": "ARCA",
+      "title": "오뚜기 진라면 매운맛 120g 20개 + 열라면 120g 20개",
+      "expected_root": "food"
+    },
+    {
+      "id": 120134,
+      "site": "ARCA",
+      "title": "오뚜기 짜슐랭 145g 5p 10개",
+      "expected_root": "food"
+    },
+    {
+      "id": 115719,
+      "site": "ARCA",
+      "title": "햇반 윤기가득쌀밥 72개/새청무 특등급20kg",
+      "expected_root": "food"
+    },
+    {
+      "id": 120651,
+      "site": "ARCA",
+      "title": "다이아전용/구글플레이 포인트 8배 부스트",
+      "expected_root": "unknown"
+    },
+    {
+      "id": 104805,
+      "site": "ARCA",
+      "title": "슈퍼워시 가루세탁세제 10kg 2개",
+      "expected_root": "home"
+    },
+    {
+      "id": 123497,
+      "site": "ARCA",
+      "title": "몬스터 에너지 355ml 24개+24개(맛선택가능)",
+      "expected_root": "food"
+    },
+    {
+      "id": 129822,
+      "site": "ARCA",
+      "title": "1등급 한돈 돼지 앞다리살 1kg",
+      "expected_root": "food"
+    },
+    {
+      "id": 126765,
+      "site": "ARCA",
+      "title": "네멤) 피자헛 수퍼슈프림 리치골드 L+리치치즈파스타+콜라 1.25L",
+      "expected_root": "food"
+    },
+    {
+      "id": 117602,
+      "site": "ARCA",
+      "title": "펩시제로슈거라임 310mlx24입+칠성사이다 제로 310mlx24입",
+      "expected_root": "food"
+    },
+    {
+      "id": 101175,
+      "site": "ARCA",
+      "title": "오뚜기 프레스코 스파게티소스 6종 2개+3개",
+      "expected_root": "food"
+    },
+    {
+      "id": 94560,
+      "site": "ARCA",
+      "title": "프리소너스 에리스 3.5 Gen2 외",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 124539,
+      "site": "ARCA",
+      "title": "맥심 모카골드 커피믹스 400T",
+      "expected_root": "food"
+    },
+    {
+      "id": 98063,
+      "site": "ARCA",
+      "title": "허닭 133종 1+1+1 골라담기",
+      "expected_root": "food"
+    },
+    {
+      "id": 129053,
+      "site": "ARCA",
+      "title": "MGSD 데스티니 건담",
+      "expected_root": "sports"
+    },
+    {
+      "id": 124329,
+      "site": "ARCA",
+      "title": "사이버펑크 2077: 얼티밋 에디션 (PS5) (한국어, 영어)",
+      "expected_root": "games"
+    },
+    {
+      "id": 95604,
+      "site": "ARCA",
+      "title": "듀오백 스퀘어 라이트 메쉬 사무용의자",
+      "expected_root": "home"
+    },
+    {
+      "id": 129074,
+      "site": "ARCA",
+      "title": "페레로로쉐 초코바 화이트 헤이즐넛, 90g, 6개",
+      "expected_root": "food"
+    },
+    {
+      "id": 120759,
+      "site": "ARCA",
+      "title": "코인딜) 무케루 푸루푸루 구미 젤리 40g 12개",
+      "expected_root": "food"
+    },
+    {
+      "id": 126399,
+      "site": "ARCA",
+      "title": "WD BLACK SN850X 4TB M.2 NVMe SSD",
+      "expected_root": "computer"
+    },
+    {
+      "id": 121659,
+      "site": "ARCA",
+      "title": "바이오하자드 RE:3",
+      "expected_root": "games"
+    },
+    {
+      "id": 93629,
+      "site": "ARCA",
+      "title": "크리넥스 3겹 데코앤소프트 화이트 25m 30롤 x 2개 (T멤버십)",
+      "expected_root": "home"
+    },
+    {
+      "id": 116399,
+      "site": "ARCA",
+      "title": "콘칲 초당옥수수 148g 6개",
+      "expected_root": "food"
+    },
+    {
+      "id": 93403,
+      "site": "ARCA",
+      "title": "Undercroft warriors",
+      "expected_root": "games"
+    },
+    {
+      "id": 114603,
+      "site": "ARCA",
+      "title": "3초 떡볶이 7팩",
+      "expected_root": "food"
+    },
+    {
+      "id": 100346,
+      "site": "ARCA",
+      "title": "네이버멤버십 뉴트리션메이트 비타민c 3000 NON GMO 비타민씨 3000mg 60포",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 129984,
+      "site": "ARCA",
+      "title": "정원식품 소고기+메추리알 장조림 400g x 2팩 네멤무배",
+      "expected_root": "food"
+    },
+    {
+      "id": 125779,
+      "site": "ARCA",
+      "title": "티멤) 동국제약 마데카솔 연고 2개 + 마데카 메디패치",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 125264,
+      "site": "ARCA",
+      "title": "고래밥 볶음양념맛, 46g, 12개",
+      "expected_root": "food"
+    },
+    {
+      "id": 93827,
+      "site": "ARCA",
+      "title": "GS ALL 체크카드 발급시 GS포인트 1만 증정",
+      "expected_root": "unknown"
+    },
+    {
+      "id": 126417,
+      "site": "ARCA",
+      "title": "에어팟 프로3 6대카드결제 최종가",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 115477,
+      "site": "ARCA",
+      "title": "Antec GSK 850W WHITE 80PLUS GOLD 풀 모듈러 ATX 3.1 (PCIE5.1)",
+      "expected_root": "computer"
+    },
+    {
+      "id": 123398,
+      "site": "ARCA",
+      "title": "닌텐도 스위치 2 마리오카트 월드 세트",
+      "expected_root": "games"
+    },
+    {
+      "id": 99650,
+      "site": "ARCA",
+      "title": "바쏘 엑스트라 버진 올리브유 500ml 1병 네이버멤버십만",
+      "expected_root": "food"
+    },
+    {
+      "id": 129665,
+      "site": "ARCA",
+      "title": "마포나루터 돼지목살왕구이, 500g, 3팩",
+      "expected_root": "food"
+    },
+    {
+      "id": 132151,
+      "site": "ARCA",
+      "title": "도브 헤어 테라피 샴푸 380ml x 3개  + 샴푸브러쉬",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 99018,
+      "site": "ARCA",
+      "title": "삼립호빵 12입+2개 증정 (총 14개)",
+      "expected_root": "food"
+    },
+    {
+      "id": 127169,
+      "site": "ARCA",
+      "title": "치즈뿌린 치킨팝, 65g, 15개",
+      "expected_root": "food"
+    },
+    {
+      "id": 119010,
+      "site": "ARCA",
+      "title": "알리익스프레스 16주년 기념 쿠폰, 카드할인 모음집",
+      "expected_root": "unknown"
+    },
+    {
+      "id": 120909,
+      "site": "ARCA",
+      "title": "[멤버십] 못난이사과 3.5kg + 사과 1.8kg",
+      "expected_root": "food"
+    },
+    {
+      "id": 120709,
+      "site": "ARCA",
+      "title": "AMD 라이젠5 5500X3D",
+      "expected_root": "computer"
+    },
+    {
+      "id": 127421,
+      "site": "ARCA",
+      "title": "농심 사천 짜파게티 큰사발면 115g, 16개",
+      "expected_root": "food"
+    },
+    {
+      "id": 118228,
+      "site": "ARCA",
+      "title": "닌텐도 스위치2 본체, 마리오카트 월드 (선착순 매일 16시 오픈)",
+      "expected_root": "games"
+    },
+    {
+      "id": 116859,
+      "site": "ARCA",
+      "title": "리아스낵타임",
+      "expected_root": "food"
+    },
+    {
+      "id": 109432,
+      "site": "ARCA",
+      "title": "해태제과 사브레, 252g, 2개",
+      "expected_root": "food"
+    },
+    {
+      "id": 115473,
+      "site": "ARCA",
+      "title": "SKT망 알뜰폰 통화무제한/5GB 평생요금제",
+      "expected_root": "services"
+    },
+    {
+      "id": 130309,
+      "site": "ARCA",
+      "title": "을지로 연탄불고기식 돼지불고기, 250g, 4개",
+      "expected_root": "food"
+    },
+    {
+      "id": 118619,
+      "site": "ARCA",
+      "title": "TR 히든밴딩 슬랙스 타임딜",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 126197,
+      "site": "ARCA",
+      "title": "슬릭 모션 면도날세트 12입",
+      "expected_root": "home"
+    },
+    {
+      "id": 91251,
+      "site": "ARCA",
+      "title": "네이버 고기페스타 목전지 우삼겹 등심 부채 등등등",
+      "expected_root": "food"
+    },
+    {
+      "id": 127682,
+      "site": "ARCA",
+      "title": "삼양 1963 라면 131g, 32개",
+      "expected_root": "food"
+    },
+    {
+      "id": 108155,
+      "site": "ARCA",
+      "title": "촉촉 수비드 닭가슴살 10팩 골라담기",
+      "expected_root": "food"
+    },
+    {
+      "id": 101970,
+      "site": "ARCA",
+      "title": "포스트 그래놀라 크랜베리 아몬드 570g x 4개 (네멤)",
+      "expected_root": "food"
+    },
+    {
+      "id": 111859,
+      "site": "ARCA",
+      "title": "코인딜) 애슐리주먹밥 5종 맛보기 10개",
+      "expected_root": "food"
+    },
+    {
+      "id": 126754,
+      "site": "ARCA",
+      "title": "Sentience The Androids Tale",
+      "expected_root": "games"
+    },
+    {
+      "id": 114775,
+      "site": "ARCA",
+      "title": "닥터페퍼 제로 350ml x 24개",
+      "expected_root": "food"
+    },
+    {
+      "id": 95605,
+      "site": "ARCA",
+      "title": "미미네 오리지널 국물떡볶이 2봉 + 서울 떡볶이 2봉",
+      "expected_root": "food"
+    },
+    {
+      "id": 103000,
+      "site": "EOMISAE",
+      "title": "조공용 효도용 내꺼용 인기글 아베다 패들 브러쉬...",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 95166,
+      "site": "EOMISAE",
+      "title": "메가커피 아이스아메리카노 외",
+      "expected_root": "food"
+    },
+    {
+      "id": 105343,
+      "site": "EOMISAE",
+      "title": "2분 뒤 전체 공개로 전환됩니다 (미달 조건 : 레벨)",
+      "expected_root": "unknown"
+    },
+    {
+      "id": 130964,
+      "site": "EOMISAE",
+      "title": "트레통 가르파 부츠, 1.7만원(유료배송)",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 100360,
+      "site": "EOMISAE",
+      "title": "[로켓직구] 푸마 디비에이트 나이트로 엘리트2 8....",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 96909,
+      "site": "EOMISAE",
+      "title": "바르온 순살 뼈해장국 3,900원",
+      "expected_root": "food"
+    },
+    {
+      "id": 101749,
+      "site": "EOMISAE",
+      "title": "acg 라바플로우 230300원",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 100728,
+      "site": "EOMISAE",
+      "title": "맥반석 구운계란 중란 30구 5,190원",
+      "expected_root": "food"
+    },
+    {
+      "id": 96003,
+      "site": "EOMISAE",
+      "title": "동국제약 연말결산 할인 영양제딜(이뮨샷 1병 843...",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 97179,
+      "site": "EOMISAE",
+      "title": "사조 안심따개 참치 살코기/마일드 100g 총 25캔 ...",
+      "expected_root": "food"
+    },
+    {
+      "id": 131508,
+      "site": "EOMISAE",
+      "title": "LEE 페이드코튼자켓 35000원",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 99690,
+      "site": "EOMISAE",
+      "title": "유니클로 캐시미어 100% 스웨터 ₩74,490 (2천원 ...",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 105389,
+      "site": "EOMISAE",
+      "title": "무탠다드 드로즈 할인",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 130521,
+      "site": "EOMISAE",
+      "title": "칼하트 WIP 데밍 다운 자켓 역역시즌딜 외",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 90459,
+      "site": "EOMISAE",
+      "title": "테이크이지 체크셔츠 1.1",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 129882,
+      "site": "EOMISAE",
+      "title": "폴로 랄프로렌 페이디드 데님 트러커",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 102198,
+      "site": "EOMISAE",
+      "title": "살로몬 크로스 인슐레이션 자켓 리스탁",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 93077,
+      "site": "EOMISAE",
+      "title": "신짱에 미친자, 15봉지 만원, 봉지당 666원",
+      "expected_root": "food"
+    },
+    {
+      "id": 131901,
+      "site": "EOMISAE",
+      "title": "몽벨 슈페리어 다운 파카 17.9",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 98660,
+      "site": "EOMISAE",
+      "title": "그라미치 스트레이트 팬츠, 보이저 팬츠 등",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 92100,
+      "site": "EOMISAE",
+      "title": "콘돔새 스킨엘리트 1+1+1 14900원",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 92009,
+      "site": "EOMISAE",
+      "title": "브릭맨션 패밀리세일",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 104312,
+      "site": "EOMISAE",
+      "title": "목토시, 스마트 장갑 각 1천원",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 102979,
+      "site": "EOMISAE",
+      "title": "제이크루 3개 이상 구매 70% 할인시 헨리넥 18달...",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 103388,
+      "site": "EOMISAE",
+      "title": "탑텐 쿨에어 심리스 브이넥 (3,900원) (무료배송)",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 94965,
+      "site": "EOMISAE",
+      "title": "클래식한 제품들 좋아하는 분들 계세요? 제로라운...",
+      "expected_root": "unknown"
+    },
+    {
+      "id": 89753,
+      "site": "EOMISAE",
+      "title": "다이슨 슈퍼소닉 뉴럴 헤어 드라이어 376,500원",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 94995,
+      "site": "EOMISAE",
+      "title": "몽벨 수페리어 다운파카",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 92028,
+      "site": "EOMISAE",
+      "title": "[아빠새] 한세 패밀리 세일 (PGA투어 골프웨어, ...",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 99425,
+      "site": "EOMISAE",
+      "title": "한돈고추장두루치기 400g 외 / ￦3,400",
+      "expected_root": "food"
+    },
+    {
+      "id": 103655,
+      "site": "EOMISAE",
+      "title": "닥터마틴 1461 실버",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 102938,
+      "site": "EOMISAE",
+      "title": "다슈 힐 우드 퍼퓸 50ml + 고체향수 15ml 9천원",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 101845,
+      "site": "EOMISAE",
+      "title": "강명희 국내산 통 닭다리 순살 1kg 9,960원 (무배)",
+      "expected_root": "food"
+    },
+    {
+      "id": 93863,
+      "site": "EOMISAE",
+      "title": "아이깨끗해 핸드워시 리필 1.8L+용기 250ml+250ml...",
+      "expected_root": "home"
+    },
+    {
+      "id": 130289,
+      "site": "EOMISAE",
+      "title": "삼다수 무라벨 2L 12병, 9,590원",
+      "expected_root": "food"
+    },
+    {
+      "id": 100154,
+      "site": "EOMISAE",
+      "title": "노브랜드버거 모바일금액권 1만원권 8,000원",
+      "expected_root": "services"
+    },
+    {
+      "id": 98070,
+      "site": "EOMISAE",
+      "title": "스파오 심리스 4,740원",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 99827,
+      "site": "EOMISAE",
+      "title": "TEMPUR 템퍼 오리지널 베개 S/M 59,122원 (토스)",
+      "expected_root": "home"
+    },
+    {
+      "id": 94033,
+      "site": "EOMISAE",
+      "title": "펩시제로슈거 라임향 355ml 48캔+지코바치킨 1만...",
+      "expected_root": "food"
+    },
+    {
+      "id": 101007,
+      "site": "EOMISAE",
+      "title": "청우 초코파이 찰떡 40개입, 2박스 (11,500원/무배)",
+      "expected_root": "food"
+    },
+    {
+      "id": 98264,
+      "site": "EOMISAE",
+      "title": "삼형제고기 편육 300g 3,920원",
+      "expected_root": "food"
+    },
+    {
+      "id": 93915,
+      "site": "EOMISAE",
+      "title": "브이투 스톤 워시드 볼캡 5,580원",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 131311,
+      "site": "EOMISAE",
+      "title": "아페쎄 카부르 트렁크 팬티 (수면용 추천) ₩9,980",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 91143,
+      "site": "EOMISAE",
+      "title": "프릴 주방세제 리필 1L 3.650원",
+      "expected_root": "home"
+    },
+    {
+      "id": 95887,
+      "site": "EOMISAE",
+      "title": "듀오링고 패밀리 1년 5000원",
+      "expected_root": "games"
+    },
+    {
+      "id": 93358,
+      "site": "EOMISAE",
+      "title": "아웃스탠딩 공홈 맨투맨 40~80% 무배",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 99883,
+      "site": "EOMISAE",
+      "title": "질레트 스킨텍 핸들1+면도날12개 29,360원",
+      "expected_root": "home"
+    },
+    {
+      "id": 95603,
+      "site": "EOMISAE",
+      "title": "무신사 타임세일 곡괭이",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 99273,
+      "site": "EOMISAE",
+      "title": "비바스튜디오 파카 롱패딩,피코트 3만원대 무배등...",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 94398,
+      "site": "EOMISAE",
+      "title": "무료반품) 레드윙 니들스 우영미 등 곡괭이",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 97594,
+      "site": "EOMISAE",
+      "title": "알로 아이웨어 에센셜 아넬, 프렌치 스퀘어, 웰링...",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 101404,
+      "site": "EOMISAE",
+      "title": "구운계란 30구 5,940원 ",
+      "expected_root": "food"
+    },
+    {
+      "id": 91918,
+      "site": "EOMISAE",
+      "title": "유니클로 jwa 퍼프텍 유틸리티 자켓 6.9만",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 98818,
+      "site": "EOMISAE",
+      "title": "연세 고농축주스 120ml x 12팩 체험딜",
+      "expected_root": "food"
+    },
+    {
+      "id": 101976,
+      "site": "EOMISAE",
+      "title": "아디제로 EVO SL W $61 등 50%할인 모음",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 100898,
+      "site": "EOMISAE",
+      "title": "신라면 10개 + 짜파게티 5개 9,990원",
+      "expected_root": "food"
+    },
+    {
+      "id": 91787,
+      "site": "EOMISAE",
+      "title": "피레넥스 애리얼 경량패딩 26.4만원",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 95354,
+      "site": "EOMISAE",
+      "title": "8초 플리스 이지 팬츠 14,930원",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 89847,
+      "site": "EOMISAE",
+      "title": "아파트 유리창 청소기 4.9",
+      "expected_root": "unknown"
+    },
+    {
+      "id": 105168,
+      "site": "EOMISAE",
+      "title": "쿠팡럭스) 마르지엘라 레이지선데이모닝 30ml 6.8발",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 130681,
+      "site": "EOMISAE",
+      "title": "뉴발/NB Rover 입고",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 93840,
+      "site": "EOMISAE",
+      "title": "무탠다드 세일 ~87%",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 130300,
+      "site": "EOMISAE",
+      "title": "을지로 연탄불고기식 돼지불고기 250g 4개 7990원",
+      "expected_root": "food"
+    },
+    {
+      "id": 105766,
+      "site": "EOMISAE",
+      "title": "누아트 헤이븐 스포츠 후드 바라클라바 7,430원",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 96396,
+      "site": "EOMISAE",
+      "title": "반스 어센틱 체커보드",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 92152,
+      "site": "EOMISAE",
+      "title": "인기글) CK 모던 코튼 빤스 2pack 리스탁..!!",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 96920,
+      "site": "EOMISAE",
+      "title": "[무료교환반품] 후아유 코듀로이 후디 2만원 등",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 90743,
+      "site": "EOMISAE",
+      "title": "12/15 네이버포인트",
+      "expected_root": "unknown"
+    },
+    {
+      "id": 89773,
+      "site": "EOMISAE",
+      "title": "컬리 스페인산 냉동 대패 삼겹살 1kg(8220원)",
+      "expected_root": "food"
+    },
+    {
+      "id": 92651,
+      "site": "EOMISAE",
+      "title": "피레넥스 애리얼 경량패딩 26.8만원",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 89557,
+      "site": "EOMISAE",
+      "title": "비에스엔 신타-6 프로틴 파우더",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 106038,
+      "site": "EOMISAE",
+      "title": "나이키 ACG 루나 레이크",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 94474,
+      "site": "EOMISAE",
+      "title": "무인양품 와이드 코듀로이 이지팬츠 2.5",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 104825,
+      "site": "EOMISAE",
+      "title": "파타고니아 세일",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 89794,
+      "site": "EOMISAE",
+      "title": "무인양품 굿피트 샌들 6,210원 무료배송 등",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 89800,
+      "site": "EOMISAE",
+      "title": "신칠라 라이트웨잇 오트밀 17.9 풀 리스탁",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 98482,
+      "site": "EOMISAE",
+      "title": "가시제거연구소 핑크라벨 고등어 800g 17850",
+      "expected_root": "food"
+    },
+    {
+      "id": 107039,
+      "site": "EOMISAE",
+      "title": "돌돌이 테이프크리너 본체+케이스+리필7 네이버 ...",
+      "expected_root": "home"
+    },
+    {
+      "id": 104157,
+      "site": "EOMISAE",
+      "title": "(재입고) 소신 Fine Cotton cover zip Knit (AVOC...",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 96917,
+      "site": "EOMISAE",
+      "title": "무인양품 보더티셔츠 14,900원 등등",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 99812,
+      "site": "EOMISAE",
+      "title": "플랙진 60% 세일",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 101072,
+      "site": "EOMISAE",
+      "title": "아트뮤 75w 충전기, 맥세이프 충전기, 20000 보조...",
+      "expected_root": "mobile"
+    },
+    {
+      "id": 95982,
+      "site": "EOMISAE",
+      "title": "(재입고) 나이키 써마 핏 ADV 리펠 러닝 베스트",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 104113,
+      "site": "EOMISAE",
+      "title": "그라미치 가젯 팬츠 피그먼트 네이비",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 106804,
+      "site": "EOMISAE",
+      "title": "프로쉬 클리어런스 세일",
+      "expected_root": "home"
+    },
+    {
+      "id": 106138,
+      "site": "EOMISAE",
+      "title": "안데르센 안데르센 머플러 2종 추가할인",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 129865,
+      "site": "EOMISAE",
+      "title": "라이프익스텐션 슈퍼 오메가3 240정",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 89689,
+      "site": "EOMISAE",
+      "title": "아이깨끗해 핸드워시 본품+리필 6종 9900원 무배",
+      "expected_root": "home"
+    },
+    {
+      "id": 97883,
+      "site": "EOMISAE",
+      "title": "칼하트 립스탑 메신저백 블랙 3만원대",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 98942,
+      "site": "EOMISAE",
+      "title": "리퀴드 라벤더 캡슐세제 200개입 8,900원 (무배)",
+      "expected_root": "home"
+    },
+    {
+      "id": 104634,
+      "site": "EOMISAE",
+      "title": "JW중외제약 설맞이 패밀리세일 ~78%",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 100727,
+      "site": "EOMISAE",
+      "title": "촉촉한 초코칩 16개입 x 3박스 8,900원",
+      "expected_root": "food"
+    },
+    {
+      "id": 102997,
+      "site": "EOMISAE",
+      "title": "메르시밴드/ 젬스톤 팔찌 남녀 3색 1,400원",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 103037,
+      "site": "EOMISAE",
+      "title": "[48시간 타임딜] 미니 가습기 휴대용 탁상용 무선...",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 99990,
+      "site": "EOMISAE",
+      "title": "(24,000원) 참치 150g x 8캔 + 4캔",
+      "expected_root": "food"
+    },
+    {
+      "id": 102059,
+      "site": "EOMISAE",
+      "title": "폴로 랄프로렌 머플러 79,920원",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 105390,
+      "site": "EOMISAE",
+      "title": "유니클로 저지 배럴 레그 팬츠 3.3만",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 130299,
+      "site": "EOMISAE",
+      "title": "몰든 메시 스노우 러닝 반다나 11,820원",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 93834,
+      "site": "EOMISAE",
+      "title": "아이앱 얼리링크",
+      "expected_root": "unknown"
+    },
+    {
+      "id": 90226,
+      "site": "EOMISAE",
+      "title": "뉴발란스 U992GY $140",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 115298,
+      "site": "FMKOREA",
+      "title": "Return to ash",
+      "expected_root": "games"
+    },
+    {
+      "id": 110698,
+      "site": "FMKOREA",
+      "title": "마니커 가슴속살 텐더스틱 1kg",
+      "expected_root": "food"
+    },
+    {
+      "id": 101071,
+      "site": "FMKOREA",
+      "title": "리퀴드 라벤더 캡슐세제 1챔버 200개입",
+      "expected_root": "home"
+    },
+    {
+      "id": 120104,
+      "site": "FMKOREA",
+      "title": "포토리뷰500P + 2080 오리지날 탄력모 칫솔 5+5 x 3개 (30개) + 미니치약 증정 (카드)",
+      "expected_root": "home"
+    },
+    {
+      "id": 103855,
+      "site": "FMKOREA",
+      "title": "피코크 조선호텔 김치 포기김치 8kg",
+      "expected_root": "food"
+    },
+    {
+      "id": 122268,
+      "site": "FMKOREA",
+      "title": "바이오쇼크 인피니트",
+      "expected_root": "games"
+    },
+    {
+      "id": 99959,
+      "site": "FMKOREA",
+      "title": "삼립 제주말차 맛보기 패키지 혼합 7봉",
+      "expected_root": "food"
+    },
+    {
+      "id": 130134,
+      "site": "FMKOREA",
+      "title": "고농축 섬유유연제 초고농축 오리지널 포켓몬에디션 1300ml 2개 + 1L 1개",
+      "expected_root": "home"
+    },
+    {
+      "id": 122234,
+      "site": "FMKOREA",
+      "title": "삼성전자 오디세이 G5 S32FG500 32인치 QHD IPS 180Hz",
+      "expected_root": "computer"
+    },
+    {
+      "id": 122055,
+      "site": "FMKOREA",
+      "title": "오뚜기 진라면 매운맛 10봉 + 열라면 10봉",
+      "expected_root": "food"
+    },
+    {
+      "id": 121345,
+      "site": "FMKOREA",
+      "title": "코인역대가)오즈랜드 우리곡물크리스피롤23곡 660g (약66개입) / 국내산 곡물과자",
+      "expected_root": "food"
+    },
+    {
+      "id": 129229,
+      "site": "FMKOREA",
+      "title": "노브랜드버거 NBB 어메이징 더블 세트",
+      "expected_root": "food"
+    },
+    {
+      "id": 96912,
+      "site": "FMKOREA",
+      "title": "국내산 목살/삼겹살 100g",
+      "expected_root": "food"
+    },
+    {
+      "id": 123267,
+      "site": "FMKOREA",
+      "title": "산과들에 다크초콜릿아몬드, 20g, 24봉",
+      "expected_root": "food"
+    },
+    {
+      "id": 126126,
+      "site": "FMKOREA",
+      "title": "에이서 스위프트 GO 14 AI 루나레이크 코어 U5-226V 16GB 512GB 노트북",
+      "expected_root": "computer"
+    },
+    {
+      "id": 90045,
+      "site": "FMKOREA",
+      "title": "크리넥스 안심 키친타월 140매 12롤 2팩+빨아쓰는 행주 72매 증정",
+      "expected_root": "home"
+    },
+    {
+      "id": 123467,
+      "site": "FMKOREA",
+      "title": "국내산 찹쌀 10kg",
+      "expected_root": "food"
+    },
+    {
+      "id": 110298,
+      "site": "FMKOREA",
+      "title": "(HOT특가딜) 신라면10입 +안성탕면5입 +너구리5입 (총 20봉)",
+      "expected_root": "food"
+    },
+    {
+      "id": 128174,
+      "site": "FMKOREA",
+      "title": "펩시 제로슈거 제로카페인 355ml 48캔",
+      "expected_root": "food"
+    },
+    {
+      "id": 124032,
+      "site": "FMKOREA",
+      "title": "폰타나 파우치 파스타소스 12개 + 스파게티면 2개",
+      "expected_root": "food"
+    },
+    {
+      "id": 115466,
+      "site": "FMKOREA",
+      "title": "밀카 초코 슈프림 180g 3개 외",
+      "expected_root": "food"
+    },
+    {
+      "id": 107581,
+      "site": "FMKOREA",
+      "title": "코큐텐(Coq10)100mg,360정,바이오페린 함유 무함유 두가지버전",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 97325,
+      "site": "FMKOREA",
+      "title": "햇반 210g 36입",
+      "expected_root": "food"
+    },
+    {
+      "id": 114871,
+      "site": "FMKOREA",
+      "title": "퍼플랩 5090 완본체",
+      "expected_root": "computer"
+    },
+    {
+      "id": 124532,
+      "site": "FMKOREA",
+      "title": "도루코 페이스6 12입 면도날+GS25 3천원권",
+      "expected_root": "home"
+    },
+    {
+      "id": 98983,
+      "site": "FMKOREA",
+      "title": "한일식품 얼큰유부우동 3개 + 해물우동 3개",
+      "expected_root": "food"
+    },
+    {
+      "id": 117626,
+      "site": "FMKOREA",
+      "title": "신라면 10입+안성탕면 5입+너구리 5입 (총 20봉)",
+      "expected_root": "food"
+    },
+    {
+      "id": 123355,
+      "site": "FMKOREA",
+      "title": "몬스터 에너지 울트라 355ml 24캔+코카콜라 제로 350ml x 24캔",
+      "expected_root": "food"
+    },
+    {
+      "id": 116335,
+      "site": "FMKOREA",
+      "title": "갈아만든 배 저칼로리 340ml 24캔",
+      "expected_root": "food"
+    },
+    {
+      "id": 101752,
+      "site": "FMKOREA",
+      "title": "Aula 독거미 F108 pro 유무선 기계식 키보드 풀배열 블루투스",
+      "expected_root": "computer"
+    },
+    {
+      "id": 129532,
+      "site": "FMKOREA",
+      "title": "(코인) 도로롱 쿠션",
+      "expected_root": "home"
+    },
+    {
+      "id": 119699,
+      "site": "FMKOREA",
+      "title": "카라카라 오렌지 중대과 4kg 3시간 타임딜",
+      "expected_root": "food"
+    },
+    {
+      "id": 124653,
+      "site": "FMKOREA",
+      "title": "삼립 얌 크림단팥빵 12개",
+      "expected_root": "food"
+    },
+    {
+      "id": 129405,
+      "site": "FMKOREA",
+      "title": "코인딜 제스프리 골드키위 점보20과 3.1kg 내외",
+      "expected_root": "food"
+    },
+    {
+      "id": 98288,
+      "site": "FMKOREA",
+      "title": "롯데웰푸드 월드콘 바닐라 160ml 24개",
+      "expected_root": "food"
+    },
+    {
+      "id": 111115,
+      "site": "FMKOREA",
+      "title": "쿠크다스 커피 & 화이트 2종 x 4p 세트, 128g",
+      "expected_root": "food"
+    },
+    {
+      "id": 123711,
+      "site": "FMKOREA",
+      "title": "삼양 간짬뽕 20입 유니버스클럽 농협 우리",
+      "expected_root": "food"
+    },
+    {
+      "id": 99281,
+      "site": "FMKOREA",
+      "title": "팔도비빔면 컵라면16개입",
+      "expected_root": "food"
+    },
+    {
+      "id": 126795,
+      "site": "FMKOREA",
+      "title": "국내산 깐마늘 1kg",
+      "expected_root": "food"
+    },
+    {
+      "id": 121443,
+      "site": "FMKOREA",
+      "title": "2025년 정남진 농협 새청무쌀 10kg 20kg 상 등급 단일품종 당일도정",
+      "expected_root": "food"
+    },
+    {
+      "id": 105125,
+      "site": "FMKOREA",
+      "title": "홈스타 막힌곳을 부탁해 매직펑펑 강력 배수구 세정제, 2L, 2개",
+      "expected_root": "home"
+    },
+    {
+      "id": 90573,
+      "site": "FMKOREA",
+      "title": "코카콜라 제로 350ml캔 24개입+ 증정품 (코카콜라 그립톡 2종 랜덤발송+코카콜라 스티커)",
+      "expected_root": "food"
+    },
+    {
+      "id": 95215,
+      "site": "FMKOREA",
+      "title": "돈시몬 생과일 착즙 100% 토마토주스, 2L, 1개",
+      "expected_root": "food"
+    },
+    {
+      "id": 117042,
+      "site": "FMKOREA",
+      "title": "펩시 제로 슈거 라임 355ML 24캔",
+      "expected_root": "food"
+    },
+    {
+      "id": 104527,
+      "site": "FMKOREA",
+      "title": "라꽁비에뜨 버터 가염 30개",
+      "expected_root": "food"
+    },
+    {
+      "id": 123883,
+      "site": "FMKOREA",
+      "title": "PS5 붉은사막",
+      "expected_root": "games"
+    },
+    {
+      "id": 110015,
+      "site": "FMKOREA",
+      "title": "Essager GaN PPS PD3.0 67W c타입 접지형 고속 충전기 + C to C타입 케이블 세트",
+      "expected_root": "mobile"
+    },
+    {
+      "id": 95206,
+      "site": "FMKOREA",
+      "title": "칼로바이 단백질쉐이크 식사대용 오곡맛 560g",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 124622,
+      "site": "FMKOREA",
+      "title": "Burning Skies Arcade",
+      "expected_root": "games"
+    },
+    {
+      "id": 92565,
+      "site": "FMKOREA",
+      "title": "잘풀리는집 리얼실키 미용티슈 250매 x 3입 x 4팩 총 12개 (삼성월렛페이)",
+      "expected_root": "home"
+    },
+    {
+      "id": 131401,
+      "site": "FMKOREA",
+      "title": "피코크 떡갈비 450g x 6팩",
+      "expected_root": "food"
+    },
+    {
+      "id": 106128,
+      "site": "FMKOREA",
+      "title": "(히든쿠폰) 펩시콜라 제로라임 210mlx30캔+펩시제로라임 355ml 24캔",
+      "expected_root": "food"
+    },
+    {
+      "id": 119702,
+      "site": "FMKOREA",
+      "title": "아이리버 IA2000 60W 블루투스 스피커",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 116838,
+      "site": "FMKOREA",
+      "title": "레노버 2026 요가 슬림 7i 울트라 노트북 예판 이벤트",
+      "expected_root": "computer"
+    },
+    {
+      "id": 121198,
+      "site": "FMKOREA",
+      "title": "코카콜라 제로 350ml 24입+갈배사이다제로 355ml 24입_분리배송",
+      "expected_root": "food"
+    },
+    {
+      "id": 118307,
+      "site": "FMKOREA",
+      "title": "포크밸리 한돈 삼겹살 1kg",
+      "expected_root": "food"
+    },
+    {
+      "id": 121088,
+      "site": "FMKOREA",
+      "title": "마요라 코피코 블리스터 캔디 1+1",
+      "expected_root": "food"
+    },
+    {
+      "id": 94540,
+      "site": "FMKOREA",
+      "title": "천하장사 오리지날 간식 소시지, 990g, 1개",
+      "expected_root": "food"
+    },
+    {
+      "id": 96964,
+      "site": "FMKOREA",
+      "title": "2026 웰컴맠다 최대 ~90%(+월초 포인트 적립 2배)",
+      "expected_root": "unknown"
+    },
+    {
+      "id": 127675,
+      "site": "FMKOREA",
+      "title": "얌! 치즈후레쉬팡 35입 외 단팥/황치즈/슈크림/소보로/호떡",
+      "expected_root": "food"
+    },
+    {
+      "id": 107550,
+      "site": "FMKOREA",
+      "title": "라인바싸 탄산수 9종 40병/플레인/요구르트향 등",
+      "expected_root": "food"
+    },
+    {
+      "id": 102402,
+      "site": "FMKOREA",
+      "title": "소노호텔앤리조트 비발디파크 3~4월 얼리버드",
+      "expected_root": "services"
+    },
+    {
+      "id": 117205,
+      "site": "FMKOREA",
+      "title": "삼성 Q9000 멀티에어컨 AI 인버터 AF60F17D11GRS + 공기청정기증정",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 114067,
+      "site": "FMKOREA",
+      "title": "몬스터 에너지 울트라+제로 슈거 355ml 48캔 (각 24캔)",
+      "expected_root": "food"
+    },
+    {
+      "id": 93022,
+      "site": "FMKOREA",
+      "title": "돈시몬 착즙 토마토주스 2L",
+      "expected_root": "food"
+    },
+    {
+      "id": 129946,
+      "site": "FMKOREA",
+      "title": "26년 호박 고구마 3kg 중 사이즈(60g~120g)",
+      "expected_root": "food"
+    },
+    {
+      "id": 122769,
+      "site": "FMKOREA",
+      "title": "푸드페스타 10시 선착순 쿠폰",
+      "expected_root": "unknown"
+    },
+    {
+      "id": 115249,
+      "site": "FMKOREA",
+      "title": "베이스어스 노이즈 캔슬링 무선 이어폰 BP1 PRO",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 100175,
+      "site": "FMKOREA",
+      "title": "자연담 먹는샘물 2L 24개",
+      "expected_root": "food"
+    },
+    {
+      "id": 127621,
+      "site": "FMKOREA",
+      "title": "프레시웰 생수 2L 24개",
+      "expected_root": "food"
+    },
+    {
+      "id": 111026,
+      "site": "FMKOREA",
+      "title": "크런치초코볼 바사삭아몬드 20봉+20봉 총40봉",
+      "expected_root": "food"
+    },
+    {
+      "id": 108180,
+      "site": "FMKOREA",
+      "title": "X8 프로 옴니 직배수 무료설치, 신세계상품권 3만원권 증정",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 124195,
+      "site": "FMKOREA",
+      "title": "동원샘물 무라벨 생수 2L 6병",
+      "expected_root": "food"
+    },
+    {
+      "id": 121336,
+      "site": "FMKOREA",
+      "title": "제주 고등어살 2kg 12~13팩 대사이즈 (130g이상) 유클",
+      "expected_root": "food"
+    },
+    {
+      "id": 92086,
+      "site": "FMKOREA",
+      "title": "하동 녹차 명란김, 6g, 16개",
+      "expected_root": "food"
+    },
+    {
+      "id": 116408,
+      "site": "FMKOREA",
+      "title": "고당도 천혜향 4kg",
+      "expected_root": "food"
+    },
+    {
+      "id": 122781,
+      "site": "FMKOREA",
+      "title": "강명희 국내산 당일손질 냉장 닭다리 북채 1kg 외 닭다리살",
+      "expected_root": "food"
+    },
+    {
+      "id": 107534,
+      "site": "FMKOREA",
+      "title": "스너글 섬유탈취제 470ml 허거블코튼 3개 + 세탁망",
+      "expected_root": "home"
+    },
+    {
+      "id": 127703,
+      "site": "FMKOREA",
+      "title": "밀카/토블론 비스킷 초콜릿 외 모음",
+      "expected_root": "food"
+    },
+    {
+      "id": 127706,
+      "site": "FMKOREA",
+      "title": "동원참치 라이트 살코기 150g 10캔 외 6종",
+      "expected_root": "food"
+    },
+    {
+      "id": 115897,
+      "site": "FMKOREA",
+      "title": "새콤달콤 울트라키위 29g 30입",
+      "expected_root": "food"
+    },
+    {
+      "id": 118773,
+      "site": "FMKOREA",
+      "title": "신라모노그램 강릉 레지던스 1박 PKG 객실 1박+1부 조식 2인(1회)+수영장 2인(1회) 현대카드",
+      "expected_root": "services"
+    },
+    {
+      "id": 113268,
+      "site": "FMKOREA",
+      "title": "샥즈 오픈 런 프로2 S820 골전도 블루투스 이어폰",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 116609,
+      "site": "FMKOREA",
+      "title": "더미식 현미밥 작은공기 140g 20개",
+      "expected_root": "food"
+    },
+    {
+      "id": 128024,
+      "site": "FMKOREA",
+      "title": "대저토마토 2.5kg 2L-2S 랜덤 맛있는 가락시장",
+      "expected_root": "food"
+    },
+    {
+      "id": 102552,
+      "site": "FMKOREA",
+      "title": "코카콜라제로 190ml x 30캔 + 닥터페퍼 제로 350ml x 24캔",
+      "expected_root": "food"
+    },
+    {
+      "id": 115825,
+      "site": "FMKOREA",
+      "title": "영암 꿀고구마 호박고구마 3kg 대",
+      "expected_root": "food"
+    },
+    {
+      "id": 95759,
+      "site": "FMKOREA",
+      "title": "핫식스 더킹 퍼플 그레이프 355ml, 24개",
+      "expected_root": "food"
+    },
+    {
+      "id": 102606,
+      "site": "FMKOREA",
+      "title": "오리온 오징어땅콩 98g x 16개",
+      "expected_root": "food"
+    },
+    {
+      "id": 108273,
+      "site": "FMKOREA",
+      "title": "LG생활건강 설선물세트 생활의 품격 E스페셜 세트 + 쇼핑백 증정",
+      "expected_root": "home"
+    },
+    {
+      "id": 120822,
+      "site": "FMKOREA",
+      "title": "한성기업 크래미 90g 10개",
+      "expected_root": "food"
+    },
+    {
+      "id": 121626,
+      "site": "FMKOREA",
+      "title": "스카트 유리거울 청소티슈 30매 8팩",
+      "expected_root": "home"
+    },
+    {
+      "id": 114279,
+      "site": "FMKOREA",
+      "title": "참쥐포 500g (22-25장)",
+      "expected_root": "food"
+    },
+    {
+      "id": 117849,
+      "site": "FMKOREA",
+      "title": "와치아테 수입멸균우유 3.5% 1L 12입",
+      "expected_root": "food"
+    },
+    {
+      "id": 121048,
+      "site": "FMKOREA",
+      "title": "이스트팩 백팩 테쿰F EPCBA07 5A2",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 120067,
+      "site": "FMKOREA",
+      "title": "크리넥스 3겹 천연펄프 울트라클린 롤화장지 25M-24롤x2팩+마이비데30매",
+      "expected_root": "home"
+    },
+    {
+      "id": 91119,
+      "site": "FMKOREA",
+      "title": "포항 구룡포 꽁치 과메기 5미 (10쪽) + 해초세트",
+      "expected_root": "food"
+    },
+    {
+      "id": 118684,
+      "site": "FMKOREA",
+      "title": "옛날 돼지고기 김치찌개 230g 3팩",
+      "expected_root": "food"
+    },
+    {
+      "id": 95729,
+      "site": "FMKOREA",
+      "title": "원데이발란스블랙 100봉",
+      "expected_root": "food"
+    },
+    {
+      "id": 128733,
+      "site": "FMKOREA",
+      "title": "피죤 섬유유연제 시그니처 4L 1개 + 자몽프레시 1L 1개 증정",
+      "expected_root": "home"
+    },
+    {
+      "id": 103060,
+      "site": "PPOMPPU",
+      "title": "폴햄 코듀로이 바지 (18,420원/2장무료)",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 93861,
+      "site": "PPOMPPU",
+      "title": "웅진 하늘보리 500ml 24개 (티멤 9,900원/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 94197,
+      "site": "PPOMPPU",
+      "title": "포카리스웨트, 340ml, 24개(9,900원/로켓배송)",
+      "expected_root": "food"
+    },
+    {
+      "id": 105516,
+      "site": "PPOMPPU",
+      "title": "낭만부부 모짜렐라 치즈 가래떡500g (5,520원/15,000원무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 111752,
+      "site": "PPOMPPU",
+      "title": "한라봉 2kg 로얄 중대과 (8,190원/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 106261,
+      "site": "PPOMPPU",
+      "title": "그린몬스터 헐리우드 48시간 클렌즈주스 947ml 1개 (22,500원/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 90555,
+      "site": "PPOMPPU",
+      "title": "남여공용 헌터스파이어 옴니히트 롱패딩 롱다운 YMP366 (237,320 무배)",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 103458,
+      "site": "PPOMPPU",
+      "title": "상주 곶감 건시 실속형 1kg (23,850원/무배)",
+      "expected_root": "food"
+    },
+    {
+      "id": 109904,
+      "site": "PPOMPPU",
+      "title": "타임딜 에너자이저 알카라인 건전지 AA 24알+AAA 16알(총40알)+돌핀피코랜턴 증정 (18,900원/무료)",
+      "expected_root": "home"
+    },
+    {
+      "id": 114352,
+      "site": "PPOMPPU",
+      "title": "에이픽스 메쉬 5D MC002 컴퓨터 게이밍의자 (189,000원/무료)",
+      "expected_root": "home"
+    },
+    {
+      "id": 109889,
+      "site": "PPOMPPU",
+      "title": "에떼르노 ek6001 6way 주방수전 (110,000/무배)",
+      "expected_root": "home"
+    },
+    {
+      "id": 104350,
+      "site": "PPOMPPU",
+      "title": "나이키 드라이 핏 파크 8 긴팔 저지 (19,230원 /무료)",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 107637,
+      "site": "PPOMPPU",
+      "title": "동화약품 명품침향환 3.75g 50환 (25,900원/무료)",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 107297,
+      "site": "PPOMPPU",
+      "title": "칼집 돼지 양념 왕구이600g 4팩 (카드 15,650원/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 100993,
+      "site": "PPOMPPU",
+      "title": "진주햄 천하장사 빅사이즈 스틱 오리지날 600g + 콰트로치즈 600g (60gX총20개) 외 15종 (12,900/무배)",
+      "expected_root": "food"
+    },
+    {
+      "id": 89565,
+      "site": "PPOMPPU",
+      "title": "필립스 바리스티나 전자동 커피머신 + 홀리데이 마스터 패키지 증정 (426,520원/무료)",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 108746,
+      "site": "PPOMPPU",
+      "title": "부르르 제로콜라 체리  체리콕 250ml x 30캔 (11,600원/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 110582,
+      "site": "PPOMPPU",
+      "title": "삼진제약 하루엔진 마그부스터샷 1박스(12개입) (9,900원 / 무료)",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 130824,
+      "site": "PPOMPPU",
+      "title": "무빙큐빅스TV 32인치 HD 퍼스트 삼탠바이미 213,487원/무료)",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 96390,
+      "site": "PPOMPPU",
+      "title": "이디야커피 배모과차, 쌍화차, 생강차 (다양/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 95725,
+      "site": "PPOMPPU",
+      "title": "애슐리 주먹밥 15개입 총 2+1팩(1팩5개입) 골라담기 + 사은품 (17,430원/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 93248,
+      "site": "PPOMPPU",
+      "title": "낫온리포투데이 의류 여러종 행사 (다양/무료)",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 103744,
+      "site": "PPOMPPU",
+      "title": "얼쎄라 3종 패키지 85000원 무료배송",
+      "expected_root": "unknown"
+    },
+    {
+      "id": 109475,
+      "site": "PPOMPPU",
+      "title": "몸통 맥반석 오징어 구이 250g+팝꽃 (10,210원/무배)",
+      "expected_root": "food"
+    },
+    {
+      "id": 109027,
+      "site": "PPOMPPU",
+      "title": "(끌올) 오미자닭갈비 500g 4팩 (18,750/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 103847,
+      "site": "PPOMPPU",
+      "title": "하남쭈꾸미 500g 5팩 (카드 44,460원/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 94451,
+      "site": "PPOMPPU",
+      "title": "지오지아 25FW 라운드 티셔츠 맨투맨 (18,480원/유배)",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 110366,
+      "site": "PPOMPPU",
+      "title": "탑텐밸런스 수퍼 스트레치 조거팬츠 (13,410원/3만원이상무료)",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 111222,
+      "site": "PPOMPPU",
+      "title": "컬럼비아 아우터/바람막이/팬츠 98종 (18,960원~/무료)",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 104521,
+      "site": "PPOMPPU",
+      "title": "리스토란테 모짜렐라 피자 355g 6판 (12,990원/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 104247,
+      "site": "PPOMPPU",
+      "title": "천안호두과자본점 수제 우리밀 앙버터 호두과자 20EA(11,860원/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 104932,
+      "site": "PPOMPPU",
+      "title": "쿠쿠 파워클론 Slim 무선청소기 노블화이트 (154,067원/무료)",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 111391,
+      "site": "PPOMPPU",
+      "title": "펩시 제로카페인 210ml 30캔+355ml 24캔(유클24,900원/무배)",
+      "expected_root": "food"
+    },
+    {
+      "id": 103776,
+      "site": "PPOMPPU",
+      "title": "습식빵가루 한돈 수제 치즈돈가스 3팩 (9,300원/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 108485,
+      "site": "PPOMPPU",
+      "title": "브라운체온계 IRT-6030 필터21개포함 (52,330원/무료)",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 111014,
+      "site": "PPOMPPU",
+      "title": "자연산 특품 검정 새조개 250g(20,520원/4,000원)",
+      "expected_root": "food"
+    },
+    {
+      "id": 108019,
+      "site": "PPOMPPU",
+      "title": "도아리빙 프리미엄 통5중 스텐 프라이팬 24cm (19,900원/무료배송)",
+      "expected_root": "home"
+    },
+    {
+      "id": 100860,
+      "site": "PPOMPPU",
+      "title": "굽네 듀먼 강아지화식 50g 35팩 (29,610원/무료)",
+      "expected_root": "pet"
+    },
+    {
+      "id": 113508,
+      "site": "PPOMPPU",
+      "title": "어반에이지 센서티브 트레이닝 셋업 (33,010원/무료)",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 103759,
+      "site": "PPOMPPU",
+      "title": "전라도 가정식 우거지된장국 250g 4통 (13,520원/무배)",
+      "expected_root": "food"
+    },
+    {
+      "id": 111401,
+      "site": "PPOMPPU",
+      "title": "설여울 남녀공용 저고리 네이비 1장 (14,900원/와우무료)",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 93050,
+      "site": "PPOMPPU",
+      "title": "드릭스 특양면 오버핏 롱 슬리브티 (18,810원/무배)",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 95124,
+      "site": "PPOMPPU",
+      "title": "제주 구좌 당근 3kg 외 5kg (4800원~/네멤무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 102257,
+      "site": "PPOMPPU",
+      "title": "어메이징 오트 커피 330ml 12팩 (멤버십 16,640원/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 92417,
+      "site": "PPOMPPU",
+      "title": "물걸레청소포 대형 30매 5팩 (6,480원/무료)",
+      "expected_root": "home"
+    },
+    {
+      "id": 91799,
+      "site": "PPOMPPU",
+      "title": "더블모 어성초 샴푸 두피 약산성 비듬 샴푸 1000ml 2개 (13,760원/무료)",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 105333,
+      "site": "PPOMPPU",
+      "title": "맥시칸치킨 350g 4개 + 양념치킨볶음면 2개 + 허니버터순살치킨 200g (25,480원/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 94133,
+      "site": "PPOMPPU",
+      "title": "필립스 2200시리즈 전자동 에스프레소 커피머신+증정(317,130원/무료)",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 114095,
+      "site": "PPOMPPU",
+      "title": "스파오 베이직 푸퍼 패딩 (25,350원/무료)",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 98756,
+      "site": "PPOMPPU",
+      "title": "플로비즈 베트남 자연 야생화꿀 2kg 2개 (30,900원/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 113402,
+      "site": "PPOMPPU",
+      "title": "코인딜 오프라이스 3겹천연펄프 화장지 30M 12롤 (4,830원) (무료)",
+      "expected_root": "home"
+    },
+    {
+      "id": 132080,
+      "site": "PPOMPPU",
+      "title": "두메산골 당일손질 냉장 생닭다리 북채 1kg (6,740원/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 93387,
+      "site": "PPOMPPU",
+      "title": "르까프X머렐 시즌오프 특가 롱패딩 (59,440원/무료)",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 104246,
+      "site": "PPOMPPU",
+      "title": "해양심층수 곰표500ml 20개 (6,990원/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 100852,
+      "site": "PPOMPPU",
+      "title": "실크 터치 스탠다드핏 타이 3컬러 (7,900원/무료)",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 132072,
+      "site": "PPOMPPU",
+      "title": "제철 태추단감 중소과 2kg (12,840원/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 108344,
+      "site": "PPOMPPU",
+      "title": "바른생활 얇은 초극세모 칫솔 36개입 (유클가 11,390원/무료)",
+      "expected_root": "home"
+    },
+    {
+      "id": 130716,
+      "site": "PPOMPPU",
+      "title": "아워홈 온더고 간편 도시락 한식 양식 덮밥류 10팩세트(38,900원/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 131820,
+      "site": "PPOMPPU",
+      "title": "투키 100W USB-A to C타입 코일 편조 스프링 충전 케이블 차량용 (6,900원/와우무료)",
+      "expected_root": "mobile"
+    },
+    {
+      "id": 91534,
+      "site": "PPOMPPU",
+      "title": "KRAKEN ELITE 420 RGB V2 [CPU쿨러] [블랙] (299,900/무배)",
+      "expected_root": "computer"
+    },
+    {
+      "id": 92102,
+      "site": "PPOMPPU",
+      "title": "우아미가구 3인 카리안 가죽소파 외 (다양/무료)",
+      "expected_root": "home"
+    },
+    {
+      "id": 113276,
+      "site": "PPOMPPU",
+      "title": "듀오링고 패밀리 1년, 12개월 듀오링고 슈퍼(6,900/무료)",
+      "expected_root": "games"
+    },
+    {
+      "id": 108159,
+      "site": "PPOMPPU",
+      "title": "폴햄 약기모 슬랙스 (23,040원/무료)",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 101613,
+      "site": "PPOMPPU",
+      "title": "마신다 무라벨 생수 2L PET 4박스 (총24입) (8,680원/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 107956,
+      "site": "PPOMPPU",
+      "title": "맥심 화이트골드 커피믹스 190T (22,650원/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 100046,
+      "site": "PPOMPPU",
+      "title": "블랙야크 공용 고어텍스 트레킹화 코어 GTX (64,217원/무배)",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 110260,
+      "site": "PPOMPPU",
+      "title": "리츠크래커 멕시칸타코맛 12개 (11,140원/유클무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 98622,
+      "site": "PPOMPPU",
+      "title": "케이트메이커 노르딕 티타늄 벌집 웍 30cm (14,900원/무료)",
+      "expected_root": "home"
+    },
+    {
+      "id": 93198,
+      "site": "PPOMPPU",
+      "title": "아벤느 이드랑스 아쿠아 크림 인 젤 EX 50ml 2개 + 크림인젤 10ml(2ml5) (34,320원/무료)",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 101026,
+      "site": "PPOMPPU",
+      "title": "마니커에프앤지 단백한끼 직화 닭가슴살 스테이크 800g (100g X 8개입) 2봉(10,930원/네멤무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 98690,
+      "site": "PPOMPPU",
+      "title": "몬스터에너지 망고로코+파이프라인펀치 355ml 각24캔 총48캔 (48,510원/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 92445,
+      "site": "PPOMPPU",
+      "title": "오리온 초코칩쿠키 256g 5개 (12,730원/유클무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 90975,
+      "site": "PPOMPPU",
+      "title": "비발디파크 홍천 모닝 or 오션 3인 패키지 (251,000원/무료배송)",
+      "expected_root": "services"
+    },
+    {
+      "id": 105947,
+      "site": "PPOMPPU",
+      "title": "나그참파 인센스 최대 63% 할인 + 9종 사은품 증정 (다양/무배)",
+      "expected_root": "home"
+    },
+    {
+      "id": 91066,
+      "site": "PPOMPPU",
+      "title": "앤드지 캐시미어 핸드메이드 코트 (213,130원/무배)",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 114378,
+      "site": "PPOMPPU",
+      "title": "오바코 헤어 퍼퓸 세럼 데스데모나 120ML (6,500원/멤버십무료)",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 100263,
+      "site": "PPOMPPU",
+      "title": "GS-5 야채칼 14cm (78,950원/무배)",
+      "expected_root": "home"
+    },
+    {
+      "id": 92010,
+      "site": "PPOMPPU",
+      "title": "해리슨 아몬드 카라 반팔 니트 (15,130원/무료)",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 109773,
+      "site": "PPOMPPU",
+      "title": "제주 하우스 레드향 2kg 중소과 (19,320원 / 무배)",
+      "expected_root": "food"
+    },
+    {
+      "id": 91319,
+      "site": "PPOMPPU",
+      "title": "카스제로 355ml 24캔 전용잔2개 (15,780원/무배)",
+      "expected_root": "food"
+    },
+    {
+      "id": 100796,
+      "site": "PPOMPPU",
+      "title": "천하장사 빅사이즈 스틱 오리지날10개+콰트로치즈10개 등등 (12,900원/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 131486,
+      "site": "PPOMPPU",
+      "title": "[올리브영기프트카드] 5만원권 (즉시사용가능) (47,500원/무료)",
+      "expected_root": "services"
+    },
+    {
+      "id": 97978,
+      "site": "PPOMPPU",
+      "title": "르까프 방한슬리퍼 외 (15,310원/무료)",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 105608,
+      "site": "PPOMPPU",
+      "title": "락토핏 코어 60포 6통 360일분 (42,804원/무료)",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 92902,
+      "site": "PPOMPPU",
+      "title": "TCL 65C855 QD mini led 65인치 tv (896,220/무료)",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 113921,
+      "site": "PPOMPPU",
+      "title": "유한킴벌리 스카트 식기세척기 세제 120개(12900)",
+      "expected_root": "home"
+    },
+    {
+      "id": 98460,
+      "site": "PPOMPPU",
+      "title": "뉴트리션메이트 비타민c 3000mg 60포 (4,520원/네멤무배)",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 131556,
+      "site": "PPOMPPU",
+      "title": "도가니탕 선물세트 도가니탕4개+한우사골2개 (26,680원/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 90562,
+      "site": "PPOMPPU",
+      "title": "썬키스트 제로 오렌지 소다 355ml 24캔 (9,410원,무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 107659,
+      "site": "PPOMPPU",
+      "title": "영암 꿀고구마 3kg 한 입 사이즈 (+슈퍼적립금) (4,900원 / 네멤무배)",
+      "expected_root": "food"
+    },
+    {
+      "id": 94823,
+      "site": "PPOMPPU",
+      "title": "스누피와 친구들 인형 우드스톡,찰리브라운,루시 택1 (13,900원/무료)",
+      "expected_root": "sports"
+    },
+    {
+      "id": 100465,
+      "site": "PPOMPPU",
+      "title": "25년산 햅쌀 진주닮은쌀 10kg 외 농협쌀 모음전  (31,400원~/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 132357,
+      "site": "PPOMPPU",
+      "title": "차이슨 헤어드라이어 BLDC모터 1600W (22,310원/무료)",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 131363,
+      "site": "PPOMPPU",
+      "title": "아이플라이텍 iFLYTEK AINOTE AIR2 (전용펜 포함) (499,000 / 무료)",
+      "expected_root": "mobile"
+    },
+    {
+      "id": 105561,
+      "site": "PPOMPPU",
+      "title": "강아지 고양이 방석 소파 침대 쿠션 대형 76x51 (22,870원/무료)",
+      "expected_root": "pet"
+    },
+    {
+      "id": 130597,
+      "site": "PPOMPPU",
+      "title": "데체코,명장김치찌개,제스프리,백년수산,떡갈비,꿔바로우,소갈비살,맥심 카누,섬진강쌀,하늘보리 (다양/무료)",
+      "expected_root": "food"
+    },
+    {
+      "id": 93053,
+      "site": "PPOMPPU",
+      "title": "CKD 콜라겐 랩핑팩 2개 (8,900원/무료)",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 131861,
+      "site": "PPOMPPU",
+      "title": "망고비데 26년형 스테인리스 직수 방수 비데 MB-1804SC (99,900원/무료)",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 108536,
+      "site": "PPOMPPU",
+      "title": "아이닉 무선청소기 신제품 (299,000원/무배)",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 110256,
+      "site": "PPOMPPU",
+      "title": "MSI MAG 272QP QD-OLED X24 WQHD 240 모니터 (460,450원/무료)",
+      "expected_root": "computer"
+    },
+    {
+      "id": 108942,
+      "site": "coolnjoy",
+      "title": "[G마켓] 눈영양제 루테인+지아진틴+아스타잔틴 미니 30캡슐x3박스 (17,890원/무료)",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 129477,
+      "site": "coolnjoy",
+      "title": "[네이버] 올인원 멀티비타민 미네랄 3개 20,900원 무배",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 115515,
+      "site": "coolnjoy",
+      "title": "[기타] 🔥콩콩절🔥GE3 2.4ghz 무선 게이밍이어폰 50% 할인특가",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 108678,
+      "site": "coolnjoy",
+      "title": "[G마켓] MSI MAG 325QF800 E18V 게이밍 WQHD 180",
+      "expected_root": "computer"
+    },
+    {
+      "id": 108688,
+      "site": "coolnjoy",
+      "title": "[G마켓] 삼성전자 81cm(32인치) S32D701 4K UHD",
+      "expected_root": "computer"
+    },
+    {
+      "id": 89903,
+      "site": "coolnjoy",
+      "title": "[G마켓] 빡세일 LG OLED 게이밍모니터 27GX790A 외 1종 행사 안내",
+      "expected_root": "computer"
+    },
+    {
+      "id": 118142,
+      "site": "coolnjoy",
+      "title": "[쿠팡] 📢 (쿠팡 x 앱코) 사무용 기계식 키보드 A108K '게임페스타' 진행",
+      "expected_root": "computer"
+    },
+    {
+      "id": 105420,
+      "site": "coolnjoy",
+      "title": "[컴퓨존] [컴퓨존] LG 27UP650K 외 4종 모니터 1월 LG모니터 브랜드위크 안내!",
+      "expected_root": "computer"
+    },
+    {
+      "id": 89888,
+      "site": "coolnjoy",
+      "title": "[알리] 고사양 게이밍, 편집용 PC! 화이트 에디션 어항 조립 컴퓨터 (라이젠5 7500F R…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 122739,
+      "site": "coolnjoy",
+      "title": "[네이버] 👑오늘 오늘 오후 13시/18시 라이브👑비즈니스 TV 43/50인치 단 두 시간 동안의…",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 91086,
+      "site": "coolnjoy",
+      "title": "[기타] [탁탁몰](내일 11시) 조텍 RTX 5090 AMP EXTREME INFINITY (…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 119507,
+      "site": "coolnjoy",
+      "title": "[네이버] 📌 화사한 디자인 & 넌클릭 스위치 홀리판다 탑재, 앱코 기계식 키보드 AK87H 가격…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 126430,
+      "site": "coolnjoy",
+      "title": "[롯데온] 푸마/락포트 외 단목/장목 스타일 6PACK/10PACK 9,900원 무배",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 95634,
+      "site": "coolnjoy",
+      "title": "[롯데온] MSI MAG 346CQ800 게이밍 UWQHD 180 Ai Vision 무결점",
+      "expected_root": "computer"
+    },
+    {
+      "id": 113228,
+      "site": "coolnjoy",
+      "title": "[네이버] 프리비전스와 함께하는 SB9 게이밍사운드바 공동구매 할인특가",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 119547,
+      "site": "coolnjoy",
+      "title": "[G마켓] X 옥션 빡세일 브랜드세일페스타!✨삼성 오디세이 OLED G8 LS32FG810 ✨초특…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 89948,
+      "site": "coolnjoy",
+      "title": "[네이버] 최저높이 60CM, 듀얼모터 모션데스크 MD303D 특가(284,000원/배송비20,0…",
+      "expected_root": "home"
+    },
+    {
+      "id": 95767,
+      "site": "coolnjoy",
+      "title": "[네이버] 타이탄제로 익스트림 마우스패드 53% 할인특가 (6,900원/무료배송)",
+      "expected_root": "computer"
+    },
+    {
+      "id": 126322,
+      "site": "coolnjoy",
+      "title": "[네이버] 초임계 식물성 알티지 오메가3 3+3 (61,900원/무배)",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 123280,
+      "site": "coolnjoy",
+      "title": "[쿠팡] 오리코 C타입 6IN1 멀티포트 허브 PD100W 이더넷 PW11-6PR",
+      "expected_root": "computer"
+    },
+    {
+      "id": 130645,
+      "site": "coolnjoy",
+      "title": "[네이버] 가성비 GP5 게임패드 컨트롤러 42% 할인(40,000원/배송비3,000원)",
+      "expected_root": "games"
+    },
+    {
+      "id": 124947,
+      "site": "coolnjoy",
+      "title": "[기타] Dying Light 2 Stay Human: Reloaded Edition 75% 할…",
+      "expected_root": "games"
+    },
+    {
+      "id": 119365,
+      "site": "coolnjoy",
+      "title": "[네이버] [네이버] JMT 땅콩빵 360g 70개 이상 (랜덤 과일 증정) 11790원 무료배송",
+      "expected_root": "food"
+    },
+    {
+      "id": 121306,
+      "site": "coolnjoy",
+      "title": "[쿠팡] 레노버 스마트 워치 핏 1.96인치 amol",
+      "expected_root": "mobile"
+    },
+    {
+      "id": 121681,
+      "site": "coolnjoy",
+      "title": "[네이버] 👑오늘 오늘 오후 13시/18시 라이브👑비즈니스 TV 43/50인치 단 두 시간 동안의…",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 101846,
+      "site": "coolnjoy",
+      "title": "[네이버] LG 게이밍 & 스마트 모니터 1월 15일 라이브 사전 안내 !",
+      "expected_root": "computer"
+    },
+    {
+      "id": 116422,
+      "site": "coolnjoy",
+      "title": "[네이버] 네스프레소 호환 벨미오 캡슐커피 100개 (개당390원) 39,000원",
+      "expected_root": "food"
+    },
+    {
+      "id": 129598,
+      "site": "coolnjoy",
+      "title": "[네이버] 블랙모어스 비린내없는 오메가3 미니캡슐 3+1병 (39,900원/무료)",
+      "expected_root": "beauty"
+    },
+    {
+      "id": 129640,
+      "site": "coolnjoy",
+      "title": "[네이버] [네이버쇼핑] 🎉키보드 균일특가🎉 (영문키캡) 마이크로닉스 MANIC EX580L 게이…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 111878,
+      "site": "coolnjoy",
+      "title": "[컴퓨존] [컴퓨존] LG OLED모니터 X NBA 2K 기획전(32GX870A)",
+      "expected_root": "computer"
+    },
+    {
+      "id": 94756,
+      "site": "coolnjoy",
+      "title": "[쿠팡] (와우할인 96만) 에이수스 2025 비보북 S 16 라이젠 AI 라이젠 AI 300 …",
+      "expected_root": "computer"
+    },
+    {
+      "id": 100108,
+      "site": "coolnjoy",
+      "title": "[G마켓] ASUS ExpertBook PM1503CDA-S70069, 15.6인치, AMD 75…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 119262,
+      "site": "coolnjoy",
+      "title": "[기타] Battlefield 2042 95% 할인",
+      "expected_root": "games"
+    },
+    {
+      "id": 120132,
+      "site": "coolnjoy",
+      "title": "[알리] [알리] 🔥16주년 그랜드세일🔥 마이크로닉스 WIZMAX 슬로프 C30 (블랙) (88…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 124463,
+      "site": "coolnjoy",
+      "title": "[네이버] 📣 엔클롬 CAPO 골드 시리즈, 4월 파격 증정행사 진행 !! 💪",
+      "expected_root": "unknown"
+    },
+    {
+      "id": 90570,
+      "site": "coolnjoy",
+      "title": "[네이버] GE3 2.4ghz 무선 게이밍이어폰 35% 할인(25,900원/배송비3,000원)",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 121729,
+      "site": "coolnjoy",
+      "title": "[기타] 요기요 피자헛 최대 11,000원 할인+11%",
+      "expected_root": "unknown"
+    },
+    {
+      "id": 122599,
+      "site": "coolnjoy",
+      "title": "[롯데온] 피죤 초고농축 섬유유연제 포켓몬 에디션 1.3L 3개+탈취제 (13,900원/무료)",
+      "expected_root": "home"
+    },
+    {
+      "id": 124693,
+      "site": "coolnjoy",
+      "title": "[컴퓨존] 📢 (컴퓨존 x 앱코) RETRO 감성 가득 담은, 기계식 키보드 AO98 '봄맞이 할…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 128986,
+      "site": "coolnjoy",
+      "title": "[네이버] 어버이날 부모님 선물! 삼성 65인치 4K UHD 라이브 특가!",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 127518,
+      "site": "coolnjoy",
+      "title": "[네이버] 다얼유 A950GD 컨슈머 충전독 마우스, 신규 색상 예약 구매 안내 (~4/29)",
+      "expected_root": "computer"
+    },
+    {
+      "id": 94559,
+      "site": "coolnjoy",
+      "title": "[네이버] WH6 무선게이밍헤드셋 54% 특가할인 (36,000원/실체감가31,240원)",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 120046,
+      "site": "coolnjoy",
+      "title": "[네이버] 📌 48g 초경량 설계로 제작된 게이밍 마우스 H250A 가격인하!",
+      "expected_root": "computer"
+    },
+    {
+      "id": 109670,
+      "site": "coolnjoy",
+      "title": "[알리] 사랑가득 선물대전🔥Segotep🔥(세고텝)파워서플라이 특가",
+      "expected_root": "computer"
+    },
+    {
+      "id": 117546,
+      "site": "coolnjoy",
+      "title": "[11번가] LG 27GS85Q,32UN650K 모니터 십일절 앵콜특가 3/6 단 하루!",
+      "expected_root": "computer"
+    },
+    {
+      "id": 115041,
+      "site": "coolnjoy",
+      "title": "[기타] [H패션] 타미 진스 배지 다운재킷 88,578원",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 100839,
+      "site": "coolnjoy",
+      "title": "[G마켓] ASUS PRIME 라데온 RX 9070 OC D6 16GB",
+      "expected_root": "computer"
+    },
+    {
+      "id": 129664,
+      "site": "coolnjoy",
+      "title": "[네이버] 지클릭커, XRT107·XRT68 잇는 텐키리스 마그네틱 게이밍 키보드 'MAGNEON…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 94299,
+      "site": "coolnjoy",
+      "title": "[알리] 레노버 27인치 FHD 240Hz IPS 게이밍 모니터 (무료)",
+      "expected_root": "computer"
+    },
+    {
+      "id": 111557,
+      "site": "coolnjoy",
+      "title": "[G마켓] GIGABYTE AORUS 지포스 RTX 5080 MASTER D7 16GB",
+      "expected_root": "computer"
+    },
+    {
+      "id": 111846,
+      "site": "coolnjoy",
+      "title": "[카카오톡딜] [카카오쇼핑] 🔥한정특가🔥 HAVN HS 420 리미티드 에디션 (화이트) (388,0…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 110719,
+      "site": "coolnjoy",
+      "title": "[네이버] 2시 LIVE) 삼성 모니터 게이밍 오디세이 49인치 + 4K 고해상도 뷰피니티 ( 4…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 91862,
+      "site": "coolnjoy",
+      "title": "[쿠팡] 🔥 [골드박스 1일 특가] 캐논 TS3490 잉크젯 복합기 – 12월 18일 단 하루!…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 129649,
+      "site": "coolnjoy",
+      "title": "[G마켓] 인텔 코어 울트라 7 270K Plus (정품) + ASUS ROG STRIX B860…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 108692,
+      "site": "coolnjoy",
+      "title": "[네이버] 2026 새해 맞이! 삼성전자 75인치 신모델 라이브 특가!",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 127508,
+      "site": "coolnjoy",
+      "title": "[네이버] 🎁가정의달🎁 듀얼모터 전동 모션데스크 MD303D 41% 할인특가",
+      "expected_root": "home"
+    },
+    {
+      "id": 115010,
+      "site": "coolnjoy",
+      "title": "[11번가] MSI PRO MP273L E14-700 IPS 144 시력보호 게이밍",
+      "expected_root": "computer"
+    },
+    {
+      "id": 124498,
+      "site": "coolnjoy",
+      "title": "[G마켓] ✨랜쇼페✨역대가 LG 32인치게이밍모니터 32G600A(24만) 할인 안내 커브드 QH…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 128310,
+      "site": "coolnjoy",
+      "title": "[네이버] 6D 팔걸이 아크체어 메쉬의자 27% 할인(217,550원/무료배송)",
+      "expected_root": "home"
+    },
+    {
+      "id": 119645,
+      "site": "coolnjoy",
+      "title": "[쿠팡] MSI G275L700 E14 IPS 게이밍 144 HDR AI Vision 무결점 모…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 115999,
+      "site": "coolnjoy",
+      "title": "[컴퓨존] 9800X3D + RX 5070 XT + DDR5 32GB 완본체",
+      "expected_root": "computer"
+    },
+    {
+      "id": 124789,
+      "site": "coolnjoy",
+      "title": "[네이버] 아이 책상 고민 끝🔥 초등~고학년까지 쓰는 성장형 책상 / 라베스토 CD03S 주말특가…",
+      "expected_root": "home"
+    },
+    {
+      "id": 126114,
+      "site": "coolnjoy",
+      "title": "[알리] [알리] 100% 바로적용가능 🔽 LG 27U411A 14만 외 특가 안내 (4/17-…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 96598,
+      "site": "coolnjoy",
+      "title": "[네이버] 더미식 육즙고기교자 1.4kg + 김치교자 1.4kg + [증정]오징어육즙교자 280g…",
+      "expected_root": "food"
+    },
+    {
+      "id": 121827,
+      "site": "coolnjoy",
+      "title": "[기타] The Witcher 3: Wild Hunt - 컴플리트 에디션",
+      "expected_root": "games"
+    },
+    {
+      "id": 100492,
+      "site": "coolnjoy",
+      "title": "[11번가] [긴급공수] MSI MAG 322URDF800 E16 듀얼모드 게이밍 4K AI Vis…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 110118,
+      "site": "coolnjoy",
+      "title": "[네이버] [LG전자] 설날+세일 선물 미리준비 라이브! 스윙 32U889SAW 등 특가 할인 (…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 91791,
+      "site": "coolnjoy",
+      "title": "[네이버] 농심 신라면 30개 1박스 (무배)",
+      "expected_root": "food"
+    },
+    {
+      "id": 118095,
+      "site": "coolnjoy",
+      "title": "[네이버] 📢 메가위크 📢 아크체어 6D 팔걸이 메쉬의자 28% 할인특가",
+      "expected_root": "home"
+    },
+    {
+      "id": 105925,
+      "site": "coolnjoy",
+      "title": "[G마켓] X옥션 설빅스마일데이 삼성 스마트 / 게이밍 모니터 특가 안내",
+      "expected_root": "computer"
+    },
+    {
+      "id": 127662,
+      "site": "coolnjoy",
+      "title": "[네이버] 총 5% 추가적립! 삼성 65인치 4K UHD 라이브 특가!",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 119971,
+      "site": "coolnjoy",
+      "title": "[알리] 키오시아 EXCERIA 히트싱크 M.2 NVMe (2TB) 디램장착",
+      "expected_root": "computer"
+    },
+    {
+      "id": 123180,
+      "site": "coolnjoy",
+      "title": "[G마켓] 레드미 Watch 6 스마트워치 블루투스 통화 NFC지원 중국버전",
+      "expected_root": "mobile"
+    },
+    {
+      "id": 93720,
+      "site": "coolnjoy",
+      "title": "[G마켓] 오뚜기 맛있는 밥 12입(210gx12개입)",
+      "expected_root": "food"
+    },
+    {
+      "id": 112884,
+      "site": "coolnjoy",
+      "title": "[G마켓] LG모니터 32GX850A G라이브 막차 혜택 & 27GS85Q 단독 슈퍼딜 사전 안내…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 92689,
+      "site": "coolnjoy",
+      "title": "[컴퓨존] [컴퓨존] 🔥한정판🔥 브라운더스트2X마이크로닉스 한정판 조립PC (9700X/5070T…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 121378,
+      "site": "coolnjoy",
+      "title": "[카카오톡딜] 파워바큠 카카오세트 11종 (84,600원 / 무료)",
+      "expected_root": "unknown"
+    },
+    {
+      "id": 116669,
+      "site": "coolnjoy",
+      "title": "[네이버] 아크체어 6D 팔걸이 메쉬의자 20% 할인특가(239,000원/실체감가226,460원)",
+      "expected_root": "home"
+    },
+    {
+      "id": 121300,
+      "site": "coolnjoy",
+      "title": "[G마켓] LG 모니터 X 붉은사막 특급 콜라보! OLED 구매시 붉은 사막 게임 증정! LG 모…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 113397,
+      "site": "coolnjoy",
+      "title": "[네이버] 게이밍의자 GC002 울프 빅체어 할인특가(229,000원/무료배송)",
+      "expected_root": "home"
+    },
+    {
+      "id": 99511,
+      "site": "coolnjoy",
+      "title": "[쿠팡] 에이서 2025 니트로 16 라이젠 AI 라이젠 AI 300 시리즈 지포스 RTX 50…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 100285,
+      "site": "coolnjoy",
+      "title": "[기타] [스팀] 역전재판 456 오도로키 셀렉션 60% 할인",
+      "expected_root": "games"
+    },
+    {
+      "id": 126148,
+      "site": "coolnjoy",
+      "title": "[기타] [폰드그룹] 푸마 바디웨어 남성 에어홀 테크 조거팬츠 (9,900원/무배)",
+      "expected_root": "fashion"
+    },
+    {
+      "id": 101717,
+      "site": "coolnjoy",
+      "title": "[컴퓨존] 🔥I Got the New Power🔥 LIAN LI RS 시리즈 파워서플라이 출시 기…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 118498,
+      "site": "coolnjoy",
+      "title": "[컴퓨존] [컴퓨존] LG OLED모니터 X NBA 2K 3월 기획전(32GX870A)",
+      "expected_root": "computer"
+    },
+    {
+      "id": 112815,
+      "site": "coolnjoy",
+      "title": "[컴퓨존] 카멜마운트 이동식 TV 스탠드 특가 위크 (~2/15)",
+      "expected_root": "home"
+    },
+    {
+      "id": 89777,
+      "site": "coolnjoy",
+      "title": "[네이버] 🔥 70% 할인! 🔥 듀얼드라이버 게이밍이어폰 GE005BA 최대 특가 (11,900원…",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 123341,
+      "site": "coolnjoy",
+      "title": "[G마켓] MSI MAG Codex Z2 A5NVL (A01) R5-5600 RTX 5060  […",
+      "expected_root": "computer"
+    },
+    {
+      "id": 125595,
+      "site": "coolnjoy",
+      "title": "[G마켓] 🎊빡세일🎊LG 27인치게이밍모니터 27G440A(28만)/ OLED게이밍모니터 27GX…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 119926,
+      "site": "coolnjoy",
+      "title": "[기타] 스플릿 픽션 30% 할인",
+      "expected_root": "games"
+    },
+    {
+      "id": 119156,
+      "site": "coolnjoy",
+      "title": "[네이버] 2026 새봄맞이~ 삼성전자 75인치 라이브 특가!",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 116304,
+      "site": "coolnjoy",
+      "title": "[네이버] 💛오늘 오후 1시/6시 라이브💛비즈니스 TV 43/50인치 37만원대!! 단 두 시간 …",
+      "expected_root": "electronics"
+    },
+    {
+      "id": 123342,
+      "site": "coolnjoy",
+      "title": "[카카오톡딜] \"봄맞이 가전 기획전부터 톡딜위크까지\" LG 27/32인치 모니터 4종 할인 안내(4/…",
+      "expected_root": "computer"
+    },
+    {
+      "id": 113932,
+      "site": "coolnjoy",
+      "title": "[G마켓] 사업자용 100원딜",
+      "expected_root": "unknown"
+    },
+    {
+      "id": 92423,
+      "site": "coolnjoy",
+      "title": "[홈플러스] 보먹돼 삼겹살 100g 등 (100G당 1,290원) (무배)",
+      "expected_root": "food"
+    },
+    {
+      "id": 102444,
+      "site": "coolnjoy",
+      "title": "[네이버] 아크체어 6D 팔걸이 메쉬의자 20% 할인특가(239,000원/실체감가226,460원)",
+      "expected_root": "home"
+    },
+    {
+      "id": 110738,
+      "site": "coolnjoy",
+      "title": "[네이버] 듀얼모터 모션데스크 MD303D 37% 할인특가(268,420원/배송비20,000원)",
+      "expected_root": "home"
+    },
+    {
+      "id": 105007,
+      "site": "coolnjoy",
+      "title": "[네이버] 지클릭커, 47.5g 초경량의 미학… ‘오피스프로 OP15 슈크림’ 무선 마우스 출시",
+      "expected_root": "computer"
+    },
+    {
+      "id": 117601,
+      "site": "coolnjoy",
+      "title": "[11번가] LG 모니터 32인치 4K 부터 22인치 사무용모니터까지 06일 단 하루 특가!",
+      "expected_root": "computer"
+    },
+    {
+      "id": 126113,
+      "site": "coolnjoy",
+      "title": "[네이버] 금,토,일 3일 특가할인_에이픽스 GC201FR 게이밍의자 발받침 포함 쿠폰할인가 14…",
+      "expected_root": "home"
+    }
+  ]
+}
