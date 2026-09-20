@@ -1,0 +1,5 @@
+filegroup(
+    name = "money_sources",
+    srcs = ["__init__.py", "money.py"],
+    visibility = ["//visibility:public"],
+)
