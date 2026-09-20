@@ -1,0 +1,101 @@
+{
+  "before_at": "2026-09-18T12:29:46.137995+00:00",
+  "after_at": "2026-09-18T13:37:50.294905+00:00",
+  "cohort": 43406,
+  "deleted": 0,
+  "all_current": 43428,
+  "before_unclassified": 19494,
+  "after_unclassified": 8600,
+  "newly_classified": 10956,
+  "returned_to_review": 62,
+  "changed_titles": 0,
+  "current_counts": {
+    "llm": 4,
+    "ready": 34819,
+    "review": 8605
+  },
+  "current_unclassified_reasons": {
+    "no_clear_product": 8191,
+    "conflicting_products": 401,
+    "unavailable_title": 16,
+    "promotion_only": 1
+  },
+  "cohort_versions": {
+    "2026-09-17-v1/rules-3.1": 43406
+  },
+  "health": {
+    "versions": [
+      {
+        "classifier_version": "2026-09-17-v1/rules-3.1",
+        "status": "ready",
+        "count": 34819
+      },
+      {
+        "classifier_version": "2026-09-17-v1/rules-3.1",
+        "status": "review",
+        "count": 8605
+      },
+      {
+        "classifier_version": "2026-09-17-v1/rules-3.1",
+        "status": "llm",
+        "count": 4
+      }
+    ],
+    "crawl_updates": [
+      {
+        "community_name": "EOMISAE",
+        "updated_at": "2026-09-18T13:34:22.74094+00:00",
+        "created_at": "2026-09-18T12:32:44.689058+00:00"
+      },
+      {
+        "community_name": "coolnjoy",
+        "updated_at": "2026-09-18T13:34:58.469555+00:00",
+        "created_at": "2026-09-18T12:39:55.683586+00:00"
+      },
+      {
+        "community_name": "PPOMPPU",
+        "updated_at": "2026-09-18T13:37:48.79344+00:00",
+        "created_at": "2026-09-18T13:34:56.81209+00:00"
+      },
+      {
+        "community_name": "FMKOREA",
+        "updated_at": "2026-09-18T13:37:42.206937+00:00",
+        "created_at": "2026-09-18T13:36:21.723578+00:00"
+      },
+      {
+        "community_name": "ARCA",
+        "updated_at": "2026-09-18T13:37:32.676471+00:00",
+        "created_at": "2026-09-18T13:19:50.195405+00:00"
+      }
+    ],
+    "measurements": [
+      {
+        "status": "partial",
+        "count": 28208
+      },
+      {
+        "status": "ready",
+        "count": 10046
+      },
+      {
+        "status": "review",
+        "count": 5174
+      }
+    ],
+    "upgrade": {
+      "phase": "queued",
+      "queued": 0,
+      "completed_at": 1789738238.574215,
+      "bulk_processed": 1680,
+      "bulk_finished_at": 1789738235.7508175
+    }
+  },
+  "validation": {
+    "category_and_measurement_tests": 50,
+    "regression_titles": 500,
+    "regression_assigned": 447,
+    "regression_label_matches": 447,
+    "independent_accuracy_estimate": false,
+    "api_examples_checked": 7
+  }
+}

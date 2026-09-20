@@ -1,0 +1,16 @@
+[Unit]
+Description=Unload the category model when crawler resources are needed
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /usr/local/lib/geteverything-categories/guard.py
+TimeoutStartSec=50
+Nice=19
+MemoryMax=64M
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/geteverything-categories
+PrivateTmp=true

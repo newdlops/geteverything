@@ -1,0 +1,335 @@
+{
+  "recorded_at": "2026-09-17T15:32:58.179192+00:00",
+  "web": {
+    "tag": "my-django-app:categories-20260917",
+    "image": "sha256:e2ec57b52180986ac6b52aa9a276c8f22104d878074da2c2666b47a742182582",
+    "api_category_filter": 200,
+    "invalid_category_filter": 400,
+    "css": 200
+  },
+  "crawler": {
+    "at": "2026-09-17T15:32:58.310539+00:00",
+    "host": "instance-20251207-1802",
+    "units": {
+      "geteverything-categories.service": "NRestarts=0\nActiveState=active\nSubState=running",
+      "geteverything-category-model-guard.timer": "ActiveState=active\nSubState=waiting"
+    },
+    "containers": [
+      {
+        "name": "crawlers-bot",
+        "id": "5719fb31d8884fa76a4b2096b643632af732667ec83a0608a12b72bb8ae53c52",
+        "image": "sha256:4e29e4b468665b0ee776797b5464c1941a37bd35feef2aeb4500ebf6da443705",
+        "state": "running",
+        "started_at": "2026-09-16T17:49:40.361987859Z",
+        "oom": false,
+        "restarts": 0,
+        "memory_limit": 8589934592,
+        "cpu_limit": 1
+      },
+      {
+        "name": "flaresolverr",
+        "id": "2a7f6c5e4372b59e9bca5d85cae734afe726430f9319925a29b3ba39007f80d6",
+        "image": "sha256:9a74115c9fe2b44672bc851ffc0ca80c1d4829468c17182d299c77eb6b348cc7",
+        "state": "running",
+        "started_at": "2026-09-16T16:50:32.795670335Z",
+        "oom": false,
+        "restarts": 1,
+        "memory_limit": 1073741824,
+        "cpu_limit": 0.75
+      },
+      {
+        "name": "geteverything-category-worker",
+        "id": "44ff7eb05da4ffe6fd2f53bcad1cf5a14620cf8ec907dbc72944c6317e9636f2",
+        "image": "sha256:489609ea56b8c87845f7a750f1177e2a3667fd63317a4f712cfb2d82d570ce72",
+        "state": "running",
+        "started_at": "2026-09-17T15:21:47.515105561Z",
+        "oom": false,
+        "restarts": 0,
+        "memory_limit": 201326592,
+        "cpu_limit": 0.15
+      },
+      {
+        "name": "geteverything-category-model",
+        "id": "6fe731223f5aaa9e25b1a89dc321e39c402d729183c92bc824bcbb3057c79afc",
+        "image": "sha256:aa509a98cf5c8c81d04785c0c9a0d2acc47523aab72eceacad143a8d88910f68",
+        "state": "exited",
+        "started_at": "2026-09-17T15:24:36.654352203Z",
+        "oom": false,
+        "restarts": 0,
+        "memory_limit": 3221225472,
+        "cpu_limit": 0.25
+      }
+    ],
+    "guard": {
+      "at": 1789659166.7434096,
+      "cpu_percent": 81,
+      "memory_available": 9282404352,
+      "pending": 9,
+      "model_enabled": false,
+      "low_count": 0,
+      "total": 70169601,
+      "idle": 19503117
+    },
+    "demand": {
+      "at": 1789659166.2439861,
+      "pending": 9
+    },
+    "benchmarks": {
+      "category-model-benchmark-20260917": [
+        {
+          "model": {
+            "repo": "unsloth/Qwen3.5-0.8B-GGUF",
+            "revision": "6ab461498e2023f6e3c1baea90a8f0fe38ab64d0",
+            "file": "/var/lib/geteverything-categories/models/Qwen3.5-0.8B-Q4_K_M.gguf",
+            "sha256": "bd258782e35f7f458f8aced1adc053e6e92e89bc735ba3be89d38a06121dc517",
+            "bytes": 532517120
+          },
+          "image": "ghcr.io/ggml-org/llama.cpp@sha256:b97738dc7c62a5eefbfc2f910ff727cc2bcc7dbe9e613d95532fcc32f9374025",
+          "memory_peak": "787185664",
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "oom": false,
+          "cases": 40,
+          "correct": 17,
+          "seconds_median": 7.0435,
+          "seconds_min": 4.962,
+          "seconds_max": 23.218
+        },
+        {
+          "model": {
+            "repo": "unsloth/Qwen3.5-2B-GGUF",
+            "revision": "f6d5376be1edb4d416d56da11e5397a961aca8ae",
+            "file": "/var/lib/geteverything-categories/models/Qwen3.5-2B-Q4_K_M.gguf",
+            "sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+            "bytes": 1280835840
+          },
+          "image": "ghcr.io/ggml-org/llama.cpp@sha256:b97738dc7c62a5eefbfc2f910ff727cc2bcc7dbe9e613d95532fcc32f9374025",
+          "memory_peak": "1549852672",
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "oom": false,
+          "cases": 35,
+          "correct": 19,
+          "seconds_median": 16.539,
+          "seconds_min": 10.999,
+          "seconds_max": 55.11
+        }
+      ],
+      "category-model-benchmark-v2-20260917": [
+        {
+          "model": {
+            "repo": "unsloth/Qwen3.5-2B-GGUF",
+            "revision": "f6d5376be1edb4d416d56da11e5397a961aca8ae",
+            "file": "/var/lib/geteverything-categories/models/Qwen3.5-2B-Q4_K_M.gguf",
+            "sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+            "bytes": 1280835840
+          },
+          "image": "ghcr.io/ggml-org/llama.cpp@sha256:b97738dc7c62a5eefbfc2f910ff727cc2bcc7dbe9e613d95532fcc32f9374025",
+          "memory_peak": "1553866752",
+          "memory_events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0",
+          "oom": false,
+          "cases": 34,
+          "correct": 20,
+          "seconds_median": 15.4985,
+          "seconds_min": 10.72,
+          "seconds_max": 75.167
+        }
+      ]
+    }
+  },
+  "db": {
+    "at": "2026-09-17T15:32:58.179192+00:00",
+    "host": "instance-20251207-2018",
+    "total_deals": 42945,
+    "classified_rows": 4013,
+    "counts": [
+      {
+        "status": "llm",
+        "source": "",
+        "priority": 0,
+        "count": 9
+      },
+      {
+        "status": "ready",
+        "source": "rule",
+        "priority": 0,
+        "count": 5
+      },
+      {
+        "status": "ready",
+        "source": "rule",
+        "priority": 10,
+        "count": 1878
+      },
+      {
+        "status": "review",
+        "source": "",
+        "priority": 10,
+        "count": 2121
+      }
+    ],
+    "state": {
+      "backfill": {
+        "phase": "scanning",
+        "cursor": 128451,
+        "scanned": 4000
+      },
+      "worker": {
+        "at": 1789659166.244289,
+        "model": "2026-09-17-v1/root-2/aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "llm_enabled": true,
+        "pending_model": 9,
+        "llm_auto_publish": false
+      }
+    },
+    "migration": "2026-09-17T15:15:24.554524+00:00",
+    "triggers": [
+      "deals_thumbnail_request",
+      "deals_classification_request",
+      "hotdeal_title_trgm_vec_biu"
+    ],
+    "live_examples": [
+      {
+        "deal_id": 132463,
+        "community_name": "PPOMPPU",
+        "subject": "토퍼 매트리스 (43,900원/무료)",
+        "original_category": "기타",
+        "standard_category": "home.furniture",
+        "status": "ready",
+        "source": "rule",
+        "requested_at": "2026-09-17T15:29:30.532007+00:00",
+        "classified_at": "2026-09-17T15:29:30.61005+00:00",
+        "request_revision": 1
+      },
+      {
+        "deal_id": 132462,
+        "community_name": "PPOMPPU",
+        "subject": "브라질 프리미엄 고당도 애플망고 2kg 4-5입 (28,858원/무료)",
+        "original_category": "식품/건강",
+        "standard_category": "",
+        "status": "llm",
+        "source": "",
+        "requested_at": "2026-09-17T15:29:27.884071+00:00",
+        "classified_at": null,
+        "request_revision": 1
+      },
+      {
+        "deal_id": 132461,
+        "community_name": "PPOMPPU",
+        "subject": "루테인지아잔틴 아스타잔틴 미니 30캡슐 3박스 (15,900원/무료)",
+        "original_category": "식품/건강",
+        "standard_category": "beauty.supplement",
+        "status": "ready",
+        "source": "rule",
+        "requested_at": "2026-09-17T15:29:25.530368+00:00",
+        "classified_at": "2026-09-17T15:29:26.357411+00:00",
+        "request_revision": 1
+      },
+      {
+        "deal_id": 132460,
+        "community_name": "PPOMPPU",
+        "subject": "BHC 뿌링치킨피자 200g 5팩 (19,800원/무료)",
+        "original_category": "식품/건강",
+        "standard_category": "food.prepared",
+        "status": "ready",
+        "source": "rule",
+        "requested_at": "2026-09-17T15:29:23.842773+00:00",
+        "classified_at": "2026-09-17T15:29:24.155999+00:00",
+        "request_revision": 1
+      },
+      {
+        "deal_id": 132459,
+        "community_name": "PPOMPPU",
+        "subject": "농부선별 홍로 알뜰 사과 2kg (6,930원/무료)",
+        "original_category": "식품/건강",
+        "standard_category": "",
+        "status": "llm",
+        "source": "",
+        "requested_at": "2026-09-17T15:29:21.807474+00:00",
+        "classified_at": null,
+        "request_revision": 1
+      },
+      {
+        "deal_id": 132458,
+        "community_name": "PPOMPPU",
+        "subject": "뉴케어 마이키즈 멀티비타민 미네랄 구미 오렌지맛 60정 (14,900원/무료)",
+        "original_category": "식품/건강",
+        "standard_category": "",
+        "status": "llm",
+        "source": "",
+        "requested_at": "2026-09-17T15:29:19.944779+00:00",
+        "classified_at": null,
+        "request_revision": 1
+      },
+      {
+        "deal_id": 132457,
+        "community_name": "PPOMPPU",
+        "subject": "육개장 630g x 5팩 (17,860원/무배)",
+        "original_category": "식품/건강",
+        "standard_category": "",
+        "status": "llm",
+        "source": "",
+        "requested_at": "2026-09-17T15:29:17.669593+00:00",
+        "classified_at": null,
+        "request_revision": 1
+      },
+      {
+        "deal_id": 132456,
+        "community_name": "FMKOREA",
+        "subject": "BigDigitTurntable 워치페이스",
+        "original_category": "SW/게임",
+        "standard_category": "",
+        "status": "llm",
+        "source": "",
+        "requested_at": "2026-09-17T15:26:45.608432+00:00",
+        "classified_at": null,
+        "request_revision": 1
+      }
+    ],
+    "crawl_updates": [
+      {
+        "community_name": "ARCA",
+        "updated_at": "2026-09-17T15:32:43.604688+00:00",
+        "created_at": "2026-09-17T14:56:25.104136+00:00"
+      },
+      {
+        "community_name": "EOMISAE",
+        "updated_at": "2026-09-17T15:25:22.504715+00:00",
+        "created_at": "2026-09-17T15:20:52.393617+00:00"
+      },
+      {
+        "community_name": "FMKOREA",
+        "updated_at": "2026-09-17T15:32:21.334377+00:00",
+        "created_at": "2026-09-17T15:26:45.596926+00:00"
+      },
+      {
+        "community_name": "PPOMPPU",
+        "updated_at": "2026-09-17T15:32:58.090059+00:00",
+        "created_at": "2026-09-17T15:29:30.521402+00:00"
+      },
+      {
+        "community_name": "coolnjoy",
+        "updated_at": "2026-09-17T15:28:50.229931+00:00",
+        "created_at": "2026-09-17T13:27:15.711272+00:00"
+      }
+    ],
+    "thumbnail_requests": 0,
+    "own_thumbnails": 19400,
+    "thumbnail_listener": 1
+  },
+  "validation": {
+    "category": 18,
+    "thumbnail": 42,
+    "crawler_related": 16,
+    "resource_guard": 4,
+    "local_browser_widths": [
+      390,
+      768,
+      1440
+    ],
+    "labels": "Coding-assistant-reviewed regression labels; not human-certified or an untouched holdout.",
+    "rules": {
+      "total": 500,
+      "assigned": 415,
+      "matching_review_labels": 415
+    }
+  }
+}

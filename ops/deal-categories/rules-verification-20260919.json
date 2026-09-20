@@ -1,0 +1,555 @@
+{
+  "version": "2026-09-19-v2/rules-4",
+  "measurement_definition": "All deals; unclassified means no ready nonempty valid category. No exclusions for invalid titles or mixed products.",
+  "production": {
+    "at": "2026-09-19T01:37:38.553039+00:00",
+    "baseline_at": "2026-09-18T13:58:46.792048+00:00",
+    "baseline_total": 43431,
+    "baseline_unknown": 8610,
+    "total": 43538,
+    "unknown": 416,
+    "unknown_pct": 0.9554871606412789,
+    "classified": 43122,
+    "cohort_total": 43431,
+    "cohort_unknown": 412,
+    "missing_baseline_ids": [],
+    "unchanged_classification_inputs": 43431,
+    "changed_inputs": 0,
+    "new_rows": 107,
+    "new_rows_unknown": 4,
+    "newly_classified": 8229,
+    "returned_to_review": 31,
+    "manual_before": 0,
+    "manual_after": 0,
+    "manual_changed_ids": [],
+    "prediction_mismatches": [],
+    "unknown_reasons": {
+      "unavailable_title": 25,
+      "no_clear_product": 269,
+      "conflicting_products": 122
+    },
+    "classification_reasons": {
+      "product": 39152,
+      "benefit": 440,
+      "source_category": 2149,
+      "unavailable_title": 25,
+      "no_clear_product": 269,
+      "shop_name": 82,
+      "source_food_quantity": 352,
+      "main_product": 67,
+      "conflicting_products": 122,
+      "source_dosage": 53,
+      "shop_host": 796,
+      "source_promotion": 31
+    },
+    "by_site": [
+      {
+        "site": "ARCA",
+        "total": 6269,
+        "unknown": 42
+      },
+      {
+        "site": "EOMISAE",
+        "total": 1207,
+        "unknown": 44
+      },
+      {
+        "site": "FMKOREA",
+        "total": 18640,
+        "unknown": 84
+      },
+      {
+        "site": "PPOMPPU",
+        "total": 14227,
+        "unknown": 227
+      },
+      {
+        "site": "coolnjoy",
+        "total": 3195,
+        "unknown": 19
+      }
+    ],
+    "health": {
+      "total_deals": 43538,
+      "missing_classifications": 0,
+      "unknown": 416,
+      "classification_status": [
+        {
+          "status": "ready",
+          "source": "rule",
+          "count": 43122
+        },
+        {
+          "status": "review",
+          "source": "",
+          "count": 416
+        }
+      ],
+      "versions": [
+        {
+          "classifier_version": "2026-09-19-v2/rules-4",
+          "status": "ready",
+          "count": 43122
+        },
+        {
+          "classifier_version": "2026-09-19-v2/rules-4",
+          "status": "review",
+          "count": 416
+        }
+      ],
+      "stale_titles": 0,
+      "pending_over_5m": 0,
+      "crawl_updates": [
+        {
+          "community_name": "ARCA",
+          "total": 6269,
+          "updated_at": "2026-09-19T01:36:51.763576+00:00",
+          "created_at": "2026-09-19T01:13:41.799599+00:00",
+          "created_30m": 1,
+          "updated_30m": 97
+        },
+        {
+          "community_name": "EOMISAE",
+          "total": 1207,
+          "updated_at": "2026-09-19T01:33:45.145172+00:00",
+          "created_at": "2026-09-19T00:46:20.348619+00:00",
+          "created_30m": 0,
+          "updated_30m": 22
+        },
+        {
+          "community_name": "FMKOREA",
+          "total": 18640,
+          "updated_at": "2026-09-19T01:35:15.087934+00:00",
+          "created_at": "2026-09-19T01:26:27.868901+00:00",
+          "created_30m": 5,
+          "updated_30m": 202
+        },
+        {
+          "community_name": "PPOMPPU",
+          "total": 14227,
+          "updated_at": "2026-09-19T01:37:37.96023+00:00",
+          "created_at": "2026-09-19T01:34:04.389442+00:00",
+          "created_30m": 14,
+          "updated_30m": 102
+        },
+        {
+          "community_name": "coolnjoy",
+          "total": 3195,
+          "updated_at": "2026-09-19T01:37:38.256797+00:00",
+          "created_at": "2026-09-19T01:09:08.365118+00:00",
+          "created_30m": 1,
+          "updated_30m": 119
+        }
+      ],
+      "measurements": [
+        {
+          "status": "partial",
+          "count": 28254
+        },
+        {
+          "status": "ready",
+          "count": 10095
+        },
+        {
+          "status": "review",
+          "count": 5189
+        }
+      ],
+      "missing_measurements": 0,
+      "upgrade": {
+        "phase": "queued",
+        "queued": 0,
+        "completed_at": 1789781838.262251,
+        "bulk_processed": 5640,
+        "bulk_finished_at": 1789781827.0323484
+      },
+      "worker": {
+        "at": 1789781853.3441606,
+        "model": "2026-09-19-v2/root-3/aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+        "llm_enabled": true,
+        "pending_model": 0,
+        "llm_auto_publish": false
+      },
+      "fx_worker": {
+        "at": 1789769286.957962,
+        "date": "2026-09-18",
+        "status": "ready"
+      },
+      "migration": "2026-09-18T17:14:38.826293+00:00",
+      "classification_trigger": "CREATE TRIGGER deals_classification_request AFTER INSERT OR UPDATE OF subject, community_name, category, shop_name, shop_url_1, shop_url_2 ON public.deals FOR EACH ROW EXECUTE FUNCTION enqueue_deal_classification()"
+    }
+  },
+  "crawler": {
+    "at": 1789781858.9335537,
+    "deployment": {
+      "at": 1789780519.0712883,
+      "worker_image": "sha256:0d559e0fcd7c8f8ae0c65559feb7b506ce6969a317efc9d2b1a26d5061095feb",
+      "base_image": "sha256:4d793e1c890da89ec95f3593f52b4edd6fb02b1fa0f48d5d5062d566c47919bd",
+      "backup": "/root/category-worker-backups/1789780509401819954",
+      "bulk_container": "48d98c00ad57eb2f10306ee385d656c1d6399d9bc499413e3cae446f8df03015",
+      "crawler_started_at": "2026-09-18T10:08:06.443498133Z",
+      "schema": "0011_classification_context",
+      "version": "2026-09-19-v2/rules-4"
+    },
+    "containers": [
+      {
+        "name": "crawlers-bot",
+        "image": "sha256:4d793e1c890da89ec95f3593f52b4edd6fb02b1fa0f48d5d5062d566c47919bd",
+        "running": true,
+        "started_at": "2026-09-18T10:08:06.443498133Z",
+        "finished_at": "0001-01-01T00:00:00Z",
+        "oom": false,
+        "exit_code": 0,
+        "restarts": 0,
+        "cpus": 1.0,
+        "memory": 8589934592
+      },
+      {
+        "name": "geteverything-category-worker",
+        "image": "sha256:0d559e0fcd7c8f8ae0c65559feb7b506ce6969a317efc9d2b1a26d5061095feb",
+        "running": true,
+        "started_at": "2026-09-19T01:15:15.275493704Z",
+        "finished_at": "0001-01-01T00:00:00Z",
+        "oom": false,
+        "exit_code": 0,
+        "restarts": 0,
+        "cpus": 0.15,
+        "memory": 201326592
+      },
+      {
+        "name": "geteverything-category-upgrade-r4",
+        "image": "sha256:0d559e0fcd7c8f8ae0c65559feb7b506ce6969a317efc9d2b1a26d5061095feb",
+        "running": false,
+        "started_at": "2026-09-19T01:15:26.236328982Z",
+        "finished_at": "2026-09-19T01:30:35.499167886Z",
+        "oom": false,
+        "exit_code": 0,
+        "restarts": 0,
+        "cpus": 0.1,
+        "memory": 201326592
+      },
+      {
+        "name": "geteverything-category-upgrade-r4-final",
+        "image": "sha256:0d559e0fcd7c8f8ae0c65559feb7b506ce6969a317efc9d2b1a26d5061095feb",
+        "running": false,
+        "started_at": "2026-09-19T01:34:33.131940357Z",
+        "finished_at": "2026-09-19T01:37:08.386098647Z",
+        "oom": false,
+        "exit_code": 0,
+        "restarts": 0,
+        "cpus": 0.1,
+        "memory": 201326592
+      }
+    ],
+    "service": "Result=success\nNRestarts=0\nExecMainStartTimestamp=Sat 2026-09-19 01:15:15 UTC\nActiveState=active",
+    "events": [
+      "Stopped geteverything-categories.service - Classify product titles with local rules and a local model.",
+      "Started geteverything-categories.service - Classify product titles with local rules and a local model."
+    ],
+    "bulk_logs": "{\"processed\": 32000, \"cursor\": 99336}\n{\"processed\": 33000, \"cursor\": 98236}\n{\"processed\": 34000, \"cursor\": 97179}\n{\"version\": \"2026-09-19-v2/rules-4\", \"processed\": 34250, \"seconds\": 900.84}",
+    "stats": [
+      {
+        "BlockIO": "2.05MB / 2.13MB",
+        "CPUPerc": "101.24%",
+        "Container": "crawlers-bot",
+        "ID": "d23486a0a720",
+        "MemPerc": "22.62%",
+        "MemUsage": "1.809GiB / 8GiB",
+        "Name": "crawlers-bot",
+        "NetIO": "0B / 0B",
+        "PIDs": "67"
+      },
+      {
+        "BlockIO": "0B / 340kB",
+        "CPUPerc": "0.53%",
+        "Container": "geteverything-category-worker",
+        "ID": "2736d4dd6fea",
+        "MemPerc": "25.54%",
+        "MemUsage": "49.03MiB / 192MiB",
+        "Name": "geteverything-category-worker",
+        "NetIO": "0B / 0B",
+        "PIDs": "3"
+      },
+      {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "0.00%",
+        "Container": "geteverything-category-upgrade-r4",
+        "ID": "48d98c00ad57",
+        "MemPerc": "0.00%",
+        "MemUsage": "0B / 0B",
+        "Name": "geteverything-category-upgrade-r4",
+        "NetIO": "0B / 0B",
+        "PIDs": "0"
+      }
+    ],
+    "guard": {
+      "at": 1789781834.3087785,
+      "cpu_percent": 63.2,
+      "memory_available": 9509322752,
+      "pending": 0,
+      "model_enabled": false,
+      "low_count": 0,
+      "total": 94696554,
+      "idle": 25901878
+    },
+    "followup_logs": "{\"processed\": 3000, \"cursor\": 92298}\n{\"processed\": 4000, \"cursor\": 91238}\n{\"processed\": 5000, \"cursor\": 90190}\n{\"version\": \"2026-09-19-v2/rules-4\", \"processed\": 5640, \"seconds\": 147.09}"
+  },
+  "web": {
+    "at": 1789780719.8817415,
+    "service_image": "my-django-app:categories-r4-20260919-r2",
+    "update_status": {
+      "State": "completed",
+      "StartedAt": "2026-09-19T00:34:38.894647286Z",
+      "CompletedAt": "2026-09-19T00:36:14.898584987Z",
+      "Message": "update completed"
+    },
+    "deployment": {
+      "at": 1789778188.0915365,
+      "image": "sha256:0b806e247123a47e7393edcaa7c5119efd055dc62dcd34de3da3d0daad7f3005",
+      "tag": "my-django-app:categories-r4-20260919-r2",
+      "previous_tag": "my-django-app:categories-r4-20260919",
+      "api_ok": true,
+      "web_settings_preserved": true,
+      "production_image_tests": 58,
+      "schema": "0011_classification_context"
+    },
+    "api": {
+      "status": 200,
+      "seconds": 3.21,
+      "results": 30
+    },
+    "admin": {
+      "status": 200,
+      "seconds": 1.02
+    }
+  },
+  "api": {
+    "at": 1789782056.5802133,
+    "api_checks": [
+      {
+        "id": 99520,
+        "title": "글라코 G47+G19 유막제거세트",
+        "category": {
+          "code": "auto.care",
+          "label": "자동차·차량용품 > 차량 관리·정비",
+          "parent_code": "auto",
+          "parent_label": "자동차·차량용품"
+        },
+        "classification_status": "ready",
+        "measurement_status": "partial"
+      },
+      {
+        "id": 119334,
+        "title": "대원씨아이 사카모토 데이즈 외 만화책 모음전",
+        "category": {
+          "code": "culture.books",
+          "label": "도서·문화 > 도서·전자책",
+          "parent_code": "culture",
+          "parent_label": "도서·문화"
+        },
+        "classification_status": "ready",
+        "measurement_status": "partial"
+      },
+      {
+        "id": 111101,
+        "title": "홈플러스 무배 쿠폰팩",
+        "category": {
+          "code": "services.coupon",
+          "label": "상품권·혜택·서비스 > 할인쿠폰",
+          "parent_code": "services",
+          "parent_label": "상품권·혜택·서비스"
+        },
+        "classification_status": "ready",
+        "measurement_status": "partial"
+      },
+      {
+        "id": 125088,
+        "title": "Darkest Dungeon 다케스트 던전",
+        "category": {
+          "code": "games",
+          "label": "게임·소프트웨어",
+          "parent_code": "games",
+          "parent_label": "게임·소프트웨어"
+        },
+        "classification_status": "ready",
+        "measurement_status": "partial"
+      },
+      {
+        "id": 98649,
+        "title": "하다라보 고쿠쥰 리프팅 3종(25,790원/무료배송)",
+        "category": {
+          "code": "beauty.cosmetic",
+          "label": "뷰티·건강 > 화장품·향수",
+          "parent_code": "beauty",
+          "parent_label": "뷰티·건강"
+        },
+        "classification_status": "ready",
+        "measurement_status": "partial"
+      },
+      {
+        "id": 100611,
+        "title": "[알리] 레노버샤오신 Pad pro 12.7  2025 8+256GB 그레이",
+        "category": {
+          "code": "mobile.tablet",
+          "label": "모바일 > 태블릿",
+          "parent_code": "mobile",
+          "parent_label": "모바일"
+        },
+        "classification_status": "ready",
+        "measurement_status": "partial"
+      },
+      {
+        "id": 97109,
+        "title": "디케이켈슨 무선 핸드 그라인더 풀세트 (130,900원/무료)",
+        "category": {
+          "code": "electronics",
+          "label": "가전·디지털",
+          "parent_code": "electronics",
+          "parent_label": "가전·디지털"
+        },
+        "classification_status": "ready",
+        "measurement_status": "partial"
+      },
+      {
+        "id": 95988,
+        "title": "엔자이메디카 베르베린 파티오솜 60캡슐 3병 (59,840원/무료)",
+        "category": {
+          "code": "beauty.supplement",
+          "label": "뷰티·건강 > 영양제",
+          "parent_code": "beauty",
+          "parent_label": "뷰티·건강"
+        },
+        "classification_status": "ready",
+        "measurement_status": "review"
+      },
+      {
+        "id": 109179,
+        "title": "프레시웰 지리산 천연암반수 2L x 24병 (11,800원/무료)",
+        "category": {
+          "code": "food",
+          "label": "식품·음료",
+          "parent_code": "food",
+          "parent_label": "식품·음료"
+        },
+        "classification_status": "ready",
+        "measurement_status": "ready"
+      }
+    ],
+    "filters": [
+      {
+        "category": "auto",
+        "sample_size": 30
+      },
+      {
+        "category": "culture",
+        "sample_size": 30
+      },
+      {
+        "category": "services.coupon",
+        "sample_size": 30
+      }
+    ],
+    "invalid_category_status": 400
+  },
+  "browser": {
+    "checks": [
+      "list-1440",
+      "list-768",
+      "list-390",
+      "new-category-filter-and-detail",
+      "manual-save-protection",
+      "retry-automatic-queue",
+      "unclassified-filter",
+      "metadata-evidence-readable",
+      "empty-search"
+    ],
+    "javascript_errors": []
+  },
+  "new_crawls_after_deploy": {
+    "total": 18,
+    "statuses": {
+      "ready": 18
+    },
+    "sites": {
+      "PPOMPPU": 14,
+      "FMKOREA": 4
+    },
+    "classification_seconds_median": 0.7376365,
+    "classification_seconds_max": 3.116752
+  },
+  "validation": {
+    "category_and_measurement_tests": 58,
+    "postgresql_context_trigger_checks": "passed_in_isolated_schema_and_rolled_back",
+    "production_rows_written_by_trigger_test": 0,
+    "development_samples_reviewed": [
+      150,
+      100
+    ],
+    "sample_caveat": "Coding-assistant review used for rule refinement; not independent accuracy measurement.",
+    "local_llm_auto_publish": false,
+    "local_llm_backfill": false,
+    "external_inference_api": false,
+    "runtime_files_match_deployment_bundle": 59
+  },
+  "runtime_sha256": {
+    "gadmin/categories/worker.py": "4f86671d4b0407e5b48967258e5aa61cbad89185a936d10945702913236b6b47",
+    "gadmin/categories/__init__.py": "15c164fe1bf2b5339b028e6cf7c234f38257a4ee276183837215f015956385c8",
+    "gadmin/categories/llm.py": "f6ffcfc91a69a66ca902bfad9c7935cc23d4f4c7c50f4bb259e9e8a199ba194e",
+    "gadmin/categories/rules.py": "e1b598f8fb04bc6e1694a0b8a74ead222c48c3c444c34a1768a24888285019b2",
+    "gadmin/categories/upgrade.py": "e1eddfdb0bc5245efff0c4eed4d8ae0544bfc5e1239fce262725752d20c4bd80",
+    "gadmin/categories/context.py": "c634ec06579bf48ac81d71008dc5934cb767ed35c24adee21e0d230aed1f2a36",
+    "gadmin/categories/taxonomy.py": "32ffc48df3b1bce746a4c0293fb4b5a4b2823d775ae05dd1b2fed2e82fa2653f",
+    "gadmin/categories/settings.py": "a9b74e1b3e3ac31d190e92a9b76673c2109797725ece851c6181d0a1cd77d63d",
+    "gadmin/categories/vocabulary.py": "0dbee28a53e341ac479ab7981b98ac88d9c11845387c3523cd23252064f9ead9",
+    "gadmin/categories/tests/test_upgrade.py": "343863614dc1ff960ca5f4415e2551e65c9f4d5faf8b1f978e64a74271daa423",
+    "gadmin/categories/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gadmin/categories/tests/apps.py": "5977db5e298160141187f6215f70f5ae47ceaf7867ee3c5ae173f6e253eb7f38",
+    "gadmin/categories/tests/test_worker.py": "d19dff229488f7a84e75426a9bd3d93b89cded6d77ed7eaa3369045525636dbf",
+    "gadmin/categories/tests/settings.py": "46fd32bdf3406077d7678ca4373cbc50c1aace8e9000c6e89d6c20412ee989a6",
+    "gadmin/categories/tests/test_context.py": "62d72ad79cf28ac414ad2726053937181489b1ce44ee691c8896d07555b88b51",
+    "gadmin/categories/tests/urls.py": "537a4dba9f37ce1dae30bba63829114346f41e2d416a51380d5c2329fc9744f5",
+    "gadmin/categories/tests/test_rules.py": "5cb4f1538b48b1cf8b04f699129874a367fc4520f15a7bec5b6edff22cd4afdb",
+    "gadmin/metrics/__init__.py": "c16973547b167798adfff4cf087561ca6cc1114df53d3aef4f5bfd2f966933a0",
+    "gadmin/metrics/money.py": "bee1ca866cb3ca29423255548eace039455fadb189998adf0897e163a8faebc4",
+    "gadmin/metrics/parser.py": "7a9e5a0692bd7a70a6e02378fd4ecc34a04a80afb88d9c86fd388d1a0dce247f",
+    "gadmin/metrics/jobs.py": "468de5a5802cdd7dede9c41439348967d68af9f2e4dc21976d58aa93c9e60878",
+    "gadmin/metrics/admin.py": "9b8a195a4ce2dfa462514d50c38c3d9eeb490c5161a6acfb8c53853ce85aec7e",
+    "gadmin/metrics/fx.py": "080e4e9427509d408da30533d94a5aa5a5d4b68f5c77a9252c236fcccb73fab7",
+    "gadmin/metrics/tests/test_parser.py": "0a69a2d53181fa53ddd50a7219057453ce72e0b30439b376ab5e98c6bbf498b5",
+    "gadmin/metrics/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gadmin/metrics/tests/test_jobs.py": "31a2b7ca16f3354ed7e22e5413870e1ccf989b96e7a76f53dfec50276fb8e9a1",
+    "gadmin/metrics/tests/test_fx.py": "40aede1b2a346079cfa3ef3a8d152bc18ed0079bd414bd5dc9e4a9a355c01e6d",
+    "gadmin/deals/export_filelds_action_form.py": "037d205e5565fba1ba33c2544ada5e83da2b84d443561dd7d673f6b4d1625eb6",
+    "gadmin/deals/models.py": "ef70ea1cb5c9b0c691794815fd0f981451cfc88107952bb5fc3f5a87d6579494",
+    "gadmin/deals/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gadmin/deals/apps.py": "b4e0148a3ae0a9da95fb3c2886645fafe7963ca5ca7e9041e4668cd7b34c07b3",
+    "gadmin/deals/admin.py": "928cc5b62f4a038e73609a8a27fcdb84c7944156628729c54247acd4462d62ed",
+    "gadmin/deals/serializer.py": "c2d10a5f29bb15606c95d75f3bb04c1311b8ff881b0b002ba48467f0cfe62e36",
+    "gadmin/deals/tests.py": "9ab6c6191360e63c1b4c9b5659aef348a743c9e078be68190917369e4e9563e8",
+    "gadmin/deals/urls.py": "db60df23f5d0f3fd298a9a10731b4eeb4d9b9247e8e5bb9feed3a228bcae9046",
+    "gadmin/deals/views.py": "b0434c68404f8e8dbc549ac4d4c26b6bac5027d5e6b345550fe74b707d10024b",
+    "gadmin/deals/migrations/0008_thumbnail_requests.py": "25704fa2098038d0e779f0b8294c10573a12cca09445a0ef5b9b63415d250928",
+    "gadmin/deals/migrations/0002_alter_deal_article_id_alter_deal_crawled_at_and_more.py": "d0a952775de28906a23a52101d47c559c44b5ea641c969f481324d7c6270583e",
+    "gadmin/deals/migrations/0004_deal_currency.py": "4f481f049a3ec279af3738cbb5c552fdbf93ca6b631cbf09b8b298bbf2e4aae3",
+    "gadmin/deals/migrations/0007_deal_subject_trgm_vector_and_more.py": "911ab528ec106be8a98df4a3327efe29f29de848b9b97f50231cb8303e6a6e3b",
+    "gadmin/deals/migrations/0009_deal_classifications.py": "3d61eb666f06b220ca5b76c53d5ccb63e4cd54373e379bd98ba5d99c536062e8",
+    "gadmin/deals/migrations/0006_trgm_hash_vector.py": "47116a7199fbffe53decdcd608ecd1c968f0559dfe34fe9a91cde2d14d838552",
+    "gadmin/deals/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gadmin/deals/migrations/0005_deal_write_at_alter_deal_create_at.py": "731fa63a0b7e249f3acd661942e353c83aa2fa426a0a83fb2b53186931afacb7",
+    "gadmin/deals/migrations/0011_classification_context.py": "2c3102d4a42848c23dab0244bbd23d22953df8f919804112943ff9b3c6281909",
+    "gadmin/deals/migrations/0003_alter_deal_crawled_at_alter_deal_create_at_and_more.py": "811c7432ce236fa2e9ec4179ba7a34ee38d3af61bd04df06986a6bcffc4e9a67",
+    "gadmin/deals/migrations/0001_initial.py": "3658be074d0b1a6f5297e3dcf2205db39b0f4d1e76b8890922d7bb81028d5386",
+    "gadmin/deals/migrations/0010_deal_measurements.py": "fd9d2f4393774e0a12c05ec5dc545a912f3d17a94a3e86298a6a591dd10e3e5e",
+    "gadmin/monitoring/tests/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "gadmin/monitoring/tests/test_storage.py": "359b3cb14740c53ba8e7992c66842fd084b4d3cfa3ae77de95972a053a236a4d",
+    "gadmin/monitoring/tests/test_logs.py": "1e04d2ee07600b0d4737b411f5441ec758f91940a14294db3844580ee05801d5",
+    "gadmin/monitoring/tests/settings.py": "7e4d7bbee458f81924f15798a878f1c420ba260181e7b76003efcc712ebf908b",
+    "gadmin/monitoring/tests/urls.py": "c585f10bf105068d370cebc4503d661d9b2847055b0d6efdb7bb07c90539a01f",
+    "ops/deal-categories/run.py": "840ec8d3969aaa535182e5fcd4a3b7eca35c616cb3e373b98a8d3e6f653e9fc5",
+    "ops/deal-categories/deploy.py": "ef6d7ac92bbac69cee9144094fdbecc56c5fa275efec4cca6697e1e6cc38a689",
+    "ops/deal-categories/test_guard.py": "9463c8cd16b230daaa031f1e9274f1f73fb4aa89f51f5ef3761c0de63f8a8227",
+    "ops/deal-categories/guard.py": "948646b2c3ccb8286094f04d8d3ec0130fe65c0dc9d7bfbf139ee6b14572e696",
+    "ops/deal-categories/evaluate.py": "4b5efa52c74e033b1e01c36cf827f79c0343af6a345f3cc620b5184667f0a165",
+    "gadmin/monitoring/static/monitoring/categories.css": "742472b73ab231b21cb41b37d68a687b7c7ed842a81ef163eb3ae8e432a0f370"
+  }
+}
