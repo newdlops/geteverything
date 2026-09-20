@@ -1,0 +1,10 @@
+[Unit]
+Description=Check reviewed product examples daily at 02:30 Korea time
+
+[Timer]
+OnCalendar=*-*-* 17:30:00 UTC
+Persistent=true
+Unit=geteverything-product-training.service
+
+[Install]
+WantedBy=timers.target

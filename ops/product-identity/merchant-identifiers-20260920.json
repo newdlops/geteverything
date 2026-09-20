@@ -1,0 +1,1150 @@
+{
+  "verified_at_utc": "2026-09-20T06:50:40.193Z",
+  "local_tests": {
+    "suite": "products and thumbnails",
+    "passed": 120
+  },
+  "production_tests": {
+    "passed": 54,
+    "postgres": {
+      "postgres_checks": "passed",
+      "schema_rolled_back": true,
+      "checks": [
+        "new_post",
+        "no_change",
+        "url_change",
+        "title_change",
+        "stale_result",
+        "namespaced_lookup",
+        "shared_product",
+        "price_preservation",
+        "redirect_cache_postgres"
+      ]
+    }
+  },
+  "initial_deployment": {
+    "at": 1789883273.5968032,
+    "image": "sha256:9a5ac45b7a164071a1a7fa060fade672fe85f81a53158e866f21a8023b52bf53",
+    "previous_image": "sha256:a38fc68cbff49951e7957312cf6c643db482e35ddf3ed30032a714d00322946b",
+    "started_at": "2026-09-20T05:47:52.200341345Z",
+    "activation_seconds": 1.58,
+    "resource_limits_preserved": true,
+    "cpu_limit": 0.15,
+    "memory_limit": 201326592,
+    "unchanged_services": {
+      "crawlers-bot": "2026-09-20T04:40:20.659807418Z",
+      "flaresolverr": "2026-09-20T02:27:01.639813263Z"
+    },
+    "runtime_files": {
+      "gadmin/categories/worker.py": "4a26a41e86fd67b9f1e7be61e7bb21a5f056542882e59a48cf17703b29261689",
+      "gadmin/thumbnails/__init__.py": "921ad7ecc1cb7dd4cbd673d8fce8eef6c00a476a7369804d130c101d7e38fb1b",
+      "gadmin/thumbnails/fetch.py": "2f8b8d115507481075b2505d9a363d8319c00c31edca4129409c08744872270a",
+      "gadmin/products/jobs.py": "f9dbcef9036669ddea73a5abc44d54e08bedf025d1fae67969bbefe4a4c6844a",
+      "gadmin/products/sources.py": "ff68a43b4d5e14b8271b5792b1467a895fe90f829595ff301be63d921e520003",
+      "gadmin/products/identity.py": "bb467888b134e336743b458a23564fc018e3e6038f86eb2aa501d70afe403e15",
+      "gadmin/products/identifiers.py": "51fdb591ec61a4b49512c9f11a52c2fca0459a256cb1fef9796bd2d6388eac1d",
+      "gadmin/deals/models.py": "4e263773f964cf4fbda07f29acb529992e3893310f6ae5a899086bc02f81fc6c",
+      "gadmin/products/tests/worker_settings.py": "064b7401f592dad24886162190b070e33556ac2e93e6d6f8385fdfd59809aabe",
+      "gadmin/products/tests/test_backfill.py": "4e3c884441eb0c18a2c85c7d26214d257ae2bb1a155478b3b1610151409c3b53",
+      "gadmin/products/tests/test_sources.py": "c063da189826971895c6473d5d015dd54e379f4aacdfa06958939f3c3fe835a7",
+      "gadmin/products/tests/check_sources_postgres.py": "e76f37808a3d3f1e9abb849cf5cb1c106f8f8a9b57e87b488c02598a82e6700c",
+      "gadmin/products/tests/test_products.py": "2a3c1d5944491ac2e45d525e4e1c704b905ce276d4911aa72901a768756c9101",
+      "gadmin/deals/migrations/0015_product_sources.py": "487c8146c192cbb38637bdfa383c24db4fb183ced84cfe5fd8cb3e9acd813c27",
+      "gadmin/deals/migrations/0014_deal_availability.py": "5735d43e66fe50a586363a2e3ff0f201606515c7aaa3a9208eaac15a85575309"
+    },
+    "coverage": {
+      "sample": 3000,
+      "with_ids": 1723,
+      "merchants": {
+        "naver": 522,
+        "coupang.product": 86,
+        "coupang.vendor_item": 74,
+        "coupang.item": 63,
+        "kakao": 97,
+        "gmarket": 456,
+        "lotteon": 174,
+        "11st": 103,
+        "aliexpress": 26,
+        "auction": 69,
+        "ohou.goods": 130,
+        "musinsa": 11,
+        "ohou.productions": 5,
+        "storefront": 31,
+        "ssg": 13
+      }
+    },
+    "postgres_checks": {
+      "postgres_checks": "passed",
+      "schema_rolled_back": true,
+      "checks": [
+        "new_post",
+        "no_change",
+        "url_change",
+        "title_change",
+        "stale_result",
+        "namespaced_lookup",
+        "shared_product",
+        "price_preservation"
+      ]
+    },
+    "schema": "0015_product_sources",
+    "worker_tests": 50,
+    "startup_recovery": "renamed a never-started container after a deployment startup-check race",
+    "preserved_created_container": "geteverything-category-worker-created-before-sources-20260920"
+  },
+  "followup_deployments": [
+    {
+      "at": 1789884711.9549084,
+      "image": "sha256:8718466ae6f284256c5a6cece52931918c9e6db076963d86088c9bf88f31cc60",
+      "previous_image": "sha256:9a5ac45b7a164071a1a7fa060fade672fe85f81a53158e866f21a8023b52bf53",
+      "started_at": "2026-09-20T06:11:50.988613591Z",
+      "restart_seconds": 13.9,
+      "resource_limits_preserved": true,
+      "cpu_limit": 0.15,
+      "memory_limit": 201326592,
+      "unchanged_services": {
+        "crawlers-bot": "2026-09-20T04:40:20.659807418Z",
+        "flaresolverr": "2026-09-20T02:27:01.639813263Z"
+      },
+      "runtime_files": {
+        "gadmin/products/sources.py": "08c3a91357385fb9db4ede3356cb397786e99e3afcfd7120144051ead6d728e3",
+        "gadmin/products/identity.py": "be71a7814c6c1c0c7aac310c97304665dfd10e20c9729333a84d6e95813b7899",
+        "gadmin/products/tests/test_sources.py": "7eacfca262601c6dfda11e2d0263ad9c02ffafa0efc5856af333e85a5847bdd6"
+      },
+      "tests": 52,
+      "postgres_checks": {
+        "postgres_checks": "passed",
+        "schema_rolled_back": true,
+        "checks": [
+          "new_post",
+          "no_change",
+          "url_change",
+          "title_change",
+          "stale_result",
+          "namespaced_lookup",
+          "shared_product",
+          "price_preservation"
+        ]
+      },
+      "schema": "0015_product_sources"
+    },
+    {
+      "at": 1789885742.281348,
+      "image": "sha256:e014ba46e52d1727b4a85565bce49a710cf967042c9965a9142a6ed04129a297",
+      "previous_image": "sha256:8718466ae6f284256c5a6cece52931918c9e6db076963d86088c9bf88f31cc60",
+      "started_at": "2026-09-20T06:29:01.379692372Z",
+      "restart_seconds": 21.11,
+      "resource_limits_preserved": true,
+      "cpu_limit": 0.15,
+      "memory_limit": 201326592,
+      "unchanged_services": {
+        "crawlers-bot": "2026-09-20T04:40:20.659807418Z",
+        "flaresolverr": "2026-09-20T02:27:01.639813263Z"
+      },
+      "runtime_files": {
+        "gadmin/products/sources.py": "bab703e570d1183f8357ab2dae8fcbb0ac907b8f3f271d3dd6293d51fb126962",
+        "gadmin/products/identity.py": "be71a7814c6c1c0c7aac310c97304665dfd10e20c9729333a84d6e95813b7899",
+        "gadmin/products/tests/test_sources.py": "f28f24a82b6aebb7e78a398bca8b72b53b7c00f4c61941da71ac9a9f478ab1aa",
+        "gadmin/products/tests/check_sources_postgres.py": "991b460a1c90119d1a86a43cbb9ddee04f753c43a0aa94652ca7aa9a3a294162"
+      },
+      "tests": 52,
+      "postgres_checks": {
+        "postgres_checks": "passed",
+        "schema_rolled_back": true,
+        "checks": [
+          "new_post",
+          "no_change",
+          "url_change",
+          "title_change",
+          "stale_result",
+          "namespaced_lookup",
+          "shared_product",
+          "price_preservation",
+          "redirect_cache_postgres"
+        ]
+      },
+      "schema": "0015_product_sources"
+    },
+    {
+      "at": 1789886536.5379581,
+      "image": "sha256:aadd358ad63900d2ed22050dbfa8c3c2d00d72bc934e80e94fb0577527c2170f",
+      "previous_image": "sha256:e014ba46e52d1727b4a85565bce49a710cf967042c9965a9142a6ed04129a297",
+      "started_at": "2026-09-20T06:42:15.632253676Z",
+      "restart_seconds": 10.76,
+      "resource_limits_preserved": true,
+      "cpu_limit": 0.15,
+      "memory_limit": 201326592,
+      "unchanged_services": {
+        "crawlers-bot": "2026-09-20T04:40:20.659807418Z",
+        "flaresolverr": "2026-09-20T02:27:01.639813263Z"
+      },
+      "runtime_files": {
+        "gadmin/products/sources.py": "bab703e570d1183f8357ab2dae8fcbb0ac907b8f3f271d3dd6293d51fb126962",
+        "gadmin/products/identity.py": "0bdcb7e9ac8e3b7f7e72075c3f514d44ea3543f30481141d417f7dfc1d63f181",
+        "gadmin/products/tests/test_sources.py": "23ca65bf6e445f06aaa54ad4dd654adb16f4d0df72b458e204a706d46de0b504",
+        "gadmin/products/tests/check_sources_postgres.py": "991b460a1c90119d1a86a43cbb9ddee04f753c43a0aa94652ca7aa9a3a294162"
+      },
+      "tests": 54,
+      "postgres_checks": {
+        "postgres_checks": "passed",
+        "schema_rolled_back": true,
+        "checks": [
+          "new_post",
+          "no_change",
+          "url_change",
+          "title_change",
+          "stale_result",
+          "namespaced_lookup",
+          "shared_product",
+          "price_preservation",
+          "redirect_cache_postgres"
+        ]
+      },
+      "schema": "0015_product_sources"
+    }
+  ],
+  "findings_resolved": [
+    "Initial worker startup check confused image and container; worker recovered after approximately seven minutes while crawlers continued.",
+    "Redirect cache key exceeded varchar(64); fixed with a 64-character namespaced hash and PostgreSQL integration coverage.",
+    "Audited 28 identifier assignments and withdrew five multi-product/option assignments with backups; raw price observations preserved."
+  ],
+  "verification": {
+    "at": 1789887040.1934988,
+    "link_audit": {
+      "audited": 28,
+      "withdrawn": 5,
+      "deal_ids": [
+        128081,
+        129569,
+        132908,
+        131658,
+        128341
+      ],
+      "raw_prices_preserved": 5
+    },
+    "focused_pair": {
+      "before": {
+        "deal_id": 133428,
+        "status": "ready",
+        "source": "identifier",
+        "product_id": "35619678-bfd9-4ba8-8d1d-973782cc9db7",
+        "input_title": "신세계푸드 선물세트 호주산 LA갈비 양념 3kg세트 (카드 82,940원/무료)",
+        "extraction": {
+          "name": "호주산 LA갈비",
+          "brand": "신세계푸드",
+          "model": "",
+          "variant": "",
+          "category": "food",
+          "attributes": {
+            "sizes": [
+              "weight_g:3E+3"
+            ],
+            "specs": [],
+            "options": [],
+            "numeric_options": []
+          },
+          "shop_evidence": {
+            "scope": "",
+            "value": "4858159079",
+            "namespace": "gmarket",
+            "canonical_url": "https://item.gmarket.co.kr/Item?goodscode=4858159079",
+            "source_revision": 1,
+            "reference_deal_id": 132645
+          }
+        }
+      },
+      "reference": {
+        "deal_id": 132645,
+        "status": "ready",
+        "source": "llm",
+        "product_id": "35619678-bfd9-4ba8-8d1d-973782cc9db7",
+        "input_title": "신세계푸드 호주산 LA갈비 3kg 선물세트 (83,840원/무료)",
+        "extraction": {
+          "name": "호주산 LA갈비",
+          "brand": "신세계푸드",
+          "model": "",
+          "variant": "",
+          "category": "food",
+          "attributes": {
+            "sizes": [
+              "weight_g:3E+3"
+            ],
+            "specs": [],
+            "options": [],
+            "numeric_options": []
+          }
+        }
+      },
+      "linked_on_retry": 0,
+      "after": {
+        "deal_id": 133428,
+        "status": "ready",
+        "source": "identifier",
+        "product_id": "35619678-bfd9-4ba8-8d1d-973782cc9db7",
+        "input_title": "신세계푸드 선물세트 호주산 LA갈비 양념 3kg세트 (카드 82,940원/무료)",
+        "extraction": {
+          "name": "호주산 LA갈비",
+          "brand": "신세계푸드",
+          "model": "",
+          "variant": "",
+          "category": "food",
+          "attributes": {
+            "sizes": [
+              "weight_g:3E+3"
+            ],
+            "specs": [],
+            "options": [],
+            "numeric_options": []
+          },
+          "shop_evidence": {
+            "scope": "",
+            "value": "4858159079",
+            "namespace": "gmarket",
+            "canonical_url": "https://item.gmarket.co.kr/Item?goodscode=4858159079",
+            "source_revision": 1,
+            "reference_deal_id": 132645
+          }
+        }
+      },
+      "same_product": true,
+      "price_rows_preserved": 2
+    },
+    "deployment": {
+      "at": 1789886536.5379581,
+      "image": "sha256:aadd358ad63900d2ed22050dbfa8c3c2d00d72bc934e80e94fb0577527c2170f",
+      "previous_image": "sha256:e014ba46e52d1727b4a85565bce49a710cf967042c9965a9142a6ed04129a297",
+      "started_at": "2026-09-20T06:42:15.632253676Z",
+      "restart_seconds": 10.76,
+      "resource_limits_preserved": true,
+      "cpu_limit": 0.15,
+      "memory_limit": 201326592,
+      "unchanged_services": {
+        "crawlers-bot": "2026-09-20T04:40:20.659807418Z",
+        "flaresolverr": "2026-09-20T02:27:01.639813263Z"
+      },
+      "runtime_files": {
+        "gadmin/products/sources.py": "bab703e570d1183f8357ab2dae8fcbb0ac907b8f3f271d3dd6293d51fb126962",
+        "gadmin/products/identity.py": "0bdcb7e9ac8e3b7f7e72075c3f514d44ea3543f30481141d417f7dfc1d63f181",
+        "gadmin/products/tests/test_sources.py": "23ca65bf6e445f06aaa54ad4dd654adb16f4d0df72b458e204a706d46de0b504",
+        "gadmin/products/tests/check_sources_postgres.py": "991b460a1c90119d1a86a43cbb9ddee04f753c43a0aa94652ca7aa9a3a294162"
+      },
+      "tests": 54,
+      "postgres_checks": {
+        "postgres_checks": "passed",
+        "schema_rolled_back": true,
+        "checks": [
+          "new_post",
+          "no_change",
+          "url_change",
+          "title_change",
+          "stale_result",
+          "namespaced_lookup",
+          "shared_product",
+          "price_preservation",
+          "redirect_cache_postgres"
+        ]
+      },
+      "schema": "0015_product_sources"
+    },
+    "before": {
+      "source_states": [
+        {
+          "status": "unresolved",
+          "count": 2702
+        },
+        {
+          "status": "pending",
+          "count": 518
+        },
+        {
+          "status": "ready",
+          "count": 5194
+        },
+        {
+          "status": "retry",
+          "count": 1254
+        }
+      ],
+      "processed": 1057,
+      "live_requests": 2,
+      "reference_count": 6021,
+      "deal_count": 43938,
+      "source_count": 9668,
+      "redirect_attempted": 21,
+      "redirect_resolved": 13,
+      "posts_with_ids": 5194,
+      "namespaces": [
+        {
+          "namespace": "aliexpress",
+          "count": 318
+        },
+        {
+          "namespace": "11st",
+          "count": 307
+        },
+        {
+          "namespace": "auction",
+          "count": 145
+        },
+        {
+          "namespace": "amazon",
+          "count": 2
+        },
+        {
+          "namespace": "kakao",
+          "count": 206
+        },
+        {
+          "namespace": "storefront",
+          "count": 64
+        },
+        {
+          "namespace": "gmarket",
+          "count": 1156
+        },
+        {
+          "namespace": "coupang.vendor_item",
+          "count": 413
+        },
+        {
+          "namespace": "ohou.productions",
+          "count": 75
+        },
+        {
+          "namespace": "coupang.product",
+          "count": 497
+        },
+        {
+          "namespace": "naver",
+          "count": 1520
+        },
+        {
+          "namespace": "coupang.item",
+          "count": 414
+        },
+        {
+          "namespace": "ssg",
+          "count": 28
+        },
+        {
+          "namespace": "ohou.goods",
+          "count": 307
+        },
+        {
+          "namespace": "lotteon",
+          "count": 529
+        },
+        {
+          "namespace": "musinsa",
+          "count": 40
+        }
+      ],
+      "identifier_links": 23,
+      "examples": [
+        {
+          "deal_id": 130638,
+          "input_title": "메가커피 아이스아메리카노 기프티콘",
+          "product_id": "7c58cdc9-c0f3-4e51-9d1a-6d08d42cd491",
+          "extraction": {
+            "name": "아메리카노",
+            "brand": "메가커피",
+            "model": "",
+            "variant": "",
+            "category": "food",
+            "attributes": {
+              "sizes": [],
+              "specs": [],
+              "options": [],
+              "numeric_options": []
+            },
+            "shop_evidence": {
+              "scope": "mega-mgccoffee",
+              "value": "13728950670",
+              "namespace": "naver",
+              "canonical_url": "https://smartstore.naver.com/mega-mgccoffee/products/13728950670",
+              "source_revision": 1,
+              "reference_deal_id": 133053
+            }
+          }
+        },
+        {
+          "deal_id": 130448,
+          "input_title": "동원 리챔 오리지널 200g 16캔 (33,030원/무료배송)",
+          "product_id": "9b459802-116b-4bfa-9048-7518727c2f77",
+          "extraction": {
+            "name": "오리지널",
+            "brand": "리챔",
+            "model": "",
+            "variant": "",
+            "category": "food",
+            "attributes": {
+              "sizes": [
+                "weight_g:2E+2"
+              ],
+              "specs": [],
+              "options": [
+                "original"
+              ],
+              "container": "can",
+              "numeric_options": []
+            },
+            "shop_evidence": {
+              "scope": "",
+              "value": "4188879",
+              "namespace": "ohou.goods",
+              "canonical_url": "https://store.ohou.se/goods/4188879",
+              "source_revision": 1,
+              "reference_deal_id": 133294
+            }
+          }
+        },
+        {
+          "deal_id": 130357,
+          "input_title": "리챔 오리지널 200g x 16캔",
+          "product_id": "9b459802-116b-4bfa-9048-7518727c2f77",
+          "extraction": {
+            "name": "오리지널",
+            "brand": "리챔",
+            "model": "",
+            "variant": "",
+            "category": "food",
+            "attributes": {
+              "sizes": [
+                "weight_g:2E+2"
+              ],
+              "specs": [],
+              "options": [
+                "original"
+              ],
+              "container": "can",
+              "numeric_options": []
+            },
+            "shop_evidence": {
+              "scope": "",
+              "value": "4188879",
+              "namespace": "ohou.goods",
+              "canonical_url": "https://store.ohou.se/goods/4188879",
+              "source_revision": 1,
+              "reference_deal_id": 133294
+            }
+          }
+        },
+        {
+          "deal_id": 130330,
+          "input_title": "리챔 오리지널 200g x 16캔",
+          "product_id": "9b459802-116b-4bfa-9048-7518727c2f77",
+          "extraction": {
+            "name": "오리지널",
+            "brand": "리챔",
+            "model": "",
+            "variant": "",
+            "category": "food",
+            "attributes": {
+              "sizes": [
+                "weight_g:2E+2"
+              ],
+              "specs": [],
+              "options": [
+                "original"
+              ],
+              "container": "can",
+              "numeric_options": []
+            },
+            "shop_evidence": {
+              "scope": "",
+              "value": "4188879",
+              "namespace": "ohou.goods",
+              "canonical_url": "https://store.ohou.se/goods/4188879",
+              "source_revision": 1,
+              "reference_deal_id": 133294
+            }
+          }
+        },
+        {
+          "deal_id": 130046,
+          "input_title": "메가커피 아이스아메리카노",
+          "product_id": "7c58cdc9-c0f3-4e51-9d1a-6d08d42cd491",
+          "extraction": {
+            "name": "아메리카노",
+            "brand": "메가커피",
+            "model": "",
+            "variant": "",
+            "category": "food",
+            "attributes": {
+              "sizes": [],
+              "specs": [],
+              "options": [],
+              "numeric_options": []
+            },
+            "shop_evidence": {
+              "scope": "mega-mgccoffee",
+              "value": "13728950670",
+              "namespace": "naver",
+              "canonical_url": "https://smartstore.naver.com/mega-mgccoffee/products/13728950670",
+              "source_revision": 1,
+              "reference_deal_id": 133053
+            }
+          }
+        },
+        {
+          "deal_id": 133428,
+          "input_title": "신세계푸드 선물세트 호주산 LA갈비 양념 3kg세트 (카드 82,940원/무료)",
+          "product_id": "35619678-bfd9-4ba8-8d1d-973782cc9db7",
+          "extraction": {
+            "name": "호주산 LA갈비",
+            "brand": "신세계푸드",
+            "model": "",
+            "variant": "",
+            "category": "food",
+            "attributes": {
+              "sizes": [
+                "weight_g:3E+3"
+              ],
+              "specs": [],
+              "options": [],
+              "numeric_options": []
+            },
+            "shop_evidence": {
+              "scope": "",
+              "value": "4858159079",
+              "namespace": "gmarket",
+              "canonical_url": "https://item.gmarket.co.kr/Item?goodscode=4858159079",
+              "source_revision": 1,
+              "reference_deal_id": 132645
+            }
+          }
+        }
+      ],
+      "backfill": {
+        "at": 1789886957.524929,
+        "phase": "scanning",
+        "cursor": 124293,
+        "ceiling": 133442,
+        "scanned": 9150,
+        "started_at": 1789883277.6804633
+      },
+      "revisit": {
+        "at": 1789886969.2046053,
+        "cursor": 127978,
+        "linked": 1
+      },
+      "cross_merchant_products": [
+        {
+          "source__deal__product_assignment__product_id": "03a91a0f-5649-4b87-90ca-13dbe8280f52",
+          "merchants": 2
+        },
+        {
+          "source__deal__product_assignment__product_id": "0d3797f7-992a-46a1-96da-f51f839409ea",
+          "merchants": 2
+        },
+        {
+          "source__deal__product_assignment__product_id": "121e31c3-fdc5-4d7f-b9fd-b0d3aad3cf2f",
+          "merchants": 2
+        },
+        {
+          "source__deal__product_assignment__product_id": "190eab90-8acb-4961-8c59-b25078872914",
+          "merchants": 3
+        },
+        {
+          "source__deal__product_assignment__product_id": "27ffe690-0d09-4419-bc93-6779f4a6f5cf",
+          "merchants": 2
+        },
+        {
+          "source__deal__product_assignment__product_id": "3960a503-7e40-49f1-994a-25810bda21d9",
+          "merchants": 2
+        }
+      ],
+      "assignment_states": [
+        {
+          "status": "llm",
+          "count": 40
+        },
+        {
+          "status": "review",
+          "count": 6275
+        },
+        {
+          "status": "pending",
+          "count": 36177
+        },
+        {
+          "status": "ready",
+          "count": 1446
+        }
+      ],
+      "source_errors": [
+        {
+          "last_error": "no_supported_product_id",
+          "count": 2702
+        },
+        {
+          "last_error": "download_too_large",
+          "count": 6
+        },
+        {
+          "last_error": "redirect_without_product_id",
+          "count": 2
+        },
+        {
+          "last_error": "redirect_pending",
+          "count": 1246
+        }
+      ],
+      "crawler_updates": [
+        {
+          "community_name": "ARCA",
+          "count": 36,
+          "latest": "2026-09-20 06:49:26.820397+00:00"
+        },
+        {
+          "community_name": "EOMISAE",
+          "count": 20,
+          "latest": "2026-09-20 06:48:16.769135+00:00"
+        },
+        {
+          "community_name": "FMKOREA",
+          "count": 73,
+          "latest": "2026-09-20 06:48:50.664860+00:00"
+        },
+        {
+          "community_name": "PPOMPPU",
+          "count": 80,
+          "latest": "2026-09-20 06:46:49.083899+00:00"
+        },
+        {
+          "community_name": "coolnjoy",
+          "count": 35,
+          "latest": "2026-09-20 06:49:29.724227+00:00"
+        }
+      ],
+      "raw_price_sample_count": 500,
+      "raw_price_sample_hash": "1b5df276f9ec089ed560576a35b6ddf22336be05517f9844cdd7c3aa25c52bba"
+    },
+    "after": {
+      "source_states": [
+        {
+          "status": "unresolved",
+          "count": 2774
+        },
+        {
+          "status": "pending",
+          "count": 517
+        },
+        {
+          "status": "ready",
+          "count": 5263
+        },
+        {
+          "status": "retry",
+          "count": 1263
+        }
+      ],
+      "processed": 1208,
+      "live_requests": 2,
+      "reference_count": 6094,
+      "deal_count": 43938,
+      "source_count": 9817,
+      "redirect_attempted": 21,
+      "redirect_resolved": 13,
+      "posts_with_ids": 5263,
+      "namespaces": [
+        {
+          "namespace": "aliexpress",
+          "count": 326
+        },
+        {
+          "namespace": "11st",
+          "count": 309
+        },
+        {
+          "namespace": "auction",
+          "count": 147
+        },
+        {
+          "namespace": "amazon",
+          "count": 2
+        },
+        {
+          "namespace": "kakao",
+          "count": 214
+        },
+        {
+          "namespace": "storefront",
+          "count": 64
+        },
+        {
+          "namespace": "gmarket",
+          "count": 1181
+        },
+        {
+          "namespace": "coupang.vendor_item",
+          "count": 415
+        },
+        {
+          "namespace": "ohou.productions",
+          "count": 77
+        },
+        {
+          "namespace": "coupang.product",
+          "count": 500
+        },
+        {
+          "namespace": "naver",
+          "count": 1532
+        },
+        {
+          "namespace": "coupang.item",
+          "count": 416
+        },
+        {
+          "namespace": "ssg",
+          "count": 28
+        },
+        {
+          "namespace": "ohou.goods",
+          "count": 308
+        },
+        {
+          "namespace": "lotteon",
+          "count": 534
+        },
+        {
+          "namespace": "musinsa",
+          "count": 41
+        }
+      ],
+      "identifier_links": 23,
+      "examples": [
+        {
+          "deal_id": 130638,
+          "input_title": "메가커피 아이스아메리카노 기프티콘",
+          "product_id": "7c58cdc9-c0f3-4e51-9d1a-6d08d42cd491",
+          "extraction": {
+            "name": "아메리카노",
+            "brand": "메가커피",
+            "model": "",
+            "variant": "",
+            "category": "food",
+            "attributes": {
+              "sizes": [],
+              "specs": [],
+              "options": [],
+              "numeric_options": []
+            },
+            "shop_evidence": {
+              "scope": "mega-mgccoffee",
+              "value": "13728950670",
+              "namespace": "naver",
+              "canonical_url": "https://smartstore.naver.com/mega-mgccoffee/products/13728950670",
+              "source_revision": 1,
+              "reference_deal_id": 133053
+            }
+          }
+        },
+        {
+          "deal_id": 130448,
+          "input_title": "동원 리챔 오리지널 200g 16캔 (33,030원/무료배송)",
+          "product_id": "9b459802-116b-4bfa-9048-7518727c2f77",
+          "extraction": {
+            "name": "오리지널",
+            "brand": "리챔",
+            "model": "",
+            "variant": "",
+            "category": "food",
+            "attributes": {
+              "sizes": [
+                "weight_g:2E+2"
+              ],
+              "specs": [],
+              "options": [
+                "original"
+              ],
+              "container": "can",
+              "numeric_options": []
+            },
+            "shop_evidence": {
+              "scope": "",
+              "value": "4188879",
+              "namespace": "ohou.goods",
+              "canonical_url": "https://store.ohou.se/goods/4188879",
+              "source_revision": 1,
+              "reference_deal_id": 133294
+            }
+          }
+        },
+        {
+          "deal_id": 130357,
+          "input_title": "리챔 오리지널 200g x 16캔",
+          "product_id": "9b459802-116b-4bfa-9048-7518727c2f77",
+          "extraction": {
+            "name": "오리지널",
+            "brand": "리챔",
+            "model": "",
+            "variant": "",
+            "category": "food",
+            "attributes": {
+              "sizes": [
+                "weight_g:2E+2"
+              ],
+              "specs": [],
+              "options": [
+                "original"
+              ],
+              "container": "can",
+              "numeric_options": []
+            },
+            "shop_evidence": {
+              "scope": "",
+              "value": "4188879",
+              "namespace": "ohou.goods",
+              "canonical_url": "https://store.ohou.se/goods/4188879",
+              "source_revision": 1,
+              "reference_deal_id": 133294
+            }
+          }
+        },
+        {
+          "deal_id": 130330,
+          "input_title": "리챔 오리지널 200g x 16캔",
+          "product_id": "9b459802-116b-4bfa-9048-7518727c2f77",
+          "extraction": {
+            "name": "오리지널",
+            "brand": "리챔",
+            "model": "",
+            "variant": "",
+            "category": "food",
+            "attributes": {
+              "sizes": [
+                "weight_g:2E+2"
+              ],
+              "specs": [],
+              "options": [
+                "original"
+              ],
+              "container": "can",
+              "numeric_options": []
+            },
+            "shop_evidence": {
+              "scope": "",
+              "value": "4188879",
+              "namespace": "ohou.goods",
+              "canonical_url": "https://store.ohou.se/goods/4188879",
+              "source_revision": 1,
+              "reference_deal_id": 133294
+            }
+          }
+        },
+        {
+          "deal_id": 130046,
+          "input_title": "메가커피 아이스아메리카노",
+          "product_id": "7c58cdc9-c0f3-4e51-9d1a-6d08d42cd491",
+          "extraction": {
+            "name": "아메리카노",
+            "brand": "메가커피",
+            "model": "",
+            "variant": "",
+            "category": "food",
+            "attributes": {
+              "sizes": [],
+              "specs": [],
+              "options": [],
+              "numeric_options": []
+            },
+            "shop_evidence": {
+              "scope": "mega-mgccoffee",
+              "value": "13728950670",
+              "namespace": "naver",
+              "canonical_url": "https://smartstore.naver.com/mega-mgccoffee/products/13728950670",
+              "source_revision": 1,
+              "reference_deal_id": 133053
+            }
+          }
+        },
+        {
+          "deal_id": 133428,
+          "input_title": "신세계푸드 선물세트 호주산 LA갈비 양념 3kg세트 (카드 82,940원/무료)",
+          "product_id": "35619678-bfd9-4ba8-8d1d-973782cc9db7",
+          "extraction": {
+            "name": "호주산 LA갈비",
+            "brand": "신세계푸드",
+            "model": "",
+            "variant": "",
+            "category": "food",
+            "attributes": {
+              "sizes": [
+                "weight_g:3E+3"
+              ],
+              "specs": [],
+              "options": [],
+              "numeric_options": []
+            },
+            "shop_evidence": {
+              "scope": "",
+              "value": "4858159079",
+              "namespace": "gmarket",
+              "canonical_url": "https://item.gmarket.co.kr/Item?goodscode=4858159079",
+              "source_revision": 1,
+              "reference_deal_id": 132645
+            }
+          }
+        }
+      ],
+      "backfill": {
+        "at": 1789887028.7020092,
+        "phase": "scanning",
+        "cursor": 124143,
+        "ceiling": 133442,
+        "scanned": 9300,
+        "started_at": 1789883277.6804633
+      },
+      "revisit": {
+        "at": 1789887032.1255872,
+        "cursor": 128132,
+        "linked": 1
+      },
+      "cross_merchant_products": [
+        {
+          "source__deal__product_assignment__product_id": "03a91a0f-5649-4b87-90ca-13dbe8280f52",
+          "merchants": 2
+        },
+        {
+          "source__deal__product_assignment__product_id": "0d3797f7-992a-46a1-96da-f51f839409ea",
+          "merchants": 2
+        },
+        {
+          "source__deal__product_assignment__product_id": "121e31c3-fdc5-4d7f-b9fd-b0d3aad3cf2f",
+          "merchants": 2
+        },
+        {
+          "source__deal__product_assignment__product_id": "190eab90-8acb-4961-8c59-b25078872914",
+          "merchants": 3
+        },
+        {
+          "source__deal__product_assignment__product_id": "27ffe690-0d09-4419-bc93-6779f4a6f5cf",
+          "merchants": 2
+        },
+        {
+          "source__deal__product_assignment__product_id": "3960a503-7e40-49f1-994a-25810bda21d9",
+          "merchants": 2
+        }
+      ],
+      "assignment_states": [
+        {
+          "status": "llm",
+          "count": 40
+        },
+        {
+          "status": "review",
+          "count": 6279
+        },
+        {
+          "status": "pending",
+          "count": 36173
+        },
+        {
+          "status": "ready",
+          "count": 1446
+        }
+      ],
+      "source_errors": [
+        {
+          "last_error": "no_supported_product_id",
+          "count": 2773
+        },
+        {
+          "last_error": "download_too_large",
+          "count": 6
+        },
+        {
+          "last_error": "redirect_without_product_id",
+          "count": 2
+        },
+        {
+          "last_error": "redirect_pending",
+          "count": 1255
+        }
+      ],
+      "crawler_updates": [
+        {
+          "community_name": "ARCA",
+          "count": 41,
+          "latest": "2026-09-20 06:50:31.918384+00:00"
+        },
+        {
+          "community_name": "EOMISAE",
+          "count": 20,
+          "latest": "2026-09-20 06:48:16.769135+00:00"
+        },
+        {
+          "community_name": "FMKOREA",
+          "count": 99,
+          "latest": "2026-09-20 06:50:09.909724+00:00"
+        },
+        {
+          "community_name": "PPOMPPU",
+          "count": 80,
+          "latest": "2026-09-20 06:46:49.083899+00:00"
+        },
+        {
+          "community_name": "coolnjoy",
+          "count": 60,
+          "latest": "2026-09-20 06:50:35.928264+00:00"
+        }
+      ],
+      "raw_price_sample_count": 500,
+      "raw_price_sample_hash": "1b5df276f9ec089ed560576a35b6ddf22336be05517f9844cdd7c3aa25c52bba"
+    },
+    "containers": [
+      {
+        "name": "geteverything-category-worker",
+        "image": "sha256:aadd358ad63900d2ed22050dbfa8c3c2d00d72bc934e80e94fb0577527c2170f",
+        "running": true,
+        "oom": false,
+        "started_at": "2026-09-20T06:42:15.632253676Z",
+        "restarts": 0,
+        "cpu_limit": 0.15
+      },
+      {
+        "name": "crawlers-bot",
+        "image": "sha256:9cac4ad5c9cdf92d01cfaec4aba8258f7b009ab26357bf35c89a22b7530884c0",
+        "running": true,
+        "oom": false,
+        "started_at": "2026-09-20T04:40:20.659807418Z",
+        "restarts": 0,
+        "cpu_limit": 1
+      },
+      {
+        "name": "flaresolverr",
+        "image": "sha256:9a74115c9fe2b44672bc851ffc0ca80c1d4829468c17182d299c77eb6b348cc7",
+        "running": true,
+        "oom": false,
+        "started_at": "2026-09-20T02:27:01.639813263Z",
+        "restarts": 0,
+        "cpu_limit": 0.75
+      }
+    ],
+    "raw_price_sample_preserved": true,
+    "cpu_mean": 66.3,
+    "cpu_samples": [
+      58.56,
+      66.33,
+      69.1,
+      67.46,
+      69.97,
+      62.99,
+      56.69,
+      68.91,
+      66.63,
+      75.58,
+      66.33,
+      67
+    ],
+    "worker_log_tail": "{\"at\": \"2026-09-20T06:42:25.781000+00:00\", \"pending_model\": 40}\n{\"at\": \"2026-09-20T06:42:45.510341+00:00\", \"pending_model\": 40}\n{\"at\": \"2026-09-20T06:43:06.059348+00:00\", \"pending_model\": 40}\n{\"at\": \"2026-09-20T06:43:26.442146+00:00\", \"pending_model\": 40}\n{\"at\": \"2026-09-20T06:43:47.392520+00:00\", \"pending_model\": 40}\n{\"at\": \"2026-09-20T06:44:08.046451+00:00\", \"pending_model\": 40}\n{\"at\": \"2026-09-20T06:44:29.162147+00:00\", \"pending_model\": 40}\n{\"at\": \"2026-09-20T06:44:49.859392+00:00\", \"pending_model\": 40}\n{\"at\": \"2026-09-20T06:45:10.906020+00:00\", \"pending_model\": 40}\n{\"at\": \"2026-09-20T06:45:31.816023+00:00\", \"pending_model\": 40}\n{\"at\": \"2026-09-20T06:45:52.168314+00:00\", \"pending_model\": 40}\n{\"at\": \"2026-09-20T06:46:13.680761+00:00\", \"pending_model\": 40}\n{\"at\": \"2026-09-20T06:46:35.560365+00:00\", \"pending_model\": 40}\n{\"at\": \"2026-09-20T06:46:56.555805+00:00\", \"pending_model\": 40}\n{\"at\": \"2026-09-20T06:47:17.149910+00:00\", \"pending_model\": 40}\n{\"at\": \"2026-09-20T06:47:37.763962+00:00\", \"pending_model\": 40}\n{\"at\": \"2026-09-20T06:47:59.190789+00:00\", \"pending_model\": 40}\n{\"at\": \"2026-09-20T06:48:19.870371+00:00\", \"pending_model\": 40}\n{\"at\": \"2026-09-20T06:48:40.496887+00:00\", \"pending_model\": 40}\n{\"at\": \"2026-09-20T06:49:00.640255+00:00\", \"pending_model\": 40}\n{\"at\": \"2026-09-20T06:49:30.097338+00:00\", \"pending_model\": 40}\n{\"at\": \"2026-09-20T06:49:51.295924+00:00\", \"pending_model\": 40}\n{\"at\": \"2026-09-20T06:50:12.199694+00:00\", \"pending_model\": 40}\n{\"at\": \"2026-09-20T06:50:32.516405+00:00\", \"pending_model\": 40}\n"
+  },
+  "raw_price_sample_preserved_across_all_revisions": true,
+  "scope_notes": [
+    "Cross-merchant examples count merchant namespace prefixes, so Coupang product/item/vendor_item do not count as separate merchants.",
+    "Backfill remains active; stored merchant references are not equivalent to newly linked products.",
+    "CPU readings are short whole-server observations, not a measurement of this feature alone."
+  ]
+}

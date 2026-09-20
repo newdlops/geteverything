@@ -1,0 +1,390 @@
+{
+  "schema": "deals.0013_product_canonical_aliases",
+  "version": "products-4/product-extract-2",
+  "application": {
+    "at": 1789812546.4355698,
+    "active_before": 367,
+    "active_after": 106,
+    "merged_products": 54,
+    "archived_invalid_products": 207,
+    "assignments_detached": 263,
+    "price_rows_before": 43744,
+    "price_rows_after": 43744,
+    "affected_price_rows": 647,
+    "price_payload_sha256": "cff5e25a6e86587a201ddc8053f118e79018ad9e06d992668a90f19b9f6f2b8d",
+    "all_product_uuids_retained": true,
+    "price_payload_preserved": true,
+    "backup_on_crawler": "/root/products-worker-20260919-r5/deduplicate/backup.json"
+  },
+  "worker_image": "sha256:2fed5aadbec8b36280676d50bde11cd40816460f84d7940e12876d2880492393",
+  "web_verification": {
+    "at": 1789812790.2964065,
+    "deployment": {
+      "at": 1789811341.577286,
+      "image": "sha256:cfd413094344968fb4714ea6d7e326088e9da616bb99af8c670ad7863747a858",
+      "tag": "my-django-app:products-20260919-r6",
+      "previous_tag": "my-django-app:products-20260919-r5",
+      "api_ok": true,
+      "web_settings_preserved": true,
+      "runtime_files": {
+        "gadmin/deals/models.py": "2d9902b57381ba8d702e1d20e5ff9a34657a07cea8204f7f87c0d2593e84ab74",
+        "gadmin/deals/migrations/0013_product_canonical_aliases.py": "44eadf947df22c8337c6ab579d416f8f1612ce42325cea3639679f74eb40e772",
+        "gadmin/products/identity.py": "6ed9b91077744d762e5890ac02eeed97411aeb9a0c0b4988b3433d3450595348",
+        "gadmin/products/catalog.py": "8fdeeeb490f11176b1e9841d26f9958a5d42abcc2193399b8e37d6692f9f3314",
+        "gadmin/products/deduplicate.py": "9bfa5840e44c1874e988bec8b497bbbf3a68121aeea9868e479625e419d475ab",
+        "gadmin/products/jobs.py": "f144acf130fdce1069d2d5e1f52fdb3ae3695c3ccd8f1fba119a9df6c43cd745",
+        "gadmin/products/admin.py": "6f590d1bdb06829a609d73ecbf626f24ce0cbfb66d66e919a195c8870c1b1443",
+        "gadmin/products/views.py": "67f7854ab6b8a6f9775468db9171baddbfe118c5e8dde33c976d74923df2a158",
+        "gadmin/products/manage.py": "15298f133e0e634a52912c85384ac93ca7b9247959986679cfcf354f5bf51126",
+        "gadmin/products/tests/test_deduplicate.py": "c6ffd57a221a49a0063d0fd8b13ae0e03fc5879fedac2832bd2f29bb8428021e"
+      }
+    },
+    "health": "healthy",
+    "oom": false,
+    "product": {
+      "product_id": "341064e6-5839-4dba-986d-3a8356bd1301",
+      "product_name": "amd 7800x3d",
+      "posts": 30,
+      "active_products": 108,
+      "alias": "6f5d7328-34a0-4317-8ced-52c27ede2a0c",
+      "canonical": "b6bd7163-4cf6-4fdc-b62c-2838431be383",
+      "legacy_admin_redirect": true,
+      "no_duplicate_display_names": true,
+      "history_count": 30,
+      "points": 23,
+      "currency": "KRW",
+      "basis": "offer",
+      "minimum": "327500",
+      "maximum": "450435",
+      "admin_rendered": true,
+      "training_panel": {
+        "phase": "rejected",
+        "label": "검증 미통과",
+        "current": 0,
+        "total": 0,
+        "promoted": false,
+        "stale": false
+      },
+      "version": "products-4/product-extract-2",
+      "feature_version": "pair-features-3",
+      "sample": [
+        {
+          "title": "[알리] AMD 라이젠 7800X3D(국내배송)(무배)",
+          "price": {
+            "amount": "335752",
+            "source": "legacy_price",
+            "currency": "KRW",
+            "evidence": "335752"
+          },
+          "at": "2026-05-01T12:39:00+00:00"
+        },
+        {
+          "title": "AMD 라이젠7 7800X3D (멀티팩 정품)",
+          "price": null,
+          "at": "2026-05-01T07:21:00+00:00"
+        },
+        {
+          "title": "라이젠 7800X3D 국내정품 멀티팩",
+          "price": {
+            "amount": "327500",
+            "source": "legacy_price",
+            "currency": "KRW",
+            "evidence": "327500"
+          },
+          "at": "2026-04-30T20:13:04+00:00"
+        },
+        {
+          "title": "[알리] AMD 라이젠 7800X3D",
+          "price": {
+            "amount": "360000",
+            "source": "legacy_price",
+            "currency": "KRW",
+            "evidence": "360000"
+          },
+          "at": "2026-04-27T06:09:00+00:00"
+        },
+        {
+          "title": "(품절풀림)AMD 라이젠 7800X3D 350,000",
+          "price": {
+            "amount": "350000",
+            "source": "legacy_price",
+            "currency": "KRW",
+            "evidence": "350000"
+          },
+          "at": "2026-04-25T16:47:29+00:00"
+        }
+      ]
+    },
+    "requests": {
+      "/api/deals/": {
+        "status": 200,
+        "seconds": 2.46,
+        "bytes": 51858
+      },
+      "/api/products/": {
+        "status": 200,
+        "seconds": 1.36,
+        "bytes": 9220
+      },
+      "/api/products/341064e6-5839-4dba-986d-3a8356bd1301/history/": {
+        "status": 200,
+        "seconds": 0.57,
+        "bytes": 23732
+      },
+      "/static/monitoring/products.css": {
+        "status": 200,
+        "seconds": 0.1,
+        "bytes": 4766
+      },
+      "/static/monitoring/products.js": {
+        "status": 200,
+        "seconds": 0.01,
+        "bytes": 3631
+      },
+      "legacy_api_aliases": {
+        "detail": true,
+        "history": true,
+        "sku_search_count": 2
+      }
+    }
+  },
+  "worker_verification": {
+    "version": "products-4/product-extract-2",
+    "before": {
+      "prices": 43745,
+      "active": 108,
+      "product_ids": 369
+    },
+    "result": {
+      "applied": false,
+      "active_before": 108,
+      "active_after": 108,
+      "merged": 0,
+      "archived_invalid": 0,
+      "products_updated": 0,
+      "products_created": 0,
+      "assignments_updated": 0,
+      "assignments_detached": 0,
+      "prices_moved": 0,
+      "prices_detached": 0,
+      "prices_checked": 387,
+      "price_payload_sha256": "c5028c4e0f52ec5fdeae640cd5404fbba215c5b26b6737cdd8692575a033d9a0",
+      "protected_products": 0,
+      "preserved_ambiguous": 0,
+      "idempotent": true,
+      "no_inactive_links": true,
+      "no_duplicate_hardware_keys": true,
+      "no_mixed_offer_links": true
+    },
+    "after": {
+      "prices": 43745,
+      "active": 108,
+      "product_ids": 369,
+      "aliases": 54,
+      "linked_prices": 387,
+      "linked_posts": 372,
+      "recent_deals": 11,
+      "last_crawl": "2026-09-19 10:12:53.212856+00:00"
+    },
+    "groups": [
+      {
+        "id": "341064e6-5839-4dba-986d-3a8356bd1301",
+        "name": "amd 7800x3d",
+        "attributes": {
+          "sizes": [],
+          "specs": [],
+          "options": [],
+          "numeric_options": []
+        },
+        "posts": 30
+      },
+      {
+        "id": "b6bd7163-4cf6-4fdc-b62c-2838431be383",
+        "name": "amd 9800x3d",
+        "attributes": {
+          "sizes": [],
+          "specs": [],
+          "options": [],
+          "numeric_options": []
+        },
+        "posts": 27
+      },
+      {
+        "id": "7b021d35-5bec-4d97-af31-3761aadb2a4e",
+        "name": "lg 32gx870a",
+        "attributes": {
+          "sizes": [],
+          "specs": [],
+          "options": [],
+          "numeric_options": []
+        },
+        "posts": 16
+      },
+      {
+        "id": "f86d158d-7a99-4d27-8b2e-e34af98382d9",
+        "name": "amd 9800x3d 리퍼·중고",
+        "attributes": {
+          "sizes": [],
+          "specs": [],
+          "options": [
+            "refurbished"
+          ],
+          "numeric_options": []
+        },
+        "posts": 3
+      },
+      {
+        "id": "bd81270e-b5eb-4b52-8379-ef0d5a3aee9e",
+        "name": "amd 7800x3d 리퍼·중고",
+        "attributes": {
+          "sizes": [],
+          "specs": [],
+          "options": [
+            "refurbished"
+          ],
+          "numeric_options": []
+        },
+        "posts": 1
+      }
+    ],
+    "training": {
+      "at": 1789810480.2168317,
+      "gate": {
+        "checks": {
+          "full_training": true,
+          "heldout_count": true,
+          "valid_outputs": false,
+          "latency_budget": true,
+          "no_regressions": true,
+          "no_false_merges": false,
+          "weights_changed": true,
+          "generation_improved": true,
+          "validation_loss_improved": true
+        },
+        "passed": false
+      },
+      "loss": 0.11625973135232925,
+      "step": 92,
+      "probe": false,
+      "cached": 56,
+      "recipe": {
+        "rank": 8,
+        "alpha": 16,
+        "epochs": 2,
+        "version": "last-attention-lora-fp32-2",
+        "max_steps": 200,
+        "learning_rate": 0.0002
+      },
+      "run_id": "d65598d4bb4a893b97b6",
+      "status": "rejected",
+      "compute": "fp32_gemm_bf16_storage",
+      "baseline": {
+        "valid": 7,
+        "correct": 1,
+        "false_merge": 1,
+        "p95_seconds": 135.8
+      },
+      "promoted": false,
+      "candidate": {
+        "valid": 4,
+        "correct": 2,
+        "false_merge": 1,
+        "p95_seconds": 95.984
+      },
+      "loss_gate": true,
+      "started_at": 1789799915.5177543,
+      "gguf_sha256": "44a445847e45f6a5a9cd61096c18de6555aa094251bb52b0424642b7d62d15e3",
+      "regressions": 0,
+      "total_cache": 56,
+      "total_steps": 92,
+      "evaluated_at": 1789810480.2168024,
+      "base_revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+      "adapter_sha256": "6e88b5d18b1c027c400b9d55ccfd0c7002ec17ca36f8de18482cde3c34bfc277",
+      "dataset_sha256": "82a7c300e7b07217a26f92a2fc44b5090466c3377cc16c3fb22354a5b08a9716",
+      "elapsed_seconds": 9433.6,
+      "evaluation_total": 20,
+      "validation_count": 10,
+      "frozen_parameters": 1881825088,
+      "last_step_seconds": 31.77,
+      "training_examples": 46,
+      "last_cache_seconds": 114.49,
+      "baseline_adapter_id": null,
+      "lora_b_squared_norm": 1.014538899064064,
+      "validation_examples": 10,
+      "evaluation_completed": 20,
+      "trainable_parameters": 69632,
+      "final_validation_loss": 0.1647577453404665,
+      "baseline_validation_loss": 0.4678440988063812
+    },
+    "at": 1789812774.6111248,
+    "crawler": {
+      "running": true,
+      "oom": false,
+      "started_at": "2026-09-18T10:08:06.443498133Z"
+    },
+    "stats": [
+      {
+        "BlockIO": "285MB / 2.54MB",
+        "CPUPerc": "0.02%",
+        "Container": "crawlers-bot",
+        "ID": "d23486a0a720",
+        "MemPerc": "9.69%",
+        "MemUsage": "794MiB / 8GiB",
+        "Name": "crawlers-bot",
+        "NetIO": "0B / 0B",
+        "PIDs": "11"
+      },
+      {
+        "BlockIO": "991kB / 283kB",
+        "CPUPerc": "0.00%",
+        "Container": "geteverything-category-worker",
+        "ID": "7487f8448407",
+        "MemPerc": "26.86%",
+        "MemUsage": "51.56MiB / 192MiB",
+        "Name": "geteverything-category-worker",
+        "NetIO": "0B / 0B",
+        "PIDs": "5"
+      }
+    ]
+  },
+  "tests": {
+    "local_django": 100,
+    "production_web_image_django": 100,
+    "actual_data_rehearsal": true,
+    "repeat_apply_no_changes": true,
+    "browser": {
+      "tool": "Chromium via Playwright",
+      "data": "Production data copy in isolated local SQLite",
+      "viewports": [
+        [
+          390,
+          844
+        ],
+        [
+          768,
+          1024
+        ],
+        [
+          1440,
+          900
+        ]
+      ],
+      "passed": [
+        "catalog search",
+        "condition/size names",
+        "legacy ID redirect with filters",
+        "price basis filter",
+        "empty search",
+        "no page overflow",
+        "no JavaScript errors"
+      ]
+    }
+  },
+  "limits": [
+    "Unstated flavor/container/capacity are not inferred.",
+    "Verified/manual/example-linked products are protected from automatic repair.",
+    "Price payload hashes cover all affected observations; total observation row count is separately preserved.",
+    "Background product extraction continued after repair: active count was 108 at verification.",
+    "The first full LoRA run completed but failed validation and was not promoted."
+  ]
+}

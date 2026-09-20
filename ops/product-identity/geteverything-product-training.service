@@ -1,0 +1,13 @@
+[Unit]
+Description=Fine-tune and evaluate the local product identity model
+After=docker.service geteverything-categories.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /usr/local/lib/geteverything-product-training/runner.py
+TimeoutStartSec=24h
+TimeoutStopSec=150
+Nice=19
+CPUQuota=5%
+MemoryMax=256M

@@ -1,0 +1,8 @@
+ARG BASE_IMAGE
+FROM ${BASE_IMAGE}
+RUN python -m pip install --no-cache-dir --retries 2 --timeout 30 \
+    torch==2.8.0 transformers==5.3.0 peft==0.18.1 safetensors==0.6.2
+ENV HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 HF_HUB_DISABLE_TELEMETRY=1 \
+    OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 TOKENIZERS_PARALLELISM=false
+WORKDIR /app
+ENTRYPOINT []

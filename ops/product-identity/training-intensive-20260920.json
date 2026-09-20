@@ -1,0 +1,467 @@
+{
+  "at": 1789892509.0878,
+  "deployment": {
+    "at": 1789891655.478865,
+    "worker_image": "sha256:e36013e9b27454cc5be26812f2449ad733aebd0291b3dd9b941b9fd160e9e6c3",
+    "training_image": "sha256:f1740deb10b5462a50628413c2c4489c4efe9a834113ea32723142c15907f176",
+    "backup": "/root/product-training-20260920-intensive/backup",
+    "preflight": {
+      "sha256": "790882de66ff649e6c9b2104c68a2e6dda8516a55b385208e83219fa970fe782",
+      "train": 246,
+      "validation": 62,
+      "validation_families": 21,
+      "validation_negatives": 10,
+      "max_tokens": 340
+    },
+    "training_policy": {
+      "epochs": 4,
+      "max_steps": 1200,
+      "rank": 16,
+      "learning_rate": 0.00008,
+      "cpu": 0.35,
+      "evaluation_cpu": 0.35,
+      "training_hours": 18,
+      "evaluation_hours": 4
+    },
+    "worker_cpu": 0.15,
+    "worker_memory": 201326592,
+    "crawler_unchanged": true,
+    "flaresolverr_unchanged": true,
+    "files": {
+      "gadmin/products/identity.py": "0bdcb7e9ac8e3b7f7e72075c3f514d44ea3543f30481141d417f7dfc1d63f181",
+      "gadmin/products/local_model.py": "e457eae0549c7461076a89e62cc3e3a31d85babfa4cb32a691e3270bef5eda5d",
+      "gadmin/products/sft.py": "e60ad31cb58edcb541ea89da630bbc7632c2eb825bf078ea6aea4484ec6270a9",
+      "gadmin/products/sft_curriculum.py": "db68daee857d73376fe0ca22c1c0c5b3ff2b5e804a1a2d401b5a018a4671590a",
+      "gadmin/products/sft_validation.py": "f8f5bf2b1d4579d0be412d138ff338794bc6112b16aa2e0f0e4b1dee708add1f",
+      "gadmin/products/tests/test_sft.py": "9973725e2a618c67b2c32454b02593dfbe54b64d1a1f5a477372b6cdebc171d5",
+      "gadmin/metrics/parser.py": "22cfe32f3d2fa65be8440f414b5c0b91773bb635a7d6021c8fadfa3cc8c65a4e",
+      "ops/product-identity/train.py": "50bd552cd7c5b28df6bd6c144368daa56738b427ce3646747f22207572b4fc9f",
+      "ops/product-identity/runner.py": "adb48acb1e52e899093ea38bcd395b57077ecef03276b0cb792d69f982103982",
+      "ops/product-identity/evaluate.py": "7b843fc4232d81450e74447658f6731bfeb524fd38f300212bd52bee8bf9cc73",
+      "ops/product-identity/probe.py": "efd45724f62f8dc547e9d513755c1fce8d519fba6899d5aa0e20a165523fa553",
+      "ops/product-identity/test_runner.py": "b8691ef9bec2d04d36741825778e821c055332e866ac97b20ac3f19517ddcc02",
+      "ops/product-identity/test_evaluate.py": "c6f86ce533f0c33df9a753ba3b8cda6a01d76bd326a0dd9ee746a03aa340c1e7",
+      "ops/product-identity/test_training_recipe.py": "f00cc81854207d31746c1549c6258dc1b137b40da7bd8a0ecd8809fc6284eb9a",
+      "ops/product-identity/test_cpu_kernels.py": "442e242e39ebc7eabfc7247a7c8dab21da484434105efe76b36ce27ccc26e702",
+      "ops/product-identity/geteverything-product-training.service": "b0ca77ba622c63c310d8345ae026d2a06ca3d8dc292426f324c398dafee6d9cf"
+    }
+  },
+  "probe": {
+    "at": 1789892415.2674706,
+    "technical_probe": true,
+    "promoted": false,
+    "run_id": "8074d48dbceef94ada7f-probe",
+    "steps": 2,
+    "trainable_parameters": 638976,
+    "lora_b_squared_norm": 0.0061011543875792995,
+    "recipe": {
+      "version": "last-block-lora-fp32-3",
+      "rank": 16,
+      "alpha": 32,
+      "learning_rate": 0.00008,
+      "targets": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "scheduler": "warmup_cosine",
+      "epochs": 1,
+      "max_steps": 2,
+      "early_stopping_patience": 2
+    },
+    "gguf_sha256": "3b995c976efd5868c1608a569d6d618b4285b4402be6682abaf7b2e7da7887af",
+    "last_cache_seconds": 78.96,
+    "last_step_seconds": 14.76,
+    "adapter_inference": true,
+    "output": {
+      "brand": "삼성",
+      "name": "삼성 990 PRO",
+      "model": "990 PRO",
+      "variant": "1TB",
+      "is_product": true,
+      "category": "electronics"
+    }
+  },
+  "status": {
+    "status": "starting",
+    "at": 1789892494.1636775,
+    "probe": false,
+    "dataset_sha256": "790882de66ff649e6c9b2104c68a2e6dda8516a55b385208e83219fa970fe782",
+    "training_examples": 246,
+    "validation_examples": 62
+  },
+  "attempt": {
+    "at": 1789892494.1629755,
+    "dataset_sha256": "790882de66ff649e6c9b2104c68a2e6dda8516a55b385208e83219fa970fe782",
+    "operator_count": 0,
+    "attempts": 1,
+    "complete": false,
+    "policy_sha256": "0309be20cfcaf8eb82fb713caf65560c950cd3f1986640919d17f847b1895837",
+    "curriculum_sha256": "4389d509296dfc55635c494739b91133d6d7aaf488d251161ddc7a525d04d923",
+    "policy": {
+      "epochs": 4,
+      "max_steps": 1200,
+      "rank": 16,
+      "learning_rate": 0.00008,
+      "cpu": 0.35,
+      "evaluation_cpu": 0.35,
+      "training_hours": 18,
+      "evaluation_hours": 4
+    }
+  },
+  "active": null,
+  "host_cpu_percent": 70.8,
+  "memory_available": 9445851136,
+  "disk_free": 19084488704,
+  "tests": {
+    "worker-tests.log": "Found 62 test(s).\nSystem check identified no issues (1 silenced).\nCreating test database for alias 'default'...\n..............................................................\n----------------------------------------------------------------------\nRan 62 tests in 10.213s\n\nOK\nDestroying test database for alias 'default'...",
+    "training-tests.log": "........\n----------------------------------------------------------------------\nRan 8 tests in 2.271s\n\nOK"
+  },
+  "service": "TimeoutStartUSec=1d\nResult=success\nExecMainStatus=0\nActiveState=activating\nSubState=start",
+  "timer": "NextElapseUSecRealtime=Sun 2026-09-20 17:30:00 UTC\nActiveState=active",
+  "stats": "{\"BlockIO\":\"0B / 0B\",\"CPUPerc\":\"35.53%\",\"Container\":\"geteverything-product-trainer\",\"ID\":\"749c9d349f83\",\"MemPerc\":\"1.74%\",\"MemUsage\":\"107.2MiB / 6GiB\",\"Name\":\"geteverything-product-trainer\",\"NetIO\":\"0B / 0B\",\"PIDs\":\"2\"}\n{\"BlockIO\":\"37.9MB / 160kB\",\"CPUPerc\":\"15.02%\",\"Container\":\"geteverything-category-worker\",\"ID\":\"d1aff4dc56b8\",\"MemPerc\":\"50.62%\",\"MemUsage\":\"97.18MiB / 192MiB\",\"Name\":\"geteverything-category-worker\",\"NetIO\":\"0B / 0B\",\"PIDs\":\"6\"}\n{\"BlockIO\":\"37.2MB / 2.05MB\",\"CPUPerc\":\"101.17%\",\"Container\":\"crawlers-bot\",\"ID\":\"c6d5b0c88029\",\"MemPerc\":\"18.48%\",\"MemUsage\":\"1.478GiB / 8GiB\",\"Name\":\"crawlers-bot\",\"NetIO\":\"0B / 0B\",\"PIDs\":\"68\"}\n{\"BlockIO\":\"144MB / 61.4kB\",\"CPUPerc\":\"0.01%\",\"Container\":\"flaresolverr\",\"ID\":\"2a7f6c5e4372\",\"MemPerc\":\"43.85%\",\"MemUsage\":\"449MiB / 1GiB\",\"Name\":\"flaresolverr\",\"NetIO\":\"181MB / 8.22MB\",\"PIDs\":\"108\"}",
+  "containers": [
+    {
+      "name": "geteverything-product-trainer",
+      "image": "sha256:f1740deb10b5462a50628413c2c4489c4efe9a834113ea32723142c15907f176",
+      "state": {
+        "Running": true,
+        "Paused": false,
+        "OOMKilled": false,
+        "ExitCode": 0,
+        "StartedAt": "2026-09-20T08:21:47.552552606Z"
+      },
+      "restarts": 0,
+      "cpu": 0.35,
+      "memory": 6442450944
+    },
+    {
+      "name": "geteverything-category-worker",
+      "image": "sha256:e36013e9b27454cc5be26812f2449ad733aebd0291b3dd9b941b9fd160e9e6c3",
+      "state": {
+        "Running": true,
+        "Paused": false,
+        "OOMKilled": false,
+        "ExitCode": 0,
+        "StartedAt": "2026-09-20T08:07:20.091128071Z"
+      },
+      "restarts": 0,
+      "cpu": 0.15,
+      "memory": 201326592
+    },
+    {
+      "name": "crawlers-bot",
+      "image": "sha256:9cac4ad5c9cdf92d01cfaec4aba8258f7b009ab26357bf35c89a22b7530884c0",
+      "state": {
+        "Running": true,
+        "Paused": false,
+        "OOMKilled": false,
+        "ExitCode": 0,
+        "StartedAt": "2026-09-20T04:40:20.659807418Z"
+      },
+      "restarts": 0,
+      "cpu": 1,
+      "memory": 8589934592
+    },
+    {
+      "name": "flaresolverr",
+      "image": "sha256:9a74115c9fe2b44672bc851ffc0ca80c1d4829468c17182d299c77eb6b348cc7",
+      "state": {
+        "Running": true,
+        "Paused": false,
+        "OOMKilled": false,
+        "ExitCode": 0,
+        "StartedAt": "2026-09-20T02:27:01.639813263Z"
+      },
+      "restarts": 0,
+      "cpu": 0.75,
+      "memory": 1073741824
+    }
+  ],
+  "db": {
+    "at": "2026-09-20T08:22:01.310754+00:00",
+    "prompt_version": "product-sft-2",
+    "recent_collections": [
+      {
+        "community_name": "ARCA",
+        "count": 1,
+        "latest": "2026-09-20 08:12:30.954432+00:00"
+      },
+      {
+        "community_name": "FMKOREA",
+        "count": 186,
+        "latest": "2026-09-20 08:20:34.019295+00:00"
+      },
+      {
+        "community_name": "PPOMPPU",
+        "count": 1,
+        "latest": "2026-09-20 08:18:00.831819+00:00"
+      }
+    ],
+    "merchant_references": 13953,
+    "published_training": {
+      "at": 1789892494.1636775,
+      "probe": false,
+      "status": "starting",
+      "dataset_sha256": "790882de66ff649e6c9b2104c68a2e6dda8516a55b385208e83219fa970fe782",
+      "resource_action": "keep",
+      "host_cpu_percent": 71.7,
+      "memory_available": 9463685120,
+      "training_examples": 246,
+      "validation_examples": 62
+    }
+  },
+  "last_progress": {
+    "at": 1789892556.7257981,
+    "host_cpu_percent": 20.3,
+    "memory_available": 9711390720,
+    "disk_free": 19084439552,
+    "status": {
+      "run_id": "0436aaa9f41666a002ff",
+      "dataset_sha256": "790882de66ff649e6c9b2104c68a2e6dda8516a55b385208e83219fa970fe782",
+      "base_revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+      "training_examples": 246,
+      "validation_examples": 62,
+      "started_at": 1789892521.281695,
+      "step": 0,
+      "promoted": false,
+      "probe": false,
+      "recipe": {
+        "version": "last-block-lora-fp32-3",
+        "rank": 16,
+        "alpha": 32,
+        "learning_rate": 0.00008,
+        "targets": [
+          "q_proj",
+          "k_proj",
+          "v_proj",
+          "o_proj",
+          "gate_proj",
+          "up_proj",
+          "down_proj"
+        ],
+        "scheduler": "warmup_cosine",
+        "epochs": 4,
+        "max_steps": 1200,
+        "early_stopping_patience": 2
+      },
+      "prompt_version": "product-sft-2",
+      "cache_reused": 2,
+      "status": "caching_frozen_layers",
+      "at": 1789892528.7783563,
+      "compute": "fp32_gemm_bf16_storage",
+      "trainable_parameters": 638976,
+      "frozen_parameters": 1881825088,
+      "cached": 2,
+      "total_cache": 308
+    },
+    "probe": {
+      "at": 1789892415.2674706,
+      "technical_probe": true,
+      "promoted": false,
+      "run_id": "8074d48dbceef94ada7f-probe",
+      "steps": 2,
+      "trainable_parameters": 638976,
+      "lora_b_squared_norm": 0.0061011543875792995,
+      "recipe": {
+        "version": "last-block-lora-fp32-3",
+        "rank": 16,
+        "alpha": 32,
+        "learning_rate": 0.00008,
+        "targets": [
+          "q_proj",
+          "k_proj",
+          "v_proj",
+          "o_proj",
+          "gate_proj",
+          "up_proj",
+          "down_proj"
+        ],
+        "scheduler": "warmup_cosine",
+        "epochs": 1,
+        "max_steps": 2,
+        "early_stopping_patience": 2
+      },
+      "gguf_sha256": "3b995c976efd5868c1608a569d6d618b4285b4402be6682abaf7b2e7da7887af",
+      "last_cache_seconds": 78.96,
+      "last_step_seconds": 14.76,
+      "adapter_inference": true,
+      "output": {
+        "brand": "삼성",
+        "name": "삼성 990 PRO",
+        "model": "990 PRO",
+        "variant": "1TB",
+        "is_product": true,
+        "category": "electronics"
+      }
+    },
+    "active": null,
+    "probe_service": {
+      "code": 0,
+      "output": "Result=success\nExecMainStatus=0\nActiveState=inactive\nSubState=dead\n"
+    },
+    "training_service": {
+      "code": 0,
+      "output": "Result=success\nExecMainStatus=0\nActiveState=activating\nSubState=start\n"
+    },
+    "containers": [
+      {
+        "name": "geteverything-product-trainer",
+        "image": "sha256:f1740deb10b5462a50628413c2c4489c4efe9a834113ea32723142c15907f176",
+        "state": {
+          "Running": true,
+          "Paused": false,
+          "OOMKilled": false,
+          "ExitCode": 0,
+          "StartedAt": "2026-09-20T08:21:47.552552606Z"
+        },
+        "restarts": 0,
+        "cpu": 0.35,
+        "memory": 6442450944
+      },
+      {
+        "name": "geteverything-product-lora-eval",
+        "image": "sha256:aa509a98cf5c8c81d04785c0c9a0d2acc47523aab72eceacad143a8d88910f68",
+        "state": {
+          "Running": false,
+          "Paused": false,
+          "OOMKilled": false,
+          "ExitCode": 0,
+          "StartedAt": "2026-09-20T08:18:00.588469062Z"
+        },
+        "restarts": 0,
+        "cpu": 0.35,
+        "memory": 3221225472
+      },
+      {
+        "name": "geteverything-category-model",
+        "image": "sha256:aa509a98cf5c8c81d04785c0c9a0d2acc47523aab72eceacad143a8d88910f68",
+        "state": {
+          "Running": false,
+          "Paused": false,
+          "OOMKilled": false,
+          "ExitCode": 143,
+          "StartedAt": "2026-09-20T08:21:32.331364405Z"
+        },
+        "restarts": 0,
+        "cpu": 0.2,
+        "memory": 3221225472
+      },
+      {
+        "name": "geteverything-category-worker",
+        "image": "sha256:e36013e9b27454cc5be26812f2449ad733aebd0291b3dd9b941b9fd160e9e6c3",
+        "state": {
+          "Running": true,
+          "Paused": false,
+          "OOMKilled": false,
+          "ExitCode": 0,
+          "StartedAt": "2026-09-20T08:07:20.091128071Z"
+        },
+        "restarts": 0,
+        "cpu": 0.15,
+        "memory": 201326592
+      },
+      {
+        "name": "crawlers-bot",
+        "image": "sha256:9cac4ad5c9cdf92d01cfaec4aba8258f7b009ab26357bf35c89a22b7530884c0",
+        "state": {
+          "Running": true,
+          "Paused": false,
+          "OOMKilled": false,
+          "ExitCode": 0,
+          "StartedAt": "2026-09-20T04:40:20.659807418Z"
+        },
+        "restarts": 0,
+        "cpu": 1,
+        "memory": 8589934592
+      },
+      {
+        "name": "flaresolverr",
+        "image": "sha256:9a74115c9fe2b44672bc851ffc0ca80c1d4829468c17182d299c77eb6b348cc7",
+        "state": {
+          "Running": true,
+          "Paused": false,
+          "OOMKilled": false,
+          "ExitCode": 0,
+          "StartedAt": "2026-09-20T02:27:01.639813263Z"
+        },
+        "restarts": 0,
+        "cpu": 0.75,
+        "memory": 1073741824
+      }
+    ]
+  },
+  "during_probe": {
+    "at": 1789892033.7213264,
+    "db": {
+      "at": "2026-09-20T08:14:00.912793+00:00",
+      "prompt_version": "product-sft-2",
+      "recent_collections": [
+        {
+          "community_name": "ARCA",
+          "count": 1,
+          "latest": "2026-09-20 08:12:30.954432+00:00"
+        },
+        {
+          "community_name": "FMKOREA",
+          "count": 144,
+          "latest": "2026-09-20 08:13:55.203738+00:00"
+        }
+      ],
+      "merchant_references": 13297,
+      "published_training": {
+        "at": 1789891951.8165846,
+        "step": 0,
+        "probe": true,
+        "cached": 2,
+        "recipe": {
+          "rank": 16,
+          "alpha": 32,
+          "epochs": 1,
+          "targets": [
+            "q_proj",
+            "k_proj",
+            "v_proj",
+            "o_proj",
+            "gate_proj",
+            "up_proj",
+            "down_proj"
+          ],
+          "version": "last-block-lora-fp32-3",
+          "max_steps": 2,
+          "scheduler": "warmup_cosine",
+          "learning_rate": 0.00008,
+          "early_stopping_patience": 2
+        },
+        "run_id": "8074d48dbceef94ada7f-probe",
+        "status": "caching_frozen_layers",
+        "compute": "fp32_gemm_bf16_storage",
+        "promoted": false,
+        "started_at": 1789891778.40492,
+        "total_cache": 4,
+        "cache_reused": 0,
+        "base_revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+        "dataset_sha256": "790882de66ff649e6c9b2104c68a2e6dda8516a55b385208e83219fa970fe782",
+        "prompt_version": "product-sft-2",
+        "resource_action": "keep",
+        "host_cpu_percent": 70.2,
+        "memory_available": 8679432192,
+        "frozen_parameters": 1881825088,
+        "training_examples": 2,
+        "last_cache_seconds": 79.97,
+        "validation_examples": 2,
+        "trainable_parameters": 638976
+      }
+    }
+  },
+  "local_tests": {
+    "product_and_thumbnails": 121,
+    "passed": true
+  },
+  "full_training_completed": false,
+  "full_training_promoted": false
+}

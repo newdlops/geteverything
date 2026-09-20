@@ -1,0 +1,221 @@
+{
+  "date": "2026-09-19",
+  "feature": "canonical_products_price_history_local_lora",
+  "schema": "deals.0012_product_identity",
+  "web": {
+    "image": "sha256:80e6dccb574342a13f86cb2bd2a8ec49facb214e008a4d3f22caac0654a979d6",
+    "tag": "my-django-app:products-20260919-r5",
+    "healthy": true,
+    "oom": false,
+    "api_products": 200,
+    "api_history": 200,
+    "admin_history_rendered": true,
+    "verified_at_unix": 1789806774.0063045,
+    "training_panel_rendered": true,
+    "training_panel": {
+      "phase": "training",
+      "current": 5,
+      "total": 92,
+      "promoted": false,
+      "stale": false
+    }
+  },
+  "worker": {
+    "image": "sha256:5fddf89d4f0d041b4bde80ea90f1f69f04d315ceafbf97a76edf1c2243904847",
+    "runtime_hashes_matched": 13,
+    "crawler_started_at": "2026-09-18T10:08:06.443498133Z",
+    "crawler_oom": false,
+    "verified_at_unix": 1789806766.6871324
+  },
+  "counts_at_verification": {
+    "deals": 43664,
+    "price_observations": 43705,
+    "linked_price_observations": 618,
+    "linked_posts": 614,
+    "linked_by_local_llm": 24,
+    "products": 348,
+    "uncategorized": 420,
+    "new_deals_in_30_minutes": 6,
+    "historical_snapshots_scanned": 43585,
+    "product_matching_pending": 39703,
+    "model_queue": 40,
+    "review": 3307
+  },
+  "validation": {
+    "local_django_tests": 87,
+    "production_web_image_tests": 92,
+    "resource_tests": 8,
+    "cpu_kernel_reference_and_gradient_test": true,
+    "postgresql_trigger_rollback_test": true,
+    "browser": {
+      "viewports": [
+        {
+          "width": 390,
+          "height": 844,
+          "document_overflow": false,
+          "points": 4
+        },
+        {
+          "width": 768,
+          "height": 1024,
+          "document_overflow": false,
+          "points": 4
+        },
+        {
+          "width": 1440,
+          "height": 900,
+          "document_overflow": false,
+          "points": 4
+        }
+      ],
+      "checks": [
+        "basis_filter",
+        "currency_filter",
+        "unknown_shipping_empty",
+        "keyboard_point_details",
+        "empty_product",
+        "single_point_long_title",
+        "invalid_date_filter",
+        "product_list_learning_status",
+        "manual_confirmation_save"
+      ],
+      "js_errors": []
+    },
+    "local_product_tests": 34,
+    "evaluation_progress_tests": 2,
+    "training_status_browser": {
+      "viewports": [
+        {
+          "width": 390,
+          "height": 844,
+          "overflow": false
+        },
+        {
+          "width": 768,
+          "height": 1024,
+          "overflow": false
+        },
+        {
+          "width": 1440,
+          "height": 900,
+          "overflow": false
+        }
+      ],
+      "states": [
+        "empty",
+        "loading",
+        "training",
+        "evaluating",
+        "paused",
+        "failed",
+        "stale",
+        "rejected",
+        "promoted"
+      ],
+      "errors": [],
+      "checks": [
+        "search_preserved_on_keyboard_refresh",
+        "visible_focus",
+        "labelled_progress",
+        "44px_refresh_target"
+      ],
+      "screenshots_visually_inspected": true,
+      "mobile_dark_theme_checked": true,
+      "tablet_filter_layout_checked": true
+    }
+  },
+  "lora": {
+    "base_model": "Qwen/Qwen3.5-2B",
+    "base_revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+    "trainer_image": "sha256:e1514ed3dc7b4066812f107ef1eb95feefcb8a8ed220288e1499635576990bb6",
+    "converter_revision": "aa39d7a3e145a88202793a89462d65e94a5fc25f",
+    "training_examples": 46,
+    "validation_examples": 10,
+    "trainable_parameters": 69632,
+    "probe": {
+      "steps": 2,
+      "validation_examples": 2,
+      "elapsed_seconds": 717.4,
+      "adapter_sha256": "ad14a6c4823a1cb55de945c0f6adc2002ad2d5bea87923c79836304bd327bbe0",
+      "lora_b_squared_norm": 0.004291069111786783,
+      "before_validation_loss": 0.48962073028087616,
+      "after_validation_loss": 0.4849061369895935,
+      "gguf_bytes": 279392,
+      "inference_slot_lora": [
+        {
+          "id": 0,
+          "scale": 1.0
+        }
+      ],
+      "oom": false,
+      "note": "Mechanics check only; not a production accuracy estimate. The sample category output was electronics for an AMD CPU, so this probe was not promoted.",
+      "inference_verified_at_unix": 1789798770.0190115
+    },
+    "full_training_started_at_unix": 1789799915.5177543,
+    "timer": "02:30 Asia/Seoul daily",
+    "automatic_promotion": "held-out generation improvement, no regressions/false merges, valid schema, latency and validation-loss gates",
+    "promoted_at_verification": false,
+    "full_training_progress": {
+      "verified_at_unix": 1789806716.235223,
+      "run_id": "d65598d4bb4a893b97b6",
+      "phase": "training",
+      "cached": 56,
+      "total_cache": 56,
+      "step": 5,
+      "running": true,
+      "paused": false,
+      "oom": false,
+      "recipe": "last-attention-lora-fp32-2",
+      "total_steps": 92,
+      "baseline_validation_loss": 0.4678440988063812,
+      "last_step_seconds": 22.21
+    },
+    "fixed_startup_issue": "Read the worker tmpfs dataset through docker exec; docker cp archive lookup could not see the tmpfs file.",
+    "evaluation_progress_update": {
+      "deployed_at_unix": 1789802491.4007454,
+      "evaluation_sha256": "fbf92991976c690d05258fdffa2cc74b4bd06f36822ad404c668bb9bc85fb61b",
+      "runner_sha256": "e1dc9f4be838a706289cdccd020c62b54b00170ab03f9c88c8d07b269e6e1ca3",
+      "trainer_restarted": false
+    },
+    "first_full_checkpoint": {
+      "verified_at_unix": 1789806716.235223,
+      "saved_step": 4,
+      "bytes": 279080,
+      "sha256": "0553c9251b95d074fbbc006977231f4204db9518f84fb3a2b640161ce43a0c34",
+      "lora_b_squared_norm": 0.012507987463317171,
+      "trained_parameter_count": 69632,
+      "promoted": false,
+      "note": "Actual LoRA weights changed during the full run. This is not a held-out generation accuracy result."
+    }
+  },
+  "limitations": [
+    "Full initial fine-tuning and held-out generation evaluation are asynchronous; promotion is not yet complete.",
+    "Historical snapshot backfill is complete. Product matching still has pending and review items.",
+    "Missing title specifications and mixed offers require review; no invented SKU or historical price values."
+  ],
+  "historical_snapshot_backfill": {
+    "phase": "snapshots_complete",
+    "completed_at_unix": 1789804722.9482446,
+    "scanned": 43585,
+    "note": "Stored price snapshots are complete. Product identity matching remains in progress."
+  },
+  "live_bundle_check": {
+    "product_id": "27ffe690-0d09-4419-bc93-6779f4a6f5cf",
+    "product": "코카콜라 제로 190ml",
+    "basis": "item",
+    "linked_posts": 23,
+    "comparable_points": 9,
+    "examples": [
+      {
+        "count": 30,
+        "offer_krw": "12770",
+        "per_can_krw": "425.67"
+      },
+      {
+        "count": 60,
+        "offer_krw": "22050",
+        "per_can_krw": "367.5"
+      }
+    ]
+  }
+}

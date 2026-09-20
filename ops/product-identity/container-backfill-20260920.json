@@ -1,0 +1,167 @@
+{
+  "version": "products-5/product-extract-2",
+  "tests": {
+    "local_related": 115,
+    "web_image_related": 115,
+    "worker_image_backend": 21
+  },
+  "deployment": {
+    "worker": {
+      "at": 1789823432.0291507,
+      "worker_image": "sha256:a38fc68cbff49951e7957312cf6c643db482e35ddf3ed30032a714d00322946b",
+      "previous_image": "sha256:2fed5aadbec8b36280676d50bde11cd40816460f84d7940e12876d2880492393",
+      "worker_restart_seconds": 6.37,
+      "crawler_started_at": "2026-09-18T10:08:06.443498133Z",
+      "schema": "0013_product_canonical_aliases",
+      "runtime_files": {
+        "gadmin/products/identity.py": "7c0be95a51ae2e1f96385d8641294ae80065b9e8e5730b2f5f46a3851f145ca8",
+        "gadmin/products/catalog.py": "6b0791e30737f599f6262aa869a4941fa3c78c2536a97e355888fd129facdaf7",
+        "gadmin/products/jobs.py": "272667912fd4095b5bf3c49e93584afd8f3f3c61f097003d5a889bea173615b7",
+        "gadmin/products/deduplicate.py": "5be434941dac66d9c803bd5e1606efd6e6010a382173bc23f9041bbdf55de35d",
+        "gadmin/products/backfill.py": "30aa6b696a04eaec0632cd3225ba38af01e5de322c0d6ab936505f8ef211f387",
+        "gadmin/products/manage.py": "d70f5b873f91ce1fb47a0bd3e13ddae955588ca9dc36637c212ace42085d7096",
+        "gadmin/products/training_status.py": "41c190ef0e3b47bae592d1d9388ee6b609c9d4a3c65b7f780be64c9ebd4e40d9",
+        "gadmin/products/tests/test_products.py": "743dcc07d7b60aed5a8c27f6983b786a45e3982a8e34af1af6c4a8900127b517",
+        "gadmin/products/tests/test_deduplicate.py": "09ad201cda3a9365f0ed2b4e45d5a5b056dea3582409ccfdc3933740e4eb3fbd",
+        "gadmin/products/tests/test_backfill.py": "4e3c884441eb0c18a2c85c7d26214d257ae2bb1a155478b3b1610151409c3b53",
+        "gadmin/products/tests/worker_settings.py": "53aee0e687b320f3e38f5669cdd8d4f96e6f0813839e2d38dce5473d7640356b",
+        "gadmin/categories/worker.py": "3610391923565dd347b7970c4aecb3a63f663869610ed0674d4d06ec411a0c0d"
+      }
+    },
+    "web": {
+      "at": 1789864962.4990246,
+      "image": "sha256:35b170f1b552a7b404ff2c14c78e62fd047fc073b8d3be26130d94084b561982",
+      "tag": "my-django-app:products-20260919-r7",
+      "previous_tag": "my-django-app:products-20260919-r6",
+      "api_ok": true,
+      "web_settings_preserved": true,
+      "runtime_files": {
+        "gadmin/products/identity.py": "7c0be95a51ae2e1f96385d8641294ae80065b9e8e5730b2f5f46a3851f145ca8",
+        "gadmin/products/catalog.py": "6b0791e30737f599f6262aa869a4941fa3c78c2536a97e355888fd129facdaf7",
+        "gadmin/products/jobs.py": "272667912fd4095b5bf3c49e93584afd8f3f3c61f097003d5a889bea173615b7",
+        "gadmin/products/deduplicate.py": "5be434941dac66d9c803bd5e1606efd6e6010a382173bc23f9041bbdf55de35d",
+        "gadmin/products/backfill.py": "30aa6b696a04eaec0632cd3225ba38af01e5de322c0d6ab936505f8ef211f387",
+        "gadmin/products/manage.py": "d70f5b873f91ce1fb47a0bd3e13ddae955588ca9dc36637c212ace42085d7096",
+        "gadmin/products/training_status.py": "41c190ef0e3b47bae592d1d9388ee6b609c9d4a3c65b7f780be64c9ebd4e40d9",
+        "gadmin/products/tests/test_products.py": "743dcc07d7b60aed5a8c27f6983b786a45e3982a8e34af1af6c4a8900127b517",
+        "gadmin/products/tests/test_deduplicate.py": "09ad201cda3a9365f0ed2b4e45d5a5b056dea3582409ccfdc3933740e4eb3fbd",
+        "gadmin/products/tests/test_backfill.py": "4e3c884441eb0c18a2c85c7d26214d257ae2bb1a155478b3b1610151409c3b53",
+        "gadmin/products/tests/worker_settings.py": "53aee0e687b320f3e38f5669cdd8d4f96e6f0813839e2d38dce5473d7640356b"
+      }
+    }
+  },
+  "repair": {
+    "at": 1789864832.048867,
+    "before": {
+      "prices": 43925,
+      "active": 560,
+      "product_ids": 821
+    },
+    "after": {
+      "prices": 43925,
+      "active": 552,
+      "product_ids": 821,
+      "aliases": 62,
+      "linked_prices": 1113,
+      "linked_posts": 1061,
+      "recent_deals": 9,
+      "last_crawl": "2026-09-20 00:40:31.006500+00:00"
+    },
+    "result": {
+      "applied": true,
+      "active_before": 560,
+      "active_after": 552,
+      "merged": 8,
+      "archived_invalid": 0,
+      "products_updated": 14,
+      "products_created": 0,
+      "assignments_updated": 507,
+      "assignments_detached": 0,
+      "prices_moved": 36,
+      "prices_detached": 0,
+      "prices_checked": 1113,
+      "price_payload_sha256": "efeb95a4527c657d6b7e1f73e797622796d7154fbc6f74754c1e987ecbc9d1ba",
+      "protected_products": 0,
+      "preserved_ambiguous": 0,
+      "backup": "/root/products-worker-20260919-r6/container-deduplicate/backup.json",
+      "price_payload_preserved": true,
+      "idempotent": true,
+      "no_inactive_links": true,
+      "no_duplicate_hardware_keys": true,
+      "no_mixed_offer_links": true
+    },
+    "crawler": {
+      "running": true,
+      "oom": false,
+      "started_at": "2026-09-18T10:08:06.443498133Z"
+    }
+  },
+  "coke": {
+    "canonical_id": "74186eba-f122-4040-b402-681a32f94c3c",
+    "alias_id": "60dedea3-c289-4a32-b1e3-0f985c18e971",
+    "name": "코카콜라 190ml 캔",
+    "posts": 8,
+    "price_observations": 8,
+    "admin_rendered": true,
+    "legacy_history_api_status": 200,
+    "web_health": "healthy",
+    "web_verified_at": 1789866378.311404
+  },
+  "backfill": {
+    "first": {
+      "at": 1789864822.7358227,
+      "state": {
+        "at": 1789864820.0842772,
+        "phase": "model",
+        "total": 43733,
+        "errors": 0,
+        "linked": 1018,
+        "queued": 43225,
+        "review": 6691,
+        "ceiling": 133251,
+        "version": "products-5/product-extract-2",
+        "started_at": 1789823430.2535372,
+        "model_queued": 39,
+        "model_waiting": 35985,
+        "rules_checked": 43226,
+        "rules_pending": 0,
+        "stale_at_start": 43226,
+        "total_at_start": 43733,
+        "linked_at_start": 507,
+        "stale_remaining": 0,
+        "linked_since_start": 511,
+        "rules_completed_at": 1789828661.7567914
+      }
+    },
+    "second": {
+      "at": 1789865688.7967043,
+      "state": {
+        "phase": "model",
+        "total": 43733,
+        "linked": 1101,
+        "linked_since_start": 594,
+        "model_waiting": 35899,
+        "model_queued": 39,
+        "review": 6694,
+        "errors": 0,
+        "rules_checked": 43733,
+        "rules_pending": 0,
+        "stale_remaining": 0
+      },
+      "global_llm_queue": 40,
+      "linked_prices": 1199,
+      "price_observations": 43932,
+      "latest_crawl": "2026-09-20T00:54:47.056410+00:00",
+      "runtime_hashes_match": true
+    },
+    "complete": false
+  },
+  "worker_recovery": {
+    "at": "2026-09-20T00:41:09.249357504Z",
+    "reason": "lock timeout on classification_state during catalog repair",
+    "automatic_restart": true,
+    "backfill_resumed": true,
+    "errors_in_checked_recent_10_minutes": 0,
+    "crawler_restarted": false
+  }
+}
