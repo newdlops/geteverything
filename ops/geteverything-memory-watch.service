@@ -1,0 +1,14 @@
+[Unit]
+Description=Record geteverything memory pressure and local warnings
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/geteverything-memory-watch
+TimeoutStartSec=10s
+Nice=10
+MemoryMax=32M
+OOMScoreAdjust=500
+SyslogIdentifier=geteverything-memory
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
