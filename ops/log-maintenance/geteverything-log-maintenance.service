@@ -1,0 +1,16 @@
+[Unit]
+Description=Rotate crawler file logs and enforce journal retention
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/flock --nonblock /var/lib/geteverything-log-maintenance/lock /usr/bin/python3 /usr/local/lib/geteverything-log-maintenance/maintain.py --apply
+TimeoutStartSec=90
+CPUQuota=10%
+MemoryMax=64M
+Nice=19
+IOWeight=10
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/home/crawler/logs /var/log/journal -/run/log/journal /var/lib/geteverything-log-maintenance

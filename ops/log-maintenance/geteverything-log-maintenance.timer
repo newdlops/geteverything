@@ -1,0 +1,12 @@
+[Unit]
+Description=Check crawler log retention every five minutes
+
+[Timer]
+OnBootSec=2min
+OnUnitInactiveSec=5min
+AccuracySec=15s
+RandomizedDelaySec=15s
+Unit=geteverything-log-maintenance.service
+
+[Install]
+WantedBy=timers.target
