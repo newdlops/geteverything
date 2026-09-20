@@ -14,11 +14,24 @@ class DealPagination(CursorPagination):
     cursor_query_param = "cursor"
 
 class DealViewSet(viewsets.ModelViewSet):
-    queryset = Deal.objects.all()
+    queryset = Deal.objects.select_related('classification','measurements','product_assignment').all()
     serializer_class = DealSerializer
     authentication_classes = [UserAuthentication]
     permission_classes = [IsAuthenticatedOrReadOnly]
     pagination_class = DealPagination
+
+    def get_queryset(self):
+        from django.db.models import Q
+        from rest_framework.exceptions import ValidationError
+        from gadmin.categories.taxonomy import LABELS
+        query = super().get_queryset()
+        category = self.request.query_params.get('standard_category')
+        if category:
+            if category not in LABELS:
+                raise ValidationError({'standard_category': '알 수 없는 표준 카테고리입니다.'})
+            query = query.filter(classification__status='ready').filter(
+                Q(classification__category=category) | Q(classification__category__startswith=category + '.'))
+        return query
 
     def get_authenticators(self):
         # SAFE_METHODS(GET/HEAD/OPTIONS)에서는 인증 스킵
