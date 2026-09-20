@@ -1,0 +1,11 @@
+[Unit]
+Description=Maintain the Ppomppu VPN proxy
+Wants=network-online.target
+Requires=docker.service
+After=network-online.target docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/ppomppu-vpn-guard.py
+TimeoutStartSec=240
+Nice=10

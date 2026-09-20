@@ -1,0 +1,11 @@
+[Unit]
+Description=Check the Ppomppu VPN proxy every minute
+
+[Timer]
+OnBootSec=30s
+OnUnitInactiveSec=60s
+RandomizedDelaySec=5s
+Unit=ppomppu-vpn-guard.service
+
+[Install]
+WantedBy=timers.target
