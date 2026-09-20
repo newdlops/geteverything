@@ -6,6 +6,7 @@ py_library(
 #    srcs = ["asgi.py","settings.py", "urls.py", "wsgi.py", "__init__.py"],
     srcs = glob(["**/*.py"]),
     deps = [
+        "//gadmin/monitoring:monitoring_lib",
         "@poetry//:sqlparse",
         "@poetry//:django",
         "@poetry//:asgiref",

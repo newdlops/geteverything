@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'gadmin.ppomppu.apps.PpomppuConfig',
     'gadmin.coolnjoy.apps.CoolnjoyConfig',
     'gadmin.deals.apps.DealsConfig',
-    'django.contrib.admin',
+    'gadmin.monitoring.apps.MonitoringConfig',
+    'gadmin.monitoring.apps.MonitoringAdminConfig',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -145,6 +146,9 @@ STATIC_URL = 'static/'
 # STATIC_URL = '/staticfiles/'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# A read-only bind mount populated by the host's storage collection timer.
+STORAGE_METRICS_DIR = env('STORAGE_METRICS_DIR', '/var/lib/geteverything-storage/snapshots')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

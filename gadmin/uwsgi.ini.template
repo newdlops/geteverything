@@ -5,8 +5,10 @@ module = admin.wsgi:application
 # Master process
 master = true
 
-# Number of workers
-processes = 4
+# Keep worker memory within the 1 GB production host's budget.
+processes = 2
+max-requests = 1000
+reload-on-rss = 128
 
 # Socket
 # socket = :8000
@@ -22,6 +24,8 @@ pythonpath = /app/gadmin
 
 # Static files serving
 static-map = /static=/app/gadmin/staticfiles
+static-map = /media/thumbnails=/var/lib/geteverything-thumbnails/objects
+static-expires = ^/var/lib/geteverything-thumbnails/objects/.*\.jpg$ 3600
 
 # Django-specific settings
 env = DJANGO_SETTINGS_MODULE=gadmin.admin.settings
