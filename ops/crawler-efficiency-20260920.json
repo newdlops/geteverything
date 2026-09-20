@@ -1,0 +1,2542 @@
+{
+  "recorded_at": "2026-09-20T02:59:54.799Z",
+  "server": "168.107.29.18",
+  "baseline": {
+    "cutoff": 1789867840,
+    "samples": 112,
+    "mean": 83.67,
+    "minimum": 34.1,
+    "maximum": 95.2,
+    "p95": 91.2,
+    "raw": [
+      {
+        "at": 1789864256.558842,
+        "cpu_percent": 90.4,
+        "memory_available": 7131045888,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789864286.5414734,
+        "cpu_percent": 88.5,
+        "memory_available": 7131901952,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789864321.5207696,
+        "cpu_percent": 90.6,
+        "memory_available": 7134703616,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789864353.492967,
+        "cpu_percent": 50.1,
+        "memory_available": 8734052352,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 1
+      },
+      {
+        "at": 1789864386.4880357,
+        "cpu_percent": 44.6,
+        "memory_available": 8515493888,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 2
+      },
+      {
+        "at": 1789864420.5754962,
+        "cpu_percent": 79.9,
+        "memory_available": 8143994880,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 3
+      },
+      {
+        "at": 1789864455.53926,
+        "cpu_percent": 90.4,
+        "memory_available": 7690162176,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789864486.4870577,
+        "cpu_percent": 88.9,
+        "memory_available": 7324241920,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789864516.4882772,
+        "cpu_percent": 90.2,
+        "memory_available": 7254732800,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789864546.581723,
+        "cpu_percent": 89.1,
+        "memory_available": 7279534080,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789864578.073014,
+        "cpu_percent": 89.3,
+        "memory_available": 7330709504,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789864612.5639436,
+        "cpu_percent": 89.7,
+        "memory_available": 7271063552,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789864646.542152,
+        "cpu_percent": 89.9,
+        "memory_available": 7289950208,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789864676.5982451,
+        "cpu_percent": 89.7,
+        "memory_available": 7311052800,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789864711.7755723,
+        "cpu_percent": 89.9,
+        "memory_available": 7290097664,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789864745.7727938,
+        "cpu_percent": 89.3,
+        "memory_available": 7292157952,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789864776.6014998,
+        "cpu_percent": 89.9,
+        "memory_available": 7259635712,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789864807.929634,
+        "cpu_percent": 90,
+        "memory_available": 7224016896,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789864840.7989135,
+        "cpu_percent": 95.2,
+        "memory_available": 7171956736,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789864871.952581,
+        "cpu_percent": 87.4,
+        "memory_available": 7179399168,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789864901.9671516,
+        "cpu_percent": 88.1,
+        "memory_available": 7204073472,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789864936.4872963,
+        "cpu_percent": 88.6,
+        "memory_available": 7162163200,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789864968.4962869,
+        "cpu_percent": 72.1,
+        "memory_available": 7035736064,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 1
+      },
+      {
+        "at": 1789864998.5179608,
+        "cpu_percent": 73.5,
+        "memory_available": 6996525056,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 2
+      },
+      {
+        "at": 1789865030.0677683,
+        "cpu_percent": 89.7,
+        "memory_available": 7114059776,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789865060.5391803,
+        "cpu_percent": 90.8,
+        "memory_available": 7087882240,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789865093.9206336,
+        "cpu_percent": 89.1,
+        "memory_available": 7052644352,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789865124.2701674,
+        "cpu_percent": 88.6,
+        "memory_available": 7569358848,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789865156.5575662,
+        "cpu_percent": 90.1,
+        "memory_available": 7622438912,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789865191.5070703,
+        "cpu_percent": 88.3,
+        "memory_available": 7485636608,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789865223.119792,
+        "cpu_percent": 88.8,
+        "memory_available": 7185219584,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789865256.4687622,
+        "cpu_percent": 50,
+        "memory_available": 8375808000,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 1
+      },
+      {
+        "at": 1789865291.4802775,
+        "cpu_percent": 34.1,
+        "memory_available": 8738750464,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 2
+      },
+      {
+        "at": 1789865325.5177004,
+        "cpu_percent": 45.9,
+        "memory_available": 8580677632,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 3
+      },
+      {
+        "at": 1789865356.5584025,
+        "cpu_percent": 52.2,
+        "memory_available": 8295636992,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 4
+      },
+      {
+        "at": 1789865388.552186,
+        "cpu_percent": 87.8,
+        "memory_available": 7651192832,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789865419.1903946,
+        "cpu_percent": 92,
+        "memory_available": 7376723968,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789865449.8729222,
+        "cpu_percent": 87.7,
+        "memory_available": 7296970752,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789865480.141255,
+        "cpu_percent": 90.2,
+        "memory_available": 7342383104,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789865510.3046074,
+        "cpu_percent": 88.9,
+        "memory_available": 7280484352,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789865540.8133504,
+        "cpu_percent": 88.9,
+        "memory_available": 7226642432,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789865571.670129,
+        "cpu_percent": 91.2,
+        "memory_available": 7310962688,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789865602.5503767,
+        "cpu_percent": 87,
+        "memory_available": 7387258880,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789865633.3202116,
+        "cpu_percent": 88.5,
+        "memory_available": 7299297280,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789865666.5020437,
+        "cpu_percent": 90.6,
+        "memory_available": 7257546752,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789865701.5491776,
+        "cpu_percent": 90.7,
+        "memory_available": 7370084352,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789865734.543857,
+        "cpu_percent": 89.3,
+        "memory_available": 7266754560,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789865764.9615624,
+        "cpu_percent": 89,
+        "memory_available": 7199625216,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789865796.5374784,
+        "cpu_percent": 89.7,
+        "memory_available": 7215243264,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789865826.494555,
+        "cpu_percent": 66.4,
+        "memory_available": 7593738240,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 1
+      },
+      {
+        "at": 1789865861.4745617,
+        "cpu_percent": 63.8,
+        "memory_available": 7702953984,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 2
+      },
+      {
+        "at": 1789865892.6261978,
+        "cpu_percent": 85.6,
+        "memory_available": 7602507776,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789865926.4804938,
+        "cpu_percent": 92.9,
+        "memory_available": 7406886912,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789865961.4859712,
+        "cpu_percent": 88.1,
+        "memory_available": 7380480000,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789865993.8243697,
+        "cpu_percent": 90.2,
+        "memory_available": 7338700800,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866026.6493866,
+        "cpu_percent": 88.9,
+        "memory_available": 7299833856,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866056.5597832,
+        "cpu_percent": 89.9,
+        "memory_available": 7375454208,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866091.5695746,
+        "cpu_percent": 88.9,
+        "memory_available": 7266029568,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866124.2333937,
+        "cpu_percent": 88.9,
+        "memory_available": 7222218752,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866156.5131595,
+        "cpu_percent": 87.1,
+        "memory_available": 7484526592,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866188.5212452,
+        "cpu_percent": 88.7,
+        "memory_available": 7341363200,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866218.7293377,
+        "cpu_percent": 89.3,
+        "memory_available": 7260286976,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866250.5449247,
+        "cpu_percent": 83.4,
+        "memory_available": 8205697024,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 1
+      },
+      {
+        "at": 1789866282.2463129,
+        "cpu_percent": 48,
+        "memory_available": 8445059072,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 2
+      },
+      {
+        "at": 1789866313.541574,
+        "cpu_percent": 45.3,
+        "memory_available": 8420737024,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 3
+      },
+      {
+        "at": 1789866343.837125,
+        "cpu_percent": 78.3,
+        "memory_available": 7998558208,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 4
+      },
+      {
+        "at": 1789866376.6384437,
+        "cpu_percent": 89.8,
+        "memory_available": 7590813696,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866411.6365035,
+        "cpu_percent": 89.2,
+        "memory_available": 7234859008,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866446.4870415,
+        "cpu_percent": 91,
+        "memory_available": 7172341760,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866481.5102873,
+        "cpu_percent": 89.9,
+        "memory_available": 7143444480,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866516.519863,
+        "cpu_percent": 90.4,
+        "memory_available": 7126446080,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866546.5535405,
+        "cpu_percent": 90.1,
+        "memory_available": 7171416064,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866581.4994276,
+        "cpu_percent": 89.8,
+        "memory_available": 7081623552,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866616.6382136,
+        "cpu_percent": 90.6,
+        "memory_available": 7032713216,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866646.814508,
+        "cpu_percent": 90.1,
+        "memory_available": 7097434112,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866680.0983694,
+        "cpu_percent": 90.8,
+        "memory_available": 7096860672,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866714.516815,
+        "cpu_percent": 89.9,
+        "memory_available": 7072583680,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866746.5538144,
+        "cpu_percent": 89.7,
+        "memory_available": 7067418624,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866776.5385876,
+        "cpu_percent": 91,
+        "memory_available": 7023652864,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866807.8034198,
+        "cpu_percent": 88.9,
+        "memory_available": 7004971008,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866838.183073,
+        "cpu_percent": 92.1,
+        "memory_available": 6930948096,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866868.6084914,
+        "cpu_percent": 90.6,
+        "memory_available": 6991896576,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866899.5844336,
+        "cpu_percent": 89,
+        "memory_available": 6950985728,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866934.5398903,
+        "cpu_percent": 89.5,
+        "memory_available": 6979842048,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866965.098002,
+        "cpu_percent": 89.9,
+        "memory_available": 6959259648,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789866995.2383442,
+        "cpu_percent": 88.7,
+        "memory_available": 6866862080,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789867025.4525518,
+        "cpu_percent": 67.3,
+        "memory_available": 8349462528,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 1
+      },
+      {
+        "at": 1789867056.495717,
+        "cpu_percent": 43.6,
+        "memory_available": 8414162944,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 2
+      },
+      {
+        "at": 1789867091.5725155,
+        "cpu_percent": 69.4,
+        "memory_available": 7996567552,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 3
+      },
+      {
+        "at": 1789867125.0234587,
+        "cpu_percent": 90.7,
+        "memory_available": 7906480128,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789867156.5718915,
+        "cpu_percent": 88.5,
+        "memory_available": 7688286208,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789867190.8630643,
+        "cpu_percent": 90.2,
+        "memory_available": 7472406528,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789867225.4985547,
+        "cpu_percent": 90.6,
+        "memory_available": 7456800768,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789867256.5039148,
+        "cpu_percent": 89.1,
+        "memory_available": 7422509056,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789867290.2444017,
+        "cpu_percent": 90.9,
+        "memory_available": 7323049984,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789867324.523281,
+        "cpu_percent": 90,
+        "memory_available": 7310213120,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789867356.473484,
+        "cpu_percent": 90.4,
+        "memory_available": 7277465600,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789867386.6590614,
+        "cpu_percent": 76,
+        "memory_available": 7155613696,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 1
+      },
+      {
+        "at": 1789867417.6845853,
+        "cpu_percent": 66.7,
+        "memory_available": 7179567104,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 2
+      },
+      {
+        "at": 1789867449.5537844,
+        "cpu_percent": 88.5,
+        "memory_available": 7241867264,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789867482.4416301,
+        "cpu_percent": 90.1,
+        "memory_available": 7191183360,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789867514.8016071,
+        "cpu_percent": 89.2,
+        "memory_available": 7188045824,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789867546.696808,
+        "cpu_percent": 89.6,
+        "memory_available": 7178072064,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789867580.168849,
+        "cpu_percent": 90.5,
+        "memory_available": 7206850560,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789867610.6385674,
+        "cpu_percent": 91.4,
+        "memory_available": 7231590400,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789867640.7193296,
+        "cpu_percent": 88.4,
+        "memory_available": 7166984192,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789867671.5282428,
+        "cpu_percent": 92,
+        "memory_available": 7184297984,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789867704.341743,
+        "cpu_percent": 89.3,
+        "memory_available": 7088594944,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789867736.4981985,
+        "cpu_percent": 87.6,
+        "memory_available": 7232966656,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789867771.5298276,
+        "cpu_percent": 87.5,
+        "memory_available": 7779348480,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 0
+      },
+      {
+        "at": 1789867806.4815865,
+        "cpu_percent": 50.3,
+        "memory_available": 8434581504,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 1
+      },
+      {
+        "at": 1789867839.3395262,
+        "cpu_percent": 44.4,
+        "memory_available": 8440852480,
+        "pending": 40,
+        "model_enabled": true,
+        "training_active": false,
+        "low_count": 2
+      }
+    ]
+  },
+  "initial_5min": {
+    "at": 1789871921.5792444,
+    "deployment": {
+      "at": 1789871228.2069302,
+      "crawler_image": "sha256:ad92e3baafe1420d884fb56513d8fc3b288460fc937ec7ff883873ef9a6f2ce2",
+      "previous_image": "sha256:4d793e1c890da89ec95f3593f52b4edd6fb02b1fa0f48d5d5062d566c47919bd",
+      "previous_container": "crawlers-bot-before-efficiency-20260920",
+      "crawler_started_at": "2026-09-20T02:27:07.981136674Z",
+      "restart_seconds": 22.51,
+      "intervals": {
+        "CRAWLER_INTERVAL_ARCA_SECONDS": "600",
+        "CRAWLER_INTERVAL_FMKOREA_SECONDS": "180"
+      },
+      "resource_settings_preserved": true,
+      "model_cpu": 0.2,
+      "model_start_below_host_cpu": 60,
+      "model_stop_at_host_cpu": 80,
+      "runtime_files": {
+        "crawlers/middlewares/flare_solver_middleware.py": "7a0f3e9e6790cfc571163f98fd23bde94ad2dd40c7c270e268ab494804b38a92",
+        "crawlers/tests/unit/test_flare_resources.py": "d9c72c78d67361e88f089a38051dad5426fa7947d2ef754e54eb7fc5efc7bebc",
+        "crawlers/tests/unit/test_selenium_resources.py": "3573424a73dec821fb354c1fa7c53a5c03fb0c52268b08634f094c149f7f1607",
+        "crawlers/tests/unit/test_run_queue.py": "cbf00dd57354959558e1a9c2d5ab13df158e9d0320ecab03d23fc5e759eeda48",
+        "crawlers/tests/unit/test_recovery_parsing.py": "adf877be7a268914a3c2c564ca3afa83be4c21577be473b40124d9ad10a8791e",
+        "crawlers/tests/unit/test_links.py": "6479a931ea8f5c85142498c68d579fe26e8622eb9339b4893db3f2c4a666ea03",
+        "crawlers/tests/settings.py": "2cbfb86777382a235a43c3b56cbb3186873271c1e1aeeeeb2a25069a77c4bbf6",
+        "crawlers/arca/spider/spider.py": "1afd2e9d44129553de820aaaf51ab27f98e7ac0cd6407cd4152acaef2eecec16"
+      },
+      "guard_sha256": "c26253d34764aadf996612f564515e1e7dd784968a816cf9ae710a32442a2147"
+    },
+    "sample_seconds": 300,
+    "sample_count": 60,
+    "cpu_mean": 63.62,
+    "cpu_min": 47.09,
+    "cpu_max": 93.12,
+    "cpu_p95": 75.42,
+    "memory_available_mb": 8716,
+    "db": {
+      "sites": [
+        {
+          "community_name": "ARCA",
+          "updated": 37,
+          "latest": "2026-09-20 02:38:28.774421+00:00"
+        },
+        {
+          "community_name": "EOMISAE",
+          "updated": 20,
+          "latest": "2026-09-20 02:33:30.833097+00:00"
+        },
+        {
+          "community_name": "FMKOREA",
+          "updated": 200,
+          "latest": "2026-09-20 02:38:33.510117+00:00"
+        },
+        {
+          "community_name": "PPOMPPU",
+          "updated": 85,
+          "latest": "2026-09-20 02:30:56.174791+00:00"
+        },
+        {
+          "community_name": "coolnjoy",
+          "updated": 120,
+          "latest": "2026-09-20 02:38:38.234476+00:00"
+        }
+      ],
+      "product_links_since_deploy": 8,
+      "product_backfill": {
+        "at": 1789871919.057077,
+        "phase": "model",
+        "total": 43733,
+        "errors": 0,
+        "linked": 1159,
+        "queued": 43225,
+        "review": 6739,
+        "ceiling": 133251,
+        "version": "products-5/product-extract-2",
+        "started_at": 1789823430.2535372,
+        "model_queued": 39,
+        "model_waiting": 35796,
+        "rules_checked": 43733,
+        "rules_pending": 0,
+        "stale_at_start": 43226,
+        "total_at_start": 43733,
+        "linked_at_start": 507,
+        "stale_remaining": 0,
+        "linked_since_start": 652,
+        "rules_completed_at": 1789828661.7567914
+      }
+    },
+    "queue_events": [
+      "[2026-09-20 11:27:09][fmkorea] start",
+      "[2026-09-20 11:27:09][coolnjoy] start",
+      "[2026-09-20 11:27:11][ppomppu] start",
+      "[2026-09-20 11:30:56][ppomppu] end exit=0 elapsed=225s",
+      "[2026-09-20 11:30:56][arca] start",
+      "[2026-09-20 11:32:29][coolnjoy] end exit=0 elapsed=319s",
+      "[2026-09-20 11:32:29][eomisae] start",
+      "[2026-09-20 11:33:31][eomisae] end exit=0 elapsed=62s",
+      "[2026-09-20 11:33:31][coolnjoy] start",
+      "[2026-09-20 11:38:33][fmkorea] end exit=0 elapsed=684s",
+      "[2026-09-20 11:38:33][eomisae] start"
+    ],
+    "crawl_stats": [
+      "'elapsed_time_seconds': 221.840684,",
+      "'finish_reason': 'finished',",
+      "'item_scraped_count': 86,",
+      "'elapsed_time_seconds': 317.08444,",
+      "'finish_reason': 'finished',",
+      "'item_scraped_count': 121,",
+      "'elapsed_time_seconds': 59.502823,",
+      "'finish_reason': 'finished',",
+      "'item_scraped_count': 20,"
+    ],
+    "errors": [
+      "Traceback (most recent call last):",
+      "Traceback (most recent call last):",
+      "Traceback (most recent call last):",
+      "Traceback (most recent call last):",
+      "Traceback (most recent call last):",
+      "Traceback (most recent call last):"
+    ],
+    "error_count": 6,
+    "containers": [
+      {
+        "name": "crawlers-bot",
+        "running": true,
+        "oom": false,
+        "started_at": "2026-09-20T02:27:07.981136674Z",
+        "restart_count": 0,
+        "cpu_limit": 1
+      },
+      {
+        "name": "flaresolverr",
+        "running": true,
+        "oom": false,
+        "started_at": "2026-09-20T02:27:01.639813263Z",
+        "restart_count": 0,
+        "cpu_limit": 0.75
+      },
+      {
+        "name": "geteverything-category-worker",
+        "running": true,
+        "oom": false,
+        "started_at": "2026-09-20T00:41:09.249357504Z",
+        "restart_count": 0,
+        "cpu_limit": 0.15
+      },
+      {
+        "name": "geteverything-category-model",
+        "running": true,
+        "oom": false,
+        "started_at": "2026-09-19T09:35:50.761305684Z",
+        "restart_count": 0,
+        "cpu_limit": 0.2
+      }
+    ],
+    "model_guard": {
+      "at": 1789871891.4854205,
+      "cpu_percent": 62.2,
+      "memory_available": 7956369408,
+      "pending": 40,
+      "model_enabled": true,
+      "training_active": false,
+      "low_count": 0,
+      "total": 112723400,
+      "idle": 29378974
+    },
+    "docker_stats": [
+      {
+        "BlockIO": "4.21MB / 1.41MB",
+        "CPUPerc": "2.37%",
+        "Container": "746b571a003699f5d50489fa42f1603ea479d7c1153e4b98a852be4b25605bcc",
+        "ID": "746b571a0036",
+        "MemPerc": "4.74%",
+        "MemUsage": "388.5MiB / 8GiB",
+        "Name": "crawlers-bot",
+        "NetIO": "0B / 0B",
+        "PIDs": "11"
+      },
+      {
+        "BlockIO": "0B / 1.72MB",
+        "CPUPerc": "0.00%",
+        "Container": "5456abf0b8a6bd72bdbec3249aff8669b4559358a4e9c64cf64d3ebeee13b8ef",
+        "ID": "5456abf0b8a6",
+        "MemPerc": "25.87%",
+        "MemUsage": "49.68MiB / 192MiB",
+        "Name": "geteverything-category-worker",
+        "NetIO": "0B / 0B",
+        "PIDs": "4"
+      },
+      {
+        "BlockIO": "143kB / 0B",
+        "CPUPerc": "19.61%",
+        "Container": "6fe731223f5aaa9e25b1a89dc321e39c402d729183c92bc824bcbb3057c79afc",
+        "ID": "6fe731223f5a",
+        "MemPerc": "52.91%",
+        "MemUsage": "1.587GiB / 3GiB",
+        "Name": "geteverything-category-model",
+        "NetIO": "0B / 0B",
+        "PIDs": "11"
+      },
+      {
+        "BlockIO": "614kB / 0B",
+        "CPUPerc": "0.00%",
+        "Container": "f0a33336fd89673c7e4702f62cdbc564038e07c4f367503b36a7082aac069bc9",
+        "ID": "f0a33336fd89",
+        "MemPerc": "3.05%",
+        "MemUsage": "3.91MiB / 128MiB",
+        "Name": "ppomppu-vpn",
+        "NetIO": "2.56GB / 1.66GB",
+        "PIDs": "3"
+      },
+      {
+        "BlockIO": "84.4MB / 0B",
+        "CPUPerc": "0.01%",
+        "Container": "2a7f6c5e4372b59e9bca5d85cae734afe726430f9319925a29b3ba39007f80d6",
+        "ID": "2a7f6c5e4372",
+        "MemPerc": "38.40%",
+        "MemUsage": "393.2MiB / 1GiB",
+        "Name": "flaresolverr",
+        "NetIO": "17MB / 750kB",
+        "PIDs": "103"
+      }
+    ],
+    "samples": [
+      {
+        "at": 1789871621.0288973,
+        "cpu_percent": 61.58,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871626.0291772,
+        "cpu_percent": 61,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871631.029857,
+        "cpu_percent": 61.84,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871636.0301526,
+        "cpu_percent": 58.18,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871641.0305314,
+        "cpu_percent": 62.01,
+        "iowait_percent": 0.1
+      },
+      {
+        "at": 1789871646.0308785,
+        "cpu_percent": 61.91,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871651.0318792,
+        "cpu_percent": 66.37,
+        "iowait_percent": 0.1
+      },
+      {
+        "at": 1789871656.0322547,
+        "cpu_percent": 62.1,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871661.0325801,
+        "cpu_percent": 63.88,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871666.0328777,
+        "cpu_percent": 62.74,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871671.033165,
+        "cpu_percent": 61.04,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871676.0336843,
+        "cpu_percent": 60.98,
+        "iowait_percent": 0.1
+      },
+      {
+        "at": 1789871681.0341046,
+        "cpu_percent": 67.07,
+        "iowait_percent": 0.3
+      },
+      {
+        "at": 1789871686.034403,
+        "cpu_percent": 60.97,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871691.0347126,
+        "cpu_percent": 57.07,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871696.0350041,
+        "cpu_percent": 63.26,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871701.0358946,
+        "cpu_percent": 58.62,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871706.0362086,
+        "cpu_percent": 60.9,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871711.0366607,
+        "cpu_percent": 62.01,
+        "iowait_percent": 0.1
+      },
+      {
+        "at": 1789871716.0369406,
+        "cpu_percent": 65.51,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871721.0372334,
+        "cpu_percent": 61.96,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871726.037891,
+        "cpu_percent": 63.14,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871731.038176,
+        "cpu_percent": 62.5,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871736.0385296,
+        "cpu_percent": 60.88,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871741.0389876,
+        "cpu_percent": 65.7,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871746.0392814,
+        "cpu_percent": 60.78,
+        "iowait_percent": 0.4
+      },
+      {
+        "at": 1789871751.039749,
+        "cpu_percent": 64.84,
+        "iowait_percent": 0.3
+      },
+      {
+        "at": 1789871756.0400562,
+        "cpu_percent": 61.08,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871761.0403721,
+        "cpu_percent": 61.74,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871766.0408804,
+        "cpu_percent": 60.6,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871771.0412853,
+        "cpu_percent": 63.79,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871776.0416055,
+        "cpu_percent": 62.15,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871781.0422308,
+        "cpu_percent": 61.22,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871786.0428598,
+        "cpu_percent": 64.88,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871791.0431452,
+        "cpu_percent": 61,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871796.0434387,
+        "cpu_percent": 65.5,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871801.0438583,
+        "cpu_percent": 63.54,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871806.0441937,
+        "cpu_percent": 60.68,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871811.0448976,
+        "cpu_percent": 65.8,
+        "iowait_percent": 0.2
+      },
+      {
+        "at": 1789871816.0459113,
+        "cpu_percent": 61.14,
+        "iowait_percent": 0.1
+      },
+      {
+        "at": 1789871821.046216,
+        "cpu_percent": 57.76,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871826.0468862,
+        "cpu_percent": 61.81,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871831.0473363,
+        "cpu_percent": 62.05,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871836.047669,
+        "cpu_percent": 61,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871841.0479803,
+        "cpu_percent": 64.21,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871846.0482996,
+        "cpu_percent": 63.91,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871851.0486183,
+        "cpu_percent": 58.68,
+        "iowait_percent": 0.1
+      },
+      {
+        "at": 1789871856.049865,
+        "cpu_percent": 61.32,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871861.0503225,
+        "cpu_percent": 65.37,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871866.05068,
+        "cpu_percent": 59.86,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871871.0509422,
+        "cpu_percent": 60.08,
+        "iowait_percent": 0.1
+      },
+      {
+        "at": 1789871876.0512419,
+        "cpu_percent": 66.33,
+        "iowait_percent": 0.3
+      },
+      {
+        "at": 1789871881.0515835,
+        "cpu_percent": 61.03,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871886.0519195,
+        "cpu_percent": 61.02,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871891.0529,
+        "cpu_percent": 61.96,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871896.0531936,
+        "cpu_percent": 75.42,
+        "iowait_percent": 0.2
+      },
+      {
+        "at": 1789871901.0534904,
+        "cpu_percent": 93.12,
+        "iowait_percent": 2.29
+      },
+      {
+        "at": 1789871906.053798,
+        "cpu_percent": 90.51,
+        "iowait_percent": 5.49
+      },
+      {
+        "at": 1789871911.0541003,
+        "cpu_percent": 92.91,
+        "iowait_percent": 0
+      },
+      {
+        "at": 1789871916.0544007,
+        "cpu_percent": 47.09,
+        "iowait_percent": 0
+      }
+    ],
+    "runtime_hashes_match": true
+  },
+  "final_window": {
+    "at": 1789873169.3299558,
+    "since": "2026-09-20T02:27:08.206930+00:00",
+    "cpu": {
+      "samples": 58,
+      "mean": 52.78,
+      "min": 13.2,
+      "max": 73.3,
+      "p95": 64.9,
+      "raw": [
+        {
+          "at": 1789871296.9742608,
+          "cpu_percent": 61.6,
+          "memory_available": 8878723072,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789871329.9938262,
+          "cpu_percent": 59.3,
+          "memory_available": 8737517568,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 1
+        },
+        {
+          "at": 1789871364.4890032,
+          "cpu_percent": 61.4,
+          "memory_available": 8646156288,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789871395.3845887,
+          "cpu_percent": 60.5,
+          "memory_available": 8583360512,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789871426.4823494,
+          "cpu_percent": 61.4,
+          "memory_available": 8541089792,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789871459.6172912,
+          "cpu_percent": 62.3,
+          "memory_available": 8204636160,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789871494.540027,
+          "cpu_percent": 73.3,
+          "memory_available": 8060030976,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789871526.5025597,
+          "cpu_percent": 63.2,
+          "memory_available": 8068108288,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789871561.5499074,
+          "cpu_percent": 64.9,
+          "memory_available": 8077611008,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789871592.382281,
+          "cpu_percent": 62.3,
+          "memory_available": 8042102784,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789871626.6283605,
+          "cpu_percent": 62,
+          "memory_available": 8017932288,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789871656.733929,
+          "cpu_percent": 62.3,
+          "memory_available": 7993397248,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789871691.6992018,
+          "cpu_percent": 62,
+          "memory_available": 7980433408,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789871725.0916936,
+          "cpu_percent": 61.8,
+          "memory_available": 7971323904,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789871756.4764361,
+          "cpu_percent": 62.8,
+          "memory_available": 7971446784,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789871791.4745786,
+          "cpu_percent": 62.2,
+          "memory_available": 7950323712,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789871822.2311692,
+          "cpu_percent": 62.4,
+          "memory_available": 7968796672,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789871856.4918215,
+          "cpu_percent": 61.9,
+          "memory_available": 7948312576,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789871891.4854205,
+          "cpu_percent": 62.2,
+          "memory_available": 7956369408,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789871921.5185134,
+          "cpu_percent": 69.8,
+          "memory_available": 9139929088,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789871956.4675088,
+          "cpu_percent": 17.8,
+          "memory_available": 9362636800,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 1
+        },
+        {
+          "at": 1789871987.086333,
+          "cpu_percent": 13.9,
+          "memory_available": 9458868224,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 2
+        },
+        {
+          "at": 1789872019.9822152,
+          "cpu_percent": 15.4,
+          "memory_available": 9344839680,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 3
+        },
+        {
+          "at": 1789872050.4688983,
+          "cpu_percent": 14.1,
+          "memory_available": 9237667840,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 4
+        },
+        {
+          "at": 1789872085.4714491,
+          "cpu_percent": 14.5,
+          "memory_available": 9215365120,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 5
+        },
+        {
+          "at": 1789872115.9877489,
+          "cpu_percent": 15.8,
+          "memory_available": 9212604416,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 6
+        },
+        {
+          "at": 1789872146.4658885,
+          "cpu_percent": 14,
+          "memory_available": 9207025664,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 7
+        },
+        {
+          "at": 1789872179.4768977,
+          "cpu_percent": 15.1,
+          "memory_available": 9187131392,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 8
+        },
+        {
+          "at": 1789872214.4664488,
+          "cpu_percent": 13.2,
+          "memory_available": 9206763520,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 9
+        },
+        {
+          "at": 1789872244.476435,
+          "cpu_percent": 15.3,
+          "memory_available": 9193541632,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 10
+        },
+        {
+          "at": 1789872276.468441,
+          "cpu_percent": 13.8,
+          "memory_available": 9202094080,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 11
+        },
+        {
+          "at": 1789872306.5985374,
+          "cpu_percent": 14.7,
+          "memory_available": 9190576128,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 12
+        },
+        {
+          "at": 1789872341.479183,
+          "cpu_percent": 53.7,
+          "memory_available": 8751710208,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 13
+        },
+        {
+          "at": 1789872374.5425966,
+          "cpu_percent": 64,
+          "memory_available": 8472309760,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789872406.4940574,
+          "cpu_percent": 60.5,
+          "memory_available": 8413667328,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789872437.6901422,
+          "cpu_percent": 62.5,
+          "memory_available": 8300978176,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789872472.4878736,
+          "cpu_percent": 63.7,
+          "memory_available": 8074932224,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789872502.5344384,
+          "cpu_percent": 61.8,
+          "memory_available": 8044273664,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789872536.4882286,
+          "cpu_percent": 62.1,
+          "memory_available": 8050106368,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789872567.534606,
+          "cpu_percent": 62.3,
+          "memory_available": 7960252416,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789872602.4960194,
+          "cpu_percent": 62.7,
+          "memory_available": 7976562688,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789872632.5571086,
+          "cpu_percent": 63.1,
+          "memory_available": 7952617472,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789872662.7540197,
+          "cpu_percent": 62.7,
+          "memory_available": 7981023232,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789872693.4769418,
+          "cpu_percent": 61.7,
+          "memory_available": 7992123392,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789872723.6286821,
+          "cpu_percent": 64,
+          "memory_available": 7978614784,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789872756.481988,
+          "cpu_percent": 62.3,
+          "memory_available": 8054198272,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789872787.978716,
+          "cpu_percent": 65.3,
+          "memory_available": 8016678912,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789872818.4917226,
+          "cpu_percent": 62.3,
+          "memory_available": 7997919232,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789872853.4857936,
+          "cpu_percent": 63.7,
+          "memory_available": 7994871808,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789872885.7202752,
+          "cpu_percent": 62.6,
+          "memory_available": 7937929216,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789872916.4712236,
+          "cpu_percent": 63,
+          "memory_available": 8447791104,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789872948.1933112,
+          "cpu_percent": 62.1,
+          "memory_available": 8549662720,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789872980.0320318,
+          "cpu_percent": 63.2,
+          "memory_available": 8330330112,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789873012.3981678,
+          "cpu_percent": 61.8,
+          "memory_available": 8211185664,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789873042.8883486,
+          "cpu_percent": 64.2,
+          "memory_available": 8754278400,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789873076.4754274,
+          "cpu_percent": 63,
+          "memory_available": 8547635200,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789873111.483469,
+          "cpu_percent": 63.1,
+          "memory_available": 8790298624,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        },
+        {
+          "at": 1789873141.5561583,
+          "cpu_percent": 62.5,
+          "memory_available": 8868290560,
+          "pending": 40,
+          "model_enabled": true,
+          "training_active": false,
+          "low_count": 0
+        }
+      ]
+    },
+    "old_ppomppu_error_evidence": [
+      "TypeError: 'NoneType' object is not subscriptable",
+      "TypeError: 'NoneType' object is not subscriptable",
+      "2026-09-20 10:58:56 [scrapy.core.scraper] ERROR: Spider error processing <GET https://www.ppomppu.co.kr/zboard/zboard.php?id=ppomppu&page=2&divpage=96> (referer: None)",
+      "TypeError: 'NoneType' object is not subscriptable",
+      "TypeError: 'NoneType' object is not subscriptable",
+      "2026-09-20 11:14:44 [scrapy.core.scraper] ERROR: Spider error processing <GET https://www.ppomppu.co.kr/zboard/zboard.php?id=ppomppu&page=1&divpage=96> (referer: None)",
+      "TypeError: 'NoneType' object is not subscriptable",
+      "TypeError: 'NoneType' object is not subscriptable",
+      "2026-09-20 11:14:46 [scrapy.core.scraper] ERROR: Spider error processing <GET https://www.ppomppu.co.kr/zboard/zboard.php?id=ppomppu&page=2&divpage=96> (referer: None)",
+      "TypeError: 'NoneType' object is not subscriptable"
+    ],
+    "old_ppomppu_error_line_count": 30,
+    "queue": [
+      "[2026-09-20 11:27:09][fmkorea] start",
+      "[2026-09-20 11:27:09][coolnjoy] start",
+      "[2026-09-20 11:27:11][ppomppu] start",
+      "[2026-09-20 11:30:56][ppomppu] end exit=0 elapsed=225s",
+      "[2026-09-20 11:30:56][arca] start",
+      "[2026-09-20 11:32:29][coolnjoy] end exit=0 elapsed=319s",
+      "[2026-09-20 11:32:29][eomisae] start",
+      "[2026-09-20 11:33:31][eomisae] end exit=0 elapsed=62s",
+      "[2026-09-20 11:33:31][coolnjoy] start",
+      "[2026-09-20 11:38:33][fmkorea] end exit=0 elapsed=684s",
+      "[2026-09-20 11:38:33][eomisae] start",
+      "[2026-09-20 11:38:56][coolnjoy] end exit=0 elapsed=325s",
+      "[2026-09-20 11:39:37][eomisae] end exit=0 elapsed=63s",
+      "[2026-09-20 11:39:57][coolnjoy] start",
+      "[2026-09-20 11:40:37][eomisae] start",
+      "[2026-09-20 11:41:38][eomisae] end exit=0 elapsed=61s",
+      "[2026-09-20 11:41:38][ppomppu] start",
+      "[2026-09-20 11:45:12][coolnjoy] end exit=0 elapsed=315s",
+      "[2026-09-20 11:45:12][fmkorea] start",
+      "[2026-09-20 11:45:48][ppomppu] end exit=0 elapsed=249s",
+      "[2026-09-20 11:45:48][eomisae] start",
+      "[2026-09-20 11:46:53][eomisae] end exit=0 elapsed=65s",
+      "[2026-09-20 11:46:53][coolnjoy] start",
+      "[2026-09-20 11:52:20][coolnjoy] end exit=0 elapsed=326s",
+      "[2026-09-20 11:52:20][eomisae] start",
+      "[2026-09-20 11:53:21][eomisae] end exit=0 elapsed=61s",
+      "[2026-09-20 11:53:21][coolnjoy] start",
+      "[2026-09-20 11:57:12][arca] end exit=0 elapsed=1575s",
+      "[2026-09-20 11:57:12][eomisae] start",
+      "[2026-09-20 11:58:17][eomisae] end exit=0 elapsed=64s",
+      "[2026-09-20 11:58:17][ppomppu] start",
+      "[2026-09-20 11:58:44][coolnjoy] end exit=0 elapsed=322s",
+      "[2026-09-20 11:59:17][eomisae] start"
+    ],
+    "arca_cycle_complete": true,
+    "flare_requests": [
+      "2026-09-20 11:30:58 INFO     Incoming request => POST /v1 body: {'cmd': 'request.get', 'url': 'https://arca.live/b/hotdeal?p=1', 'session': 'geteverything-1105da86aede453078ce', 'session_ttl_minutes': 10, 'maxTimeout': 60000}",
+      "2026-09-20 11:31:03 INFO     Challenge detected. Title found: Just a moment...",
+      "2026-09-20 11:31:15 INFO     Response in 16.265 s",
+      "2026-09-20 11:31:15 INFO     Incoming request => POST /v1 body: {'cmd': 'request.get', 'url': 'about:blank', 'session': 'geteverything-1105da86aede453078ce', 'maxTimeout': 5000}",
+      "2026-09-20 11:31:15 INFO     Response in 0.375 s",
+      "2026-09-20 11:57:11 INFO     Incoming request => POST /v1 body: {'cmd': 'sessions.destroy', 'session': 'geteverything-1105da86aede453078ce'}",
+      "2026-09-20 11:57:11 INFO     Response in 0.126 s"
+    ],
+    "stats": [
+      " 'elapsed_time_seconds': 221.840684,",
+      " 'finish_reason': 'finished',",
+      " 'item_scraped_count': 86,",
+      " 'elapsed_time_seconds': 317.08444,",
+      " 'finish_reason': 'finished',",
+      " 'item_scraped_count': 121,",
+      " 'elapsed_time_seconds': 59.502823,",
+      " 'finish_reason': 'finished',",
+      " 'item_scraped_count': 20,",
+      " 'elapsed_time_seconds': 322.807173,",
+      " 'finish_reason': 'finished',",
+      " 'item_scraped_count': 121,",
+      " 'elapsed_time_seconds': 61.819671,",
+      " 'finish_reason': 'finished',",
+      " 'item_scraped_count': 20,",
+      " 'elapsed_time_seconds': 60.50399,",
+      " 'finish_reason': 'finished',",
+      " 'item_scraped_count': 20,",
+      " 'elapsed_time_seconds': 314.390422,",
+      " 'finish_reason': 'finished',",
+      " 'item_scraped_count': 121,",
+      " 'elapsed_time_seconds': 247.383786,",
+      " 'finish_reason': 'finished',",
+      " 'item_scraped_count': 96,",
+      " 'elapsed_time_seconds': 62.440194,",
+      " 'finish_reason': 'finished',",
+      " 'item_scraped_count': 20,",
+      " 'elapsed_time_seconds': 323.402059,",
+      " 'finish_reason': 'finished',",
+      " 'item_scraped_count': 121,",
+      " 'elapsed_time_seconds': 58.974644,",
+      " 'finish_reason': 'finished',",
+      " 'item_scraped_count': 20,",
+      " 'elapsed_time_seconds': 1572.526355,",
+      " 'finish_reason': 'finished',",
+      " 'flare/browser_requests': 1,",
+      " 'flare/browser_success': 1,",
+      " 'flare/documents_released': 1,",
+      " 'flare/http_attempts': 133,",
+      " 'flare/http_success': 133,",
+      " 'flare/sessions_closed': 1,",
+      " 'item_scraped_count': 129,",
+      " 'elapsed_time_seconds': 61.528845,",
+      " 'finish_reason': 'finished',",
+      " 'item_scraped_count': 20,",
+      " 'elapsed_time_seconds': 319.995552,",
+      " 'finish_reason': 'finished',",
+      " 'item_scraped_count': 121,"
+    ]
+  },
+  "verification": {
+    "at": 1789873177.5455482,
+    "deployment": {
+      "at": 1789871228.2069302,
+      "crawler_image": "sha256:ad92e3baafe1420d884fb56513d8fc3b288460fc937ec7ff883873ef9a6f2ce2",
+      "previous_image": "sha256:4d793e1c890da89ec95f3593f52b4edd6fb02b1fa0f48d5d5062d566c47919bd",
+      "previous_container": "crawlers-bot-before-efficiency-20260920",
+      "crawler_started_at": "2026-09-20T02:27:07.981136674Z",
+      "restart_seconds": 22.51,
+      "intervals": {
+        "CRAWLER_INTERVAL_ARCA_SECONDS": "600",
+        "CRAWLER_INTERVAL_FMKOREA_SECONDS": "180"
+      },
+      "resource_settings_preserved": true,
+      "model_cpu": 0.2,
+      "model_start_below_host_cpu": 60,
+      "model_stop_at_host_cpu": 80,
+      "runtime_files": {
+        "crawlers/middlewares/flare_solver_middleware.py": "7a0f3e9e6790cfc571163f98fd23bde94ad2dd40c7c270e268ab494804b38a92",
+        "crawlers/tests/unit/test_flare_resources.py": "d9c72c78d67361e88f089a38051dad5426fa7947d2ef754e54eb7fc5efc7bebc",
+        "crawlers/tests/unit/test_selenium_resources.py": "3573424a73dec821fb354c1fa7c53a5c03fb0c52268b08634f094c149f7f1607",
+        "crawlers/tests/unit/test_run_queue.py": "cbf00dd57354959558e1a9c2d5ab13df158e9d0320ecab03d23fc5e759eeda48",
+        "crawlers/tests/unit/test_recovery_parsing.py": "adf877be7a268914a3c2c564ca3afa83be4c21577be473b40124d9ad10a8791e",
+        "crawlers/tests/unit/test_links.py": "6479a931ea8f5c85142498c68d579fe26e8622eb9339b4893db3f2c4a666ea03",
+        "crawlers/tests/settings.py": "2cbfb86777382a235a43c3b56cbb3186873271c1e1aeeeeb2a25069a77c4bbf6",
+        "crawlers/arca/spider/spider.py": "1afd2e9d44129553de820aaaf51ab27f98e7ac0cd6407cd4152acaef2eecec16"
+      },
+      "guard_sha256": "c26253d34764aadf996612f564515e1e7dd784968a816cf9ae710a32442a2147"
+    },
+    "sample_seconds": 0,
+    "sample_count": 0,
+    "cpu_mean": null,
+    "cpu_min": null,
+    "cpu_max": null,
+    "cpu_p95": null,
+    "memory_available_mb": 8390,
+    "db": {
+      "sites": [
+        {
+          "community_name": "ARCA",
+          "updated": 124,
+          "latest": "2026-09-20 02:57:11.425377+00:00"
+        },
+        {
+          "community_name": "EOMISAE",
+          "updated": 22,
+          "latest": "2026-09-20 02:59:35.057071+00:00"
+        },
+        {
+          "community_name": "FMKOREA",
+          "updated": 200,
+          "latest": "2026-09-20 02:56:44.889947+00:00"
+        },
+        {
+          "community_name": "PPOMPPU",
+          "updated": 104,
+          "latest": "2026-09-20 02:59:34.999420+00:00"
+        },
+        {
+          "community_name": "coolnjoy",
+          "updated": 121,
+          "latest": "2026-09-20 02:58:43.398953+00:00"
+        }
+      ],
+      "product_links_since_deploy": 28,
+      "product_backfill": {
+        "at": 1789873166.57907,
+        "phase": "model",
+        "total": 43733,
+        "errors": 0,
+        "linked": 1175,
+        "queued": 43225,
+        "review": 6746,
+        "ceiling": 133251,
+        "version": "products-5/product-extract-2",
+        "started_at": 1789823430.2535372,
+        "model_queued": 40,
+        "model_waiting": 35772,
+        "rules_checked": 43733,
+        "rules_pending": 0,
+        "stale_at_start": 43226,
+        "total_at_start": 43733,
+        "linked_at_start": 507,
+        "stale_remaining": 0,
+        "linked_since_start": 668,
+        "rules_completed_at": 1789828661.7567914
+      }
+    },
+    "queue_events": [
+      "[2026-09-20 11:30:56][ppomppu] end exit=0 elapsed=225s",
+      "[2026-09-20 11:30:56][arca] start",
+      "[2026-09-20 11:32:29][coolnjoy] end exit=0 elapsed=319s",
+      "[2026-09-20 11:32:29][eomisae] start",
+      "[2026-09-20 11:33:31][eomisae] end exit=0 elapsed=62s",
+      "[2026-09-20 11:33:31][coolnjoy] start",
+      "[2026-09-20 11:38:33][fmkorea] end exit=0 elapsed=684s",
+      "[2026-09-20 11:38:33][eomisae] start",
+      "[2026-09-20 11:38:56][coolnjoy] end exit=0 elapsed=325s",
+      "[2026-09-20 11:39:37][eomisae] end exit=0 elapsed=63s",
+      "[2026-09-20 11:39:57][coolnjoy] start",
+      "[2026-09-20 11:40:37][eomisae] start",
+      "[2026-09-20 11:41:38][eomisae] end exit=0 elapsed=61s",
+      "[2026-09-20 11:41:38][ppomppu] start",
+      "[2026-09-20 11:45:12][coolnjoy] end exit=0 elapsed=315s",
+      "[2026-09-20 11:45:12][fmkorea] start",
+      "[2026-09-20 11:45:48][ppomppu] end exit=0 elapsed=249s",
+      "[2026-09-20 11:45:48][eomisae] start",
+      "[2026-09-20 11:46:53][eomisae] end exit=0 elapsed=65s",
+      "[2026-09-20 11:46:53][coolnjoy] start",
+      "[2026-09-20 11:52:20][coolnjoy] end exit=0 elapsed=326s",
+      "[2026-09-20 11:52:20][eomisae] start",
+      "[2026-09-20 11:53:21][eomisae] end exit=0 elapsed=61s",
+      "[2026-09-20 11:53:21][coolnjoy] start",
+      "[2026-09-20 11:57:12][arca] end exit=0 elapsed=1575s",
+      "[2026-09-20 11:57:12][eomisae] start",
+      "[2026-09-20 11:58:17][eomisae] end exit=0 elapsed=64s",
+      "[2026-09-20 11:58:17][ppomppu] start",
+      "[2026-09-20 11:58:44][coolnjoy] end exit=0 elapsed=322s",
+      "[2026-09-20 11:59:17][eomisae] start"
+    ],
+    "crawl_stats": [
+      "'elapsed_time_seconds': 317.08444,",
+      "'finish_reason': 'finished',",
+      "'item_scraped_count': 121,",
+      "'elapsed_time_seconds': 59.502823,",
+      "'finish_reason': 'finished',",
+      "'item_scraped_count': 20,",
+      "'elapsed_time_seconds': 322.807173,",
+      "'finish_reason': 'finished',",
+      "'item_scraped_count': 121,",
+      "'elapsed_time_seconds': 61.819671,",
+      "'finish_reason': 'finished',",
+      "'item_scraped_count': 20,",
+      "'elapsed_time_seconds': 60.50399,",
+      "'finish_reason': 'finished',",
+      "'item_scraped_count': 20,",
+      "'elapsed_time_seconds': 314.390422,",
+      "'finish_reason': 'finished',",
+      "'item_scraped_count': 121,",
+      "'elapsed_time_seconds': 247.383786,",
+      "'finish_reason': 'finished',",
+      "'item_scraped_count': 96,",
+      "'elapsed_time_seconds': 62.440194,",
+      "'finish_reason': 'finished',",
+      "'item_scraped_count': 20,",
+      "'elapsed_time_seconds': 323.402059,",
+      "'finish_reason': 'finished',",
+      "'item_scraped_count': 121,",
+      "'elapsed_time_seconds': 58.974644,",
+      "'finish_reason': 'finished',",
+      "'item_scraped_count': 20,",
+      "'elapsed_time_seconds': 1572.526355,",
+      "'finish_reason': 'finished',",
+      "'flare/browser_requests': 1,",
+      "'flare/browser_success': 1,",
+      "'flare/documents_released': 1,",
+      "'flare/http_attempts': 133,",
+      "'flare/http_success': 133,",
+      "'flare/sessions_closed': 1,",
+      "'item_scraped_count': 129,",
+      "'elapsed_time_seconds': 61.528845,",
+      "'finish_reason': 'finished',",
+      "'item_scraped_count': 20,",
+      "'elapsed_time_seconds': 319.995552,",
+      "'finish_reason': 'finished',",
+      "'item_scraped_count': 121,"
+    ],
+    "errors": [
+      "Traceback (most recent call last):",
+      "Traceback (most recent call last):",
+      "Traceback (most recent call last):",
+      "Traceback (most recent call last):",
+      "Traceback (most recent call last):",
+      "Traceback (most recent call last):",
+      "Traceback (most recent call last):",
+      "Traceback (most recent call last):",
+      "Traceback (most recent call last):",
+      "Traceback (most recent call last):",
+      "Traceback (most recent call last):",
+      "Traceback (most recent call last):"
+    ],
+    "error_count": 12,
+    "containers": [
+      {
+        "name": "crawlers-bot",
+        "running": true,
+        "oom": false,
+        "started_at": "2026-09-20T02:27:07.981136674Z",
+        "restart_count": 0,
+        "cpu_limit": 1
+      },
+      {
+        "name": "flaresolverr",
+        "running": true,
+        "oom": false,
+        "started_at": "2026-09-20T02:27:01.639813263Z",
+        "restart_count": 0,
+        "cpu_limit": 0.75
+      },
+      {
+        "name": "geteverything-category-worker",
+        "running": true,
+        "oom": false,
+        "started_at": "2026-09-20T00:41:09.249357504Z",
+        "restart_count": 0,
+        "cpu_limit": 0.15
+      },
+      {
+        "name": "geteverything-category-model",
+        "running": true,
+        "oom": false,
+        "started_at": "2026-09-19T09:35:50.761305684Z",
+        "restart_count": 0,
+        "cpu_limit": 0.2
+      }
+    ],
+    "model_guard": {
+      "at": 1789873176.4692864,
+      "cpu_percent": 69,
+      "memory_available": 8761868288,
+      "pending": 40,
+      "model_enabled": true,
+      "training_active": false,
+      "low_count": 0,
+      "total": 112980797,
+      "idle": 29511508
+    },
+    "docker_stats": [
+      {
+        "BlockIO": "4.21MB / 1.43MB",
+        "CPUPerc": "97.50%",
+        "Container": "746b571a003699f5d50489fa42f1603ea479d7c1153e4b98a852be4b25605bcc",
+        "ID": "746b571a0036",
+        "MemPerc": "12.82%",
+        "MemUsage": "1.025GiB / 8GiB",
+        "Name": "crawlers-bot",
+        "NetIO": "0B / 0B",
+        "PIDs": "67"
+      },
+      {
+        "BlockIO": "0B / 2.04MB",
+        "CPUPerc": "0.00%",
+        "Container": "5456abf0b8a6bd72bdbec3249aff8669b4559358a4e9c64cf64d3ebeee13b8ef",
+        "ID": "5456abf0b8a6",
+        "MemPerc": "26.03%",
+        "MemUsage": "49.97MiB / 192MiB",
+        "Name": "geteverything-category-worker",
+        "NetIO": "0B / 0B",
+        "PIDs": "4"
+      },
+      {
+        "BlockIO": "143kB / 0B",
+        "CPUPerc": "20.09%",
+        "Container": "6fe731223f5aaa9e25b1a89dc321e39c402d729183c92bc824bcbb3057c79afc",
+        "ID": "6fe731223f5a",
+        "MemPerc": "52.91%",
+        "MemUsage": "1.587GiB / 3GiB",
+        "Name": "geteverything-category-model",
+        "NetIO": "0B / 0B",
+        "PIDs": "11"
+      },
+      {
+        "BlockIO": "614kB / 0B",
+        "CPUPerc": "0.03%",
+        "Container": "f0a33336fd89673c7e4702f62cdbc564038e07c4f367503b36a7082aac069bc9",
+        "ID": "f0a33336fd89",
+        "MemPerc": "3.23%",
+        "MemUsage": "4.133MiB / 128MiB",
+        "Name": "ppomppu-vpn",
+        "NetIO": "2.57GB / 1.66GB",
+        "PIDs": "3"
+      },
+      {
+        "BlockIO": "85.7MB / 0B",
+        "CPUPerc": "0.01%",
+        "Container": "2a7f6c5e4372b59e9bca5d85cae734afe726430f9319925a29b3ba39007f80d6",
+        "ID": "2a7f6c5e4372",
+        "MemPerc": "11.18%",
+        "MemUsage": "114.5MiB / 1GiB",
+        "Name": "flaresolverr",
+        "NetIO": "17MB / 796kB",
+        "PIDs": "7"
+      }
+    ],
+    "samples": [],
+    "runtime_hashes_match": true
+  },
+  "arca": {
+    "previous_cycle_seconds": 2328,
+    "previous_items": 128,
+    "previous_http_403": 132,
+    "after_cycle_seconds": 1575,
+    "after_items": 129,
+    "browser_requests": 1,
+    "http_success": 133,
+    "browser_errors": 0,
+    "http_blocked": 0,
+    "documents_released": 1,
+    "sessions_closed": 1,
+    "finish_events": [
+      "[2026-09-20 11:57:12][arca] end exit=0 elapsed=1575s"
+    ],
+    "stats_lines": [
+      "{'downloader/request_bytes': 310701,",
+      " 'downloader/request_count': 133,",
+      " 'downloader/request_method_count/GET': 133,",
+      " 'downloader/response_bytes': 3026559,",
+      " 'downloader/response_count': 134,",
+      " 'downloader/response_status_count/200': 134,",
+      " 'dupefilter/filtered': 1,",
+      " 'elapsed_time_seconds': 1572.526355,",
+      " 'finish_reason': 'finished',",
+      " 'finish_time': datetime.datetime(2026, 9, 20, 2, 57, 11, 438652, tzinfo=datetime.timezone.utc),",
+      " 'flare/browser_requests': 1,",
+      " 'flare/browser_success': 1,",
+      " 'flare/documents_released': 1,",
+      " 'flare/http_attempts': 133,",
+      " 'flare/http_success': 133,",
+      " 'flare/sessions_closed': 1,",
+      " 'httpcompression/response_bytes': 21999127,",
+      " 'httpcompression/response_count': 133,",
+      " 'item_scraped_count': 129,",
+      " 'log_count/DEBUG': 265,",
+      " 'log_count/INFO': 36,",
+      " 'log_count/WARNING': 2,",
+      " 'memusage/max': 164859904,",
+      " 'memusage/startup': 109875200,",
+      " 'request_depth_max': 1,",
+      " 'response_received_count': 134,",
+      " 'scheduler/dequeued': 134,",
+      " 'scheduler/dequeued/memory': 134,",
+      " 'scheduler/enqueued': 134,",
+      " 'scheduler/enqueued/memory': 134,",
+      " 'start_time': datetime.datetime(2026, 9, 20, 2, 30, 58, 912297, tzinfo=datetime.timezone.utc)}",
+      "{'article_id': '3557734',",
+      " 'category': 'PC관련',",
+      " 'origin_url': 'https://coolenjoy.net/bbs/jirum/3557734?page=2',",
+      " 'price': '197,100원',",
+      " 'recommend_count': '2',",
+      " 'shop_url_1': 'https://www.seorinexpress.com/goods/event_sale.php?sno=267',",
+      " 'thumbnail': 'https://photo.coolenjoy.co.kr/data/editor/2609/thumb-c7d8ef797611e08cc7d45a595555ae6b88fd1ba5.png',",
+      " 'view_count': 4575,",
+      " 'write_at': datetime.datetime(2026, 9, 17, 18, 20)}",
+      "{'article_id': '3557735',",
+      " 'category': 'PC관련',",
+      " 'origin_url': 'https://coolenjoy.net/bbs/jirum/3557735?page=2',",
+      " 'price': '99,000원',",
+      " 'recommend_count': '3',"
+    ]
+  }
+}

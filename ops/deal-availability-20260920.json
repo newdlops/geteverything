@@ -1,0 +1,1155 @@
+{
+  "initial_verification": {
+    "at": 1789876751.0369155,
+    "deployment": {
+      "at": 1789876565.3800163,
+      "crawler_image": "sha256:4d88e54162f6bdbb623ff9a00ae4b097bade3f542acd778178f8e3a6c32862b3",
+      "previous_image": "sha256:ad92e3baafe1420d884fb56513d8fc3b288460fc937ec7ff883873ef9a6f2ce2",
+      "previous_container": "crawlers-bot-before-availability-20260920",
+      "started_at": "2026-09-20T03:56:05.222913532Z",
+      "restart_seconds": 1.77,
+      "settings_preserved": true,
+      "rechecks_per_site_cycle": 5,
+      "runtime_files": {
+        "crawlers/availability.py": "83206fbb8610543693cace5a3e00f876eeb7ea8ff4f9eebcf4092690a8b6ed40",
+        "crawlers/availability_store.py": "2511d0f022d44bcc612d48db5c6473041231341edca199c48d6d9d3319cdd596",
+        "crawlers/pipelines.py": "7e62d88d291cf69d3f25bdfc5222e71a943bcbb2bc13469b3d11962fb50de5a6",
+        "crawlers/arca/spider/spider.py": "97d99539c6f046026bbdf0d2a43bd964e2bbe4d523512582ade095b7b9f12bb0",
+        "crawlers/fmkorea/spider/spider.py": "7575532dee864d3cb3dccec229da73a9596be00fbfed32999b403d066a578988",
+        "crawlers/ppomppu/spider/spider.py": "90e3ad4c8b3bb37ad36e220df0a109aeceea5558c7a4e1410ab2c8aff79910ba",
+        "crawlers/eomisae/spider/spider.py": "4133c5fbcf26ea6c198cd22c1821ce07fcf561b5e404cff77278bfa36ce3e1a8",
+        "crawlers/coolnjoy/spider.py": "138dba2bb985c62127a8fe12996a3e9fa656d647fff1aa09f5c2f5a9f816bdc4",
+        "crawlers/tests/settings.py": "2cbfb86777382a235a43c3b56cbb3186873271c1e1aeeeeb2a25069a77c4bbf6",
+        "crawlers/tests/unit/test_availability.py": "bed3e4da0c3ab42c43d9c95420019daaa55cfc72124bdb0857fd5632f229680d",
+        "crawlers/tests/unit/test_pipelines.py": "e1fb8db5d403531fa0453ed4a8c621526926fead7c0ba00f190cccaa38417c52",
+        "crawlers/tests/unit/test_recovery_parsing.py": "adf877be7a268914a3c2c564ca3afa83be4c21577be473b40124d9ad10a8791e",
+        "crawlers/tests/unit/test_flare_resources.py": "d9c72c78d67361e88f089a38051dad5426fa7947d2ef754e54eb7fc5efc7bebc",
+        "crawlers/tests/unit/test_selenium_resources.py": "3573424a73dec821fb354c1fa7c53a5c03fb0c52268b08634f094c149f7f1607",
+        "crawlers/tests/unit/test_run_queue.py": "cbf00dd57354959558e1a9c2d5ab13df158e9d0320ecab03d23fc5e759eeda48",
+        "crawlers/tests/unit/test_ppomppu_proxy.py": "25cf13216244599f062cd4ac1e98971511beca8ab36e9da07fa50a159f15f92b",
+        "gadmin/deals/migrations/0012_product_identity.py": "532da6ef257aa331834d32a6a238cfa19979d7de3836296206329a9dcac77374",
+        "gadmin/deals/migrations/0008_thumbnail_requests.py": "25704fa2098038d0e779f0b8294c10573a12cca09445a0ef5b9b63415d250928",
+        "gadmin/deals/migrations/0002_alter_deal_article_id_alter_deal_crawled_at_and_more.py": "d0a952775de28906a23a52101d47c559c44b5ea641c969f481324d7c6270583e",
+        "gadmin/deals/migrations/0004_deal_currency.py": "4f481f049a3ec279af3738cbb5c552fdbf93ca6b631cbf09b8b298bbf2e4aae3",
+        "gadmin/deals/migrations/0007_deal_subject_trgm_vector_and_more.py": "911ab528ec106be8a98df4a3327efe29f29de848b9b97f50231cb8303e6a6e3b",
+        "gadmin/deals/migrations/0013_product_canonical_aliases.py": "44eadf947df22c8337c6ab579d416f8f1612ce42325cea3639679f74eb40e772",
+        "gadmin/deals/migrations/0009_deal_classifications.py": "3d61eb666f06b220ca5b76c53d5ccb63e4cd54373e379bd98ba5d99c536062e8",
+        "gadmin/deals/migrations/0006_trgm_hash_vector.py": "47116a7199fbffe53decdcd608ecd1c968f0559dfe34fe9a91cde2d14d838552",
+        "gadmin/deals/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "gadmin/deals/migrations/0005_deal_write_at_alter_deal_create_at.py": "731fa63a0b7e249f3acd661942e353c83aa2fa426a0a83fb2b53186931afacb7",
+        "gadmin/deals/migrations/0011_classification_context.py": "2c3102d4a42848c23dab0244bbd23d22953df8f919804112943ff9b3c6281909",
+        "gadmin/deals/migrations/0003_alter_deal_crawled_at_alter_deal_create_at_and_more.py": "811c7432ce236fa2e9ec4179ba7a34ee38d3af61bd04df06986a6bcffc4e9a67",
+        "gadmin/deals/migrations/0014_deal_availability.py": "5735d43e66fe50a586363a2e3ff0f201606515c7aaa3a9208eaac15a85575309",
+        "gadmin/deals/migrations/0001_initial.py": "3658be074d0b1a6f5297e3dcf2205db39b0f4d1e76b8890922d7bb81028d5386",
+        "gadmin/deals/migrations/0010_deal_measurements.py": "fd9d2f4393774e0a12c05ec5dc545a912f3d17a94a3e86298a6a591dd10e3e5e",
+        "gadmin/deals/models.py": "c3b2297b40fd59a050be10ee1a9f20663f51969e159445c9bef9d1349364fe66"
+      },
+      "other_services_started_at": {
+        "geteverything-category-worker": "2026-09-20T00:41:09.249357504Z",
+        "geteverything-category-model": "2026-09-19T09:35:50.761305684Z",
+        "flaresolverr": "2026-09-20T02:27:01.639813263Z"
+      }
+    },
+    "db": {
+      "states": [
+        {
+          "deal__community_name": "ARCA",
+          "state": "active",
+          "count": 12,
+          "latest": "2026-09-20 03:58:52.780705+00:00"
+        },
+        {
+          "deal__community_name": "ARCA",
+          "state": "ended",
+          "count": 1,
+          "latest": "2026-09-20 03:59:07.209729+00:00"
+        },
+        {
+          "deal__community_name": "PPOMPPU",
+          "state": "active",
+          "count": 65,
+          "latest": "2026-09-20 03:59:09.868150+00:00"
+        },
+        {
+          "deal__community_name": "PPOMPPU",
+          "state": "deleted",
+          "count": 5,
+          "latest": "2026-09-20 03:58:39.511273+00:00"
+        },
+        {
+          "deal__community_name": "coolnjoy",
+          "state": "active",
+          "count": 64,
+          "latest": "2026-09-20 03:59:08.721872+00:00"
+        },
+        {
+          "deal__community_name": "coolnjoy",
+          "state": "deleted",
+          "count": 2,
+          "latest": "2026-09-20 03:56:22.428415+00:00"
+        }
+      ],
+      "outcomes": [
+        {
+          "last_outcome": "active",
+          "evidence": "recognized-deal-detail",
+          "count": 141
+        },
+        {
+          "last_outcome": "ended",
+          "evidence": "arca-close-deal",
+          "count": 1
+        },
+        {
+          "last_outcome": "deleted",
+          "evidence": "source-missing-message",
+          "count": 7
+        }
+      ],
+      "ended_total": 8,
+      "inconsistent": 0,
+      "sites_updated": [
+        {
+          "community_name": "ARCA",
+          "updated": 13,
+          "latest": "2026-09-20 03:59:07.207854+00:00"
+        },
+        {
+          "community_name": "PPOMPPU",
+          "updated": 64,
+          "latest": "2026-09-20 03:59:09.865832+00:00"
+        },
+        {
+          "community_name": "coolnjoy",
+          "updated": 61,
+          "latest": "2026-09-20 03:59:08.719727+00:00"
+        }
+      ],
+      "older_deals_checked": 10,
+      "examples": [
+        {
+          "deal__article_id": "coolnjoy3557704",
+          "deal__origin_url": "https://coolenjoy.net/bbs/jirum/3557704?page=1",
+          "deal__subject": "[G마켓] GAINWARD 지포스 RTX 5080 피닉스 D7 16GB",
+          "deal__is_end": true,
+          "state": "deleted",
+          "evidence": "source-missing-message",
+          "checked_at": "2026-09-20 03:56:19.598757+00:00",
+          "ended_at": "2026-09-20 03:56:19.598757+00:00"
+        },
+        {
+          "deal__article_id": "coolnjoy3557642",
+          "deal__origin_url": "https://coolenjoy.net/bbs/jirum/3557642?page=1",
+          "deal__subject": "[네이버] [할인 특가] 펀키스, FL-ESPORTS 8K 래피드 트리거 자석축 키보드 NX87H…",
+          "deal__is_end": true,
+          "state": "deleted",
+          "evidence": "source-missing-message",
+          "checked_at": "2026-09-20 03:56:22.428415+00:00",
+          "ended_at": "2026-09-20 03:56:22.428415+00:00"
+        },
+        {
+          "deal__article_id": "ppompu735638",
+          "deal__origin_url": "https://www.ppomppu.co.kr/zboard/view.php?id=ppomppu&page=1&divpage=96&&no=735638",
+          "deal__subject": "난각번호 1번 유정란 대란 40구 (14,960원/무료)",
+          "deal__is_end": true,
+          "state": "deleted",
+          "evidence": "source-missing-message",
+          "checked_at": "2026-09-20 03:56:23.125943+00:00",
+          "ended_at": "2026-09-20 03:56:23.125943+00:00"
+        },
+        {
+          "deal__article_id": "ppompu735629",
+          "deal__origin_url": "https://www.ppomppu.co.kr/zboard/view.php?id=ppomppu&page=1&divpage=96&&no=735629",
+          "deal__subject": "새청무 특등급 쌀 10kg (27,900원/무료)",
+          "deal__is_end": true,
+          "state": "deleted",
+          "evidence": "source-missing-message",
+          "checked_at": "2026-09-20 03:56:25.377720+00:00",
+          "ended_at": "2026-09-20 03:56:25.377720+00:00"
+        },
+        {
+          "deal__article_id": "ppompu735596",
+          "deal__origin_url": "https://www.ppomppu.co.kr/zboard/view.php?id=ppomppu&page=1&divpage=96&&no=735596",
+          "deal__subject": "내장제거 찐보리굴비 5팩 (32,790원 / 무배)",
+          "deal__is_end": true,
+          "state": "deleted",
+          "evidence": "source-missing-message",
+          "checked_at": "2026-09-20 03:56:28.046281+00:00",
+          "ended_at": "2026-09-20 03:56:28.046281+00:00"
+        },
+        {
+          "deal__article_id": "ppompu735557",
+          "deal__origin_url": "https://www.ppomppu.co.kr/zboard/view.php?id=ppomppu&page=1&divpage=96&&no=735557",
+          "deal__subject": "한우물 감탄한끼 구운주먹밥 (참치마요5봉+소불고기5봉+김치치즈5봉)총 15봉(15,980원/무료)",
+          "deal__is_end": true,
+          "state": "deleted",
+          "evidence": "source-missing-message",
+          "checked_at": "2026-09-20 03:56:30.765613+00:00",
+          "ended_at": "2026-09-20 03:56:30.765613+00:00"
+        },
+        {
+          "deal__article_id": "arca183458864",
+          "deal__origin_url": "https://arca.live/b/hotdeal/183458864?p=2",
+          "deal__subject": "고소미, 70g, 40개",
+          "deal__is_end": true,
+          "state": "ended",
+          "evidence": "arca-close-deal",
+          "checked_at": "2026-09-20 03:59:07.209729+00:00",
+          "ended_at": "2026-09-20 03:59:07.175926+00:00"
+        },
+        {
+          "deal__article_id": "ppompu735667",
+          "deal__origin_url": "https://www.ppomppu.co.kr/zboard/view.php?id=ppomppu&page=1&divpage=96&&no=735667",
+          "deal__subject": "아이더 기능성 하이크 코트 자켓 (60,610원/무료)",
+          "deal__is_end": true,
+          "state": "deleted",
+          "evidence": "source-missing-message",
+          "checked_at": "2026-09-20 03:58:39.511273+00:00",
+          "ended_at": "2026-09-20 03:58:39.511273+00:00"
+        }
+      ]
+    },
+    "containers": [
+      {
+        "name": "crawlers-bot",
+        "image": "sha256:4d88e54162f6bdbb623ff9a00ae4b097bade3f542acd778178f8e3a6c32862b3",
+        "running": true,
+        "oom": false,
+        "started_at": "2026-09-20T03:56:05.222913532Z",
+        "restarts": 0,
+        "cpu_limit": 1
+      },
+      {
+        "name": "flaresolverr",
+        "image": "sha256:9a74115c9fe2b44672bc851ffc0ca80c1d4829468c17182d299c77eb6b348cc7",
+        "running": true,
+        "oom": false,
+        "started_at": "2026-09-20T02:27:01.639813263Z",
+        "restarts": 0,
+        "cpu_limit": 0.75
+      },
+      {
+        "name": "geteverything-category-worker",
+        "image": "sha256:a38fc68cbff49951e7957312cf6c643db482e35ddf3ed30032a714d00322946b",
+        "running": true,
+        "oom": false,
+        "started_at": "2026-09-20T00:41:09.249357504Z",
+        "restarts": 0,
+        "cpu_limit": 0.15
+      },
+      {
+        "name": "geteverything-category-model",
+        "image": "sha256:aa509a98cf5c8c81d04785c0c9a0d2acc47523aab72eceacad143a8d88910f68",
+        "running": true,
+        "oom": false,
+        "started_at": "2026-09-19T09:35:50.761305684Z",
+        "restarts": 0,
+        "cpu_limit": 0.2
+      }
+    ],
+    "runtime_hashes_match": true,
+    "cpu_mean": 15.18,
+    "samples": [
+      {
+        "at": 1789876635.0768685,
+        "cpu_percent": 22.1
+      },
+      {
+        "at": 1789876640.0772228,
+        "cpu_percent": 15.63
+      },
+      {
+        "at": 1789876645.0775762,
+        "cpu_percent": 20.24
+      },
+      {
+        "at": 1789876650.0778835,
+        "cpu_percent": 21.04
+      },
+      {
+        "at": 1789876655.078213,
+        "cpu_percent": 23.12
+      },
+      {
+        "at": 1789876660.0785983,
+        "cpu_percent": 15.47
+      },
+      {
+        "at": 1789876665.079086,
+        "cpu_percent": 12.39
+      },
+      {
+        "at": 1789876670.0794137,
+        "cpu_percent": 12.26
+      },
+      {
+        "at": 1789876675.0797632,
+        "cpu_percent": 12.05
+      },
+      {
+        "at": 1789876680.0801477,
+        "cpu_percent": 20.86
+      },
+      {
+        "at": 1789876685.080464,
+        "cpu_percent": 11.88
+      },
+      {
+        "at": 1789876690.0808177,
+        "cpu_percent": 10.7
+      },
+      {
+        "at": 1789876695.0812674,
+        "cpu_percent": 9.48
+      },
+      {
+        "at": 1789876700.0819683,
+        "cpu_percent": 18.84
+      },
+      {
+        "at": 1789876705.0822773,
+        "cpu_percent": 17.56
+      },
+      {
+        "at": 1789876710.0826645,
+        "cpu_percent": 12.28
+      },
+      {
+        "at": 1789876715.082973,
+        "cpu_percent": 13.77
+      },
+      {
+        "at": 1789876720.083286,
+        "cpu_percent": 16.4
+      },
+      {
+        "at": 1789876725.0837836,
+        "cpu_percent": 11.78
+      },
+      {
+        "at": 1789876730.0840745,
+        "cpu_percent": 8.4
+      },
+      {
+        "at": 1789876735.0843954,
+        "cpu_percent": 10.47
+      },
+      {
+        "at": 1789876740.0847316,
+        "cpu_percent": 14.5
+      },
+      {
+        "at": 1789876745.085051,
+        "cpu_percent": 15.28
+      },
+      {
+        "at": 1789876750.0853722,
+        "cpu_percent": 17.78
+      }
+    ],
+    "memory_available_mb": 8747,
+    "queue": [
+      "[2026-09-20 12:56:06][coolnjoy] start",
+      "[2026-09-20 12:56:10][ppomppu] start",
+      "[2026-09-20 12:56:11][arca] start"
+    ],
+    "stats": [],
+    "errors": [
+      [
+        "Traceback (most recent call last):",
+        "  File \"/var/task/crawlers/ppomppu/spider/spider.py\", line 89, in parse",
+        "    shop_name = td[1].css('a.baseList-title span em::text').get()[1:-1]",
+        "                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^",
+        "TypeError: 'NoneType' object is not subscriptable",
+        "2026-09-20 12:56:14 [scrapy.core.scraper] ERROR: Spider error processing <GET https://www.ppomppu.co.kr/zboard/zboard.php?id=ppomppu&page=2&divpage=96> (referer: None)",
+        "Traceback (most recent call last):",
+        "  File \"/var/task/crawlers/ppomppu/spider/spider.py\", line 89, in parse",
+        "    shop_name = td[1].css('a.baseList-title span em::text').get()[1:-1]",
+        "                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^"
+      ],
+      [
+        "Traceback (most recent call last):",
+        "  File \"/var/task/crawlers/ppomppu/spider/spider.py\", line 89, in parse",
+        "    shop_name = td[1].css('a.baseList-title span em::text').get()[1:-1]",
+        "                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^",
+        "TypeError: 'NoneType' object is not subscriptable",
+        "",
+        "During handling of the above exception, another exception occurred:",
+        "",
+        "Traceback (most recent call last):",
+        "  File \"/usr/local/lib/python3.12/site-packages/scrapy/utils/defer.py\", line 279, in iter_errback"
+      ],
+      [
+        "Traceback (most recent call last):",
+        "  File \"/usr/local/lib/python3.12/site-packages/scrapy/utils/defer.py\", line 279, in iter_errback",
+        "    yield next(it)",
+        "          ^^^^^^^^",
+        "  File \"/usr/local/lib/python3.12/site-packages/scrapy/utils/python.py\", line 350, in __next__",
+        "    return next(self.data)",
+        "           ^^^^^^^^^^^^^^^",
+        "  File \"/usr/local/lib/python3.12/site-packages/scrapy/utils/python.py\", line 350, in __next__",
+        "    return next(self.data)",
+        "           ^^^^^^^^^^^^^^^"
+      ],
+      [
+        "Traceback (most recent call last):",
+        "  File \"/var/task/crawlers/ppomppu/spider/spider.py\", line 89, in parse",
+        "    shop_name = td[1].css('a.baseList-title span em::text').get()[1:-1]",
+        "                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^",
+        "TypeError: 'NoneType' object is not subscriptable",
+        "2026-09-20 12:56:16 [scrapy.core.scraper] ERROR: Spider error processing <GET https://www.ppomppu.co.kr/zboard/zboard.php?id=ppomppu&page=3&divpage=96> (referer: None)",
+        "Traceback (most recent call last):",
+        "  File \"/var/task/crawlers/ppomppu/spider/spider.py\", line 89, in parse",
+        "    shop_name = td[1].css('a.baseList-title span em::text').get()[1:-1]",
+        "                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^"
+      ],
+      [
+        "Traceback (most recent call last):",
+        "  File \"/var/task/crawlers/ppomppu/spider/spider.py\", line 89, in parse",
+        "    shop_name = td[1].css('a.baseList-title span em::text').get()[1:-1]",
+        "                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^",
+        "TypeError: 'NoneType' object is not subscriptable",
+        "",
+        "During handling of the above exception, another exception occurred:",
+        "",
+        "Traceback (most recent call last):",
+        "  File \"/usr/local/lib/python3.12/site-packages/scrapy/utils/defer.py\", line 279, in iter_errback"
+      ],
+      [
+        "Traceback (most recent call last):",
+        "  File \"/usr/local/lib/python3.12/site-packages/scrapy/utils/defer.py\", line 279, in iter_errback",
+        "    yield next(it)",
+        "          ^^^^^^^^",
+        "  File \"/usr/local/lib/python3.12/site-packages/scrapy/utils/python.py\", line 350, in __next__",
+        "    return next(self.data)",
+        "           ^^^^^^^^^^^^^^^",
+        "  File \"/usr/local/lib/python3.12/site-packages/scrapy/utils/python.py\", line 350, in __next__",
+        "    return next(self.data)",
+        "           ^^^^^^^^^^^^^^^"
+      ]
+    ]
+  },
+  "final_verification": {
+    "at": 1789879536.682893,
+    "deployment": {
+      "at": 1789879220.8381708,
+      "crawler_image": "sha256:9cac4ad5c9cdf92d01cfaec4aba8258f7b009ab26357bf35c89a22b7530884c0",
+      "previous_image": "sha256:bd1be373e9c96c0e8b512ab84b606d6b67018eee913fca418a48cc624677d5a1",
+      "previous_container": "crawlers-bot-before-availability-20260920-r3",
+      "started_at": "2026-09-20T04:40:20.659807418Z",
+      "restart_seconds": 2.38,
+      "settings_preserved": true,
+      "rechecks_per_site_cycle": 5,
+      "runtime_files": {
+        "crawlers/availability.py": "ae19cb206b8c3728cb1681ef1014e06ce67549ffd5eb8c62c9569a71b7c2130c",
+        "crawlers/availability_store.py": "2511d0f022d44bcc612d48db5c6473041231341edca199c48d6d9d3319cdd596",
+        "crawlers/pipelines.py": "7e62d88d291cf69d3f25bdfc5222e71a943bcbb2bc13469b3d11962fb50de5a6",
+        "crawlers/middlewares/selenium_middleware.py": "2def42afedecde896cb80a6bc20d25039639eda301891ea4e8a2ae9590ced09b",
+        "crawlers/arca/spider/spider.py": "97d99539c6f046026bbdf0d2a43bd964e2bbe4d523512582ade095b7b9f12bb0",
+        "crawlers/fmkorea/spider/spider.py": "7575532dee864d3cb3dccec229da73a9596be00fbfed32999b403d066a578988",
+        "crawlers/ppomppu/spider/spider.py": "90e3ad4c8b3bb37ad36e220df0a109aeceea5558c7a4e1410ab2c8aff79910ba",
+        "crawlers/eomisae/spider/spider.py": "4133c5fbcf26ea6c198cd22c1821ce07fcf561b5e404cff77278bfa36ce3e1a8",
+        "crawlers/coolnjoy/spider.py": "138dba2bb985c62127a8fe12996a3e9fa656d647fff1aa09f5c2f5a9f816bdc4",
+        "crawlers/tests/settings.py": "2cbfb86777382a235a43c3b56cbb3186873271c1e1aeeeeb2a25069a77c4bbf6",
+        "crawlers/tests/unit/test_availability.py": "35ef61e1e7f3ea713ebdb9f98280d70acfd7a2ca7bb3c17bb991433afee8cac1",
+        "crawlers/tests/unit/test_pipelines.py": "e1fb8db5d403531fa0453ed4a8c621526926fead7c0ba00f190cccaa38417c52",
+        "crawlers/tests/unit/test_recovery_parsing.py": "adf877be7a268914a3c2c564ca3afa83be4c21577be473b40124d9ad10a8791e",
+        "crawlers/tests/unit/test_flare_resources.py": "d9c72c78d67361e88f089a38051dad5426fa7947d2ef754e54eb7fc5efc7bebc",
+        "crawlers/tests/unit/test_selenium_resources.py": "3504211dd270f6d0880882bef421833e0713787f235dda1e6734a86729bd58fa",
+        "crawlers/tests/unit/test_run_queue.py": "cbf00dd57354959558e1a9c2d5ab13df158e9d0320ecab03d23fc5e759eeda48",
+        "crawlers/tests/unit/test_ppomppu_proxy.py": "25cf13216244599f062cd4ac1e98971511beca8ab36e9da07fa50a159f15f92b",
+        "gadmin/deals/migrations/0012_product_identity.py": "532da6ef257aa331834d32a6a238cfa19979d7de3836296206329a9dcac77374",
+        "gadmin/deals/migrations/0008_thumbnail_requests.py": "25704fa2098038d0e779f0b8294c10573a12cca09445a0ef5b9b63415d250928",
+        "gadmin/deals/migrations/0002_alter_deal_article_id_alter_deal_crawled_at_and_more.py": "d0a952775de28906a23a52101d47c559c44b5ea641c969f481324d7c6270583e",
+        "gadmin/deals/migrations/0004_deal_currency.py": "4f481f049a3ec279af3738cbb5c552fdbf93ca6b631cbf09b8b298bbf2e4aae3",
+        "gadmin/deals/migrations/0007_deal_subject_trgm_vector_and_more.py": "911ab528ec106be8a98df4a3327efe29f29de848b9b97f50231cb8303e6a6e3b",
+        "gadmin/deals/migrations/0013_product_canonical_aliases.py": "44eadf947df22c8337c6ab579d416f8f1612ce42325cea3639679f74eb40e772",
+        "gadmin/deals/migrations/0009_deal_classifications.py": "3d61eb666f06b220ca5b76c53d5ccb63e4cd54373e379bd98ba5d99c536062e8",
+        "gadmin/deals/migrations/0006_trgm_hash_vector.py": "47116a7199fbffe53decdcd608ecd1c968f0559dfe34fe9a91cde2d14d838552",
+        "gadmin/deals/migrations/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "gadmin/deals/migrations/0005_deal_write_at_alter_deal_create_at.py": "731fa63a0b7e249f3acd661942e353c83aa2fa426a0a83fb2b53186931afacb7",
+        "gadmin/deals/migrations/0011_classification_context.py": "2c3102d4a42848c23dab0244bbd23d22953df8f919804112943ff9b3c6281909",
+        "gadmin/deals/migrations/0003_alter_deal_crawled_at_alter_deal_create_at_and_more.py": "811c7432ce236fa2e9ec4179ba7a34ee38d3af61bd04df06986a6bcffc4e9a67",
+        "gadmin/deals/migrations/0014_deal_availability.py": "5735d43e66fe50a586363a2e3ff0f201606515c7aaa3a9208eaac15a85575309",
+        "gadmin/deals/migrations/0001_initial.py": "3658be074d0b1a6f5297e3dcf2205db39b0f4d1e76b8890922d7bb81028d5386",
+        "gadmin/deals/migrations/0010_deal_measurements.py": "fd9d2f4393774e0a12c05ec5dc545a912f3d17a94a3e86298a6a591dd10e3e5e",
+        "gadmin/deals/models.py": "c3b2297b40fd59a050be10ee1a9f20663f51969e159445c9bef9d1349364fe66"
+      },
+      "other_services_started_at": {
+        "geteverything-category-worker": "2026-09-20T00:41:09.249357504Z",
+        "geteverything-category-model": "2026-09-19T09:35:50.761305684Z",
+        "flaresolverr": "2026-09-20T02:27:01.639813263Z"
+      }
+    },
+    "db": {
+      "states": [
+        {
+          "deal__community_name": "ARCA",
+          "state": "active",
+          "count": 102,
+          "latest": "2026-09-20 04:45:29.315659+00:00"
+        },
+        {
+          "deal__community_name": "ARCA",
+          "state": "ended",
+          "count": 11,
+          "latest": "2026-09-20 04:39:13.611085+00:00"
+        },
+        {
+          "deal__community_name": "ARCA",
+          "state": "unknown",
+          "count": 1,
+          "latest": "2026-09-20 04:37:55.957849+00:00"
+        },
+        {
+          "deal__community_name": "EOMISAE",
+          "state": "active",
+          "count": 62,
+          "latest": "2026-09-20 04:41:43.713185+00:00"
+        },
+        {
+          "deal__community_name": "EOMISAE",
+          "state": "unknown",
+          "count": 1,
+          "latest": "2026-09-20 04:38:42.668052+00:00"
+        },
+        {
+          "deal__community_name": "FMKOREA",
+          "state": "active",
+          "count": 68,
+          "latest": "2026-09-20 04:44:32.282985+00:00"
+        },
+        {
+          "deal__community_name": "FMKOREA",
+          "state": "ended",
+          "count": 12,
+          "latest": "2026-09-20 04:44:32.364298+00:00"
+        },
+        {
+          "deal__community_name": "FMKOREA",
+          "state": "unknown",
+          "count": 94,
+          "latest": "2026-09-20 04:40:19.664803+00:00"
+        },
+        {
+          "deal__community_name": "PPOMPPU",
+          "state": "active",
+          "count": 128,
+          "latest": "2026-09-20 04:44:05.986591+00:00"
+        },
+        {
+          "deal__community_name": "PPOMPPU",
+          "state": "deleted",
+          "count": 8,
+          "latest": "2026-09-20 04:40:43.637769+00:00"
+        },
+        {
+          "deal__community_name": "coolnjoy",
+          "state": "active",
+          "count": 156,
+          "latest": "2026-09-20 04:45:34.589472+00:00"
+        },
+        {
+          "deal__community_name": "coolnjoy",
+          "state": "deleted",
+          "count": 2,
+          "latest": "2026-09-20 03:56:22.428415+00:00"
+        },
+        {
+          "deal__community_name": "coolnjoy",
+          "state": "ended",
+          "count": 2,
+          "latest": "2026-09-20 04:42:00.516041+00:00"
+        }
+      ],
+      "outcomes": [
+        {
+          "last_outcome": "ended",
+          "evidence": "explicit-ended-title",
+          "count": 2
+        },
+        {
+          "last_outcome": "active",
+          "evidence": "recognized-deal-detail",
+          "count": 516
+        },
+        {
+          "last_outcome": "missing",
+          "evidence": "http-404",
+          "count": 2
+        },
+        {
+          "last_outcome": "ended",
+          "evidence": "arca-close-deal",
+          "count": 11
+        },
+        {
+          "last_outcome": "ended",
+          "evidence": "fmkorea-ended-banner",
+          "count": 12
+        },
+        {
+          "last_outcome": "deleted",
+          "evidence": "source-missing-message",
+          "count": 10
+        },
+        {
+          "last_outcome": "unknown",
+          "evidence": "access-blocked",
+          "count": 94
+        }
+      ],
+      "ended_total": 35,
+      "inconsistent": 0,
+      "sites_updated": [
+        {
+          "community_name": "ARCA",
+          "updated": 5,
+          "latest": "2026-09-20 04:45:29.313083+00:00"
+        },
+        {
+          "community_name": "EOMISAE",
+          "updated": 20,
+          "latest": "2026-09-20 04:41:43.709758+00:00"
+        },
+        {
+          "community_name": "FMKOREA",
+          "updated": 80,
+          "latest": "2026-09-20 04:44:32.362519+00:00"
+        },
+        {
+          "community_name": "PPOMPPU",
+          "updated": 80,
+          "latest": "2026-09-20 04:44:05.952257+00:00"
+        },
+        {
+          "community_name": "coolnjoy",
+          "updated": 80,
+          "latest": "2026-09-20 04:45:34.586907+00:00"
+        }
+      ],
+      "older_deals_checked": 15,
+      "examples": [
+        {
+          "deal__article_id": "coolnjoy3557704",
+          "deal__origin_url": "https://coolenjoy.net/bbs/jirum/3557704?page=1",
+          "deal__subject": "[G마켓] GAINWARD 지포스 RTX 5080 피닉스 D7 16GB",
+          "deal__is_end": true,
+          "state": "deleted",
+          "evidence": "source-missing-message",
+          "checked_at": "2026-09-20 03:56:19.598757+00:00",
+          "ended_at": "2026-09-20 03:56:19.598757+00:00"
+        },
+        {
+          "deal__article_id": "coolnjoy3557642",
+          "deal__origin_url": "https://coolenjoy.net/bbs/jirum/3557642?page=1",
+          "deal__subject": "[네이버] [할인 특가] 펀키스, FL-ESPORTS 8K 래피드 트리거 자석축 키보드 NX87H…",
+          "deal__is_end": true,
+          "state": "deleted",
+          "evidence": "source-missing-message",
+          "checked_at": "2026-09-20 03:56:22.428415+00:00",
+          "ended_at": "2026-09-20 03:56:22.428415+00:00"
+        },
+        {
+          "deal__article_id": "ppompu735638",
+          "deal__origin_url": "https://www.ppomppu.co.kr/zboard/view.php?id=ppomppu&page=1&divpage=96&&no=735638",
+          "deal__subject": "난각번호 1번 유정란 대란 40구 (14,960원/무료)",
+          "deal__is_end": true,
+          "state": "deleted",
+          "evidence": "source-missing-message",
+          "checked_at": "2026-09-20 03:56:23.125943+00:00",
+          "ended_at": "2026-09-20 03:56:23.125943+00:00"
+        },
+        {
+          "deal__article_id": "ppompu735629",
+          "deal__origin_url": "https://www.ppomppu.co.kr/zboard/view.php?id=ppomppu&page=1&divpage=96&&no=735629",
+          "deal__subject": "새청무 특등급 쌀 10kg (27,900원/무료)",
+          "deal__is_end": true,
+          "state": "deleted",
+          "evidence": "source-missing-message",
+          "checked_at": "2026-09-20 03:56:25.377720+00:00",
+          "ended_at": "2026-09-20 03:56:25.377720+00:00"
+        },
+        {
+          "deal__article_id": "ppompu735596",
+          "deal__origin_url": "https://www.ppomppu.co.kr/zboard/view.php?id=ppomppu&page=1&divpage=96&&no=735596",
+          "deal__subject": "내장제거 찐보리굴비 5팩 (32,790원 / 무배)",
+          "deal__is_end": true,
+          "state": "deleted",
+          "evidence": "source-missing-message",
+          "checked_at": "2026-09-20 03:56:28.046281+00:00",
+          "ended_at": "2026-09-20 03:56:28.046281+00:00"
+        },
+        {
+          "deal__article_id": "ppompu735557",
+          "deal__origin_url": "https://www.ppomppu.co.kr/zboard/view.php?id=ppomppu&page=1&divpage=96&&no=735557",
+          "deal__subject": "한우물 감탄한끼 구운주먹밥 (참치마요5봉+소불고기5봉+김치치즈5봉)총 15봉(15,980원/무료)",
+          "deal__is_end": true,
+          "state": "deleted",
+          "evidence": "source-missing-message",
+          "checked_at": "2026-09-20 03:56:30.765613+00:00",
+          "ended_at": "2026-09-20 03:56:30.765613+00:00"
+        },
+        {
+          "deal__article_id": "arca183397113",
+          "deal__origin_url": "https://arca.live/b/hotdeal/183397113?p=3",
+          "deal__subject": "농심 육사김사세트 (육개장사발면 86g X 12입 + 김치사발면 86g X 12입)",
+          "deal__is_end": true,
+          "state": "ended",
+          "evidence": "arca-close-deal",
+          "checked_at": "2026-09-20 04:32:47.259333+00:00",
+          "ended_at": "2026-09-20 04:12:59.056111+00:00"
+        },
+        {
+          "deal__article_id": "coolnjoy3557848",
+          "deal__origin_url": "https://coolenjoy.net/bbs/jirum/3557848?page=1",
+          "deal__subject": "[G마켓] G라이브🎥(9/18금일오후8시)✨역대가 LG 4세대 올레드 27GX700A(68만)/ …",
+          "deal__is_end": true,
+          "state": "ended",
+          "evidence": "explicit-ended-title",
+          "checked_at": "2026-09-20 04:32:55.849587+00:00",
+          "ended_at": "2026-09-20 04:00:38.070587+00:00"
+        }
+      ]
+    },
+    "containers": [
+      {
+        "name": "crawlers-bot",
+        "image": "sha256:9cac4ad5c9cdf92d01cfaec4aba8258f7b009ab26357bf35c89a22b7530884c0",
+        "running": true,
+        "oom": false,
+        "started_at": "2026-09-20T04:40:20.659807418Z",
+        "restarts": 0,
+        "cpu_limit": 1
+      },
+      {
+        "name": "flaresolverr",
+        "image": "sha256:9a74115c9fe2b44672bc851ffc0ca80c1d4829468c17182d299c77eb6b348cc7",
+        "running": true,
+        "oom": false,
+        "started_at": "2026-09-20T02:27:01.639813263Z",
+        "restarts": 0,
+        "cpu_limit": 0.75
+      },
+      {
+        "name": "geteverything-category-worker",
+        "image": "sha256:a38fc68cbff49951e7957312cf6c643db482e35ddf3ed30032a714d00322946b",
+        "running": true,
+        "oom": false,
+        "started_at": "2026-09-20T00:41:09.249357504Z",
+        "restarts": 0,
+        "cpu_limit": 0.15
+      },
+      {
+        "name": "geteverything-category-model",
+        "image": "sha256:aa509a98cf5c8c81d04785c0c9a0d2acc47523aab72eceacad143a8d88910f68",
+        "running": true,
+        "oom": false,
+        "started_at": "2026-09-19T09:35:50.761305684Z",
+        "restarts": 0,
+        "cpu_limit": 0.2
+      }
+    ],
+    "runtime_hashes_match": true,
+    "cpu_mean": 62.28,
+    "samples": [
+      {
+        "at": 1789879239.4338844,
+        "cpu_percent": 56.71
+      },
+      {
+        "at": 1789879244.4341965,
+        "cpu_percent": 62.54
+      },
+      {
+        "at": 1789879249.434525,
+        "cpu_percent": 57.36
+      },
+      {
+        "at": 1789879254.434829,
+        "cpu_percent": 59.84
+      },
+      {
+        "at": 1789879259.435124,
+        "cpu_percent": 56.33
+      },
+      {
+        "at": 1789879264.4354358,
+        "cpu_percent": 54.45
+      },
+      {
+        "at": 1789879269.436048,
+        "cpu_percent": 56.21
+      },
+      {
+        "at": 1789879274.4363668,
+        "cpu_percent": 56.96
+      },
+      {
+        "at": 1789879279.4367106,
+        "cpu_percent": 61.08
+      },
+      {
+        "at": 1789879284.437226,
+        "cpu_percent": 62.91
+      },
+      {
+        "at": 1789879289.4377282,
+        "cpu_percent": 59.16
+      },
+      {
+        "at": 1789879294.4379828,
+        "cpu_percent": 59.62
+      },
+      {
+        "at": 1789879299.4383984,
+        "cpu_percent": 69.78
+      },
+      {
+        "at": 1789879304.4387405,
+        "cpu_percent": 59.06
+      },
+      {
+        "at": 1789879309.439021,
+        "cpu_percent": 57.49
+      },
+      {
+        "at": 1789879314.4395719,
+        "cpu_percent": 59.74
+      },
+      {
+        "at": 1789879319.4398901,
+        "cpu_percent": 59.66
+      },
+      {
+        "at": 1789879324.4402423,
+        "cpu_percent": 56.67
+      },
+      {
+        "at": 1789879329.4407105,
+        "cpu_percent": 60.18
+      },
+      {
+        "at": 1789879334.4413607,
+        "cpu_percent": 59.26
+      },
+      {
+        "at": 1789879339.4416974,
+        "cpu_percent": 62.54
+      },
+      {
+        "at": 1789879344.4419928,
+        "cpu_percent": 61.16
+      },
+      {
+        "at": 1789879349.4423206,
+        "cpu_percent": 52.51
+      },
+      {
+        "at": 1789879354.4428742,
+        "cpu_percent": 57.04
+      },
+      {
+        "at": 1789879359.4433103,
+        "cpu_percent": 71.21
+      },
+      {
+        "at": 1789879364.4436274,
+        "cpu_percent": 59.64
+      },
+      {
+        "at": 1789879369.4439871,
+        "cpu_percent": 64.04
+      },
+      {
+        "at": 1789879374.4449325,
+        "cpu_percent": 62.36
+      },
+      {
+        "at": 1789879379.445235,
+        "cpu_percent": 59.1
+      },
+      {
+        "at": 1789879384.44553,
+        "cpu_percent": 53.79
+      },
+      {
+        "at": 1789879389.4459648,
+        "cpu_percent": 55.82
+      },
+      {
+        "at": 1789879394.446881,
+        "cpu_percent": 57.64
+      },
+      {
+        "at": 1789879399.4471772,
+        "cpu_percent": 58.16
+      },
+      {
+        "at": 1789879404.4474678,
+        "cpu_percent": 64.67
+      },
+      {
+        "at": 1789879409.447776,
+        "cpu_percent": 60.58
+      },
+      {
+        "at": 1789879414.4488826,
+        "cpu_percent": 60.34
+      },
+      {
+        "at": 1789879419.4493322,
+        "cpu_percent": 56.11
+      },
+      {
+        "at": 1789879424.4496338,
+        "cpu_percent": 68.23
+      },
+      {
+        "at": 1789879429.4508858,
+        "cpu_percent": 60.4
+      },
+      {
+        "at": 1789879434.4512486,
+        "cpu_percent": 60.52
+      },
+      {
+        "at": 1789879439.4515438,
+        "cpu_percent": 64.97
+      },
+      {
+        "at": 1789879444.4520214,
+        "cpu_percent": 60.56
+      },
+      {
+        "at": 1789879449.4524434,
+        "cpu_percent": 61.32
+      },
+      {
+        "at": 1789879454.4527614,
+        "cpu_percent": 95.2
+      },
+      {
+        "at": 1789879459.4530656,
+        "cpu_percent": 93.7
+      },
+      {
+        "at": 1789879464.453373,
+        "cpu_percent": 82.58
+      },
+      {
+        "at": 1789879469.453823,
+        "cpu_percent": 65.43
+      },
+      {
+        "at": 1789879474.4540956,
+        "cpu_percent": 53.11
+      },
+      {
+        "at": 1789879479.454862,
+        "cpu_percent": 59.6
+      },
+      {
+        "at": 1789879484.4551296,
+        "cpu_percent": 61.34
+      },
+      {
+        "at": 1789879489.4554205,
+        "cpu_percent": 65.87
+      },
+      {
+        "at": 1789879494.4557333,
+        "cpu_percent": 61.78
+      },
+      {
+        "at": 1789879499.456116,
+        "cpu_percent": 62.94
+      },
+      {
+        "at": 1789879504.456415,
+        "cpu_percent": 60.22
+      },
+      {
+        "at": 1789879509.457529,
+        "cpu_percent": 65.2
+      },
+      {
+        "at": 1789879514.4578514,
+        "cpu_percent": 69.27
+      },
+      {
+        "at": 1789879519.4581432,
+        "cpu_percent": 61.95
+      },
+      {
+        "at": 1789879524.4584696,
+        "cpu_percent": 62.29
+      },
+      {
+        "at": 1789879529.458787,
+        "cpu_percent": 66.03
+      },
+      {
+        "at": 1789879534.4598863,
+        "cpu_percent": 72.65
+      }
+    ],
+    "memory_available_mb": 7773,
+    "queue": [
+      "[2026-09-20 13:40:20][fmkorea] start",
+      "[2026-09-20 13:40:25][eomisae] start",
+      "[2026-09-20 13:40:27][ppomppu] start",
+      "[2026-09-20 13:41:44][eomisae] end exit=0 elapsed=78s",
+      "[2026-09-20 13:41:44][coolnjoy] start",
+      "[2026-09-20 13:44:06][ppomppu] end exit=0 elapsed=218s",
+      "[2026-09-20 13:44:06][arca] start"
+    ],
+    "stats": [
+      "{'availability/active': 25,",
+      " 'finish_reason': 'finished',",
+      " 'item_dropped_count': 5,",
+      " 'item_scraped_count': 20,",
+      "{'availability/active': 84,",
+      " 'availability/deleted': 1,",
+      " 'finish_reason': 'finished',",
+      " 'item_dropped_count': 5,",
+      " 'item_scraped_count': 80,"
+    ],
+    "fm_progress": [
+      "FMKOREA디테일처리",
+      "FMKOREA 핫딜 처리중",
+      "FMKOREA디테일처리",
+      "FMKOREA 핫딜 처리중",
+      "FMKOREA디테일처리",
+      "FMKOREA 핫딜 처리중",
+      "FMKOREA디테일처리",
+      "FMKOREA 핫딜 처리중",
+      "FMKOREA디테일처리",
+      "FMKOREA 핫딜 처리중",
+      "FMKOREA디테일처리",
+      "FMKOREA 핫딜 처리중",
+      "FMKOREA디테일처리",
+      "FMKOREA 핫딜 처리중",
+      "FMKOREA디테일처리",
+      "FMKOREA 핫딜 처리중",
+      "FMKOREA디테일처리",
+      "FMKOREA 핫딜 처리중",
+      "FMKOREA디테일처리",
+      "FMKOREA 핫딜 처리중",
+      "FMKOREA목록 처리",
+      "FMKOREA 20개 리스트 발견",
+      "FMKOREA목록 처리",
+      "FMKOREA 20개 리스트 발견"
+    ],
+    "errors": [
+      [
+        "Traceback (most recent call last):",
+        "  File \"/var/task/crawlers/ppomppu/spider/spider.py\", line 89, in parse",
+        "    shop_name = td[1].css('a.baseList-title span em::text').get()[1:-1]",
+        "                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^",
+        "TypeError: 'NoneType' object is not subscriptable",
+        "2026-09-20 13:40:34 [scrapy.core.scraper] ERROR: Spider error processing <GET https://www.ppomppu.co.kr/zboard/zboard.php?id=ppomppu&page=2&divpage=96> (referer: None)",
+        "Traceback (most recent call last):",
+        "  File \"/var/task/crawlers/ppomppu/spider/spider.py\", line 89, in parse",
+        "    shop_name = td[1].css('a.baseList-title span em::text').get()[1:-1]",
+        "                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^"
+      ],
+      [
+        "Traceback (most recent call last):",
+        "  File \"/var/task/crawlers/ppomppu/spider/spider.py\", line 89, in parse",
+        "    shop_name = td[1].css('a.baseList-title span em::text').get()[1:-1]",
+        "                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^",
+        "TypeError: 'NoneType' object is not subscriptable",
+        "",
+        "During handling of the above exception, another exception occurred:",
+        "",
+        "Traceback (most recent call last):",
+        "  File \"/usr/local/lib/python3.12/site-packages/scrapy/utils/defer.py\", line 279, in iter_errback"
+      ],
+      [
+        "Traceback (most recent call last):",
+        "  File \"/usr/local/lib/python3.12/site-packages/scrapy/utils/defer.py\", line 279, in iter_errback",
+        "    yield next(it)",
+        "          ^^^^^^^^",
+        "  File \"/usr/local/lib/python3.12/site-packages/scrapy/utils/python.py\", line 350, in __next__",
+        "    return next(self.data)",
+        "           ^^^^^^^^^^^^^^^",
+        "  File \"/usr/local/lib/python3.12/site-packages/scrapy/utils/python.py\", line 350, in __next__",
+        "    return next(self.data)",
+        "           ^^^^^^^^^^^^^^^"
+      ],
+      [
+        "Traceback (most recent call last):",
+        "  File \"/var/task/crawlers/ppomppu/spider/spider.py\", line 89, in parse",
+        "    shop_name = td[1].css('a.baseList-title span em::text').get()[1:-1]",
+        "                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^",
+        "TypeError: 'NoneType' object is not subscriptable",
+        "2026-09-20 13:40:39 [scrapy.core.scraper] ERROR: Spider error processing <GET https://www.ppomppu.co.kr/zboard/zboard.php?id=ppomppu&page=4&divpage=96> (referer: None)",
+        "Traceback (most recent call last):",
+        "  File \"/var/task/crawlers/ppomppu/spider/spider.py\", line 89, in parse",
+        "    shop_name = td[1].css('a.baseList-title span em::text').get()[1:-1]",
+        "                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^"
+      ],
+      [
+        "Traceback (most recent call last):",
+        "  File \"/var/task/crawlers/ppomppu/spider/spider.py\", line 89, in parse",
+        "    shop_name = td[1].css('a.baseList-title span em::text').get()[1:-1]",
+        "                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^",
+        "TypeError: 'NoneType' object is not subscriptable",
+        "",
+        "During handling of the above exception, another exception occurred:",
+        "",
+        "Traceback (most recent call last):",
+        "  File \"/usr/local/lib/python3.12/site-packages/scrapy/utils/defer.py\", line 279, in iter_errback"
+      ],
+      [
+        "Traceback (most recent call last):",
+        "  File \"/usr/local/lib/python3.12/site-packages/scrapy/utils/defer.py\", line 279, in iter_errback",
+        "    yield next(it)",
+        "          ^^^^^^^^",
+        "  File \"/usr/local/lib/python3.12/site-packages/scrapy/utils/python.py\", line 350, in __next__",
+        "    return next(self.data)",
+        "           ^^^^^^^^^^^^^^^",
+        "  File \"/usr/local/lib/python3.12/site-packages/scrapy/utils/python.py\", line 350, in __next__",
+        "    return next(self.data)",
+        "           ^^^^^^^^^^^^^^^"
+      ]
+    ]
+  },
+  "browser_fix_deployment": {
+    "at": 1789877672.262826,
+    "image": "sha256:bd1be373e9c96c0e8b512ab84b606d6b67018eee913fca418a48cc624677d5a1",
+    "started_at": "2026-09-20T04:14:32.083169802Z",
+    "restart_seconds": 1.32
+  },
+  "final_image_tests": {
+    "passed": 58,
+    "isolated_database": true,
+    "network": "none"
+  },
+  "browser_smoke": {
+    "image": "sha256:bd1be373e9c96c0e8b512ab84b606d6b67018eee913fca418a48cc624677d5a1",
+    "title": "browser-ready",
+    "stdio": [
+      "/dev/null",
+      "/dev/null"
+    ],
+    "result": "passed"
+  },
+  "fm_route_probe": [
+    {
+      "probe": 1,
+      "title": "[토스] 할리스 시그니처 아메리카노 미니(다크) 130T 2팩 (22,900원) (무료) - 핫딜 - 에펨코리아",
+      "deal_table": 1,
+      "observation": {
+        "outcome": "active",
+        "evidence": "recognized-deal-detail"
+      }
+    }
+  ],
+  "known_limitations": [
+    "Past posts are rechecked incrementally, at most 5 per site per cycle.",
+    "PPOMPPU has an existing list parser failure on some rows without shop-name markup; actual DB updates still occurred.",
+    "CPU is a five-minute post-deployment sample, not a long-term performance comparison."
+  ]
+}
