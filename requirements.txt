@@ -103,3 +103,4 @@ zope.interface==7.0.1
 xlsx_streaming
 django-admin-action-forms
 pgvector
+Pillow==12.3.0

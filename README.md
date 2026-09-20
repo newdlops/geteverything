@@ -81,4 +81,6 @@ django와 lambda를 아우르는 모노레포를 구성하기 위해서 Bazel을
 ### 5. Scrapy
 본 프로젝트의 크롤링은 Scrapy가 담당하고 있다. spider를 통해서 수집된 정보를 pipeline에서 django orm으로 디비에 저장한다.
 
+크롤러의 코드 구조, 사이트별 저장 규칙, 실행 및 회귀 테스트 방법은 [크롤러 문서](crawlers/README.md)를 참조한다.
+
 [Scrapy 메뉴얼](https://scrapy.org/)

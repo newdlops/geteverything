@@ -2,10 +2,10 @@
   "schema_version": "codeidx.mcp/0.1",
   "server": "codeidx-mcp",
   "transport": "http",
-  "url": "http://127.0.0.1:63343/mcp",
+  "url": "http://127.0.0.1:60397/mcp",
   "workspace_id": "ws_c65132874d1b",
-  "pid": 28129,
-  "started_at": "2026-09-13T02:32:43.818Z",
-  "updated_at": "2026-09-13T02:32:43.818Z",
-  "lease_expires_at": "2026-09-13T02:33:43.818Z"
+  "pid": 36483,
+  "started_at": "2026-09-20T09:47:02.300Z",
+  "updated_at": "2026-09-20T09:47:02.300Z",
+  "lease_expires_at": "2026-09-20T09:48:02.300Z"
 }

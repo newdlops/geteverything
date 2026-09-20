@@ -9,6 +9,9 @@ on:
       - '.github/workflows/deploy.yaml'
       - 'Dockerfile'
       - 'requirements.txt'
+      - 'ops/storage-monitoring/**'
+      - 'ops/product-thumbnails/**'
+      - 'ops/deal-categories/**'
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
@@ -84,11 +87,38 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: 22
           script: |
+            set -e
             cd /home/docker/django
+            test -d /var/lib/geteverything-storage/snapshots
+            test -d /var/lib/geteverything-thumbnails/objects
             docker run --rm \
             --env-file django.env \
             my-django-app \
             python /app/gadmin/manage.py migrate --noinput
             docker stack rm django
-            docker stack deploy -c docker-compose.yml django
+            docker stack deploy -c docker-compose.yml \
+              -c deploy/geteverything/ops/storage-monitoring/docker-compose.web.yml django
+            sudo install -m 755 deploy/geteverything/ops/product-thumbnails/run.py /usr/local/lib/geteverything-thumbnails/run.py
+            sudo install -m 644 deploy/geteverything/ops/product-thumbnails/geteverything-product-thumbnails.service /etc/systemd/system/geteverything-product-thumbnails.service
+            sudo systemctl disable --now geteverything-product-thumbnails.timer
+            sudo systemctl daemon-reload
+            sudo systemctl enable geteverything-product-thumbnails.service
+            sudo systemctl restart geteverything-product-thumbnails.service
+
+      - name: Update category worker on crawler server
+        uses: appleboy/ssh-action@master
+        env:
+          CATEGORY_DEPLOY_SHA: ${{ github.sha }}
+        with:
+          host: ${{ secrets.CRAWLER_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          envs: CATEGORY_DEPLOY_SHA
+          script: |
+            set -e
+            git -C /home/crawler/build/geteverything fetch origin
+            category_release_dir=$(mktemp -d /tmp/geteverything-categories.XXXXXX)
+            git -C /home/crawler/build/geteverything archive "$CATEGORY_DEPLOY_SHA" | tar -x -C "$category_release_dir"
+            sudo python3 "$category_release_dir/ops/deal-categories/deploy.py"
+            rm -rf "$category_release_dir"
             
