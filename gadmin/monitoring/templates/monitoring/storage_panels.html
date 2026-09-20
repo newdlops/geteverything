@@ -1,0 +1,27 @@
+{% for source in sources %}
+<section class="module storage-panel" aria-labelledby="storage-{{ source.id }}-title">
+  <h2 id="storage-{{ source.id }}-title">{{ source.title }}</h2>
+  <div class="storage-panel-body">
+    <p class="storage-state storage-state-{{ source.state }}"><strong>{{ source.status }}</strong><span>{{ source.message }}</span></p>
+    {% if source.hostname %}<p class="storage-host">{{ source.hostname }}</p>{% endif %}
+    {% for volume in source.volumes %}
+    <div class="storage-volume">
+      <h3>{{ volume.label }}</h3>
+      <p class="storage-remaining"><span class="storage-remaining-label">남은 공간</span><strong>{{ volume.available }}</strong><span>전체 {{ volume.total }}</span></p>
+      <label for="storage-meter-{{ source.id }}-{{ forloop.counter }}">디스크 사용률 <strong>{{ volume.used_percent }}%</strong></label>
+      <meter id="storage-meter-{{ source.id }}-{{ forloop.counter }}" min="0" max="100" low="75" high="90" optimum="0" value="{{ volume.used_percent }}">{{ volume.used_percent }}%</meter>
+      <dl class="storage-facts">
+        <div><dt>사용 중</dt><dd>{{ volume.used }}</dd></div>
+        {% if volume.reserved %}<div><dt>시스템 예약 공간</dt><dd>{{ volume.reserved }}</dd></div>{% endif %}
+        {% if volume.inode_percent %}<div><dt>파일 생성 여유 (inode)</dt><dd>{{ volume.inode_percent }}%</dd></div>{% endif %}
+      </dl>
+      <p class="storage-path">측정 경로: {{ volume.path }}</p>
+    </div>
+    {% empty %}<p class="storage-empty">디스크 측정값이 없습니다.</p>{% endfor %}
+    {% if source.sizes %}<dl class="storage-facts storage-sizes">{% for size in source.sizes %}<div><dt>{{ size.label }}</dt><dd>{{ size.size }}</dd></div>{% endfor %}</dl>{% endif %}
+    {% if source.errors %}<ul class="storage-errors">{% for error in source.errors %}<li>{{ error }}</li>{% endfor %}</ul>{% endif %}
+    <p class="storage-note">{{ source.note }}</p>
+    <p class="storage-measured">마지막 측정: {% if source.measured_at %}<time datetime="{{ source.measured_at|date:'c' }}">{{ source.measured_at|date:"Y-m-d H:i:s" }} KST</time>{% else %}아직 없음{% endif %}</p>
+  </div>
+</section>
+{% endfor %}

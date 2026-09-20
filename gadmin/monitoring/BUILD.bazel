@@ -1,0 +1,9 @@
+load("@rules_python//python:defs.bzl", "py_library")
+
+py_library(
+    name = "monitoring_lib",
+    srcs = glob(["*.py"]),
+    data = glob(["templates/**", "static/**"]),
+    deps = ["@poetry//:django"],
+    visibility = ["//visibility:public"],
+)

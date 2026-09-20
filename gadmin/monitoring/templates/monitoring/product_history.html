@@ -1,0 +1,46 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static 'monitoring/products.css' %}">{% endblock %}
+{% block extrahead %}{{ block.super }}<script defer src="{% static 'monitoring/products.js' %}"></script>{% endblock %}
+{% block breadcrumbs %}<div class="breadcrumbs"><a href="{% url 'admin:index' %}">홈</a> &rsaquo; <a href="{{ list_url }}">고유 상품</a> &rsaquo; 가격 이력</div>{% endblock %}
+{% block content %}
+<div class="product-history">
+  <div class="product-heading">
+    <div><p class="product-specs">{{ specifications }}</p><p class="product-id">상품 ID {{ product.id }} · {% if product.verified %}운영자 확인{% else %}자동 식별 · 확인 전{% endif %}</p></div>
+    <a href="{{ change_url }}" class="button">상품 정보 수정</a>
+  </div>
+  {% if error %}<p class="errornote" role="alert" tabindex="-1">{{ error }} 기본 조건의 결과를 표시합니다.</p>{% endif %}
+  <form method="get" class="product-filters" autocomplete="off" aria-label="가격 이력 조회 조건">
+    <div><label for="history-start">시작일</label><input id="history-start" type="date" name="start" value="{{ data.start }}"></div>
+    <div><label for="history-end">종료일</label><input id="history-end" type="date" name="end" value="{{ data.end }}"></div>
+    <div><label for="history-currency">비교 통화</label><select id="history-currency" name="currency">{% for currency in currency_choices %}<option value="{{ currency }}"{% if data.currency == currency %} selected{% endif %}>{{ currency }}</option>{% endfor %}</select></div>
+    <div><label for="history-basis">가격 기준</label><select id="history-basis" name="basis">{% for code,label in bases %}<option value="{{ code }}"{% if data.basis == code %} selected{% endif %}>{{ label }}</option>{% endfor %}</select></div>
+    <div class="product-shipping"><label for="history-shipping"><input id="history-shipping" type="checkbox" name="shipping" value="1"{% if data.shipping %} checked{% endif %}> 배송비 포함</label></div>
+    <button type="submit" class="button default">조회</button><a href="?">초기화</a>
+  </form>
+  <section class="product-chart module" aria-labelledby="chart-heading">
+    <h2 id="chart-heading">{{ data.basis_label }} 가격 · {{ data.currency }}{% if data.shipping %} · 배송비 포함{% endif %}</h2>
+    <p>이 페이지의 {{ data.points|length }}개 가격 · {% if data.minimum != None %}최저 {{ data.minimum_label }} {{ data.currency }} · {% endif %}전체 관측 {{ data.count }}건</p>
+    {% if data.points %}
+    <div id="product-chart" class="product-chart-canvas" role="group" aria-label="날짜별 가격 그래프. 동일한 값은 아래 표에서 확인할 수 있습니다."></div>
+    <p id="product-chart-detail" class="product-chart-detail" aria-live="polite">그래프의 점에 포인터를 올리거나 키보드로 선택하면 날짜와 가격을 확인할 수 있습니다.</p>
+    {% else %}<p class="product-empty">{% if data.count %}선택한 통화·단가 기준으로 비교할 가격이 없습니다. 아래 표에서 원래 금액을 확인하거나 조회 조건을 바꿔 주세요.{% else %}이 기간에 연결된 가격 기록이 없습니다.{% endif %}</p>{% endif %}
+    <p class="help">{{ data.time_note }}</p><p class="help">{{ data.price_note }}{% if data.excluded %} 이 페이지에서 {{ data.excluded }}건 제외.{% endif %}</p>
+  </section>
+  <section aria-labelledby="posts-heading"><h2 id="posts-heading">게시물과 가격 기록</h2>
+    <p class="product-scroll-hint help">표를 좌우로 이동하면 상품 금액과 판매 수량을 함께 확인할 수 있습니다.</p>
+    <div class="product-table-wrap" tabindex="0" aria-label="게시물 가격 기록 표. 좁은 화면에서는 좌우로 이동할 수 있습니다.">
+    <table class="product-table"><thead><tr><th scope="col">시점</th><th scope="col">게시물</th><th scope="col">상품 금액</th><th scope="col">판매 수량</th><th scope="col">{{ data.basis_label }} · {{ data.currency }}</th><th scope="col">확인 사항</th></tr></thead><tbody>
+    {% for row in data.results %}<tr id="price-{{ row.id }}">
+      <td><time datetime="{{ row.at }}" class="local-time">{{ row.at }}</time><small>{% if row.price_revision == 1 %}게시물 작성일{% else %}가격 변경 확인{% endif %}</small><small>확인 <time class="local-time" datetime="{{ row.observed_at }}">{{ row.observed_at }}</time></small>{% if row.is_backfill %}<small>기존 글 복원</small>{% endif %}</td>
+      <td class="product-post">{% if row.has_safe_url %}<a href="{{ row.url }}" target="_blank" rel="noopener noreferrer">{{ row.title }}</a>{% else %}{{ row.title }}{% endif %}<small>{{ row.community }} · <a href="{{ row.assignment_url }}">상품 연결 확인</a></small></td>
+      <td class="product-number">{{ row.price_label }}{% if row.price.currency %} {{ row.price.currency }}{% endif %}</td>
+      <td>{{ row.quantity_label }}</td><td class="product-number">{{ row.amount_label }}</td>
+      <td>{% if row.status == 'pending' %}가격 계산 대기{% elif row.status == 'error' %}가격 분석 실패{% else %}{% for warning in row.warning_labels %}<small>{{ warning }}</small>{% empty %}없음{% endfor %}{% endif %}</td>
+    </tr>{% empty %}<tr><td colspan="6">조회 조건에 해당하는 가격 기록이 없습니다.</td></tr>{% endfor %}
+    </tbody></table></div>
+    <nav class="product-pages" aria-label="가격 기록 페이지">{% if previous_url %}<a href="{{ previous_url }}">이전 100건</a>{% endif %}<span>{{ data.page }}페이지 · 최대 100건씩 표시</span>{% if next_url %}<a href="{{ next_url }}">다음 100건</a>{% endif %}</nav>
+  </section>
+</div>
+{{ data.points|json_script:"product-price-data" }}
+{% endblock %}

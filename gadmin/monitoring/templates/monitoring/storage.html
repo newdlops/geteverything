@@ -1,0 +1,19 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" href="{% static 'monitoring/storage.css' %}">{% endblock %}
+{% block extrahead %}{{ block.super }}<script src="{% static 'monitoring/storage.js' %}" defer></script>{% endblock %}
+{% block breadcrumbs %}<div class="breadcrumbs"><a href="{% url 'admin:index' %}">홈</a> &rsaquo; 저장 공간</div>{% endblock %}
+{% block content %}
+<div id="storage-monitor" data-refresh-url="{% url 'admin:storage_data' %}">
+  <div class="storage-toolbar">
+    <p>서버에서 약 1분마다 측정합니다. 새로고침하면 가장 최근에 수집한 값을 불러옵니다.</p>
+    <form method="get"><button type="submit" id="storage-refresh">새로고침</button></form>
+  </div>
+  <p id="storage-feedback" role="status" aria-live="polite">화면 갱신: {{ checked_at|date:"Y-m-d H:i:s" }} KST</p>
+  <p id="storage-request-error" role="alert" hidden></p>
+  <p id="storage-login" hidden><a href="{% url 'admin:login' %}?next={% url 'admin:storage' %}">다시 로그인</a></p>
+  <div id="storage-panels" class="storage-grid">{% include 'monitoring/storage_panels.html' %}</div>
+  <p class="storage-footnote">용량 단위는 1 GiB = 1,024 MiB입니다. 남은 공간은 해당 디스크에 추가로 저장할 수 있는 용량이며, DB나 로그만을 위한 별도 할당량은 아닙니다.</p>
+  {% if request.user.is_superuser %}<p><a href="{% url 'admin:logs' %}">크롤러 로그 보기</a></p>{% endif %}
+</div>
+{% endblock %}

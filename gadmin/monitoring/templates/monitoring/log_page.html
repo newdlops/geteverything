@@ -1,0 +1,1 @@
+{% if lines %}<ol class="log-page">{% for line in lines %}<li class="log-line log-{{ line.severity }}" value="{{ line.number }}" data-log-id="{{ line.id }}"><pre translate="no"><time datetime="{{ line.time|date:'c' }}">{{ line.time|date:"Y-m-d H:i:s" }} KST</time> {{ line.text }}</pre></li>{% endfor %}</ol>{% endif %}

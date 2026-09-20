@@ -1,0 +1,18 @@
+<section class="module log-panel" aria-labelledby="log-results-heading" data-next-cursor="{{ next_cursor }}">
+  <h2 id="log-results-heading">{{ source_title }}</h2>
+  <div class="log-summary log-state-{{ state }}">
+    <p><strong>{{ status }}</strong> <span>{{ message }}</span></p>
+    <p>{% if measured_at %}수집 확인: {{ measured_at|date:"Y-m-d H:i:s" }} KST · {% endif %}<span id="log-count">{{ lines|length }}줄 표시</span></p>
+    {% if available_from %}<p class="log-retention">보관 범위: {{ available_from|date:"Y-m-d H:i:s" }} ~ {{ available_to|date:"Y-m-d H:i:s" }} KST</p>{% endif %}
+    {% if outside_retention %}<p class="log-retention">시작 시각이 보관 범위보다 이릅니다. 남아 있는 이력만 조회합니다.</p>{% endif %}
+  </div>
+  <div class="log-content" tabindex="0" role="region" aria-label="수집 로그 내용">
+    <div id="log-pages">{% include 'monitoring/log_page.html' %}</div>
+    {% if not lines %}<p class="log-empty">{% if state == 'healthy' %}선택한 시간과 검색 조건에 맞는 로그가 없습니다.{% else %}표시할 로그가 없습니다. 수집 상태와 조회 조건을 확인해 주세요.{% endif %}</p>{% endif %}
+    <div class="log-pagination">
+      <button type="button" id="log-more"{% if not next_cursor %} hidden{% endif %}>이전 로그 더 보기</button>
+      <p id="log-more-status" role="status" aria-live="polite">{% if lines and not next_cursor %}선택한 조건의 마지막 로그입니다.{% endif %}</p>
+      <p id="log-more-error" role="alert" hidden></p>
+    </div>
+  </div>
+</section>
