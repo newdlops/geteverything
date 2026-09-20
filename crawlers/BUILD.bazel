@@ -1,0 +1,14 @@
+filegroup(
+    name = "shared_pipeline_sources",
+    srcs = [
+        "__init__.py",
+        "pipelines.py",
+        "availability.py",
+        "availability_store.py",
+        "utils/__init__.py",
+        "utils/prices.py",
+        "utils/links.py",
+        "//gadmin/metrics:money_sources",
+    ],
+    visibility = ["//visibility:public"],
+)
