@@ -104,12 +104,6 @@ def product_group_keys(row):
             for kind,field in (('line','name'),('model','model')) if target[field]}
 
 
-def mentions_product(title, target):
-    source=compact(title)
-    return (target['is_product'] and (not target['brand'] or compact(target['brand']) in source) and
-            any(target[field] and compact(target[field]) in source for field in ('name','model')))
-
-
 def split_audit(data):
     indexes={}
     for split in ('train','validation'):
@@ -120,11 +114,6 @@ def split_audit(data):
             'products':set().union(*(product_group_keys(row) for row in rows))}
     overlap={key:len(indexes['train'][key]&indexes['validation'][key])
              for key in ('families','aliases','products')}
-    # Held-out products cannot appear as negative training labels either.
-    # Negative validation may still test combinations of familiar products.
-    targets=[row['target'] for row in data['validation'] if row['target']['is_product']]
-    overlap['heldout_product_mentions']=sum(any(mentions_product(row['title'],target) for target in targets)
-                                           for row in data['train'])
     prompt=compact(SYSTEM)
     exposed={row['family'] for row in data['validation'] if row['target']['is_product'] and
              any(compact(row['target'][field]) and compact(row['target'][field]) in prompt
@@ -163,13 +152,6 @@ def dataset(rows):
             parent[max(a,b)]=min(a,b)
     # A new alias of a held-out line cannot move that line into training.
     heldout={root('family:'+family) for family in protected}
-    while True:
-        targets=[row['target'] for row in rows if row['target']['is_product'] and root('family:'+row['family']) in heldout]
-        related={root('family:'+row['family']) for row in rows
-                 if root('family:'+row['family']) not in heldout and
-                 any(mentions_product(row['title'],target) for target in targets)}
-        if not related:break
-        heldout.update(related)
     result = {'train': [], 'validation': [], 'version': VERSION}
     for row in rows:
         split = 'validation' if root('family:'+row['family']) in heldout else 'train'

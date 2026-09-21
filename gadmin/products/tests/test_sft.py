@@ -42,6 +42,17 @@ class TrainingDataTests(SimpleTestCase):
             self.assertFalse(sft.split_audit(data)['passed'])
             self.assertIn('nike',sft.split_audit(data)['prompt_exposed_families'])
 
+    def test_heldout_single_product_and_training_choice_offer_stay_together(self):
+        data=sft.dataset(sft.bootstrap_rows())
+        choice=[row for row in data['validation'] if row['family']=='battery-choice']
+        self.assertEqual(len(choice),2)
+        self.assertFalse(any(row['family']=='battery-choice' for row in data['train']))
+        bad={'train':data['train']+choice,
+             'validation':[row for row in data['validation'] if row not in choice]}
+        audit=sft.split_audit(bad)
+        self.assertFalse(audit['passed'])
+        self.assertEqual(audit['overlap']['heldout_product_mentions'],2)
+
     def test_model_guesses_and_conflicting_labels_cannot_be_training_truth(self):
         rows=sft.bootstrap_rows()
         guessed=copy.deepcopy(rows[0]);guessed.update(origin='llm',title='모델이 지어낸 상품')
