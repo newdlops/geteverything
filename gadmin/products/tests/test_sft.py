@@ -36,6 +36,12 @@ class TrainingDataTests(SimpleTestCase):
         self.assertNotIn(extra,data['train'])
         self.assertTrue(sft.split_audit(data)['passed'])
 
+    def test_validation_product_cannot_appear_in_prompt_examples(self):
+        data=sft.dataset(sft.bootstrap_rows())
+        with patch.object(sft,'SYSTEM',sft.SYSTEM+' 나이키 에어포스 1'):
+            self.assertFalse(sft.split_audit(data)['passed'])
+            self.assertIn('nike',sft.split_audit(data)['prompt_exposed_families'])
+
     def test_model_guesses_and_conflicting_labels_cannot_be_training_truth(self):
         rows=sft.bootstrap_rows()
         guessed=copy.deepcopy(rows[0]);guessed.update(origin='llm',title='모델이 지어낸 상품')
@@ -99,12 +105,15 @@ class TrainingDataTests(SimpleTestCase):
         pairs={'same_pairs':20,'different_pairs':60,'false_merges':0,'false_splits':0}
         result={'probe':False,'validation_count':40,'validation_families':16,'validation_negatives':8,
                 'split_audit':{'passed':True},
-                'lora_b_squared_norm':.1,'loss_gate':True,'regressions':0,
+                'lora_b_squared_norm':.1,'loss_gate':True,'regressions':0,'same_prompt_regressions':0,
                 'baseline':{'correct':20,'p95_seconds':50,'pairs':pairs},
+                'same_prompt_base':{'correct':25,'pairs':pairs},
                 'candidate':{'correct':32,'valid':40,'false_merge':0,'p95_seconds':50,'pairs':pairs}}
         self.assertTrue(promotion_gate(result)['passed'])
         for change in ({'probe':True},{'loss_gate':False},{'regressions':1},{'validation_count':2},
-                       {'validation_families':3},{'validation_negatives':1},{'split_audit':{'passed':False}}):
+                       {'validation_families':3},{'validation_negatives':1},{'split_audit':{'passed':False}},
+                       {'same_prompt_base':{}},{'same_prompt_base':{'correct':32,'pairs':pairs}},
+                       {'same_prompt_regressions':1}):
             self.assertFalse(promotion_gate(result|change)['passed'])
         for change in ({'correct':20},{'correct':25},{'valid':39},{'false_merge':1},{'p95_seconds':250},
                        {'pairs':pairs|{'false_merges':1}},{'pairs':pairs|{'false_splits':1}}):
@@ -127,7 +136,7 @@ class TrainingDataTests(SimpleTestCase):
         model.opener.open.return_value.__exit__=Mock(return_value=False)
         self.assertEqual(model.classify('우유'),'food')
         request=model.opener.open.call_args.args[0]
-        self.assertEqual(json.loads(request.data)['lora'],[])
+        self.assertEqual(json.loads(request.data)['lora'],[{'id':0,'scale':0.0}])
 
 
 class ReviewedFeedbackTests(TestCase):

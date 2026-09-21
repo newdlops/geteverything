@@ -1,0 +1,32 @@
+{
+  "at": 1790005960.934297,
+  "run_id": "391b9bbb75ade3c5a697",
+  "status": "rejected",
+  "promoted": false,
+  "reason": "Two same-prompt regressions; held-out product examples appeared in the training prompt",
+  "same_prompt_base": {
+    "correct": 40,
+    "valid": 56,
+    "false_merge": 0,
+    "pairs": {
+      "same_pairs": 60,
+      "different_pairs": 1266,
+      "false_merges": 0,
+      "false_splits": 27
+    }
+  },
+  "candidate": {
+    "correct": 58,
+    "valid": 62,
+    "false_merge": 0,
+    "p95_seconds": 0.62,
+    "pairs": {
+      "same_pairs": 60,
+      "different_pairs": 1266,
+      "false_merges": 0,
+      "false_splits": 8
+    }
+  },
+  "same_prompt_regressions": 2,
+  "legacy_evaluation_invalid": "lora: [] inherited the default candidate adapter in the baseline request"
+}

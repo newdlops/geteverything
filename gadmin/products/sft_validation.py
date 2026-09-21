@@ -39,6 +39,7 @@ def score(title, expected, actual):
 
 def promotion_gate(result):
     baseline=result['baseline'];candidate=result['candidate']
+    same_prompt=result.get('same_prompt_base',{})
     conditions={
         'full_training':not result.get('probe',True),
         'heldout_integrity':result.get('split_audit',{}).get('passed') is True,
@@ -47,6 +48,9 @@ def promotion_gate(result):
         'weights_changed':result.get('lora_b_squared_norm',0)>0,
         'validation_loss_improved':result.get('loss_gate') is True,
         'generation_improved':candidate['correct']>baseline['correct'],
+        'adapter_improved':bool(same_prompt) and candidate['correct']>same_prompt.get('correct',0),
+        'same_prompt_no_regressions':result.get('same_prompt_regressions',1)==0,
+        'same_prompt_pair_recall':bool(same_prompt) and candidate.get('pairs',{}).get('false_splits',1)<=same_prompt.get('pairs',{}).get('false_splits',0),
         'accuracy_floor':candidate['correct']>=0.8*result.get('validation_count',0),
         'no_regressions':result.get('regressions',1)==0,
         'no_false_merges':candidate['false_merge']==0,

@@ -14,7 +14,7 @@ evaluation=importlib.util.module_from_spec(spec);spec.loader.exec_module(evaluat
 
 
 class EvaluationProgressTests(unittest.TestCase):
-    def run_evaluation(self, invalid_candidate=False):
+    def run_evaluation(self, invalid_candidate=False, same_prompt_correct=False):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory)
             work=root/'runs'/'example';work.mkdir(parents=True)
@@ -30,7 +30,8 @@ class EvaluationProgressTests(unittest.TestCase):
             class Model:
                 def structured(self, system, value, schema, max_tokens, adapter):
                     observed.append(json.loads((root/'status.json').read_text()))
-                    return expected[value['title']] if adapter==0 and not invalid_candidate else {}
+                    correct=(adapter==0 and not invalid_candidate) or (same_prompt_correct and system==evaluation.SYSTEM)
+                    return expected[value['title']] if correct else {}
             with patch.object(evaluation,'LocalModel',return_value=Model()),patch('sys.argv',[
                     'evaluate.py','--root',str(root),'--dataset',str(root/'dataset.json')]),contextlib.redirect_stdout(io.StringIO()):
                 evaluation.main()
@@ -39,12 +40,12 @@ class EvaluationProgressTests(unittest.TestCase):
     def test_live_status_covers_each_request_and_final_validation(self):
         observed,status,result=self.run_evaluation()
         count=len(dataset(bootstrap_rows())['validation'])
-        self.assertEqual([row['evaluation_completed'] for row in observed],list(range(2*count)))
-        self.assertTrue(all(row['status']=='evaluating' and row['evaluation_total']==2*count for row in observed))
-        self.assertEqual([row['evaluation_mode'] for row in observed],['baseline']*count+['candidate']*count)
+        self.assertEqual([row['evaluation_completed'] for row in observed],list(range(3*count)))
+        self.assertTrue(all(row['status']=='evaluating' and row['evaluation_total']==3*count for row in observed))
+        self.assertEqual([row['evaluation_mode'] for row in observed],['baseline']*count+['same_prompt_base']*count+['candidate']*count)
         self.assertEqual(status,result)
         self.assertEqual(status['status'],'validated')
-        self.assertEqual(status['evaluation_completed'],2*count)
+        self.assertEqual(status['evaluation_completed'],3*count)
         self.assertGreater(result['candidate']['pairs']['same_pairs'],10)
         self.assertGreater(result['candidate']['pairs']['different_pairs'],20)
         self.assertFalse(status['promoted'])
@@ -55,6 +56,13 @@ class EvaluationProgressTests(unittest.TestCase):
         self.assertEqual(status['status'],'rejected')
         self.assertFalse(status['gate']['passed'])
         self.assertFalse(status['promoted'])
+
+    def test_prompt_improvement_without_adapter_improvement_is_rejected(self):
+        _,status,result=self.run_evaluation(same_prompt_correct=True)
+        self.assertGreater(result['candidate']['correct'],result['baseline']['correct'])
+        self.assertEqual(result['candidate']['correct'],result['same_prompt_base']['correct'])
+        self.assertFalse(result['gate']['checks']['adapter_improved'])
+        self.assertEqual(status['status'],'rejected')
 
     def test_resume_requires_same_context_and_an_exact_prefix_of_validation(self):
         with tempfile.TemporaryDirectory() as directory:

@@ -57,7 +57,10 @@ class LocalModel:
     def structured(self, system, value, schema, max_tokens=192, adapter=None):
         payload = {'model': self.model, 'messages': [{'role': 'system', 'content': system}, {'role': 'user', 'content': json.dumps(value, ensure_ascii=False)}],
                    'temperature': 0, 'seed': 42, 'max_tokens': max_tokens, 'stream': False,
-                   'chat_template_kwargs': {'enable_thinking': False}, 'lora':([] if adapter is None else [{'id':adapter,'scale':1.0}]),
+                   # An empty list inherits llama.cpp's server defaults. A nonempty
+                   # zero-scale entry disables all loaded adapters for this request.
+                   'chat_template_kwargs': {'enable_thinking': False},
+                   'lora':[{'id':0 if adapter is None else adapter,'scale':0.0 if adapter is None else 1.0}],
                    'response_format': {'type': 'json_schema', 'json_schema': {'name': 'category', 'strict': True, 'schema': schema}}}
         request = urllib.request.Request(self.endpoint + '/v1/chat/completions', data=json.dumps(payload).encode(), headers={'Content-Type': 'application/json'})
         try:

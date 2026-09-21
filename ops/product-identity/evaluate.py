@@ -6,18 +6,19 @@ import json
 from pathlib import Path
 import time
 from gadmin.categories.llm import LocalModel, InvalidResult, Unavailable
+from gadmin.categories import llm
 from gadmin.categories.taxonomy import GROUPS
 from gadmin.products.local_model import SYSTEM as BASE_SYSTEM, repair_output
 from gadmin.products.sft import SYSTEM, VERSION, split_audit
 from gadmin.products.sft_validation import score, promotion_gate, pair_scores
-from gadmin.products import identity, local_model, sft_validation
+from gadmin.products import identity, local_model, sft, sft_validation
 
 
 def evaluation_context(root, state, data, baseline_adapter, endpoint):
     adapter=root/'runs'/state['run_id']/'adapter.gguf'
     protocol=hashlib.sha256(b''.join(Path(path).read_bytes() for path in
-        (__file__,identity.__file__,local_model.__file__,sft_validation.__file__))).hexdigest()
-    return {'version':'generation-eval-2','run_id':state['run_id'],
+        (__file__,llm.__file__,identity.__file__,local_model.__file__,sft.__file__,sft_validation.__file__))).hexdigest()
+    return {'version':'generation-eval-3','run_id':state['run_id'],
             'dataset_sha256':data['sha256'],'prompt_version':VERSION,
             'adapter_sha256':hashlib.sha256(adapter.read_bytes()).hexdigest(),
             'protocol_sha256':protocol,
@@ -32,7 +33,7 @@ def resume_details(work, context, validation):
         if not marker.exists() or json.loads(marker.read_text())!=context:
             raise RuntimeError('Evaluation context changed; archive partial results before retrying')
         details=json.loads(partial.read_text())
-        expected=[(mode,row) for mode in ('baseline','candidate') for row in validation]
+        expected=[(mode,row) for mode in ('baseline','same_prompt_base','candidate') for row in validation]
         assert len(details)<=len(expected)
         for actual,(mode,row) in zip(details,expected):
             assert actual['mode']==mode and actual['title']==row['title'] and actual['expected']==row['target']
@@ -64,12 +65,13 @@ def main():
     details=resume_details(work,context,data['validation'])
     def progress(**values):
         current={**state,'status':'evaluating','at':time.time(),
-                 'evaluation_completed':len(details),'evaluation_total':2*len(data['validation']),**values}
+                 'evaluation_completed':len(details),'evaluation_total':3*len(data['validation']),**values}
         temporary=(args.root/'status.json').with_suffix('.tmp')
         temporary.write_text(json.dumps(current,indent=2));temporary.replace(args.root/'status.json')
     progress(evaluation_mode='baseline')
     baseline_system=SYSTEM if args.baseline_adapter is not None else BASE_SYSTEM
-    for mode,system,adapter in [('baseline',baseline_system,args.baseline_adapter),('candidate',SYSTEM,0)]:
+    for mode,system,adapter in [('baseline',baseline_system,args.baseline_adapter),
+                                ('same_prompt_base',SYSTEM,None),('candidate',SYSTEM,0)]:
         progress(evaluation_mode=mode)
         previous=[row for row in details if row['mode']==mode]
         outcomes=[{key:row[key] for key in ('correct','valid','false_merge')} for row in previous]
@@ -77,15 +79,15 @@ def main():
         for row in data['validation'][len(previous):]:
             start=time.monotonic()
             try:
-                raw=model.structured(system,{'title':row['title']},schema,224,adapter=adapter)
-                raw=repair_output(row['title'],raw)
+                generated=model.structured(system,{'title':row['title']},schema,224,adapter=adapter)
+                raw=repair_output(row['title'],generated)
                 outcome=score(row['title'],row['target'],raw)
             except (InvalidResult,Unavailable):
-                raw={};outcome={'correct':False,'valid':False,'false_merge':False}
+                generated={};raw={};outcome={'correct':False,'valid':False,'false_merge':False}
             elapsed=round(time.monotonic()-start,3)
             outcomes.append(outcome);times.append(elapsed)
             details.append({'mode':mode,'family':row['family'],'title':row['title'],
-                            'actual':raw,'expected':row['target'],'seconds':elapsed,**outcome})
+                            'generated':generated,'actual':raw,'expected':row['target'],'seconds':elapsed,**outcome})
             temporary=partial.with_suffix('.tmp')
             temporary.write_text(json.dumps(details,ensure_ascii=False,indent=2));temporary.replace(partial)
             progress(evaluation_mode=mode)
@@ -94,12 +96,14 @@ def main():
         summaries[mode]['p95_seconds']=sorted(times)[min(len(times)-1,int(len(times)*.95))]
         summaries[mode]['pairs']=pair_scores([row for row in details if row['mode']==mode])
     baseline={row['title']:row for row in details if row['mode']=='baseline'}
+    same_prompt={row['title']:row for row in details if row['mode']=='same_prompt_base'}
     result={**state,**summaries,'split_audit':split_audit(data),'validation_count':len(data['validation']),
             'validation_families':len({row['family'] for row in data['validation']}),
             'validation_negatives':sum(not row['target']['is_product'] for row in data['validation']),
-            'evaluation_completed':len(details),'evaluation_total':2*len(data['validation']),
+            'evaluation_completed':len(details),'evaluation_total':3*len(data['validation']),
             'baseline_adapter_id':args.baseline_adapter,
             'regressions':sum(row['mode']=='candidate' and baseline[row['title']]['correct'] and not row['correct'] for row in details),
+            'same_prompt_regressions':sum(row['mode']=='candidate' and same_prompt[row['title']]['correct'] and not row['correct'] for row in details),
             'gguf_sha256':hashlib.sha256((work/'adapter.gguf').read_bytes()).hexdigest(),'evaluated_at':time.time()}
     result['gate']=promotion_gate(result)
     result['status']='validated' if result['gate']['passed'] else 'rejected'

@@ -1,0 +1,82 @@
+{
+  "run_id": "391b9bbb75ade3c5a697",
+  "stage": "rejected_retraining",
+  "files": {
+    "README.md": {
+      "bytes": 823,
+      "sha256": "b4549a2b7fc769a387417d7b5ee8de17291d8d79e05cc14b4aeaa47e174054cc"
+    },
+    "adapter.gguf": {
+      "bytes": 2557664,
+      "sha256": "0c769d4e59958245322f19db2d8c7fb24cb44ee4cdb52669f130f9df63b29773"
+    },
+    "best/README.md": {
+      "bytes": 5320,
+      "sha256": "abbaf9fb9422474bba6138706baacee95c10fc013f014e3797256a7336a5c08b"
+    },
+    "best/adapter_config.json": {
+      "bytes": 1123,
+      "sha256": "2b425d137ef31553496f2fd14f2a614848903f8f11ae5eaf14406c29e7a18e90"
+    },
+    "best/adapter_model.safetensors": {
+      "bytes": 2557776,
+      "sha256": "fbf260a7abff44df4ec1f1e1242134c89428ec02794f01863af585b092bb8b66"
+    },
+    "checkpoint/README.md": {
+      "bytes": 5320,
+      "sha256": "abbaf9fb9422474bba6138706baacee95c10fc013f014e3797256a7336a5c08b"
+    },
+    "checkpoint/adapter_config.json": {
+      "bytes": 1123,
+      "sha256": "2b425d137ef31553496f2fd14f2a614848903f8f11ae5eaf14406c29e7a18e90"
+    },
+    "checkpoint/adapter_model.safetensors": {
+      "bytes": 2557776,
+      "sha256": "df99124645326d00ea27c000833050ce9124223cb1f1b2364ea9ea0f77b5c496"
+    },
+    "checkpoint/optimizer.pt": {
+      "bytes": 5124165,
+      "sha256": "a2368cf539ee39cc1c07129003a7c0770cedcb1909dc57094c806780afd0ebdf"
+    },
+    "meta/adapter-activation-check.json": {
+      "bytes": 27563,
+      "sha256": "09d62e819b76713d9244da913190e31600d026321f99e5324982a46986dfc94f"
+    },
+    "meta/dataset.json": {
+      "bytes": 118409,
+      "sha256": "82678c3d9bbfe3ae8145b5931f735798c9d88d68ef17e9702a8161d9a331b6e2"
+    },
+    "meta/decision.json": {
+      "bytes": 795,
+      "sha256": "35c3799d04b832a96c80b604608c919f00ee3296151993b87a242f3086e6351b"
+    },
+    "meta/downloaded.json": {
+      "bytes": 1389,
+      "sha256": "037f3e210a009495039b7f529acd0deb5f4d30df6782252ecc8d0f07b82afc2f"
+    },
+    "meta/evaluation.json": {
+      "bytes": 3164,
+      "sha256": "201ec2d741d6c6a20690f524bec536d54684fea1aa3e8cf1e691c18ca11273cd"
+    },
+    "meta/executed-training-source.py": {
+      "bytes": 15941,
+      "sha256": "a45ec990a9cf8c3323b3d37ab93e2dc649bb09103e958fdef67499ae03671ce1"
+    },
+    "meta/generation-context.json": {
+      "bytes": 635,
+      "sha256": "1b5fe4c3a7202fafabf249327200e36d62f0bf1b8f8fefe4f3f97716f4f87dbe"
+    },
+    "meta/generation-progress.json": {
+      "bytes": 72935,
+      "sha256": "7118c903699c7f4a3bb197bba6e257310cb09de3ce4bd9571b50cf048e9ce529"
+    },
+    "meta/result.json": {
+      "bytes": 1736,
+      "sha256": "2f8a0b0b1354dea2ecee9efed5669884a2697e77ede886ec5002647821d85cdf"
+    },
+    "meta/same-prompt-ablation.json": {
+      "bytes": 39302,
+      "sha256": "935ee25a78c92adb6da7f93a9a1d32b8f24e04b0967054b84a2cf85d0b7122d1"
+    }
+  }
+}
