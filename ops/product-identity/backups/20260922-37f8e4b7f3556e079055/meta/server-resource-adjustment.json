@@ -1,0 +1,6 @@
+{
+  "at": 1790010478.3284147,
+  "from_cpu": 0.5,
+  "to_cpu": 0.2,
+  "reason": "Crawler load caused evaluation pauses; use the production inference CPU quota"
+}

@@ -1,0 +1,140 @@
+{
+  "run_id": "37f8e4b7f3556e079055",
+  "dataset_sha256": "1578ce44fb0d418f1dbb0c3fe2d8f46cf78756aef7f964f7f6fc5a667a72dd44",
+  "base_revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+  "training_examples": 388,
+  "validation_examples": 100,
+  "started_at": 1790008986.873441,
+  "step": 1800,
+  "promoted": false,
+  "probe": false,
+  "recipe": {
+    "version": "last-block-lora-fp32-3",
+    "rank": 16,
+    "alpha": 32,
+    "learning_rate": 8e-05,
+    "targets": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "scheduler": "warmup_cosine",
+    "epochs": 6,
+    "max_steps": 1800,
+    "early_stopping_patience": 2
+  },
+  "prompt_version": "product-sft-6",
+  "cache_reused": 452,
+  "training_device": "cpu",
+  "cpu_threads": 4,
+  "status": "rejected",
+  "at": 1790017135.6680489,
+  "compute": "fp32_gemm_bf16_storage",
+  "trainable_parameters": 638976,
+  "frozen_parameters": 1881825088,
+  "cached": 488,
+  "total_cache": 488,
+  "last_cache_seconds": 1.36,
+  "baseline_validation_loss": 0.17941214732825755,
+  "total_steps": 1800,
+  "loss": 0.11892024427652359,
+  "learning_rate": 8.000000000000001e-06,
+  "last_step_seconds": 0.33,
+  "epoch": 5,
+  "validation_loss": 0.05431807961314917,
+  "best_validation_loss": 0.04879565013572574,
+  "best_step": 1164,
+  "bad_epochs": 2,
+  "early_stopped": true,
+  "final_validation_loss": 0.04879565013572574,
+  "lora_b_squared_norm": 3.26091668009758,
+  "adapter": "/training/runs/37f8e4b7f3556e079055/best",
+  "adapter_sha256": "59143d7eac341783b9683597ee6fdabfd4d1068c9e8d59313f4bf0a5a4b29385",
+  "loss_gate": true,
+  "elapsed_seconds": 780.7,
+  "execution_host": "local-mac",
+  "baseline": {
+    "correct": 73,
+    "valid": 98,
+    "false_merge": 0,
+    "p95_seconds": 57.895,
+    "pairs": {
+      "same_pairs": 108,
+      "different_pairs": 2448,
+      "false_merges": 0,
+      "false_splits": 47
+    }
+  },
+  "same_prompt_base": {
+    "correct": 68,
+    "valid": 88,
+    "false_merge": 0,
+    "p95_seconds": 62.579,
+    "pairs": {
+      "same_pairs": 108,
+      "different_pairs": 2448,
+      "false_merges": 0,
+      "false_splits": 18
+    }
+  },
+  "candidate": {
+    "correct": 96,
+    "valid": 100,
+    "false_merge": 0,
+    "p95_seconds": 53.777,
+    "pairs": {
+      "same_pairs": 108,
+      "different_pairs": 2448,
+      "false_merges": 0,
+      "false_splits": 6
+    }
+  },
+  "split_audit": {
+    "passed": true,
+    "overlap": {
+      "families": 0,
+      "aliases": 0,
+      "products": 0,
+      "heldout_product_mentions": 0
+    },
+    "prompt_exposed_families": []
+  },
+  "validation_count": 100,
+  "validation_families": 24,
+  "validation_negatives": 28,
+  "evaluation_completed": 300,
+  "evaluation_total": 300,
+  "inference_requests": 150,
+  "baseline_adapter_id": null,
+  "regressions": 4,
+  "same_prompt_regressions": 4,
+  "gguf_sha256": "678878ff44aae5fed31b91232b35b5d40db3cce8d0feb35ca47477b742c78eb3",
+  "evaluated_at": 1790017135.6680124,
+  "gate": {
+    "passed": false,
+    "checks": {
+      "full_training": true,
+      "heldout_integrity": true,
+      "heldout_count": true,
+      "heldout_diversity": true,
+      "weights_changed": true,
+      "validation_loss_improved": true,
+      "generation_improved": true,
+      "adapter_improved": true,
+      "same_prompt_no_regressions": false,
+      "same_prompt_pair_recall": true,
+      "accuracy_floor": true,
+      "no_regressions": false,
+      "no_false_merges": true,
+      "identity_pairs": true,
+      "no_pair_false_merges": true,
+      "no_pair_recall_regression": true,
+      "valid_outputs": true,
+      "latency_budget": true
+    }
+  }
+}

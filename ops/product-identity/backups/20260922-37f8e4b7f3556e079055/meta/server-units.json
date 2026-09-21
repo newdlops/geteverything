@@ -1,0 +1,20 @@
+{
+  "geteverything-product-local-evaluation-20260922.service": {
+    "Result": "success",
+    "ExecMainStatus": "0",
+    "ActiveState": "inactive",
+    "SubState": "dead"
+  },
+  "geteverything-product-training.timer": {
+    "NextElapseUSecRealtime": "",
+    "Result": "success",
+    "ActiveState": "inactive",
+    "SubState": "dead"
+  },
+  "geteverything-product-training.service": {
+    "Result": "success",
+    "ExecMainStatus": "1",
+    "ActiveState": "inactive",
+    "SubState": "dead"
+  }
+}

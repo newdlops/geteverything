@@ -1,10 +1,10 @@
 {
   "run_id": "37f8e4b7f3556e079055",
-  "stage": "validated",
+  "stage": "server_rejected",
   "files": {
     "README.md": {
-      "bytes": 775,
-      "sha256": "3639e6b069c56f7011c8bbf3a83c0ea3419563c7d2bdd9be185ef91fffde00d8"
+      "bytes": 1234,
+      "sha256": "46cf06c3bef942082828ef3020a4306908eca81747d2ea3149e21b017a1f0c8e"
     },
     "adapter.gguf": {
       "bytes": 2557408,
@@ -81,6 +81,42 @@
     "meta/runner.py": {
       "bytes": 19099,
       "sha256": "0c49f89db0ff91b2ce9e947d1482f8ca91a0f48990c7013781cccc9a41ae4ef3"
+    },
+    "meta/server-attempt.json": {
+      "bytes": 579,
+      "sha256": "964f9d4bf2f892da3d8fa585e4c07db1ef2ba17fcac8950df5051727c0f9c14e"
+    },
+    "meta/server-evaluation.json": {
+      "bytes": 3655,
+      "sha256": "a8ea6d9a57584de9557dba95abe8b6b7257c7f095e6c926e272a2d291b35c562"
+    },
+    "meta/server-generation-context.json": {
+      "bytes": 635,
+      "sha256": "82b4a6f00376210b9b4e33651f74a868c13459e7793be7eced156faab8ac136f"
+    },
+    "meta/server-generation-progress.json": {
+      "bytes": 242220,
+      "sha256": "7c7c98437e011e7d12817f0ec8ebad645182f2d33761e21d1308bf6a80c2cb0c"
+    },
+    "meta/server-import-deployment.json": {
+      "bytes": 301,
+      "sha256": "64c6caad0dbd2991be134376a7ce978589e0567e7a3dfca839a7b449fe2b23d6"
+    },
+    "meta/server-import.json": {
+      "bytes": 928,
+      "sha256": "25168ad423f7a593b075cc08ae157fa701b19a8cfabce57d66361a63ae54d9ec"
+    },
+    "meta/server-resource-adjustment.json": {
+      "bytes": 160,
+      "sha256": "eb8133bce71c614fb0f5a232aa582c073e486938e37cea54459000643189abfd"
+    },
+    "meta/server-status.json": {
+      "bytes": 3655,
+      "sha256": "a8ea6d9a57584de9557dba95abe8b6b7257c7f095e6c926e272a2d291b35c562"
+    },
+    "meta/server-units.json": {
+      "bytes": 496,
+      "sha256": "a02444f49651a2ee4736d266634a0102a2d004ebe9115d36dadf0e85510a8d99"
     },
     "meta/sft.py": {
       "bytes": 12953,
