@@ -68,6 +68,8 @@ def main():
         run(['docker', 'create', '--name', NAME, '--init', '--network=host', '--read-only', '--user=65534:65534',
              '--cap-drop=ALL', '--security-opt=no-new-privileges', '--memory=3g', '--memory-swap=3g',
              '--cpus=0.20', '--cpu-shares=128', '--pids-limit=64', '--oom-score-adj=500',
+             '--health-cmd=curl --fail --silent --max-time 5 http://127.0.0.1:8094/health',
+             '--health-interval=60s', '--health-timeout=10s', '--health-start-period=120s', '--health-retries=3',
              '--tmpfs=/tmp:rw,nosuid,nodev,size=32m', '--log-driver=local', '--log-opt=max-size=2m', '--log-opt=max-file=2',
              '--mount=type=bind,src=' + str(model) + ',dst=/models/classifier.gguf,readonly',
              *adapter_mounts,
