@@ -21,6 +21,7 @@ BRANDS = {
     '오뚜기':'ottogi','농심':'nongshim','롯데':'lotte','삼양':'samyang','동원':'dongwon','아디다스':'adidas',
 }
 GENERIC_BRANDS={'두유','우유','콜라','음료','검은콩','생수','쌀','식품','냉동','저당','제로','라임','상품','무선','유선',
+                '알카라인','건전지','텀블러','프리워크아웃','로봇청소기','무선청소기',
                 '무료','무배','배송','쿠폰','카드','네멤','네멤무배','와우','지마켓','쿠팡','네이버','티멤',
                 '법성포','영광','완도','제주','해남','횡성','국내산','국산','수입산','미국산','호주산'}
 OPTIONS = {
@@ -29,7 +30,7 @@ OPTIONS = {
     'cherry': r'체리|\bcherry\b', 'vanilla': r'바닐라|\bvanilla\b',
     'decaf': r'디카페인|\bdecaf\b', 'original': r'오리지널|\boriginal\b',
     'caffeine_free': r'무카페인|카페인\s*프리|제로[\s-]*제로|제로\s*카페인', 'mango': r'망고|\bmango\b',
-    'peach': r'복숭아|\bpeach\b', 'grape': r'포도|\bgrape\b',
+    'peach': r'복숭아|\bpeach\b', 'grape': r'포도|\bgrape\b', 'yuzu': r'유자|\byuzu\b',
     'brown_rice': r'현미', 'black_rice': r'흑미', 'multi_grain': r'잡곡',
     'black': r'블랙|검정|\bblack\b', 'white': r'화이트|흰색|\bwhite\b',
     'silver': r'실버|\bsilver\b', 'blue': r'블루(?!투스)|파랑|\bblue\b',
@@ -147,7 +148,7 @@ def canonical_data(data):
 OPTION_LABELS = {'zero':'제로', 'diet':'다이어트', 'lime':'라임', 'lemon':'레몬', 'cherry':'체리',
     'vanilla':'바닐라', 'decaf':'디카페인', 'original':'오리지널', 'caffeine_free':'무카페인',
     'mango':'망고', 'peach':'복숭아', 'grape':'포도', 'brown_rice':'현미', 'black_rice':'흑미',
-    'multi_grain':'잡곡', 'black':'블랙', 'white':'화이트', 'silver':'실버', 'blue':'블루',
+    'multi_grain':'잡곡', 'yuzu':'유자', 'black':'블랙', 'white':'화이트', 'silver':'실버', 'blue':'블루',
     'red':'레드', 'pink':'핑크', 'refurbished':'리퍼·중고', 'male':'남성', 'female':'여성'}
 
 

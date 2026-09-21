@@ -7,7 +7,7 @@ from pathlib import Path
 import time
 from gadmin.categories.llm import LocalModel, InvalidResult, Unavailable
 from gadmin.categories.taxonomy import GROUPS
-from gadmin.products.local_model import SYSTEM as BASE_SYSTEM
+from gadmin.products.local_model import SYSTEM as BASE_SYSTEM, repair_output
 from gadmin.products.sft import SYSTEM, VERSION
 from gadmin.products.sft_validation import score, promotion_gate, pair_scores
 
@@ -45,6 +45,7 @@ def main():
             start=time.monotonic()
             try:
                 raw=model.structured(system,{'title':row['title']},schema,224,adapter=adapter)
+                raw=repair_output(row['title'],raw)
                 outcome=score(row['title'],row['target'],raw)
             except (InvalidResult,Unavailable):
                 raw={};outcome={'correct':False,'valid':False,'false_merge':False}

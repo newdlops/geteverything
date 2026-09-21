@@ -49,6 +49,23 @@ class TrainingDataTests(SimpleTestCase):
         self.assertEqual(model.structured.call_args.args[0],sft.SYSTEM)
         self.assertEqual(model.structured.call_args.kwargs,{'adapter':0})
 
+    def test_title_grounded_repairs_block_known_identity_hallucinations(self):
+        cases=[
+            ('나이키 에어포스 1 화이트 270mm',
+             {'is_product':True,'brand':'나이키','name':'에어포스','model':'','variant':'1 화이트','category':'electronics'},
+             {'brand':'나이키','name':'에어포스 1','model':'','variant':'화이트','category':'fashion'}),
+            ('구글 픽셀 10 256GB',
+             {'is_product':True,'brand':'구글','name':'픽셀 10','model':'10','variant':'','category':'electronics'},
+             {'brand':'구글','name':'픽셀 10','model':'','variant':'','category':'mobile'}),
+            ('동원참치 라이트 살코기 150g 10캔 7종 택1',
+             {'is_product':True,'brand':'동원','name':'참치 라이트','model':'','variant':'','category':'food'},
+             {'brand':'','name':'','model':'','variant':'','category':'unknown'}),
+        ]
+        for title,raw,wanted in cases:
+            with self.subTest(title=title):
+                repaired=local_model.repair_output(title,raw)
+                self.assertTrue(all(repaired[key]==value for key,value in wanted.items()))
+
     def test_promotion_requires_unseen_generation_improvement_and_zero_regressions(self):
         pairs={'same_pairs':20,'different_pairs':60,'false_merges':0,'false_splits':0}
         result={'probe':False,'validation_count':40,'validation_families':16,'validation_negatives':8,
