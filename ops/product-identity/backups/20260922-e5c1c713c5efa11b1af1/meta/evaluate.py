@@ -6,11 +6,10 @@ import json
 from pathlib import Path
 import time
 from gadmin.categories.llm import LocalModel, InvalidResult, Unavailable
-from gadmin.categories import llm, rules, taxonomy, vocabulary
-from gadmin.metrics import parser as metrics_parser
+from gadmin.categories import llm
 from gadmin.categories.taxonomy import GROUPS
 from gadmin.products.local_model import SYSTEM as BASE_SYSTEM, repair_output
-from gadmin.products.sft import SYSTEM, VERSION, split_audit, model_title
+from gadmin.products.sft import SYSTEM, VERSION, split_audit
 from gadmin.products.sft_validation import score, promotion_gate, pair_scores
 from gadmin.products import identity, local_model, sft, sft_validation
 
@@ -18,9 +17,8 @@ from gadmin.products import identity, local_model, sft, sft_validation
 def evaluation_context(root, state, data, baseline_adapter, endpoint):
     adapter=root/'runs'/state['run_id']/'adapter.gguf'
     protocol=hashlib.sha256(b''.join(Path(path).read_bytes() for path in
-        (__file__,llm.__file__,rules.__file__,taxonomy.__file__,vocabulary.__file__,metrics_parser.__file__,
-         identity.__file__,local_model.__file__,sft.__file__,sft_validation.__file__))).hexdigest()
-    return {'version':'generation-eval-4','run_id':state['run_id'],
+        (__file__,llm.__file__,identity.__file__,local_model.__file__,sft.__file__,sft_validation.__file__))).hexdigest()
+    return {'version':'generation-eval-3','run_id':state['run_id'],
             'dataset_sha256':data['sha256'],'prompt_version':VERSION,
             'adapter_sha256':hashlib.sha256(adapter.read_bytes()).hexdigest(),
             'protocol_sha256':protocol,
@@ -78,29 +76,18 @@ def main():
         previous=[row for row in details if row['mode']==mode]
         outcomes=[{key:row[key] for key in ('correct','valid','false_merge')} for row in previous]
         times=[row['seconds'] for row in previous]
-        normalized=mode!='baseline' or args.baseline_adapter is not None
-        input_title=lambda row:model_title(row['title']) if normalized else row['title']
-        cached={input_title(row):(row['generated'],row['seconds']) for row in previous if row.get('generated')}
         for row in data['validation'][len(previous):]:
             start=time.monotonic()
-            title=input_title(row)
-            reused=title in cached
             try:
-                if reused:
-                    generated,elapsed=cached[title]
-                else:
-                    generated=model.structured(system,{'title':title},schema,224,adapter=adapter)
-                    elapsed=round(time.monotonic()-start,3)
-                    if generated:cached[title]=(generated,elapsed)
+                generated=model.structured(system,{'title':row['title']},schema,224,adapter=adapter)
                 raw=repair_output(row['title'],generated)
                 outcome=score(row['title'],row['target'],raw)
             except (InvalidResult,Unavailable):
                 generated={};raw={};outcome={'correct':False,'valid':False,'false_merge':False}
-                elapsed=round(time.monotonic()-start,3)
+            elapsed=round(time.monotonic()-start,3)
             outcomes.append(outcome);times.append(elapsed)
             details.append({'mode':mode,'family':row['family'],'title':row['title'],
-                            'generated':generated,'actual':raw,'expected':row['target'],'seconds':elapsed,
-                            'inference_reused':reused,**outcome})
+                            'generated':generated,'actual':raw,'expected':row['target'],'seconds':elapsed,**outcome})
             temporary=partial.with_suffix('.tmp')
             temporary.write_text(json.dumps(details,ensure_ascii=False,indent=2));temporary.replace(partial)
             progress(evaluation_mode=mode)
@@ -114,7 +101,6 @@ def main():
             'validation_families':len({row['family'] for row in data['validation']}),
             'validation_negatives':sum(not row['target']['is_product'] for row in data['validation']),
             'evaluation_completed':len(details),'evaluation_total':3*len(data['validation']),
-            'inference_requests':sum(not row.get('inference_reused',False) for row in details),
             'baseline_adapter_id':args.baseline_adapter,
             'regressions':sum(row['mode']=='candidate' and baseline[row['title']]['correct'] and not row['correct'] for row in details),
             'same_prompt_regressions':sum(row['mode']=='candidate' and same_prompt[row['title']]['correct'] and not row['correct'] for row in details),

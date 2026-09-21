@@ -148,8 +148,7 @@ def command(config,command,network='none',memory='6g',cpu='0.20'):
          '--mount=type=bind,src='+str(ROOT)+',dst=/training',
          '--mount=type=bind,src='+str(SOURCE)+',dst=/training-code,readonly',
          '--mount=type=bind,src='+str(SOURCE/'products')+',dst=/app/gadmin/products,readonly',
-         '--mount=type=bind,src='+str(SOURCE/'categories')+',dst=/app/gadmin/categories,readonly',
-         '--mount=type=bind,src='+str(SOURCE/'metrics')+',dst=/app/gadmin/metrics,readonly',
+         '--mount=type=bind,src='+str(SOURCE/'llm.py')+',dst=/app/gadmin/categories/llm.py,readonly',
          config['image'],*command])
 
 

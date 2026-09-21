@@ -26,12 +26,14 @@ class EvaluationProgressTests(unittest.TestCase):
                     'promoted':False,'prompt_version':VERSION}
             (root/'status.json').write_text(json.dumps(status))
             expected={row['title']:row['target'] for row in data['validation']}
+            expected.update({evaluation.model_title(row['title']):row['target'] for row in data['validation']})
             observed=[]
             class Model:
                 def structured(self, system, value, schema, max_tokens, adapter):
                     observed.append(json.loads((root/'status.json').read_text()))
                     correct=(adapter==0 and not invalid_candidate) or (same_prompt_correct and system==evaluation.SYSTEM)
-                    return expected[value['title']] if correct else {}
+                    if correct:return expected[value['title']]
+                    return {} if adapter==0 else dict(brand='',name='',model='',variant='',is_product=False,category='unknown')
             with patch.object(evaluation,'LocalModel',return_value=Model()),patch('sys.argv',[
                     'evaluate.py','--root',str(root),'--dataset',str(root/'dataset.json')]),contextlib.redirect_stdout(io.StringIO()):
                 evaluation.main()
@@ -40,9 +42,11 @@ class EvaluationProgressTests(unittest.TestCase):
     def test_live_status_covers_each_request_and_final_validation(self):
         observed,status,result=self.run_evaluation()
         count=len(dataset(bootstrap_rows())['validation'])
-        self.assertEqual([row['evaluation_completed'] for row in observed],list(range(3*count)))
+        unique=len({evaluation.model_title(row['title']) for row in dataset(bootstrap_rows())['validation']})
+        self.assertEqual([row['evaluation_completed'] for row in observed[:count]],list(range(count)))
+        self.assertEqual(result['inference_requests'],count+2*unique)
         self.assertTrue(all(row['status']=='evaluating' and row['evaluation_total']==3*count for row in observed))
-        self.assertEqual([row['evaluation_mode'] for row in observed],['baseline']*count+['same_prompt_base']*count+['candidate']*count)
+        self.assertEqual([row['evaluation_mode'] for row in observed],['baseline']*count+['same_prompt_base']*unique+['candidate']*unique)
         self.assertEqual(status,result)
         self.assertEqual(status['status'],'validated')
         self.assertEqual(status['evaluation_completed'],3*count)

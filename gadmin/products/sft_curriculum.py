@@ -1,6 +1,6 @@
 """Reviewed title patterns and counterexamples, not model-generated labels."""
 
-VERSION = 'identity-curriculum-20260922-4'
+VERSION = 'identity-curriculum-20260922-5'
 
 # Fields are stated in each title. Price/shop variants below are constructed.
 # Keep related capacities/models in one family to prevent split leakage.
@@ -102,14 +102,20 @@ ABSTAIN = [
 ]
 
 
+def title_variants(title):
+    # Shop/price decoration is independent of whether the title is a product.
+    return (title, '[G마켓] '+title+' (29,900원/무료)',
+            '[쿠팡] '+title+' (카드 27,900원/무배)', '[네이버] '+title+' (19,900원/무료)')
+
+
 def reviewed_rows():
     rows = []
     for family, title, brand, name, model, variant, category in PRODUCTS:
         target = dict(brand=brand, name=name, model=model, variant=variant, is_product=True, category=category)
-        for text in (title, '[G마켓] '+title+' (29,900원/무료)', '[쿠팡] '+title+' (카드 27,900원/무배)'):
+        for text in title_variants(title):
             rows.append(dict(title=text, target=target, family=family, origin='bootstrap_review', curriculum=VERSION))
     for family, title in ABSTAIN:
         target = dict(brand='', name='', model='', variant='', is_product=False, category='unknown')
-        for text in (title, '[네이버] '+title+' (19,900원/무료)'):
+        for text in title_variants(title):
             rows.append(dict(title=text, target=target, family=family, origin='bootstrap_review', curriculum=VERSION))
     return rows

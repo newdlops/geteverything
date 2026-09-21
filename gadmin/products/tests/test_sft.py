@@ -45,13 +45,31 @@ class TrainingDataTests(SimpleTestCase):
     def test_heldout_single_product_and_training_choice_offer_stay_together(self):
         data=sft.dataset(sft.bootstrap_rows())
         choice=[row for row in data['validation'] if row['family']=='battery-choice']
-        self.assertEqual(len(choice),2)
+        self.assertEqual(len(choice),4)
         self.assertFalse(any(row['family']=='battery-choice' for row in data['train']))
         bad={'train':data['train']+choice,
              'validation':[row for row in data['validation'] if row not in choice]}
         audit=sft.split_audit(bad)
         self.assertFalse(audit['passed'])
-        self.assertEqual(audit['overlap']['heldout_product_mentions'],2)
+        self.assertEqual(audit['overlap']['heldout_product_mentions'],4)
+
+    def test_curriculum_shop_decoration_does_not_predict_the_label(self):
+        from gadmin.products.sft_curriculum import reviewed_rows
+        rows=reviewed_rows()
+        signatures={}
+        for row in rows:
+            prefix=row['title'].split(']',1)[0]+']' if row['title'].startswith('[') else ''
+            signatures.setdefault(row['family'],set()).add(prefix)
+        self.assertTrue(all(prefixes=={'','[G마켓]','[쿠팡]','[네이버]'} for prefixes in signatures.values()))
+        for prefix in ('[G마켓]','[쿠팡]','[네이버]'):
+            self.assertEqual({row['target']['is_product'] for row in rows if row['title'].startswith(prefix)}, {False,True})
+
+    def test_model_input_ignores_shop_price_but_preserves_identity_information(self):
+        title='[G마켓] LG 32GX870B 32인치 모니터 (카드 299,000원/무료)'
+        self.assertEqual(sft.model_title(title),'LG 32GX870B 32인치 모니터')
+        for title in ('[한정판] 소니 WH-1000XM5 블랙', '삼성 갤럭시 S25 (512GB 99,000원)',
+                      '브랜드 신제품 (2026)', '브랜드 음료 사과+포도 2종 선택'):
+            self.assertEqual(sft.model_title(title),title)
 
     def test_model_guesses_and_conflicting_labels_cannot_be_training_truth(self):
         rows=sft.bootstrap_rows()
@@ -68,13 +86,17 @@ class TrainingDataTests(SimpleTestCase):
 
     def test_only_approved_adapter_selects_the_training_prompt(self):
         row=sft.bootstrap_rows()[4]
+        title='[G마켓] '+row['title']+' (19,900원/무료)'
         model=Mock();model.structured.return_value=row['target']
         with patch.object(local_model,'active_adapter',return_value={'adapter_id':0,'sha256':'a'*64}):
-            result,reason,_=local_model.extract(model,row['title'])
+            result,reason,_=local_model.extract(model,title)
         self.assertEqual(reason,'')
         self.assertEqual(result['llm_adapter_sha256'],'a'*64)
         self.assertEqual(model.structured.call_args.args[0],sft.SYSTEM)
+        self.assertEqual(model.structured.call_args.args[1]['title'],row['title'])
         self.assertEqual(model.structured.call_args.kwargs,{'adapter':0})
+        with patch.object(local_model,'active_adapter',return_value=None):local_model.extract(model,title)
+        self.assertEqual(model.structured.call_args.args[1]['title'],title)
 
     def test_title_grounded_repairs_block_known_identity_hallucinations(self):
         cases=[
@@ -111,6 +133,13 @@ class TrainingDataTests(SimpleTestCase):
         title='바세린 인텐시브 케어 바디로션 뉴패키지 400ml 1개'
         raw=dict(brand='바세린',name='인텐시브 케어 바디로션',model='',variant='',is_product=True,category='beauty')
         self.assertEqual(local_model.repair_output(title,raw)['name'],raw['name'])
+
+    def test_cosmetics_use_the_existing_category_rules(self):
+        title='이니스프리 애플씨드 클렌징 오일 150ml'
+        raw=dict(brand='이니스프리',name='애플씨드 클렌징 오일',model='',variant='',is_product=True,category='home')
+        self.assertEqual(local_model.repair_output(title,raw)['category'],'beauty')
+        detergent=dict(brand='생활공작소',name='액상 세탁세제',model='',variant='',is_product=True,category='home')
+        self.assertEqual(local_model.repair_output('생활공작소 액상 세탁세제 1L',detergent)['category'],'home')
 
     def test_promotion_requires_unseen_generation_improvement_and_zero_regressions(self):
         pairs={'same_pairs':20,'different_pairs':60,'false_merges':0,'false_splits':0}

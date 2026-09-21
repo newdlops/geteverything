@@ -92,7 +92,7 @@ def main():
     import torch
     from peft import LoraConfig, get_peft_model
     from transformers import AutoTokenizer, Qwen3_5ForCausalLM, Qwen3_5TextConfig
-    from gadmin.products.sft import SYSTEM, VERSION, dataset, model_title
+    from gadmin.products.sft import SYSTEM, VERSION, dataset
     torch.set_num_threads(args.threads)
     torch.set_num_interop_threads(1)
     torch.manual_seed(42)
@@ -168,7 +168,7 @@ def main():
                 continue
             prompt = tokenizer.apply_chat_template([
                 {'role':'system','content':SYSTEM},
-                {'role':'user','content':json.dumps({'title':model_title(row['title'])}, ensure_ascii=False)},
+                {'role':'user','content':json.dumps({'title':row['title']}, ensure_ascii=False)},
             ], tokenize=True, return_dict=False, add_generation_prompt=True, enable_thinking=False)
             answer = tokenizer.encode(json.dumps(row['target'],ensure_ascii=False,separators=(',',':')),
                                       add_special_tokens=False)+[tokenizer.eos_token_id]
