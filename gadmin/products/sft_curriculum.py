@@ -1,6 +1,6 @@
 """Reviewed title patterns and counterexamples, not model-generated labels."""
 
-VERSION = 'identity-curriculum-20260922-3'
+VERSION = 'identity-curriculum-20260922-4'
 
 # Fields are stated in each title. Price/shop variants below are constructed.
 # Keep related capacities/models in one family to prevent split leakage.
@@ -53,6 +53,19 @@ PRODUCTS = [
     ('crocs', '크록스 클래식 클로그 블랙 260mm', '크록스', '클래식 클로그', '', '블랙', 'fashion'),
     ('bsn-nox', 'BSN 노익스 플로드 프리워크아웃 1.11kg 60서빙', 'BSN', '노익스 플로드 프리워크아웃', '', '', 'sports'),
     ('stanley', '스탠리 퀜처 H2.0 텀블러 1.18L', '스탠리', '퀜처 H2.0', 'H2.0', '', 'sports'),
+    # Broaden sparse product types using different brands and lines from holdout.
+    ('torriden-serum', '토리든 다이브인 저분자 히알루론산 세럼 50ml', '토리든', '다이브인 저분자 히알루론산 세럼', '', '', 'beauty'),
+    ('anua-toner', '아누아 어성초 77 진정 토너 250ml', '아누아', '어성초 77 진정 토너', '', '', 'beauty'),
+    ('tonymoly-toner', '토니모리 원더 세라마이드 모찌 토너 500ml', '토니모리', '원더 세라마이드 모찌 토너', '', '', 'beauty'),
+    ('bringgreen-toner', '브링그린 티트리 시카 수딩 토너 510ml', '브링그린', '티트리 시카 수딩 토너', '', '', 'beauty'),
+    ('manyo-oil', '마녀공장 퓨어 클렌징 오일 200ml', '마녀공장', '퓨어 클렌징 오일', '', '', 'beauty'),
+    ('beplain-foam', '비플레인 녹두 약산성 클렌징 폼 80ml', '비플레인', '녹두 약산성 클렌징 폼', '', '', 'beauty'),
+    ('hanyul-cream', '한율 어린쑥 수분진정 크림 55ml', '한율', '어린쑥 수분진정 크림', '', '', 'beauty'),
+    ('aestura-cream', '에스트라 아토베리어365 크림 80ml', '에스트라', '아토베리어365 크림', '', '', 'beauty'),
+    ('energizer-battery', '에너자이저 맥스플러스 AA 건전지 12개', '에너자이저', '맥스플러스', '', '', 'electronics'),
+    ('duracell-battery', '듀라셀 디럭스 AA 건전지 12개', '듀라셀', '디럭스', '', '', 'electronics'),
+    ('bexel-battery', '벡셀 플래티넘 AAA 건전지 20개', '벡셀', '플래티넘', '', '', 'electronics'),
+    ('panasonic-battery', '파나소닉 에네루프 프로 AA 충전지 4개', '파나소닉', '에네루프 프로', '', '', 'electronics'),
 ]
 
 ABSTAIN = [

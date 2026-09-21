@@ -1,0 +1,12 @@
+{
+  "version": "generation-eval-3",
+  "run_id": "bafaa22f4d59c1b6d4ec",
+  "dataset_sha256": "7fb38522b497e5acef303b6ae4244b7ff4055d8422c7eb5e9bf49a01bbfc4595",
+  "prompt_version": "product-sft-5",
+  "adapter_sha256": "ca24a5c79e58b2fb3fc31b2b8cf75b892ab7a73cf915446686fe824972b62835",
+  "protocol_sha256": "8537ae1bc8143f72e56555a50d97877be4e443127e6dda44bbc124e40867aff8",
+  "baseline_prompt_sha256": "373fd34bc2573a7ed06ae892fc976f4f42c592beabe8faeaee4abaa96be387b6",
+  "candidate_prompt_sha256": "e79e6e84caea75760be6f30e361dd12f5f23f6383779e20b414c77e1d53ec1a7",
+  "baseline_adapter": null,
+  "endpoint": "http://127.0.0.1:18095"
+}
