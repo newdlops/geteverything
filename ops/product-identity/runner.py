@@ -153,6 +153,24 @@ def command(config,command,network='none',memory='6g',cpu='0.20'):
          config['image'],*command])
 
 
+def disable_default_adapter():
+    for attempt in range(3):
+        try:
+            with urllib.request.urlopen('http://127.0.0.1:8094/health',timeout=10) as response:
+                assert response.status==200
+            break
+        except (OSError,AssertionError):
+            if attempt==2:raise
+            time.sleep(20)
+    # These control requests share the inference loop. A cold prompt under the
+    # 0.20-core quota can delay them as long as a normal worker inference call.
+    disable=urllib.request.Request('http://127.0.0.1:8094/lora-adapters',data=b'[]',
+                                   headers={'Content-Type':'application/json'})
+    with urllib.request.urlopen(disable,timeout=240) as response:assert response.status==200
+    with urllib.request.urlopen('http://127.0.0.1:8094/lora-adapters',timeout=240) as response:adapters=json.load(response)
+    assert any(row.get('id')==0 and row.get('scale')==0 for row in adapters)
+
+
 def promote(result,config):
     if result.get('status')!='validated' or result.get('gate',{}).get('passed') is not True:
         return False
@@ -184,11 +202,7 @@ def promote(result,config):
             time.sleep(20)
         # This binary reports initial adapter scale 1 even with init-without-apply.
         # Explicitly disable the default; product requests opt in individually.
-        disable=urllib.request.Request('http://127.0.0.1:8094/lora-adapters',data=b'[]',
-                                       headers={'Content-Type':'application/json'})
-        with urllib.request.urlopen(disable,timeout=20) as response:assert response.status==200
-        with urllib.request.urlopen('http://127.0.0.1:8094/lora-adapters',timeout=20) as response:adapters=json.load(response)
-        assert any(row.get('id')==0 and row.get('scale')==0 for row in adapters)
+        disable_default_adapter()
         atomic(marker,{'enabled':True,'adapter_id':0,'sha256':digest,
                        'prompt_version':result['prompt_version'],'run_id':result['run_id']})
         marker.chmod(0o644)

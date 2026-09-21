@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import MagicMock, patch
 
 spec=importlib.util.spec_from_file_location('training_runner',Path(__file__).with_name('runner.py'))
 runner=importlib.util.module_from_spec(spec);spec.loader.exec_module(runner)
@@ -63,6 +64,36 @@ class ImportTests(unittest.TestCase):
         changed['validation'][0]['title']='changed title'
         with self.assertRaises(AssertionError):
             runner.validate_import(self.state,changed,self.base,self.root)
+
+
+class PromotionReadinessTests(unittest.TestCase):
+    def response(self, body=b'{}'):
+        reply=MagicMock()
+        reply.__enter__.return_value.status=200
+        reply.__enter__.return_value.read.return_value=body
+        return reply
+
+    def test_startup_retry_and_control_calls_allow_a_cold_inference(self):
+        with patch.object(runner.urllib.request,'urlopen',side_effect=[
+                OSError('loading'),self.response(),self.response(),
+                self.response(b'[{"id":0,"scale":0.0}]')]) as request,patch.object(runner.time,'sleep') as sleep:
+            runner.disable_default_adapter()
+        self.assertEqual(request.call_count,4)
+        self.assertEqual(request.call_args_list[0].args[0],'http://127.0.0.1:8094/health')
+        self.assertEqual(request.call_args_list[2].args[0].data,b'[]')
+        self.assertEqual([call.kwargs['timeout'] for call in request.call_args_list],[10,10,240,240])
+        sleep.assert_called_once_with(20)
+
+    def test_unready_model_stops_after_three_attempts(self):
+        with patch.object(runner.urllib.request,'urlopen',side_effect=OSError('unready')) as request,\
+                patch.object(runner.time,'sleep'),self.assertRaises(OSError):
+            runner.disable_default_adapter()
+        self.assertEqual(request.call_count,3)
+
+    def test_unconfirmed_default_disable_cannot_promote(self):
+        with patch.object(runner.urllib.request,'urlopen',side_effect=[self.response(),self.response(),
+                self.response(b'[{"id":0,"scale":1.0}]')]),self.assertRaises(AssertionError):
+            runner.disable_default_adapter()
 
 
 if __name__=='__main__':unittest.main()
