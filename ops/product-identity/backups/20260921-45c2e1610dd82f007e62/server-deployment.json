@@ -1,0 +1,8 @@
+{
+  "at": 1790001742.771429,
+  "run_id": "45c2e1610dd82f007e62",
+  "step": 1088,
+  "adapter_sha256": "1d998142152aea0197180f1622eb2f8ed487eb37623071a8814e97466abe6d11",
+  "backup": "/root/product-training-local-import-20260921/before-import",
+  "status": "imported_awaiting_server_evaluation"
+}

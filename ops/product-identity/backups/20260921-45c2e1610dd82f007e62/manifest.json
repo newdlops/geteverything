@@ -1,10 +1,18 @@
 {
   "run_id": "45c2e1610dd82f007e62",
-  "stage": "trained_awaiting_server_evaluation",
+  "stage": "server_evaluation_started",
   "files": {
+    "server-deployment.json": {
+      "bytes": 294,
+      "sha256": "e13ad760129b2947c0a3993bf02f5ad678b3fa37a1e9ba60381d275cf74acb5c"
+    },
     "README.md": {
       "bytes": 1110,
       "sha256": "bf4a561d1291054565021142dc36b52e5711dc02446894f2da94eee675c754b0"
+    },
+    "adapter.gguf": {
+      "bytes": 2557632,
+      "sha256": "e6a611f01a226b556c90fe518b8ff8a71e396f4a3ccb946b6d1f7e8a54a7b9a0"
     },
     "local-verification.json": {
       "bytes": 2558,
@@ -33,6 +41,10 @@
     "meta/training-result.json": {
       "bytes": 2076,
       "sha256": "7cc955f2f0bb3577d0208b4cc7b2abcb591705bd4b713af8c17bce2fda78e781"
+    },
+    "meta/server-evaluation-start.json": {
+      "bytes": 2142,
+      "sha256": "faf14baf9b68bdff6890b7693c3d01205f0c3bca1facec25aed4a8f42c249403"
     },
     "meta/status.json": {
       "bytes": 2076,
