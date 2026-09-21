@@ -1,0 +1,62 @@
+{
+  "run_id": "45c2e1610dd82f007e62",
+  "stage": "trained_awaiting_server_evaluation",
+  "files": {
+    "README.md": {
+      "bytes": 1110,
+      "sha256": "bf4a561d1291054565021142dc36b52e5711dc02446894f2da94eee675c754b0"
+    },
+    "local-verification.json": {
+      "bytes": 2558,
+      "sha256": "f96df3ac7c9424cb1a59069a0dd896db82c248f88d98661b4cf442c1e64ffe18"
+    },
+    "checkpoint/adapter_model.safetensors": {
+      "bytes": 2557776,
+      "sha256": "1d998142152aea0197180f1622eb2f8ed487eb37623071a8814e97466abe6d11"
+    },
+    "checkpoint/optimizer.pt": {
+      "bytes": 5124165,
+      "sha256": "3cebd7f545c0afb8afd24a436e439eec2dcfec658ced6996e220aa00a8caa7d3"
+    },
+    "checkpoint/README.md": {
+      "bytes": 5308,
+      "sha256": "509827786928a3c4ecffbe52d4980246a1075f94a7ee9ff614b74fbc064c1a95"
+    },
+    "checkpoint/adapter_config.json": {
+      "bytes": 1117,
+      "sha256": "636cbb25f95e157a68d21b17fad07261f81e56674480ed28da87e5c49e767cfb"
+    },
+    "meta/executed-training-source.py": {
+      "bytes": 16797,
+      "sha256": "1dd511dbf77a0ee1011bed9da34c4b936ddf15d6e4a710cec1a65257dce3ac77"
+    },
+    "meta/training-result.json": {
+      "bytes": 2076,
+      "sha256": "7cc955f2f0bb3577d0208b4cc7b2abcb591705bd4b713af8c17bce2fda78e781"
+    },
+    "meta/status.json": {
+      "bytes": 2076,
+      "sha256": "7cc955f2f0bb3577d0208b4cc7b2abcb591705bd4b713af8c17bce2fda78e781"
+    },
+    "meta/downloaded.json": {
+      "bytes": 1389,
+      "sha256": "037f3e210a009495039b7f529acd0deb5f4d30df6782252ecc8d0f07b82afc2f"
+    },
+    "meta/dataset.json": {
+      "bytes": 153571,
+      "sha256": "23771137ae3a56b2c8683af8f1a688d3be578b6f095e071dec7fc818165128c9"
+    },
+    "best/adapter_model.safetensors": {
+      "bytes": 2557776,
+      "sha256": "1d998142152aea0197180f1622eb2f8ed487eb37623071a8814e97466abe6d11"
+    },
+    "best/README.md": {
+      "bytes": 5308,
+      "sha256": "509827786928a3c4ecffbe52d4980246a1075f94a7ee9ff614b74fbc064c1a95"
+    },
+    "best/adapter_config.json": {
+      "bytes": 1117,
+      "sha256": "636cbb25f95e157a68d21b17fad07261f81e56674480ed28da87e5c49e767cfb"
+    }
+  }
+}

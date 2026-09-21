@@ -1,0 +1,77 @@
+{
+  "run_id": "45c2e1610dd82f007e62",
+  "dataset_sha256": "89cb92240ac32112cdc6875c594839e2f50a9d8c7666ec12f4eab235140c4acc",
+  "base_revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+  "training_examples": 272,
+  "validation_examples": 70,
+  "started_at": 1790001160.719088,
+  "step": 1088,
+  "promoted": false,
+  "probe": false,
+  "recipe": {
+    "version": "last-block-lora-fp32-3",
+    "rank": 16,
+    "alpha": 32,
+    "learning_rate": 8e-05,
+    "targets": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "scheduler": "warmup_cosine",
+    "epochs": 4,
+    "max_steps": 1200,
+    "early_stopping_patience": 2
+  },
+  "prompt_version": "product-sft-4",
+  "cache_reused": 342,
+  "training_device": "cpu",
+  "cpu_threads": 4,
+  "status": "trained_awaiting_generation_eval",
+  "at": 1790001521.359702,
+  "compute": "fp32_gemm_bf16_storage",
+  "trainable_parameters": 638976,
+  "frozen_parameters": 1881825088,
+  "cached": 342,
+  "total_cache": 342,
+  "baseline_validation_loss": 0.16290053851636394,
+  "resumed_from_step": 472,
+  "total_steps": 1088,
+  "loss": 0.010011871345341206,
+  "learning_rate": 8.000000000000001e-06,
+  "last_step_seconds": 0.46,
+  "epoch": 4,
+  "validation_loss": 0.02333193272560103,
+  "best_validation_loss": 0.02333193272560103,
+  "best_step": 1088,
+  "bad_epochs": 0,
+  "final_validation_loss": 0.02333193272560103,
+  "lora_b_squared_norm": 2.655172385275364,
+  "adapter": "/training/runs/45c2e1610dd82f007e62/best",
+  "adapter_sha256": "1d998142152aea0197180f1622eb2f8ed487eb37623071a8814e97466abe6d11",
+  "loss_gate": true,
+  "elapsed_seconds": 360.6,
+  "execution_host": "local-mac",
+  "handoff_from_server_step": 285,
+  "execution_history": [
+    {
+      "device": "server-cpu",
+      "through_step": 285
+    },
+    {
+      "device": "mac-mps",
+      "through_step": 472,
+      "stopped": "non_finite_gradient_before_optimizer_step"
+    },
+    {
+      "device": "mac-cpu",
+      "threads": 4,
+      "from_step": 472,
+      "through_step": 1088
+    }
+  ]
+}
