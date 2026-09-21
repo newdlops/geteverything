@@ -4,6 +4,7 @@ import argparse
 import fcntl
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 import shutil
@@ -86,6 +87,27 @@ def prune_cache(root,limit=4*1024**3):
         stat=path.stat()
         if stat.st_nlink==1 and (total>limit or time.time()-stat.st_mtime>7*86400):
             path.unlink();total-=stat.st_size
+
+
+def validate_import(trained,data,checkpoint,root):
+    assert trained['status']=='trained_awaiting_generation_eval' and trained['probe'] is False
+    assert trained['promoted'] is False
+    assert trained['base_revision']==checkpoint['revision'], 'Imported base model differs from server'
+    payload={key:value for key,value in data.items() if key!='sha256'}
+    digest=hashlib.sha256(json.dumps(payload,ensure_ascii=False,sort_keys=True).encode()).hexdigest()
+    assert trained['dataset_sha256']==data['sha256']==digest, 'Imported dataset checksum mismatch'
+    assert trained['prompt_version']==data['version'], 'Imported prompt version mismatch'
+    expected=hashlib.sha256((digest+checkpoint['revision']+data['version']+
+                            json.dumps(trained['recipe'],sort_keys=True)).encode()).hexdigest()[:20]
+    assert trained['run_id']==expected, 'Imported run identity mismatch'
+    assert trained['training_examples']==len(data['train']) and trained['validation_examples']==len(data['validation'])
+    assert 0<trained['best_step']<=trained['step']<=min(trained['recipe']['max_steps'],trained['recipe']['epochs']*len(data['train']))
+    for field in ('baseline_validation_loss','final_validation_loss','lora_b_squared_norm'):
+        assert math.isfinite(trained[field]) and trained[field]>0, 'Invalid imported training result'
+    work=root/'runs'/expected
+    assert trained['adapter']=='/training/runs/'+expected+'/best', 'Imported adapter path mismatch'
+    assert hashlib.sha256((work/'best/adapter_model.safetensors').read_bytes()).hexdigest()==trained['adapter_sha256'], 'Imported adapter checksum mismatch'
+    assert (work/'best/adapter_config.json').is_file(), 'Imported adapter configuration missing'
 
 
 def wait(name,seconds):
@@ -183,7 +205,10 @@ def promote(result,config):
 
 
 def main():
-    parser=argparse.ArgumentParser();parser.add_argument('--force',action='store_true');args=parser.parse_args()
+    parser=argparse.ArgumentParser();parser.add_argument('--force',action='store_true')
+    parser.add_argument('--evaluate-only',action='store_true',
+                        help='Evaluate a completed local training run already imported into ROOT')
+    args=parser.parse_args()
     os.umask(0o077)
     def interrupt(*_):raise InterruptedError('Training controller stopped; checkpoints retained')
     signal.signal(signal.SIGTERM,interrupt)
@@ -201,23 +226,28 @@ def main():
         prune_cache(ROOT)
         if shutil.disk_usage(ROOT).free<5*1024**3:raise RuntimeError('Training requires 5 GiB free disk')
         data_path=ROOT/'dataset.json'
-        temporary='/tmp/product-sft-'+str(time.time_ns())+'.json'
-        run(['docker','exec','geteverything-category-worker','python','-m','gadmin.products.manage','sft-export','--output',temporary])
-        # Docker's archive API does not see this worker's tmpfs. Read within its mount namespace.
-        try:
-            data=json.loads(run(['docker','exec','geteverything-category-worker','cat',temporary]))
-            atomic(data_path,data);data_path.chmod(0o600)
-        finally:
-            run(['docker','exec','geteverything-category-worker','rm','-f',temporary])
+        if args.evaluate_only:
+            data=json.loads(data_path.read_text())
+            trained=json.loads((ROOT/'status.json').read_text())
+            validate_import(trained,data,json.loads((ROOT/'downloaded.json').read_text()),ROOT)
+        else:
+            temporary='/tmp/product-sft-'+str(time.time_ns())+'.json'
+            run(['docker','exec','geteverything-category-worker','python','-m','gadmin.products.manage','sft-export','--output',temporary])
+            # Docker's archive API does not see this worker's tmpfs. Read within its mount namespace.
+            try:
+                data=json.loads(run(['docker','exec','geteverything-category-worker','cat',temporary]))
+                atomic(data_path,data);data_path.chmod(0o600)
+            finally:
+                run(['docker','exec','geteverything-category-worker','rm','-f',temporary])
         previous=json.loads((ROOT/'attempt.json').read_text()) if (ROOT/'attempt.json').exists() else {}
         policy_sha=hashlib.sha256(json.dumps({'policy':policy,'image':config['image'],
             'trainer_sha256':hashlib.sha256((SOURCE/'train.py').read_bytes()).hexdigest()},sort_keys=True).encode()).hexdigest()
         curriculum_sha=hashlib.sha256(json.dumps([r for r in data['train']+data['validation']
             if r['origin']=='bootstrap_review'],sort_keys=True).encode()).hexdigest()
         same=previous.get('dataset_sha256')==data['sha256'] and previous.get('policy_sha256')==policy_sha
-        if same and (previous.get('complete') or previous.get('attempts',0)>=3):return
+        if not args.evaluate_only and same and (previous.get('complete') or previous.get('attempts',0)>=3):return
         operator_count=sum(r['origin']=='operator' for r in data['train']+data['validation'])
-        if (not args.force and previous.get('complete') and previous.get('policy_sha256')==policy_sha
+        if (not args.evaluate_only and not args.force and previous.get('complete') and previous.get('policy_sha256')==policy_sha
                 and previous.get('curriculum_sha256')==curriculum_sha
                 and operator_count-previous.get('operator_count',0)<16):return
         attempt={'at':time.time(),'dataset_sha256':data['sha256'],'operator_count':operator_count,
@@ -225,15 +255,16 @@ def main():
                  'policy_sha256':policy_sha,'curriculum_sha256':curriculum_sha,'policy':policy}
         atomic(ROOT/'attempt.json',attempt)
         try:
-            starting={'status':'starting','at':time.time(),'probe':False,'dataset_sha256':data['sha256'],
-                      'training_examples':len(data['train']),'validation_examples':len(data['validation'])}
-            atomic(ROOT/'status.json',starting);publish(starting)
             lease(True)
             run(['python3','/usr/local/lib/geteverything-categories/guard.py'])
-            command(config,['python','/training-code/train.py','--dataset','/training/dataset.json',
-                            '--epochs',str(policy['epochs']),'--max-steps',str(policy['max_steps']),
-                            '--rank',str(policy['rank']),'--learning-rate',str(policy['learning_rate'])],cpu=str(policy['cpu']))
-            wait(TRAINER,policy['training_hours']*3600)
+            if not args.evaluate_only:
+                starting={'status':'starting','at':time.time(),'probe':False,'dataset_sha256':data['sha256'],
+                          'training_examples':len(data['train']),'validation_examples':len(data['validation'])}
+                atomic(ROOT/'status.json',starting);publish(starting)
+                command(config,['python','/training-code/train.py','--dataset','/training/dataset.json',
+                                '--epochs',str(policy['epochs']),'--max-steps',str(policy['max_steps']),
+                                '--rank',str(policy['rank']),'--learning-rate',str(policy['learning_rate'])],cpu=str(policy['cpu']))
+                wait(TRAINER,policy['training_hours']*3600)
             trained=json.loads((ROOT/'status.json').read_text());publish(trained)
             assert trained['status']=='trained_awaiting_generation_eval' and trained['probe'] is False
             work='/training/runs/'+trained['run_id']

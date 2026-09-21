@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Download a pinned official checkpoint; training itself runs without network."""
+import argparse
 import concurrent.futures
 import hashlib
 import json
@@ -61,6 +62,11 @@ def download(row, revision, destination):
 
 
 def main():
+    global ROOT
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--root', type=Path, default=ROOT)
+    args = parser.parse_args()
+    ROOT = args.root
     os.umask(0o077)
     ROOT.mkdir(parents=True, exist_ok=True)
     if shutil.disk_usage(ROOT).free < 12 * 1024**3:

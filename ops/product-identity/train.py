@@ -79,10 +79,12 @@ def main():
     parser.add_argument('--max-steps', type=int, default=1200)
     parser.add_argument('--rank', type=int, choices=(8, 16, 32), default=16)
     parser.add_argument('--learning-rate', type=float, default=8e-5)
+    parser.add_argument('--threads', type=int, default=1)
     parser.add_argument('--probe', action='store_true')
     args = parser.parse_args()
     assert 1 <= args.epochs <= 8 and 1 <= args.max_steps <= 2000
     assert 1e-6 <= args.learning_rate <= 5e-4
+    assert 1 <= args.threads <= 8
     STATUS_PATH = args.root/'status.json'
     os.umask(0o077)
     signal.signal(signal.SIGTERM, interrupted)
@@ -91,7 +93,7 @@ def main():
     from peft import LoraConfig, get_peft_model
     from transformers import AutoTokenizer, Qwen3_5ForCausalLM, Qwen3_5TextConfig
     from gadmin.products.sft import SYSTEM, VERSION, dataset
-    torch.set_num_threads(1)
+    torch.set_num_threads(args.threads)
     torch.set_num_interop_threads(1)
     torch.manual_seed(42)
     torch.backends.cuda.matmul.allow_tf32 = False
@@ -118,7 +120,8 @@ def main():
     progress = {'run_id':run_id, 'dataset_sha256':data['sha256'], 'base_revision':checkpoint['revision'],
                 'training_examples':len(data['train']), 'validation_examples':len(data['validation']),
                 'started_at':started, 'step':0, 'promoted':False, 'probe':args.probe,'recipe':recipe,
-                'prompt_version':VERSION,'cache_reused':0}
+                'prompt_version':VERSION,'cache_reused':0,
+                'training_device':'cpu','cpu_threads':args.threads}
     def report(**values):
         progress.update(values, at=time.time())
         atomic_json(root/'status.json', progress)
@@ -226,6 +229,7 @@ def main():
         optimizer.load_state_dict(saved['optimizer'])
         step = saved['step']
         best_loss, best_step, bad_epochs = saved.get('best_loss',math.inf), saved.get('best_step',0), saved.get('bad_epochs',0)
+        report(step=step, resumed_from_step=step)
     schedule = []
     for epoch in range(args.epochs):
         indices = list(range(len(data['train'])))
