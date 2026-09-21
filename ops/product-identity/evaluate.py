@@ -8,8 +8,37 @@ import time
 from gadmin.categories.llm import LocalModel, InvalidResult, Unavailable
 from gadmin.categories.taxonomy import GROUPS
 from gadmin.products.local_model import SYSTEM as BASE_SYSTEM, repair_output
-from gadmin.products.sft import SYSTEM, VERSION
+from gadmin.products.sft import SYSTEM, VERSION, split_audit
 from gadmin.products.sft_validation import score, promotion_gate, pair_scores
+from gadmin.products import identity, local_model, sft_validation
+
+
+def evaluation_context(root, state, data, baseline_adapter, endpoint):
+    adapter=root/'runs'/state['run_id']/'adapter.gguf'
+    protocol=hashlib.sha256(b''.join(Path(path).read_bytes() for path in
+        (__file__,identity.__file__,local_model.__file__,sft_validation.__file__))).hexdigest()
+    return {'version':'generation-eval-2','run_id':state['run_id'],
+            'dataset_sha256':data['sha256'],'prompt_version':VERSION,
+            'adapter_sha256':hashlib.sha256(adapter.read_bytes()).hexdigest(),
+            'protocol_sha256':protocol,
+            'baseline_prompt_sha256':hashlib.sha256((SYSTEM if baseline_adapter is not None else BASE_SYSTEM).encode()).hexdigest(),
+            'candidate_prompt_sha256':hashlib.sha256(SYSTEM.encode()).hexdigest(),
+            'baseline_adapter':baseline_adapter,'endpoint':endpoint}
+
+
+def resume_details(work, context, validation):
+    partial=work/'generation-progress.json';marker=work/'generation-context.json'
+    if partial.exists():
+        if not marker.exists() or json.loads(marker.read_text())!=context:
+            raise RuntimeError('Evaluation context changed; archive partial results before retrying')
+        details=json.loads(partial.read_text())
+        expected=[(mode,row) for mode in ('baseline','candidate') for row in validation]
+        assert len(details)<=len(expected)
+        for actual,(mode,row) in zip(details,expected):
+            assert actual['mode']==mode and actual['title']==row['title'] and actual['expected']==row['target']
+        return details
+    temporary=marker.with_suffix('.tmp');temporary.write_text(json.dumps(context,indent=2));temporary.replace(marker)
+    return []
 
 
 def main():
@@ -20,7 +49,7 @@ def main():
     parser.add_argument('--baseline-adapter',type=int,choices=[1])
     args=parser.parse_args()
     state=json.loads((args.root/'status.json').read_text())
-    assert state['status']=='trained_awaiting_generation_eval' and state['probe'] is False
+    assert state['status'] in ('trained_awaiting_generation_eval','evaluating') and state['probe'] is False
     data=json.loads(args.dataset.read_text())
     assert data['sha256']==state['dataset_sha256']
     assert state.get('prompt_version')==data['version']==VERSION, 'Training/evaluation prompt mismatch'
@@ -28,9 +57,11 @@ def main():
     properties={key:{'type':'string','maxLength':160} for key in ('brand','name','model','variant')}
     properties.update(is_product={'type':'boolean'},category={'type':'string','enum':[*GROUPS,'unknown']})
     schema={'type':'object','properties':properties,'required':list(properties),'additionalProperties':False}
-    summaries={};details=[]
+    summaries={}
     work=args.root/'runs'/state['run_id']
     partial=work/'generation-progress.json'
+    context=evaluation_context(args.root,state,data,args.baseline_adapter,args.endpoint)
+    details=resume_details(work,context,data['validation'])
     def progress(**values):
         current={**state,'status':'evaluating','at':time.time(),
                  'evaluation_completed':len(details),'evaluation_total':2*len(data['validation']),**values}
@@ -40,8 +71,10 @@ def main():
     baseline_system=SYSTEM if args.baseline_adapter is not None else BASE_SYSTEM
     for mode,system,adapter in [('baseline',baseline_system,args.baseline_adapter),('candidate',SYSTEM,0)]:
         progress(evaluation_mode=mode)
-        outcomes=[];times=[]
-        for row in data['validation']:
+        previous=[row for row in details if row['mode']==mode]
+        outcomes=[{key:row[key] for key in ('correct','valid','false_merge')} for row in previous]
+        times=[row['seconds'] for row in previous]
+        for row in data['validation'][len(previous):]:
             start=time.monotonic()
             try:
                 raw=model.structured(system,{'title':row['title']},schema,224,adapter=adapter)
@@ -61,7 +94,7 @@ def main():
         summaries[mode]['p95_seconds']=sorted(times)[min(len(times)-1,int(len(times)*.95))]
         summaries[mode]['pairs']=pair_scores([row for row in details if row['mode']==mode])
     baseline={row['title']:row for row in details if row['mode']=='baseline'}
-    result={**state,**summaries,'validation_count':len(data['validation']),
+    result={**state,**summaries,'split_audit':split_audit(data),'validation_count':len(data['validation']),
             'validation_families':len({row['family'] for row in data['validation']}),
             'validation_negatives':sum(not row['target']['is_product'] for row in data['validation']),
             'evaluation_completed':len(details),'evaluation_total':2*len(data['validation']),

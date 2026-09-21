@@ -56,5 +56,19 @@ class EvaluationProgressTests(unittest.TestCase):
         self.assertFalse(status['gate']['passed'])
         self.assertFalse(status['promoted'])
 
+    def test_resume_requires_same_context_and_an_exact_prefix_of_validation(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);context={'adapter_sha256':'one','dataset_sha256':'data'}
+            row={'title':'held-out example','target':{'is_product':False}}
+            self.assertEqual(evaluation.resume_details(root,context,[row]),[])
+            done={'mode':'baseline','title':row['title'],'expected':row['target'],
+                  'actual':{},'seconds':2,'correct':False,'valid':False,'false_merge':False}
+            (root/'generation-progress.json').write_text(json.dumps([done]))
+            self.assertEqual(evaluation.resume_details(root,context,[row]),[done])
+            with self.assertRaises(RuntimeError):
+                evaluation.resume_details(root,context|{'adapter_sha256':'different'},[row])
+            with self.assertRaises(AssertionError):
+                evaluation.resume_details(root,context,[row|{'title':'changed title'}])
+
 
 if __name__=='__main__':unittest.main()

@@ -41,6 +41,7 @@ def promotion_gate(result):
     baseline=result['baseline'];candidate=result['candidate']
     conditions={
         'full_training':not result.get('probe',True),
+        'heldout_integrity':result.get('split_audit',{}).get('passed') is True,
         'heldout_count':result.get('validation_count',0)>=40,
         'heldout_diversity':result.get('validation_families',0)>=12 and result.get('validation_negatives',0)>=8,
         'weights_changed':result.get('lora_b_squared_norm',0)>0,

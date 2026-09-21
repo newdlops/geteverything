@@ -10,7 +10,7 @@ from gadmin.metrics.parser import COUNT, MEASURE, quantities
 VERSION = 'products-6'
 SHOP_TAGS={'쿠팡','네이버','네이버쇼핑','지마켓','g마켓','gmarket','옥션','11번가','알리','알리익스프레스',
            'aliexpress','아마존','amazon','티몬','위메프','g9','쇼핑몰','스토어','shop','기타'}
-MULTI_PRODUCT = re.compile(r'골라\s*담|택\s*1|선택형|중\s*선택|모음전|외\s*\d+\s*종|\d+\s*종\s*(?:중|택)|'
+MULTI_PRODUCT = re.compile(r'골라\s*담|택\s*1|선택형|중\s*선택|모음전|외\s*\d+\s*종|\d+\s*종\s*(?:중|택|구성\s*선택|옵션\s*선택)|'
                            r'\+\s*(?=[a-z가-힣])(?!(?:무료(?:배송)?|무배|배송|사은품|증정)(?:\b|$))')
 BRANDS = {
     '삼성': 'samsung', 'samsung': 'samsung', '엘지': 'lg', 'lg': 'lg',
