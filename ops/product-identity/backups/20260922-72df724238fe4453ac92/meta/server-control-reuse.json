@@ -1,0 +1,16 @@
+{
+  "source_run_id": "37f8e4b7f3556e079055",
+  "rows": 200,
+  "modes": [
+    "baseline",
+    "same_prompt_base"
+  ],
+  "source_context_sha256": "a7d4a7596029d73cb06522aae3fef2559e59f1d6460e1bb6ed4c2c85d6e5fe8d",
+  "source_progress_sha256": "c22c23e7969074bd73812962ea4baffbbd020fc5550db1574a1db68c04b8ef52",
+  "protocol_sha256": "904b7fff556840aebea1cba3bc1a571ac65a3a035a831fcacc8d49a7881633cd",
+  "dataset_sha256": "1578ce44fb0d418f1dbb0c3fe2d8f46cf78756aef7f964f7f6fc5a667a72dd44",
+  "base_gguf_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+  "model_image": "ghcr.io/ggml-org/llama.cpp@sha256:b97738dc7c62a5eefbfc2f910ff727cc2bcc7dbe9e613d95532fcc32f9374025",
+  "reason": "Both controls explicitly disable every LoRA adapter; only candidate weights changed",
+  "at": 1790018657.9303353
+}

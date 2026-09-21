@@ -1,0 +1,13 @@
+{
+  "at": 1790018942.1126347,
+  "original_gguf_sha256": "9ec27564330bddc935ef77edffcb7a13033cdbdc8085d5082ad605bfc4ca9035",
+  "canonical_gguf_sha256": "000ab490c4eceb5ad6bc990ea9b25e84fa9025ad1029565f85515a740c5ac41e",
+  "identical_tensors": 14,
+  "metadata_differences": {
+    "general.name": [
+      "Checkpoint",
+      "Best"
+    ]
+  },
+  "verification": "Local and server canonical conversions have identical SHA-256; all 14 tensor byte hashes match the CPU-tested checkpoint"
+}

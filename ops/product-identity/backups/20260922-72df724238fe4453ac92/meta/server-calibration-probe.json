@@ -1,0 +1,77 @@
+[
+  {
+    "mode": "best_1",
+    "scale": 1.0,
+    "adapter": 0,
+    "generated": {
+      "brand": "",
+      "name": "",
+      "model": "",
+      "variant": "",
+      "is_product": false,
+      "category": "unknown"
+    },
+    "actual": {
+      "brand": "",
+      "name": "",
+      "model": "",
+      "variant": "",
+      "is_product": false,
+      "category": "unknown"
+    },
+    "seconds": 137.81884244899265,
+    "correct": false,
+    "valid": true,
+    "false_merge": false
+  },
+  {
+    "mode": "best_09",
+    "scale": 0.9,
+    "adapter": 0,
+    "generated": {
+      "brand": "이너홈",
+      "name": "알카라인",
+      "model": "",
+      "variant": "",
+      "is_product": true,
+      "category": "electronics"
+    },
+    "actual": {
+      "brand": "이너홈",
+      "name": "알카라인",
+      "model": "",
+      "variant": "",
+      "is_product": true,
+      "category": "electronics"
+    },
+    "seconds": 144.60135171201546,
+    "correct": true,
+    "valid": true,
+    "false_merge": false
+  },
+  {
+    "mode": "last_1",
+    "scale": 1.0,
+    "adapter": 1,
+    "generated": {
+      "brand": "이너홈",
+      "name": "알카라인",
+      "model": "",
+      "variant": "",
+      "is_product": true,
+      "category": "electronics"
+    },
+    "actual": {
+      "brand": "이너홈",
+      "name": "알카라인",
+      "model": "",
+      "variant": "",
+      "is_product": true,
+      "category": "electronics"
+    },
+    "seconds": 147.0957928870339,
+    "correct": true,
+    "valid": true,
+    "false_merge": false
+  }
+]

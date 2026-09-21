@@ -1,0 +1,7 @@
+{
+  "run_id": "72df724238fe4453ac92",
+  "status": "imported_awaiting_candidate_evaluation",
+  "adapter_gguf_sha256": "9ec27564330bddc935ef77edffcb7a13033cdbdc8085d5082ad605bfc4ca9035",
+  "control_rows_reused": 200,
+  "at": 1790018663.2302842
+}

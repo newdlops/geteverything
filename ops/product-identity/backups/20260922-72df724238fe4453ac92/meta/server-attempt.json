@@ -1,0 +1,21 @@
+{
+  "at": 1790018970.1712255,
+  "dataset_sha256": "1578ce44fb0d418f1dbb0c3fe2d8f46cf78756aef7f964f7f6fc5a667a72dd44",
+  "operator_count": 0,
+  "attempts": 2,
+  "complete": true,
+  "policy_sha256": "6a2aed33baf6a679aa0150bcf7403de4fc28f784a6ddff4c388adb3ad8c2d2b3",
+  "curriculum_sha256": "2e207ba83d8be3fae6ee2105e961169741b4e77d0cc3e2bf8a1a8aed0d09e102",
+  "policy": {
+    "epochs": 4,
+    "max_steps": 1200,
+    "rank": 16,
+    "learning_rate": 8e-05,
+    "cpu": 0.35,
+    "evaluation_cpu": 0.2,
+    "training_hours": 18,
+    "evaluation_hours": 4
+  },
+  "result": "promoted",
+  "promotion_completed_at": 1790020816.905762
+}

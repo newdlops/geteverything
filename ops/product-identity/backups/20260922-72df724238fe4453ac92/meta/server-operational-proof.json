@@ -1,0 +1,92 @@
+{
+  "at": "2026-09-21T20:02:42.813261+00:00",
+  "run_id": "72df724238fe4453ac92",
+  "gguf_sha256": "000ab490c4eceb5ad6bc990ea9b25e84fa9025ad1029565f85515a740c5ac41e",
+  "gate": {
+    "passed": true,
+    "checks": {
+      "full_training": true,
+      "heldout_integrity": true,
+      "heldout_count": true,
+      "heldout_diversity": true,
+      "weights_changed": true,
+      "validation_loss_improved": true,
+      "generation_improved": true,
+      "adapter_improved": true,
+      "same_prompt_no_regressions": true,
+      "same_prompt_pair_recall": true,
+      "accuracy_floor": true,
+      "no_regressions": true,
+      "no_false_merges": true,
+      "identity_pairs": true,
+      "no_pair_false_merges": true,
+      "no_pair_recall_regression": true,
+      "valid_outputs": true,
+      "latency_budget": true
+    }
+  },
+  "containers": {
+    "geteverything-category-model": {
+      "Running": true,
+      "OOMKilled": false,
+      "StartedAt": "2026-09-21T19:58:14.767187192Z",
+      "health": "healthy",
+      "cpu": 0.2,
+      "memory": 3221225472
+    },
+    "geteverything-category-worker": {
+      "Running": true,
+      "OOMKilled": false,
+      "StartedAt": "2026-09-21T17:00:47.820137722Z",
+      "health": null,
+      "cpu": 0.15,
+      "memory": 201326592
+    },
+    "crawlers-bot": {
+      "Running": true,
+      "OOMKilled": false,
+      "StartedAt": "2026-09-20T16:58:57.140945719Z",
+      "health": null,
+      "cpu": 1.0,
+      "memory": 8589934592
+    }
+  },
+  "health": {
+    "status": "ok"
+  },
+  "default_adapters": [
+    {
+      "id": 0,
+      "scale": 0.0
+    }
+  ],
+  "worker": {
+    "prompt": "product-sft-6",
+    "extraction_version": "product-extract-6",
+    "adapter": {
+      "enabled": true,
+      "adapter_id": 0,
+      "sha256": "000ab490c4eceb5ad6bc990ea9b25e84fa9025ad1029565f85515a740c5ac41e",
+      "prompt_version": "product-sft-6",
+      "run_id": "72df724238fe4453ac92"
+    },
+    "new_last_15_minutes_in_latest_500": 0,
+    "communities": {},
+    "latest_deal": {
+      "id": 134101,
+      "community_name": "FMKOREA",
+      "create_at": "2026-09-21 17:06:00+00:00",
+      "crawled_at": "2026-09-21 19:41:12.570188+00:00"
+    },
+    "adapter_assignments": 0,
+    "latest_adapter_assignments": []
+  },
+  "resources": {
+    "cpu_percent": 58.9,
+    "memory_available": 8889573376,
+    "pending": 40,
+    "model_enabled": true,
+    "training_active": false
+  },
+  "disk_free_bytes": 17608134656
+}

@@ -1,0 +1,176 @@
+{
+  "run_id": "72df724238fe4453ac92",
+  "dataset_sha256": "1578ce44fb0d418f1dbb0c3fe2d8f46cf78756aef7f964f7f6fc5a667a72dd44",
+  "base_revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+  "training_examples": 388,
+  "validation_examples": 100,
+  "started_at": 1790008986.873441,
+  "step": 1800,
+  "promoted": false,
+  "probe": false,
+  "recipe": {
+    "version": "last-block-lora-fp32-3",
+    "rank": 16,
+    "alpha": 32,
+    "learning_rate": 8e-05,
+    "targets": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj",
+      "down_proj"
+    ],
+    "scheduler": "warmup_cosine",
+    "epochs": 6,
+    "max_steps": 1800,
+    "early_stopping_patience": 2,
+    "checkpoint_selection": "final"
+  },
+  "prompt_version": "product-sft-6",
+  "cache_reused": 452,
+  "training_device": "cpu",
+  "cpu_threads": 4,
+  "status": "validated",
+  "at": 1790020212.8334966,
+  "compute": "fp32_gemm_bf16_storage",
+  "trainable_parameters": 638976,
+  "frozen_parameters": 1881825088,
+  "cached": 488,
+  "total_cache": 488,
+  "last_cache_seconds": 1.36,
+  "baseline_validation_loss": 0.17941214732825755,
+  "total_steps": 1800,
+  "loss": 0.11892024427652359,
+  "learning_rate": 8.000000000000001e-06,
+  "last_step_seconds": 0.33,
+  "epoch": 5,
+  "validation_loss": 0.05431807961314917,
+  "best_validation_loss": 0.05431807961314917,
+  "best_step": 1800,
+  "bad_epochs": 2,
+  "early_stopped": true,
+  "final_validation_loss": 0.05431807961314917,
+  "lora_b_squared_norm": 3.5505513548851013,
+  "adapter": "/training/runs/72df724238fe4453ac92/best",
+  "adapter_sha256": "867001db5dc5e37f47b5df666946e072851c9f9b91bec4036df207a46dc62c71",
+  "loss_gate": true,
+  "elapsed_seconds": 780.7,
+  "selection_parent_run_id": "37f8e4b7f3556e079055",
+  "selection_at": 1790018481.205587,
+  "selection_reason": "Final checkpoint passed the server CPU regression probe",
+  "selection_additional_training_steps": 0,
+  "training_min_validation_loss": 0.04879565013572574,
+  "training_min_validation_step": 1164,
+  "execution_host": "local-mac",
+  "control_reuse": {
+    "source_run_id": "37f8e4b7f3556e079055",
+    "rows": 200,
+    "modes": [
+      "baseline",
+      "same_prompt_base"
+    ],
+    "source_context_sha256": "a7d4a7596029d73cb06522aae3fef2559e59f1d6460e1bb6ed4c2c85d6e5fe8d",
+    "source_progress_sha256": "c22c23e7969074bd73812962ea4baffbbd020fc5550db1574a1db68c04b8ef52",
+    "protocol_sha256": "904b7fff556840aebea1cba3bc1a571ac65a3a035a831fcacc8d49a7881633cd",
+    "dataset_sha256": "1578ce44fb0d418f1dbb0c3fe2d8f46cf78756aef7f964f7f6fc5a667a72dd44",
+    "base_gguf_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+    "model_image": "ghcr.io/ggml-org/llama.cpp@sha256:b97738dc7c62a5eefbfc2f910ff727cc2bcc7dbe9e613d95532fcc32f9374025",
+    "reason": "Both controls explicitly disable every LoRA adapter; only candidate weights changed",
+    "at": 1790018657.9303353
+  },
+  "conversion_verification": {
+    "at": 1790018942.1126347,
+    "original_gguf_sha256": "9ec27564330bddc935ef77edffcb7a13033cdbdc8085d5082ad605bfc4ca9035",
+    "canonical_gguf_sha256": "000ab490c4eceb5ad6bc990ea9b25e84fa9025ad1029565f85515a740c5ac41e",
+    "identical_tensors": 14,
+    "metadata_differences": {
+      "general.name": [
+        "Checkpoint",
+        "Best"
+      ]
+    },
+    "verification": "Local and server canonical conversions have identical SHA-256; all 14 tensor byte hashes match the CPU-tested checkpoint"
+  },
+  "baseline": {
+    "correct": 73,
+    "valid": 98,
+    "false_merge": 0,
+    "p95_seconds": 57.895,
+    "pairs": {
+      "same_pairs": 108,
+      "different_pairs": 2448,
+      "false_merges": 0,
+      "false_splits": 47
+    }
+  },
+  "same_prompt_base": {
+    "correct": 68,
+    "valid": 88,
+    "false_merge": 0,
+    "p95_seconds": 62.579,
+    "pairs": {
+      "same_pairs": 108,
+      "different_pairs": 2448,
+      "false_merges": 0,
+      "false_splits": 18
+    }
+  },
+  "candidate": {
+    "correct": 100,
+    "valid": 100,
+    "false_merge": 0,
+    "p95_seconds": 53.022,
+    "pairs": {
+      "same_pairs": 108,
+      "different_pairs": 2448,
+      "false_merges": 0,
+      "false_splits": 0
+    }
+  },
+  "split_audit": {
+    "passed": true,
+    "overlap": {
+      "families": 0,
+      "aliases": 0,
+      "products": 0,
+      "heldout_product_mentions": 0
+    },
+    "prompt_exposed_families": []
+  },
+  "validation_count": 100,
+  "validation_families": 24,
+  "validation_negatives": 28,
+  "evaluation_completed": 300,
+  "evaluation_total": 300,
+  "inference_requests": 25,
+  "baseline_adapter_id": null,
+  "regressions": 0,
+  "same_prompt_regressions": 0,
+  "gguf_sha256": "000ab490c4eceb5ad6bc990ea9b25e84fa9025ad1029565f85515a740c5ac41e",
+  "evaluated_at": 1790020212.8334622,
+  "gate": {
+    "passed": true,
+    "checks": {
+      "full_training": true,
+      "heldout_integrity": true,
+      "heldout_count": true,
+      "heldout_diversity": true,
+      "weights_changed": true,
+      "validation_loss_improved": true,
+      "generation_improved": true,
+      "adapter_improved": true,
+      "same_prompt_no_regressions": true,
+      "same_prompt_pair_recall": true,
+      "accuracy_floor": true,
+      "no_regressions": true,
+      "no_false_merges": true,
+      "identity_pairs": true,
+      "no_pair_false_merges": true,
+      "no_pair_recall_regression": true,
+      "valid_outputs": true,
+      "latency_budget": true
+    }
+  }
+}

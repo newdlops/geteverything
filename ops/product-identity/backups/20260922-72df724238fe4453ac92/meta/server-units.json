@@ -1,0 +1,22 @@
+{
+  "geteverything-product-final-evaluation-v2-20260922.service": {
+    "Result": "exit-code",
+    "ExecMainStatus": "1",
+    "ActiveState": "failed",
+    "SubState": "failed"
+  },
+  "geteverything-product-final-promotion-20260922.service": {
+    "Result": "success",
+    "ExecMainStatus": "0",
+    "ActiveState": "inactive",
+    "SubState": "dead"
+  },
+  "geteverything-product-training.timer": {
+    "NextElapseUSecRealtime": "Tue 2026-09-22 17:30:00 UTC",
+    "NextElapseUSecMonotonic": "0",
+    "LastTriggerUSec": "Mon 2026-09-21 20:01:22 UTC",
+    "Result": "success",
+    "ActiveState": "active",
+    "SubState": "waiting"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "at": 1790020882.127727,
+  "run_id": "72df724238fe4453ac92",
+  "evaluation_cpu": 0.2,
+  "policy_sha256": "6a2aed33baf6a679aa0150bcf7403de4fc28f784a6ddff4c388adb3ad8c2d2b3",
+  "timer": {
+    "NextElapseUSecRealtime": "",
+    "ActiveState": "active"
+  }
+}
