@@ -28,6 +28,8 @@
 .product-status .product-training h2{margin:0;padding:0;background:transparent;color:var(--body-fg);font-size:14px;font-weight:600}
 .product-training-refresh{display:inline-flex;align-items:center;min-height:44px;padding:0 12px;box-sizing:border-box;touch-action:manipulation}
 .product-training-refresh:focus-visible{outline:2px solid var(--link-fg);outline-offset:3px}
+.product-quality-candidates{margin:8px 0 12px;padding-left:24px}.product-quality-candidates li{margin:4px 0;overflow-wrap:anywhere}
+.product-quality-candidates a:focus-visible{outline:2px solid var(--link-fg);outline-offset:3px}
 .product-training progress{display:block;width:320px;max-width:100%;height:12px;margin:8px 0 12px;accent-color:var(--link-fg)}
 .product-training-time{color:var(--body-quiet-color)}
 .product-training-warning{color:var(--error-fg)}

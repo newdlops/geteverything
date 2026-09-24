@@ -1,4 +1,8 @@
-from django.test import SimpleTestCase
+from datetime import datetime, timezone as datetime_timezone
+
+from django.test import SimpleTestCase, TestCase
+
+from gadmin.deals.models import ClassificationState
 
 from gadmin.products import identity, quality
 
@@ -62,3 +66,27 @@ class ProductQualityTests(SimpleTestCase):
         self.assertEqual(changed['cross_post_conflicts']['size'],1)
         self.assertEqual(changed['cross_post_conflicts']['flavor'],1)
         self.assertEqual(changed['cross_post_conflict_products'],1)
+
+
+class ProductQualityRecordingTests(TestCase):
+    def test_daily_snapshots_replace_same_day_and_keep_bounded_history(self):
+        summary={key:0 for key in quality.TREND_KEYS}
+        summary.update(version='products-7',review_candidates=[{'product_ids':['example']}])
+        first=datetime(2026,9,24,12,tzinfo=datetime_timezone.utc)
+        quality.record(summary,now=first)
+        updated=quality.record(summary|{'active_products':5},now=first)
+        self.assertEqual(len(updated['history']),1)
+        self.assertEqual(updated['history'][0]['active_products'],5)
+        self.assertEqual(updated['review_candidates'],summary['review_candidates'])
+        state=ClassificationState.objects.get(key='products:quality')
+        state.value={'history':[{'date':f'2026-01-{day:02d}'} for day in range(1,32)]*3}
+        state.save(update_fields=['value'])
+        latest=quality.record(summary|{'active_products':6},now=first)
+        self.assertEqual(len(latest['history']),90)
+        self.assertEqual(latest['history'][-1]['active_products'],6)
+
+    def test_daily_boundary_uses_korea_time_even_when_worker_uses_utc(self):
+        summary={key:0 for key in quality.TREND_KEYS}
+        moment=datetime(2026,9,24,15,30,tzinfo=datetime_timezone.utc)
+        snapshot=quality.record(summary,now=moment)
+        self.assertEqual(snapshot['history'][-1]['date'],'2026-09-25')

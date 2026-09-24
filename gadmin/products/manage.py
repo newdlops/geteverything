@@ -6,7 +6,7 @@ from pathlib import Path
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument('command',choices=['status','audit','batch','train','seed-examples','export','sft-export','repair','repair-unsafe','deduplicate','backfill-step','backfill-status'])
+    parser.add_argument('command',choices=['status','audit','audit-record','batch','train','seed-examples','export','sft-export','repair','repair-unsafe','deduplicate','backfill-step','backfill-status'])
     parser.add_argument('--limit',type=int,default=50)
     parser.add_argument('--output')
     parser.add_argument('--apply',action='store_true')
@@ -19,9 +19,10 @@ def main():
     from django.db.models import Count
     from gadmin.deals.models import ClassificationState,DealProduct,Product,ProductMatchExample,ProductPrice
     from . import bootstrap,jobs,learning
-    if args.command=='audit':
-        from .quality import audit
-        print(json.dumps(audit(example_limit=max(0,min(args.limit,50))),ensure_ascii=False))
+    if args.command in ('audit','audit-record'):
+        from .quality import audit, record
+        summary=audit(example_limit=max(0,min(args.limit,50)))
+        print(json.dumps(record(summary) if args.command=='audit-record' else summary,ensure_ascii=False))
     elif args.command in ('backfill-step','backfill-status'):
         from . import backfill
         if args.command=='backfill-step':

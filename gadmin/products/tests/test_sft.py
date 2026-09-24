@@ -80,6 +80,19 @@ class TrainingDataTests(SimpleTestCase):
         conflict=copy.deepcopy(rows[0]);conflict['target']['category']='home'
         with self.assertRaises(ValueError):sft.dataset(rows+[conflict])
 
+    def test_operator_correction_replaces_matching_bootstrap_title(self):
+        rows=sft.bootstrap_rows()
+        original=copy.deepcopy(rows[0])
+        corrected=copy.deepcopy(original)
+        corrected.update(origin='operator',family='product:reviewed')
+        corrected['target']['category']='unknown'
+        self.assertTrue(sft.valid_target(corrected['title'],corrected['target']))
+        for ordered in (rows+[corrected],[corrected]+rows):
+            data=sft.dataset(ordered)
+            matches=[row for row in data['train']+data['validation'] if row['title']==corrected['title']]
+            self.assertEqual(matches,[corrected])
+            self.assertTrue(sft.split_audit(data)['passed'])
+
     def test_mixed_products_never_become_single_product_labels(self):
         title='드시모네 키즈 스텝1 3박스+키즈 스텝2 15일분+요거트 1개입'
         self.assertFalse(sft.valid_target(title,dict(brand='드시모네',name='키즈 스텝',model='',variant='',is_product=True,category='food')))
@@ -208,7 +221,7 @@ class ReviewedFeedbackTests(TestCase):
         jobs.resolve(job,data,'llm')
         job.refresh_from_db()
         self.assertEqual(ProductMatchExample.objects.count(),0)
-        jobs.manual_assign(deal.pk,job.product,'reviewer',job.request_revision)
+        jobs.manual_assign(deal.pk,job.product,'reviewer',job.request_revision,extraction_reviewed=True)
         example=ProductMatchExample.objects.get()
         self.assertEqual(example.origin,'operator')
         self.assertTrue(sft.valid_target(title,example.extraction['llm_target']))
@@ -249,3 +262,60 @@ class ReviewedFeedbackTests(TestCase):
         jobs.manual_assign(deal.pk,job.product,'reviewer',job.request_revision,extraction_reviewed=False)
         example=ProductMatchExample.objects.get(origin='operator')
         self.assertNotIn('llm_target',example.extraction)
+
+    def test_default_assignment_only_confirms_the_link(self):
+        title='로지텍 MX Master 4 무선 마우스'
+        deal=Deal.objects.create(subject=title,community_name='TEST',write_at=timezone.now(),crawled_at=timezone.now())
+        with transaction.atomic():jobs.seed(deal)
+        job=DealProduct.objects.get(pk=deal.pk)
+        data=identity.grounded(title,dict(brand='로지텍',name='MX Master 4',model='MX Master 4',
+            variant='',is_product=True,category='computer'))[0]
+        jobs.resolve(job,data,'llm')
+        job.refresh_from_db()
+        jobs.manual_assign(deal.pk,job.product,'reviewer',job.request_revision)
+        self.assertNotIn('llm_target',ProductMatchExample.objects.get(origin='operator').extraction)
+
+    def test_negative_review_exports_to_lora_but_not_pair_matcher(self):
+        title='펩시 제로 310ml 24캔 / 코카콜라 355ml 24캔'
+        deal=Deal.objects.create(subject=title,community_name='TEST',write_at=timezone.now(),crawled_at=timezone.now())
+        with transaction.atomic():jobs.seed(deal)
+        job=DealProduct.objects.get(pk=deal.pk)
+        target=dict(brand='',name='',model='',variant='',is_product=False,category='unknown')
+        jobs.manual_assign(deal.pk,None,'reviewer',job.request_revision,llm_target=target)
+        example=ProductMatchExample.objects.get(left_title=title,right_title='')
+        self.assertFalse(example.same_product)
+        from gadmin.products import learning
+        with patch.object(learning,'train',return_value=([0.0],{'validation_count':0})) as trainer:
+            learning.train_stored()
+        self.assertEqual(trainer.call_args.args[0],[])
+        with tempfile.TemporaryDirectory() as directory:
+            path=Path(directory)/'reviewed-extractions.json'
+            sft.export_stored(path)
+            exported=json.loads(path.read_text())
+        self.assertIn(target,[row['target'] for row in exported['train']+exported['validation']
+                              if row['title']==title and row['origin']=='operator'])
+
+    def test_latest_operator_correction_wins_for_the_same_title(self):
+        title='로지텍 MX Master 4 무선 마우스'
+        deal=Deal.objects.create(subject=title,community_name='TEST',write_at=timezone.now(),crawled_at=timezone.now())
+        with transaction.atomic():jobs.seed(deal)
+        job=DealProduct.objects.get(pk=deal.pk)
+        target=dict(brand='로지텍',name='MX Master 4',model='MX Master 4',
+            variant='',is_product=True,category='computer')
+        data=identity.grounded(title,target)[0]
+        jobs.resolve(job,data,'llm')
+        job.refresh_from_db()
+        right=jobs.product_title(job.product)
+        negative=dict(brand='',name='',model='',variant='',is_product=False,category='unknown')
+        def exported_target():
+            with tempfile.TemporaryDirectory() as directory:
+                path=Path(directory)/'reviewed-extractions.json'
+                sft.export_stored(path)
+                data=json.loads(path.read_text())
+            return next(row['target'] for row in data['train']+data['validation']
+                        if row['title']==title and row['origin']=='operator')
+        jobs.add_example(title,right,True,job.product,extraction={'llm_target':target})
+        jobs.add_example(title,'',False,None,extraction={'llm_target':negative})
+        self.assertEqual(exported_target(),negative)
+        jobs.add_example(title,right,True,job.product,extraction={'llm_target':target})
+        self.assertEqual(exported_target(),target)

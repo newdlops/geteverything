@@ -65,7 +65,9 @@ def train(examples):
 
 def train_stored():
     from gadmin.deals.models import ProductMatchExample, ProductMatcherVersion, ClassificationState
-    rows=list(ProductMatchExample.objects.order_by('-id').values('left_title','right_title','same_product','origin')[:2000])
+    # Empty right titles carry reviewed LLM abstentions, not product-pair labels.
+    rows=list(ProductMatchExample.objects.exclude(right_title='').order_by('-id').values(
+        'left_title','right_title','same_product','origin')[:2000])
     digest=hashlib.sha256(json.dumps(rows,ensure_ascii=False,sort_keys=True).encode()).hexdigest()[:20]
     version=FEATURE_VERSION+'/'+digest
     existing=ProductMatcherVersion.objects.filter(pk=version).first()

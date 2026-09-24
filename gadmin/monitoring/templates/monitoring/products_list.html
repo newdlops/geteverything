@@ -5,6 +5,16 @@
   <p>로컬 LLM: 연결 {{ product_model.linked|default:0 }}건 · 식별 보류 {{ product_model.abstained|default:0 }}건 · 응답 오류 {{ product_model.invalid|default:0 }}건</p>
   {% if product_matcher.version %}<p>매칭 모델 학습 {{ product_matcher.metrics.training_count }}건 · 검증 {{ product_matcher.metrics.validation_count }}건 · 유사 상품 후보 정렬에 사용 중</p>
   {% else %}<p>매칭 모델은 확인된 동일·다른 상품 예제가 모이면 학습합니다. 연결 화면에서 저장한 수정 결과가 반영됩니다.</p>{% endif %}
+  <section class="product-training" aria-labelledby="product-quality-heading">
+    <h2 id="product-quality-heading">상품 연결 품질 점검</h2>
+    {% if product_quality.at %}
+      <p>최근 점검 {{ product_quality.at }} · 규격·옵션 충돌 {{ product_quality.cross_post_conflict_products|default:0 }}개 상품 · 숫자 옵션 분리 검토 {{ product_quality.numeric_split_review_groups|default:0 }}개 그룹</p>
+      {% if quality_candidates %}<ol class="product-quality-candidates">
+        {% for candidate in quality_candidates %}<li><a href="{{ candidate.url }}">{{ candidate.name }}</a> · {{ candidate.detail }} · 연결 글 {{ candidate.linked_posts }}건</li>{% endfor %}
+      </ol>{% else %}<p>현재 점검에서 우선 검토할 연결 후보가 없습니다.</p>{% endif %}
+    {% else %}<p>일일 점검이 실행되면 규격 충돌과 분리된 상품 후보가 여기에 표시됩니다.</p>{% endif %}
+    <p>운영자 확인 추출 정답 {{ reviewed_extractions }}건 · 새 정답 16건이 쌓이면 다음 학습 후보를 평가합니다. 점검 후보는 확인 전까지 학습 정답이 아닙니다.</p>
+  </section>
   <section class="product-training" aria-labelledby="product-training-heading">
     <div class="product-training-heading">
       <h2 id="product-training-heading">로컬 LLM 미세학습</h2>

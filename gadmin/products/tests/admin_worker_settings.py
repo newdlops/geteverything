@@ -4,7 +4,7 @@ DATABASES = {'default': {'ENGINE': 'django.db.backends.sqlite3', 'NAME': ':memor
 INSTALLED_APPS = [
     'django.contrib.admin', 'django.contrib.auth', 'django.contrib.contenttypes',
     'django.contrib.sessions', 'django.contrib.messages', 'django.contrib.staticfiles',
-    'gadmin.categories.tests.apps.TestDealsConfig',
+    'gadmin.categories.tests.apps.TestDealsConfig', 'gadmin.monitoring.apps.MonitoringConfig',
 ]
 MIGRATION_MODULES = {'deals': None}
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

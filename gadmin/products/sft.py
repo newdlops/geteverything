@@ -155,8 +155,13 @@ def dataset(rows):
         if row.get('origin') not in ('bootstrap_review', 'operator') or not valid_target(row['title'], row['target']):
             continue
         key = row['title'].strip()
-        if key in unique and unique[key]['target'] != row['target']:
+        previous = unique.get(key)
+        if previous and previous['origin'] == 'operator' and row['origin'] == 'bootstrap_review':
+            continue
+        if previous and previous['origin'] == row['origin'] and previous['target'] != row['target']:
             raise ValueError('Conflicting reviewed LLM labels')
+        # A later human correction is stronger evidence than a constructed
+        # bootstrap example with the same title.
         unique[key] = row
     rows = sorted(unique.values(), key=lambda row: row['title'])
     # Union families sharing an alias, including operator and bootstrap labels.
@@ -199,12 +204,23 @@ def dataset(rows):
 def export_stored(path):
     from gadmin.deals.models import ProductMatchExample
     rows = bootstrap_rows()
-    for example in ProductMatchExample.objects.filter(origin='operator', same_product=True,
-            product__isnull=False).order_by('-id')[:2000]:
+    reviewed={}
+    for example in ProductMatchExample.objects.filter(origin='operator',
+            extraction__has_key='llm_target').order_by('-id')[:2000]:
         target = example.extraction.get('llm_target')
-        if target:
-            rows.append(dict(title=example.left_title, target=target,
-                family='product:'+str(example.product_id), origin='operator'))
+        if not target or not valid_target(example.left_title,target):
+            continue
+        stamp=example.extraction.get('reviewed_at') or example.created_at.isoformat()
+        title=example.left_title.strip()
+        if title not in reviewed or stamp>reviewed[title][0]:
+            reviewed[title]=(stamp,example)
+    for _,example in reviewed.values():
+        target=example.extraction['llm_target']
+        if target['is_product'] and not example.product_id:
+            continue
+        family=('product:'+str(example.product_id) if target['is_product'] else
+                'not-single:'+hashlib.sha256(alias_title(example.left_title).encode()).hexdigest()[:16])
+        rows.append(dict(title=example.left_title,target=target,family=family,origin='operator'))
     data = dataset(rows)
     with path.open('x', encoding='utf-8') as handle:
         path.chmod(0o600)

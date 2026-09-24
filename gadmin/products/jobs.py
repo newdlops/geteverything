@@ -280,9 +280,11 @@ def process_prices(limit=30):
 def add_example(left, right, same, product=None, extraction=None, origin='operator', actor=''):
     key=hashlib.sha256(json.dumps([identity.normalize(left),identity.normalize(right)],ensure_ascii=False).encode()).hexdigest()
     upsert=ProductMatchExample.objects.get_or_create if origin=='bootstrap_review' else ProductMatchExample.objects.update_or_create
+    evidence=extraction or {}
+    if origin=='operator':evidence={**evidence,'reviewed_at':timezone.now().isoformat()}
     row,_=upsert(example_key=key,defaults={
         'left_title':left[:512],'right_title':right[:512],'same_product':same,'product':product,
-        'extraction':extraction or {},'origin':origin,'actor':actor[:150]})
+        'extraction':evidence,'origin':origin,'actor':actor[:150]})
     return row
 
 
@@ -296,7 +298,7 @@ def manual_assign(deal_id, product, actor, expected_revision, llm_target=None, e
         if current.request_revision!=expected_revision:raise ValueError('게시물 제목 또는 연결이 바뀌었습니다. 새로고침 후 다시 확인하세요.')
         if llm_target is not None:
             from .sft import valid_target
-            if not product or not valid_target(current.input_title,llm_target):
+            if bool(product)!=llm_target.get('is_product') or not valid_target(current.input_title,llm_target):
                 raise ValueError('제목 근거가 검증된 상품 추출 정답만 저장할 수 있습니다.')
         previous=current.product
         current.product=product;current.manual_override=True;current.source='manual'
@@ -304,7 +306,8 @@ def manual_assign(deal_id, product, actor, expected_revision, llm_target=None, e
         current.last_error='operator_override';current.request_revision+=1;current.processed_at=timezone.now()
         if llm_target is not None:
             current.extraction={**current.extraction,**{key:llm_target.get(key,'') for key in ('brand','name','model','variant')},
-                'category':llm_target.get('category',''),'attributes':identity.facts(current.input_title)}
+                'is_product':llm_target['is_product'],'category':llm_target.get('category',''),
+                'attributes':identity.facts(current.input_title)}
         current.save()
         ProductPrice.objects.filter(deal_id=deal_id,identity_revision=current.identity_revision).update(product=product)
         if previous and previous!=product:
@@ -315,7 +318,7 @@ def manual_assign(deal_id, product, actor, expected_revision, llm_target=None, e
             candidate={key:current.extraction.get(key,'') for key in FIELDS}
             candidate['is_product']=True
             candidate['category']=(product.category or 'unknown').split('.')[0]
-            if (extraction_reviewed is not False and previous==product and current.extraction.get('attributes')==product.attributes and
+            if (extraction_reviewed is True and previous==product and current.extraction.get('attributes')==product.attributes and
                     identity.signature(current.extraction)==product.identity_key and
                     valid_target(current.input_title,candidate)):
                 confirmed['llm_target']=candidate
@@ -325,6 +328,9 @@ def manual_assign(deal_id, product, actor, expected_revision, llm_target=None, e
                 confirmed['llm_example']={'title':current.input_title,'output':dict(llm_target)}
             add_example(current.input_title,product_title(product),True,product,
                 extraction=confirmed if 'llm_target' in confirmed else {'alias':confirmed['alias']},actor=actor)
+        elif llm_target is not None:
+            add_example(current.input_title,'',False,None,
+                extraction={'llm_target':dict(llm_target)},actor=actor)
         return current
 
 

@@ -107,12 +107,28 @@ class ProductAdmin(admin.ModelAdmin):
 
     def changelist_view(self,request,extra_context=None):
         states=dict(ClassificationState.objects.filter(key__in=[
-            'products:model','products:matcher','products:llm_training']).values_list('key','value'))
+            'products:model','products:matcher','products:llm_training','products:quality']).values_list('key','value'))
         queue=dict(DealProduct.objects.values_list('status').annotate(count=Count('deal_id')))
+        quality=states.get('products:quality') or {}
+        candidates=[]
+        for row in (quality.get('conflict_candidates') or [])[:3]:
+            candidates.append({'name':row.get('name') or row['product_id'],
+                'url':reverse('admin:deals_product_history',args=[row['product_id']]),
+                'detail':'서로 다른 게시물의 규격·옵션 충돌',
+                'linked_posts':row.get('linked_posts',0)})
+        for row in (quality.get('review_candidates') or [])[:5]:
+            if row.get('product_ids'):
+                candidates.append({'name':row.get('name') or row['product_ids'][0],
+                    'url':reverse('admin:deals_product_history',args=[row['product_ids'][0]]),
+                    'detail':'숫자 옵션 때문에 나뉜 상품 후보',
+                    'linked_posts':row.get('linked_posts',0)})
+        reviewed_extractions=ProductMatchExample.objects.filter(
+            origin='operator',extraction__has_key='llm_target').count()
         return super().changelist_view(request,extra_context={**(extra_context or {}),
             'product_model':states.get('products:model',{}),'product_matcher':states.get('products:matcher',{}),
             'product_queue':queue,'product_training':training_summary(states.get('products:llm_training')),
-            'product_refresh_url':request.get_full_path()})
+            'product_refresh_url':request.get_full_path(),'product_quality':quality,
+            'quality_candidates':candidates,'reviewed_extractions':reviewed_extractions})
 
     def history_view(self,request,object_id):
         product=get_object_or_404(Product,pk=object_id)
@@ -148,6 +164,7 @@ class ProductAdmin(admin.ModelAdmin):
 class AssignmentForm(forms.ModelForm):
     revision=forms.IntegerField(widget=forms.HiddenInput)
     confirm_extraction=forms.BooleanField(required=False,label='이 추출을 LLM 학습 정답으로 저장')
+    training_not_product=forms.BooleanField(required=False,label='단일 상품 아님 (혼합·선택형 등)')
     training_brand=forms.CharField(required=False,max_length=100,label='브랜드')
     training_name=forms.CharField(required=False,max_length=160,label='상품명·제품군')
     training_model=forms.CharField(required=False,max_length=120,label='모델 번호')
@@ -161,6 +178,7 @@ class AssignmentForm(forms.ModelForm):
         self.fields['product'].queryset=Product.objects.filter(is_active=True)
         self.fields['product'].help_text='저장하면 현재 제목의 상품 연결을 확정하고 학습 예제로 보관합니다. 빈 값은 연결을 해제합니다.'
         self.fields['confirm_extraction'].help_text='체크한 경우에만 아래 내용을 운영자 확인 정답으로 저장하고 다음 LoRA 학습에 포함합니다.'
+        self.fields['training_not_product'].help_text='이 경우 연결 상품을 비우세요. 아래 브랜드·상품명 입력값은 학습하지 않습니다.'
         if not self.is_bound:
             extraction=self.instance.extraction or {}
             for field,key in [('training_brand','brand'),('training_name','name'),
@@ -170,7 +188,7 @@ class AssignmentForm(forms.ModelForm):
 
     class Meta:
         model=DealProduct
-        fields=['product','revision','confirm_extraction','training_brand','training_name',
+        fields=['product','revision','confirm_extraction','training_not_product','training_brand','training_name',
             'training_model','training_variant','training_category']
 
     def clean(self):
@@ -180,18 +198,25 @@ class AssignmentForm(forms.ModelForm):
         current=DealProduct.objects.select_for_update().get(pk=self.instance.pk)
         if data.get('revision')!=current.request_revision:
             raise forms.ValidationError('게시물 제목 또는 연결이 바뀌었습니다. 새로고침 후 다시 확인하세요.')
+        if data.get('training_not_product') and not data.get('confirm_extraction'):
+            raise forms.ValidationError('단일 상품 아님을 학습하려면 LLM 학습 정답 저장도 선택하세요.')
         if data.get('confirm_extraction'):
             from .sft import valid_target
-            target={
-                'brand':data.get('training_brand','').strip(),
-                'name':data.get('training_name','').strip(),
-                'model':data.get('training_model','').strip(),
-                'variant':data.get('training_variant','').strip(),
-                'is_product':True,
-                'category':data.get('training_category') or 'unknown',
-            }
-            if not data.get('product'):
-                raise forms.ValidationError('LLM 정답을 저장하려면 연결할 상품을 먼저 선택하세요.')
+            if data.get('training_not_product'):
+                if data.get('product'):
+                    raise forms.ValidationError('단일 상품이 아니라면 연결 상품을 비우세요.')
+                target=dict(brand='',name='',model='',variant='',is_product=False,category='unknown')
+            else:
+                if not data.get('product'):
+                    raise forms.ValidationError('LLM 정답을 저장하려면 연결할 상품을 먼저 선택하세요.')
+                target={
+                    'brand':data.get('training_brand','').strip(),
+                    'name':data.get('training_name','').strip(),
+                    'model':data.get('training_model','').strip(),
+                    'variant':data.get('training_variant','').strip(),
+                    'is_product':True,
+                    'category':data.get('training_category') or 'unknown',
+                }
             if not valid_target(current.input_title,target):
                 raise forms.ValidationError('브랜드·상품명·모델·옵션을 제목 근거에 맞게 수정한 뒤 저장하세요.')
             data['llm_target']=target
@@ -211,7 +236,7 @@ class AssignmentAdmin(admin.ModelAdmin):
     fieldsets=[
         (None,{'fields':['input_title','product','revision','status','source','manual_override','details','suggestions','reason','processed_at']}),
         ('LLM 학습 정답 (선택)',{'description':'현재 추출값을 제목과 대조해 수정하세요. 체크하지 않으면 상품 연결만 저장합니다.',
-            'fields':['confirm_extraction',('training_brand','training_name'),('training_model','training_variant'),'training_category']}),
+            'fields':['confirm_extraction','training_not_product',('training_brand','training_name'),('training_model','training_variant'),'training_category']}),
     ]
     readonly_fields=['input_title','status','source','manual_override','details','suggestions','reason','processed_at']
     actions=['retry']

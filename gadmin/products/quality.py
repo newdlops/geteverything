@@ -1,12 +1,16 @@
-"""Read-only checks for product identity drift and review prioritization.
+"""Product identity drift checks and bounded review snapshots.
 
-These signals identify candidates for review. They never create training labels
-or merge products: a numeric token can be a real model option, and matching
-names do not prove matching SKUs.
+The audit only reads product links. Recording its metrics never creates training
+labels or merges products: a numeric token can be a real model option, and
+matching names do not prove matching SKUs.
 """
 from collections import Counter, defaultdict
 import json
 import re
+from zoneinfo import ZoneInfo
+
+from django.db import transaction
+from django.utils import timezone
 
 from gadmin.metrics.parser import quantities
 from . import identity
@@ -17,6 +21,9 @@ PROMOTION = re.compile(r'네멤|티멤|무료배송|카드할인|역대가|단�
 STORE_BRANDS = {identity.compact(value) for value in identity.SHOP_TAGS}
 FLAVORS = {'lime','lemon','cherry','vanilla','mango','peach','grape','yuzu','original'}
 COLORS = {'black','white','silver','blue','red','pink'}
+TREND_KEYS = ('active_products', 'ready_assignments', 'reply_count_as_identity_option',
+              'numeric_split_review_groups', 'same_signature_review_groups',
+              'cross_post_conflict_products', 'shop_brand_products', 'promotion_name_products')
 
 
 def _base_key(product):
@@ -125,3 +132,21 @@ def audit(*, example_limit=12):
     assignments=DealProduct.objects.filter(status='ready',product__isnull=False).values(
         'product_id','input_title','extraction').iterator(chunk_size=500)
     return summarize(products, assignments, example_limit=example_limit)
+
+
+def record(summary, *, now=None):
+    """Store a bounded review snapshot; never change product links or labels."""
+    from gadmin.deals.models import ClassificationState
+    now = now or timezone.now()
+    point = {'date':timezone.localtime(now,ZoneInfo('Asia/Seoul')).date().isoformat(),
+             **{key:summary[key] for key in TREND_KEYS}}
+    with transaction.atomic():
+        state, _ = ClassificationState.objects.select_for_update().get_or_create(
+            key='products:quality', defaults={'value':{}})
+        history = [row for row in (state.value or {}).get('history', [])
+                   if row.get('date') != point['date']]
+        history.append(point)
+        history = sorted(history, key=lambda row:row['date'])[-90:]
+        state.value = {**summary, 'at':now.isoformat(), 'history':history}
+        state.save(update_fields=['value'])
+    return state.value

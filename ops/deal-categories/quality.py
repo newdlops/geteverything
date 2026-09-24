@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run the read-only product audit outside the memory-limited live worker."""
+"""Audit product links in an isolated container and save only review metrics."""
 import json
 from pathlib import Path
 import subprocess
@@ -13,7 +13,7 @@ def main():
              '--memory=192m','--memory-swap=192m','--cpus=0.3',
              '--tmpfs=/tmp:rw,nosuid,nodev,size=16m',
              '--env-file=/etc/geteverything-categories/worker.env',
-             config['worker_image'],'python','-m','gadmin.products.manage','audit','--limit','12']
+             config['worker_image'],'python','-m','gadmin.products.manage','audit-record','--limit','12']
     subprocess.run(command,check=True,timeout=300)
 
 
