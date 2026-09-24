@@ -4,7 +4,7 @@ import re
 
 from .money import currency, decimal, price_text, string, text, title_price
 
-VERSION = 'measurements-3'
+VERSION = 'measurements-4'
 CAPACITY_MARKERS = ('텀블러','보온병','블렌더보틀','블랜더보틀','물병','머그컵','유리컵','전기포트','냉장고','가습기','에어프라이어','에어 프라이어','쉐이커')
 MEASURE = re.compile(r'(?<![\d.])(?P<n>\d+(?:\.\d+)?)\s*(?P<u>킬로그램|밀리리터|밀리그램|그램|리터|kg|mg|ml|cc|g|l)(?=$|[^A-Za-z가-힣]|x(?=\s*\d)|(?:캔|병)(?=\s|\d))', re.I)
 COUNT = re.compile(r'(?<![\d.])(?P<n>\d{1,5})(?:\s*\+\s*(?P<bonus>\d{1,5}))?\s*(?P<u>캡슐|박스|세트|묶음|개입|정입|팩|캔|병|봉|포|정|매|입|개|롤|통|환|판|권)(?=$|[^A-Za-z가-힣]|[xX](?=\s*\d))')
@@ -26,7 +26,7 @@ WARNING_LABELS = {
     'gift_excluded':'사은품 수량은 상품 총량에서 제외했습니다.',
     'price_missing':'확인 가능한 상품 가격이 없습니다.',
     'currency_unknown':'통화가 명확하지 않아 단가·원화 환산을 보류했습니다.',
-    'legacy_price_ignored':'수량을 가격으로 오인할 수 있는 기존 값을 계산에서 제외했습니다.',
+    'legacy_price_ignored':'통화 표기가 없어 기존 숫자값만으로 상품 가격을 확정하지 않았습니다.',
     'legacy_foreign_precision':'과거 외화 가격은 정수로만 남아 있어 소수점 원문을 확인할 수 없습니다.',
     'conditional_price':'카드·쿠폰 등 조건이 붙은 표시 가격입니다.',
     'shipping_unknown':'배송비를 확인할 수 없어 배송비 포함 가격은 계산하지 않았습니다.',

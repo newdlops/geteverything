@@ -7,23 +7,25 @@ from decimal import Decimal
 
 from gadmin.metrics.parser import COUNT, MEASURE, quantities
 
-VERSION = 'products-6'
+VERSION = 'products-7'
 SHOP_TAGS={'쿠팡','네이버','네이버쇼핑','지마켓','g마켓','gmarket','옥션','11번가','알리','알리익스프레스',
            'aliexpress','아마존','amazon','티몬','위메프','g9','쇼핑몰','스토어','shop','기타'}
 MULTI_PRODUCT = re.compile(r'골라\s*담|택\s*1|선택형|중\s*선택|모음전|외\s*\d+\s*종|\d+\s*종\s*(?:중|택|구성\s*선택|옵션\s*선택)|'
+                           r'외\s*(?:종류\s*다양|다양(?:한)?\s*종류|다수)|'
                            r'\+\s*(?=[a-z가-힣])(?!(?:무료(?:배송)?|무배|배송|사은품|증정)(?:\b|$))')
 BRANDS = {
     '삼성': 'samsung', 'samsung': 'samsung', '엘지': 'lg', 'lg': 'lg',
     '에이엠디': 'amd', 'amd': 'amd', '애플': 'apple', 'apple': 'apple',
     '코카콜라': 'cocacola', '코카 콜라': 'cocacola', 'coca-cola': 'cocacola',
-    '펩시': 'pepsi', 'pepsi': 'pepsi', '씨제이': 'cj', 'cj': 'cj',
+    '펩시': 'pepsi', '펩시콜라': 'pepsi', 'pepsi': 'pepsi', '씨제이': 'cj', 'cj': 'cj',
     '매일':'maeil','매일두유':'maeil','매일유업':'maeil','광동':'kwangdong','나이키':'nike','로지텍':'logitech',
     '오뚜기':'ottogi','농심':'nongshim','롯데':'lotte','삼양':'samyang','동원':'dongwon','아디다스':'adidas',
 }
 GENERIC_BRANDS={'두유','우유','콜라','음료','검은콩','생수','쌀','식품','냉동','저당','제로','라임','상품','무선','유선',
                 '알카라인','건전지','텀블러','프리워크아웃','로봇청소기','무선청소기',
                 '무료','무배','배송','쿠폰','카드','네멤','네멤무배','와우','지마켓','쿠팡','네이버','티멤',
-                '법성포','영광','완도','제주','해남','횡성','국내산','국산','수입산','미국산','호주산'}
+                '법성포','영광','완도','제주','해남','횡성','국내산','국산','수입산','미국산','호주산',
+                '에어팟'}
 OPTIONS = {
     'zero': r'제로|\bzero\b', 'diet': r'다이어트|\bdiet\b',
     'lime': r'라임|\blime\b', 'lemon': r'레몬|\blemon\b',
@@ -57,19 +59,34 @@ def compact(value):
 
 def clean_title(title):
     value = normalize(title).replace('×', 'x')
-    value = re.sub(r'\[([^\]]{1,50})\]',lambda m:' ' if compact(m[1]) in SHOP_TAGS else ' '+m[1]+' ',value)
+    # Several forums append a reply count after the deal title. It is neither
+    # a product option nor a model number; keeping it creates a new UUID for
+    # each update to the thread. Bracketed capacities (for example [1TB]) and
+    # four-digit model years remain part of the title.
+    value = re.sub(r'\s+\[\d{1,3}\]\s*$', '', value)
+    def bracket(match):
+        body=match[1]
+        # Payment-card labels are deal conditions, while [1TB] and other
+        # bracketed specifications must survive identity extraction.
+        if compact(body) in SHOP_TAGS or re.fullmatch(
+                r'\s*(?:(?:삼카|현카|롯카|국카|신카|우리카드|카드할인)\s*[,/]?\s*)+', body):
+            return ' '
+        return ' '+body+' '
+    value = re.sub(r'\[([^\]]{1,50})\]', bracket, value)
     def price_parenthesis(match):
         body=match[1]
         if not re.search(r'원|무배|무료|배송|\$|usd|krw',body):return match[0]
         body=re.sub(r'[$€¥]\s*\d[\d,]*(?:\.\d+)?|\d[\d,]*(?:\.\d+)?\s*(?:원|달러|usd|krw|jpy|eur)|(?<![a-z0-9])\d[\d,]*(?=\s*/)', ' ',body)
         body=re.sub(r'무료배송|무료\s*배송|무배|무료|배송비?', ' ',body)
-        return ' '+body+' '
+        body=re.sub(r'카드|티멤(?:버십)?|네멤(?:무배|가)?|네이버\s*멤버십|쿠폰|체감가|즉시할인|할인|가격', ' ',body)
+        return ' '+body+' ' if re.search(r'[a-z0-9가-힣]',body) else ' '
     value = re.sub(r'\(([^()]*)\)',price_parenthesis,value)
     if re.search(r'임박|소비기한|유통기한',value):
         value=re.sub(r'(?<!\d)(?:20)?\d{2}[./-]\d{1,2}[./-]\d{1,2}(?!\d)',' ',value)
     value = re.sub(r'\s*\+\s*[^+]*(?:증정|사은품).*$', '', value)
     value = re.sub(r'(?<!\d)\d[\d,]*(?:\.\d+)?\s*(?:원|달러)(?:대|부터|~)?', ' ', value)
     value = re.sub(r'무료배송|무배|역대가|특가|오늘끝딜|타임딜|카드할인|즉시할인', ' ', value)
+    value = re.sub(r'(?<![a-z0-9가-힣])(?:네멤(?:무배|가)?|티멤(?:버십)?|네이버\s*멤버십)(?![a-z0-9가-힣])', ' ', value)
     return re.sub(r'\s+', ' ', value).strip()
 
 
@@ -236,7 +253,7 @@ def grounded(title, data):
     if not isinstance(data, dict) or data.get('is_product') is not True:
         return None, 'not_a_single_product'
     fields = {key: str(data.get(key) or '').strip() for key in ('brand','name','model','variant')}
-    source = compact(title)
+    source = compact(clean_title(title))
     limits={'brand':100,'model':120,'name':160,'variant':160}
     if not fields['name'] or any(len(value)>limits[key] or (value and compact(value) not in source) for key,value in fields.items()):
         return None, 'ungrounded_product_fields'
@@ -247,7 +264,7 @@ def grounded(title, data):
     if not fields['brand'] and not (fields['model'] and re.search(r'\d',fields['model'])):
         return None, 'brand_or_model_missing'
     brand=normalize(fields['brand'])
-    if brand and (brand in GENERIC_BRANDS or (brand not in BRANDS and not re.search(
+    if brand and (compact(brand) in {compact(token) for token in GENERIC_BRANDS|SHOP_TAGS} or (brand not in BRANDS and not re.search(
             r'(?<![a-z0-9가-힣])'+re.escape(brand)+r'(?![a-z0-9가-힣])',normalize(title)))):
         return None, 'brand_not_specific'
     if fields['model'] and (not re.search(r'\d',fields['model']) or not re.search(r'[a-z]',fields['model'],re.I) or MEASURE.fullmatch(fields['model'])

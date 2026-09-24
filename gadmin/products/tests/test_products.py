@@ -27,6 +27,32 @@ class IdentityTests(SimpleTestCase):
         b=identity.extract_rule('코카콜라 제로 355ml 48캔 (22,000원/무료)')
         self.assertEqual(identity.signature(a),identity.signature(b))
 
+    def test_forum_reply_count_and_checkout_terms_do_not_split_a_sku(self):
+        base='펩시 제로 라임 310ml 24캔'
+        reply=base+' [13]'
+        checkout=base+' (카드, 티멤 19,900원/무료)'
+        self.assertEqual(identity.signature(identity.extract_rule(base)),
+                         identity.signature(identity.extract_rule(reply)))
+        self.assertEqual(identity.signature(identity.extract_rule(base)),
+                         identity.signature(identity.extract_rule(checkout)))
+        self.assertNotIn('13',identity.facts(reply)['numeric_options'])
+        self.assertEqual(identity.clean_title('삼성 990 PRO [1TB]'),'삼성 990 pro 1tb')
+
+    def test_store_name_cannot_become_a_product_brand(self):
+        title='[G마켓] COLORFUL iGame 지포스 RTX 5080 16GB'
+        for brand in ('G마켓','[G마켓]'):
+            data,_=identity.grounded(title,{'is_product':True,'brand':brand,
+                'name':'COLORFUL iGame 지포스','model':'','variant':''})
+            self.assertIsNone(data)
+        title='[11번가] 안심포장 무항생제 특란 계란 30구'
+        data,_=identity.grounded(title,{'is_product':True,'brand':'11번가',
+            'name':'안심포장 무항생제 특란 계란','model':'','variant':''})
+        self.assertIsNone(data)
+        self.assertEqual(identity.clean_title('에어팟 프로3 [삼카,현카]'),'에어팟 프로3')
+        data,_=identity.grounded('에어팟 프로3 [삼카,현카]',{'is_product':True,
+            'brand':'에어팟','name':'프로3 삼카,현카','model':'','variant':''})
+        self.assertIsNone(data)
+
     def test_size_flavor_and_model_are_hard_boundaries(self):
         for a,b in [('코카콜라 제로 355ml 24캔','코카콜라 제로 500ml 24캔'),
                     ('코카콜라 제로 355ml 24캔','코카콜라 제로 라임 355ml 24캔'),
@@ -36,7 +62,8 @@ class IdentityTests(SimpleTestCase):
 
     def test_unknown_subline_and_mixed_offers_do_not_collapse_to_brand(self):
         for title in ['햇반 솥반 버섯영양밥 210g 24개','코카콜라 355ml 24캔+펩시 355ml 24캔',
-                      '코카콜라 제로 355ml/500ml 24캔']:
+                      '코카콜라 제로 355ml/500ml 24캔',
+                      '펩시제로슈거 라임향 355ml 48캔외 종류 다양 (24,480원/무료배송)']:
             self.assertIsNone(identity.extract_rule(title),title)
 
     def test_accessory_and_caffeine_free_variant_cannot_be_merged_into_main_product(self):
@@ -69,6 +96,14 @@ class IdentityTests(SimpleTestCase):
             ('법성포 참굴비 명선세트 6호 20미',{'brand':'법성포','name':'참굴비 명선세트','model':'','variant':''}),
         ]:
             self.assertIsNone(identity.grounded(title,{**raw,'is_product':True})[0])
+
+    def test_pepsi_cola_brand_spelling_is_grounded_as_the_pepsi_brand(self):
+        title='펩시콜라제로슈거 라임 310ml 24캔'
+        raw={'is_product':True,'brand':'펩시콜라','name':'제로슈거 라임','model':'','variant':'',
+             'category':'food'}
+        data,reason=identity.grounded(title,raw)
+        self.assertEqual(reason,'')
+        self.assertEqual(identity.signature(data),identity.signature({**raw,'brand':'펩시','attributes':identity.facts(title)}))
 
     def test_selection_posts_and_bracketed_capacity_are_handled_before_linking(self):
         self.assertIsNone(identity.grounded('반스 올드스쿨 VN000D7ZFRN1 외 10종',{
@@ -124,6 +159,33 @@ class ProductWorkflowTests(TestCase):
         zero=self.resolve(self.deal('코카콜라 제로 190ml'))
         self.assertEqual(len({row.product_id for row in [can,pet,missing,large,zero]}),5)
         self.assertNotIn('container',missing.product.attributes)
+
+    def test_legacy_unknown_product_with_conflicting_container_history_is_not_reused(self):
+        missing=self.resolve(self.deal('코카콜라 350ml 24개'))
+        can=self.resolve(self.deal('코카콜라 캔 350ml 24개'))
+        self.assertEqual(missing.product_id,can.product_id)
+
+        # Recreate the legacy state found in production: the catalog key lost its
+        # container even though one linked title still explicitly says "can".
+        generic=identity.canonical_data(can.extraction)
+        generic['attributes'].pop('container',None)
+        legacy=Product.objects.get(pk=can.product_id)
+        legacy.identity_key=identity.signature(generic)
+        legacy.attributes=generic['attributes']
+        legacy.name=identity.display_name(generic)
+        legacy.save(update_fields=['identity_key','attributes','name'])
+
+        pet_deal=self.deal('코카콜라 350ml 페트 20개')
+        pet_job=DealProduct.objects.get(pk=pet_deal.pk)
+        pet_data={'brand':'코카콜라','name':'코카콜라','model':'','variant':'',
+                  'attributes':identity.facts(pet_deal.subject),'category':'food'}
+        linked=jobs.resolve(pet_job,pet_data,'llm',target=legacy)
+        self.assertEqual(linked,1)
+        pet=DealProduct.objects.get(pk=pet_deal.pk)
+        self.assertNotEqual(pet.product_id,legacy.pk)
+        self.assertEqual(pet.product.attributes['container'],'pet')
+        legacy.refresh_from_db()
+        self.assertNotIn('container',legacy.attributes)
 
     def test_verified_unknown_container_is_not_rewritten(self):
         missing=self.resolve(self.deal('코카콜라 190ml'))

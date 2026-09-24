@@ -1,0 +1,10 @@
+[Unit]
+Description=Audit linked product identities for review candidates
+After=geteverything-categories.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/python3 /usr/local/lib/geteverything-categories/quality.py
+TimeoutStartSec=300
+Nice=15
+IOWeight=10

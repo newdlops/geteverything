@@ -1,0 +1,11 @@
+[Unit]
+Description=Run the product identity quality audit daily
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+RandomizedDelaySec=30m
+Unit=geteverything-product-quality.service
+
+[Install]
+WantedBy=timers.target

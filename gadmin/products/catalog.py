@@ -28,10 +28,11 @@ def automatic(data, category=''):
         known={kind:rows[value] for kind,value in keys.items() if kind and value in rows}
         container=data['attributes'].get('container','')
         if not container and len(known)==1:
-            return next(iter(known.values()))
+            candidate=next(iter(known.values()))
+            if not has_container_conflict(candidate,data):return candidate
         # Enrich the existing UUID when the first explicit container arrives.
         unknown=rows.get(keys[''])
-        if container and not known and unknown and not protected(unknown):
+        if container and not known and unknown and not protected(unknown) and not has_container_conflict(unknown,data):
             unknown.identity_key=key
             unknown.attributes=data['attributes']
             unknown.name=identity.display_name(data)
@@ -45,6 +46,23 @@ def automatic(data, category=''):
         product.is_active=True
         product.save(update_fields=['is_active','updated_at'])
     return product
+
+
+def has_container_conflict(product,data):
+    """Do not treat a legacy container-unknown cluster as a wildcard after it
+    has accumulated contradictory title evidence.
+
+    Old identifier links can leave a product with no container in its catalog
+    attributes even though its posts explicitly say both can and PET. The
+    identity key alone cannot reveal that history, so consult the linked title
+    extractions before reusing or enriching that UUID.
+    """
+    container=(data.get('attributes') or {}).get('container','')
+    if not container:return False
+    stored=(product.attributes or {}).get('container','')
+    if stored and stored!=container:return True
+    return DealProduct.objects.filter(product_id=product.pk,
+        extraction__attributes__container__in=[kind for kind in identity.CONTAINER_LABELS if kind!=container]).exists()
 
 
 def protected(product):

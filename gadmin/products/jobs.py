@@ -143,6 +143,11 @@ def resolve(job, data, source, target=None, candidates=None):
             if matched:
                 target, data = matched
                 source = 'identifier'
+        # A merchant ID is useful evidence, but it cannot override conflicting
+        # container facts already present in the destination history.
+        if target:
+            candidate=catalog.canonical(Product.objects.get(pk=target.pk))
+            if catalog.has_container_conflict(candidate,data):target=None
         category=DealClassification.objects.filter(deal_id=job.pk,status='ready').values_list('category',flat=True).first() or data.get('category','')
         # Cached automatic links must reconsider missing packaging if the catalog
         # now has more than one explicit format. Reviewed aliases remain binding.
@@ -281,7 +286,7 @@ def add_example(left, right, same, product=None, extraction=None, origin='operat
     return row
 
 
-def manual_assign(deal_id, product, actor, expected_revision):
+def manual_assign(deal_id, product, actor, expected_revision, llm_target=None, extraction_reviewed=None):
     with transaction.atomic():
         catalog.lock()
         if product:
@@ -289,10 +294,17 @@ def manual_assign(deal_id, product, actor, expected_revision):
             if not product.is_active:raise ValueError('현재 목록의 상품을 선택하세요.')
         current=DealProduct.objects.select_for_update().get(pk=deal_id)
         if current.request_revision!=expected_revision:raise ValueError('게시물 제목 또는 연결이 바뀌었습니다. 새로고침 후 다시 확인하세요.')
+        if llm_target is not None:
+            from .sft import valid_target
+            if not product or not valid_target(current.input_title,llm_target):
+                raise ValueError('제목 근거가 검증된 상품 추출 정답만 저장할 수 있습니다.')
         previous=current.product
         current.product=product;current.manual_override=True;current.source='manual'
         current.status='ready' if product else 'review';current.lease_until=None
         current.last_error='operator_override';current.request_revision+=1;current.processed_at=timezone.now()
+        if llm_target is not None:
+            current.extraction={**current.extraction,**{key:llm_target.get(key,'') for key in ('brand','name','model','variant')},
+                'category':llm_target.get('category',''),'attributes':identity.facts(current.input_title)}
         current.save()
         ProductPrice.objects.filter(deal_id=deal_id,identity_revision=current.identity_revision).update(product=product)
         if previous and previous!=product:
@@ -303,13 +315,16 @@ def manual_assign(deal_id, product, actor, expected_revision):
             candidate={key:current.extraction.get(key,'') for key in FIELDS}
             candidate['is_product']=True
             candidate['category']=(product.category or 'unknown').split('.')[0]
-            if (previous==product and current.extraction.get('attributes')==product.attributes and
+            if (extraction_reviewed is not False and previous==product and current.extraction.get('attributes')==product.attributes and
                     identity.signature(current.extraction)==product.identity_key and
                     valid_target(current.input_title,candidate)):
                 confirmed['llm_target']=candidate
                 confirmed['llm_example']={'title':current.input_title,'output':candidate}
+            if llm_target is not None:
+                confirmed['llm_target']=dict(llm_target)
+                confirmed['llm_example']={'title':current.input_title,'output':dict(llm_target)}
             add_example(current.input_title,product_title(product),True,product,
-                extraction=confirmed,actor=actor)
+                extraction=confirmed if 'llm_target' in confirmed else {'alias':confirmed['alias']},actor=actor)
         return current
 
 

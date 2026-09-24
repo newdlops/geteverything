@@ -1,6 +1,8 @@
 import copy
 import json
+import tempfile
 from unittest.mock import Mock, patch
+from pathlib import Path
 from django.test import SimpleTestCase, TestCase
 from django.db import transaction
 from django.utils import timezone
@@ -134,6 +136,23 @@ class TrainingDataTests(SimpleTestCase):
         raw=dict(brand='바세린',name='인텐시브 케어 바디로션',model='',variant='',is_product=True,category='beauty')
         self.assertEqual(local_model.repair_output(title,raw)['name'],raw['name'])
 
+    def test_grounded_suffix_cannot_stand_in_for_the_complete_product_subline(self):
+        title='매일 셀렉스 프로틴 190ml 24팩'
+        raw=dict(brand='매일',name='프로틴',model='',variant='',is_product=True,category='food')
+        repaired=local_model.repair_output(title,raw)
+        self.assertEqual(repaired['name'],'셀렉스 프로틴')
+        self.assertNotEqual(identity.signature(identity.grounded(title,repaired)[0]),
+                            identity.signature(identity.grounded('매일 더단백 프로틴 190ml 24팩',{
+                                **repaired,'name':'더단백 프로틴'})[0]))
+
+    def test_suffix_repair_abstains_from_noisy_or_measurement_bearing_title_lines(self):
+        raw=dict(brand='LG',name='오브제컬렉션',model='',variant='',is_product=True,category='electronics')
+        noisy=local_model.repair_output('[예약구매] LG 디오스 오브제컬렉션 양문형 냉장고',raw)
+        self.assertEqual(noisy['name'],'오브제컬렉션')
+        food=dict(brand='올리타리아',name='엑스트라버진 올리브오일',model='',variant='',is_product=True,category='food')
+        measured=local_model.repair_output('올리타리아 유기농 엑스트라버진 올리브오일1리터 2개',food)
+        self.assertEqual(measured['name'],'엑스트라버진 올리브오일')
+
     def test_cosmetics_use_the_existing_category_rules(self):
         title='이니스프리 애플씨드 클렌징 오일 150ml'
         raw=dict(brand='이니스프리',name='애플씨드 클렌징 오일',model='',variant='',is_product=True,category='home')
@@ -193,3 +212,40 @@ class ReviewedFeedbackTests(TestCase):
         example=ProductMatchExample.objects.get()
         self.assertEqual(example.origin,'operator')
         self.assertTrue(sft.valid_target(title,example.extraction['llm_target']))
+
+    def test_operator_corrected_extraction_is_exported_for_lora_training(self):
+        title='로지텍 MX Master 4 무선 마우스'
+        deal=Deal.objects.create(subject=title,community_name='TEST',write_at=timezone.now(),crawled_at=timezone.now())
+        with transaction.atomic():jobs.seed(deal)
+        job=DealProduct.objects.get(pk=deal.pk)
+        data=identity.grounded(title,dict(brand='로지텍',name='MX Master 4',model='MX Master 4',
+            variant='',is_product=True,category='computer'))[0]
+        jobs.resolve(job,data,'llm')
+        DealProduct.objects.filter(pk=deal.pk).update(extraction={**data,'name':'Master 4'})
+        job.refresh_from_db()
+        target=dict(brand='로지텍',name='MX Master 4',model='MX Master 4',variant='',
+            is_product=True,category='computer')
+        jobs.manual_assign(deal.pk,job.product,'reviewer',job.request_revision,llm_target=target)
+        example=ProductMatchExample.objects.get(origin='operator')
+        self.assertEqual(example.extraction['llm_target'],target)
+        self.assertEqual(example.extraction['llm_example']['output'],target)
+        self.assertEqual(DealProduct.objects.get(pk=deal.pk).extraction['name'],'MX Master 4')
+        with tempfile.TemporaryDirectory() as directory:
+            path=Path(directory)/'reviewed-extractions.json'
+            sft.export_stored(path)
+            exported=json.loads(path.read_text())
+        self.assertIn({'title':title,'target':target,'family':'product:'+str(job.product_id),'origin':'operator'},
+            exported['train']+exported['validation'])
+
+    def test_assignment_without_extraction_confirmation_does_not_label_llm_fields(self):
+        title='로지텍 MX Master 4 무선 마우스'
+        deal=Deal.objects.create(subject=title,community_name='TEST',write_at=timezone.now(),crawled_at=timezone.now())
+        with transaction.atomic():jobs.seed(deal)
+        job=DealProduct.objects.get(pk=deal.pk)
+        data=identity.grounded(title,dict(brand='로지텍',name='MX Master 4',model='MX Master 4',
+            variant='',is_product=True,category='computer'))[0]
+        jobs.resolve(job,data,'llm')
+        job.refresh_from_db()
+        jobs.manual_assign(deal.pk,job.product,'reviewer',job.request_revision,extraction_reviewed=False)
+        example=ProductMatchExample.objects.get(origin='operator')
+        self.assertNotIn('llm_target',example.extraction)

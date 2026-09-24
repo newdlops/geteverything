@@ -6,18 +6,23 @@ from pathlib import Path
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument('command',choices=['status','batch','train','seed-examples','export','sft-export','repair','repair-unsafe','deduplicate','backfill-step','backfill-status'])
+    parser.add_argument('command',choices=['status','audit','batch','train','seed-examples','export','sft-export','repair','repair-unsafe','deduplicate','backfill-step','backfill-status'])
     parser.add_argument('--limit',type=int,default=50)
     parser.add_argument('--output')
     parser.add_argument('--apply',action='store_true')
     parser.add_argument('--backup')
+    parser.add_argument('--product-id',action='append',dest='product_ids',
+                        help='Limit a repair preview/apply to these product UUIDs (repeatable).')
     args=parser.parse_args()
     from gadmin.categories.worker import setup
     setup()
     from django.db.models import Count
     from gadmin.deals.models import ClassificationState,DealProduct,Product,ProductMatchExample,ProductPrice
     from . import bootstrap,jobs,learning
-    if args.command in ('backfill-step','backfill-status'):
+    if args.command=='audit':
+        from .quality import audit
+        print(json.dumps(audit(example_limit=max(0,min(args.limit,50))),ensure_ascii=False))
+    elif args.command in ('backfill-step','backfill-status'):
         from . import backfill
         if args.command=='backfill-step':
             backfill.maintenance(args.limit)
@@ -26,7 +31,7 @@ def main():
     elif args.command=='deduplicate':
         if args.apply and not args.backup:parser.error('--apply requires --backup')
         from .deduplicate import deduplicate
-        print(json.dumps(deduplicate(apply=args.apply,backup=args.backup),ensure_ascii=False))
+        print(json.dumps(deduplicate(apply=args.apply,backup=args.backup,product_ids=args.product_ids),ensure_ascii=False))
     elif args.command=='batch':
         limit=max(1,min(args.limit,200))
         jobs.backfill(limit);jobs.process_rules(limit);jobs.process_prices(limit);jobs.refill_model_queue()

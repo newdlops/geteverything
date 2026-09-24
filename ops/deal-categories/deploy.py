@@ -8,7 +8,9 @@ import tempfile
 import time
 
 CONFIG = Path('/etc/geteverything-categories/runtime.json')
-UNITS = ['geteverything-categories.service', 'geteverything-category-model-guard.service', 'geteverything-category-model-guard.timer']
+UNITS = ['geteverything-categories.service', 'geteverything-category-model-guard.service',
+         'geteverything-category-model-guard.timer', 'geteverything-product-quality.service',
+         'geteverything-product-quality.timer']
 
 
 def run(args, timeout=30, check=True):
@@ -35,13 +37,27 @@ def main():
     image = run(['docker', 'image', 'inspect', '--format', '{{.Id}}', 'geteverything-category-worker:latest'])
     common = ['docker', 'run', '--rm', '--memory=192m', '--memory-swap=192m', '--cpus=0.15', '--read-only', '--tmpfs=/tmp:size=32m']
     run([*common, '--network=none', image, 'python', '-m', 'unittest', 'gadmin.categories.tests.test_rules', 'gadmin.categories.tests.test_context', 'gadmin.metrics.tests.test_parser', 'gadmin.metrics.tests.test_fx'], timeout=60)
+    run([*common, '--network=none', image, 'python', '-m', 'django', 'test',
+         'gadmin.products.tests.test_products.IdentityTests',
+         'gadmin.products.tests.test_quality.ProductQualityTests',
+         'gadmin.products.tests.test_products.ProductWorkflowTests.test_conflicting_containers_sizes_and_flavors_are_not_inferred',
+         'gadmin.products.tests.test_products.ProductWorkflowTests.test_legacy_unknown_product_with_conflicting_container_history_is_not_reused',
+         'gadmin.products.tests.test_sft.TrainingDataTests.test_grounded_suffix_cannot_stand_in_for_the_complete_product_subline',
+         'gadmin.products.tests.test_sft.TrainingDataTests.test_suffix_repair_abstains_from_noisy_or_measurement_bearing_title_lines',
+         'gadmin.products.tests.test_sft.ReviewedFeedbackTests.test_operator_corrected_extraction_is_exported_for_lora_training',
+         'gadmin.products.tests.test_sft.ReviewedFeedbackTests.test_assignment_without_extraction_confirmation_does_not_label_llm_fields',
+         'gadmin.products.tests.test_deduplicate.StableIdentityTests',
+         'gadmin.products.tests.test_deduplicate.DeduplicateTests.test_conflicting_container_evidence_splits_old_inference_and_keeps_explicit_uuid',
+         'gadmin.products.tests.test_deduplicate.DeduplicateTests.test_scoped_repair_splits_conflicting_container_history_without_touching_other_products',
+         'gadmin.products.tests.test_deduplicate.DeduplicateTests.test_scoped_repair_unifies_same_title_alias_with_differently_partitioned_fields',
+         '--settings=gadmin.products.tests.worker_settings', '--verbosity=0'], timeout=90)
     run([*common, '--env-file=/etc/geteverything-categories/worker.env', image, 'python', '-m', 'gadmin.categories.worker', '--status'], timeout=60)
     backup = Path('/root/category-worker-backups')/str(time.time_ns())
     backup.mkdir(parents=True, mode=0o700)
     (backup/'runtime.json').write_text(json.dumps(previous, indent=2))
     destination = Path('/usr/local/lib/geteverything-categories')
     destination.mkdir(exist_ok=True)
-    for name in ('run.py', 'guard.py'):
+    for name in ('run.py', 'guard.py', 'quality.py'):
         shutil.copyfile(source/'ops/deal-categories'/name, destination/name)
         (destination/name).chmod(0o755)
     for name in UNITS:
@@ -56,8 +72,10 @@ def main():
     try:
         run(['systemctl', 'daemon-reload'])
         run(['systemctl', 'enable', 'geteverything-categories.service', 'geteverything-category-model-guard.timer'])
+        run(['systemctl', 'enable', 'geteverything-product-quality.timer'])
         run(['systemctl', 'restart', 'geteverything-categories.service'], timeout=280)
         run(['systemctl', 'start', 'geteverything-category-model-guard.timer'])
+        run(['systemctl', 'start', 'geteverything-product-quality.timer'])
         time.sleep(4)
         assert run(['systemctl', 'is-active', 'geteverything-categories.service']) == 'active'
         assert run(['docker', 'inspect', '--format', '{{.State.Running}}', 'geteverything-category-worker']) == 'true'

@@ -118,6 +118,55 @@ class DeduplicateTests(TestCase):
         again=self.apply()
         self.assertEqual((again['products_updated'],again['prices_moved']),(0,0))
 
+    def test_scoped_repair_splits_conflicting_container_history_without_touching_other_products(self):
+        legacy,a=self.legacy('코카콜라 350ml 24개')
+        _,b=self.legacy('코카콜라 캔 350ml 24개',product=legacy)
+        _,c=self.legacy('코카콜라 350ml 페트 20개',product=legacy)
+        unrelated,d=self.legacy('AMD 9800X3D')
+        original_prices=list(ProductPrice.objects.order_by('pk').values('id','input','result','published_at','observed_at'))
+        preview=deduplicate(product_ids=[legacy.pk])
+        self.assertEqual(preview['scope_product_ids'],[str(legacy.pk)])
+        self.assertGreaterEqual(preview['assignments_updated'],2)
+        self.assertEqual(Product.objects.filter(pk=unrelated.pk,is_active=True).count(),1)
+        with tempfile.TemporaryDirectory() as directory:
+            result=deduplicate(apply=True,backup=Path(directory)/'scoped.json',product_ids=[legacy.pk])
+            saved=json.loads(Path(result['backup']).read_text())
+        self.assertEqual(saved['summary']['price_payload_sha256'],result['price_payload_sha256'])
+        self.assertNotEqual(DealProduct.objects.get(pk=b.pk).product_id,DealProduct.objects.get(pk=c.pk).product_id)
+        self.assertNotEqual(DealProduct.objects.get(pk=a.pk).product_id,DealProduct.objects.get(pk=b.pk).product_id)
+        self.assertEqual(DealProduct.objects.get(pk=d.pk).product_id,unrelated.pk)
+        self.assertEqual(list(ProductPrice.objects.order_by('pk').values('id','input','result','published_at','observed_at')),
+                         original_prices)
+
+    def test_scoped_repair_unifies_same_title_alias_with_differently_partitioned_fields(self):
+        left_title='펩시콜라 제로슈거 라임 310ml 24캔'
+        right_title='펩시콜라 제로슈거 라임 310ml 48캔'
+        left,left_deal=self.legacy(left_title)
+        right,right_deal=self.legacy(right_title)
+        shared=identity.facts(left_title)
+        extractions=[
+            {'brand':'펩시콜라','name':'제로슈거 라임','model':'','variant':'','attributes':shared},
+            {'brand':'펩시','name':'펩시콜라 제로슈거','model':'','variant':'라임','attributes':shared},
+        ]
+        for deal,data in ((left_deal,extractions[0]),(right_deal,extractions[1])):
+            DealProduct.objects.filter(pk=deal.pk).update(extraction=data)
+        preview=deduplicate(product_ids=[left.pk,right.pk])
+        self.assertEqual(preview['merged'],1)
+        with tempfile.TemporaryDirectory() as directory:
+            result=deduplicate(apply=True,backup=Path(directory)/'aliases.json',product_ids=[left.pk,right.pk])
+            saved=json.loads(Path(result['backup']).read_text())
+        self.assertTrue(result['price_payload_preserved'])
+        self.assertEqual(saved['summary']['price_payload_sha256'],result['price_payload_sha256'])
+        self.assertEqual(DealProduct.objects.get(pk=left_deal.pk).product_id,
+                         DealProduct.objects.get(pk=right_deal.pk).product_id)
+        for deal in (left_deal,right_deal):
+            job=DealProduct.objects.get(pk=deal.pk)
+            self.assertEqual(identity.signature(job.extraction),job.product.identity_key)
+        self.assertEqual(ProductPrice.objects.filter(product_id=left.pk).count()+
+                         ProductPrice.objects.filter(product_id=right.pk).count(),2)
+        again=deduplicate(product_ids=[left.pk,right.pk])
+        self.assertEqual((again['products_updated'],again['assignments_updated'],again['prices_moved']),(0,0,0))
+
     def test_merge_keeps_uuid_raw_prices_old_links_and_future_posts_reuse_identity(self):
         first,a=self.legacy('AMD 9800X3D')
         second,b=self.legacy('AMD 라이젠7-6세대 9800X3D 멀티팩 정품 + 붉은사막 증정')

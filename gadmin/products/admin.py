@@ -14,6 +14,8 @@ from . import catalog, identity, jobs, learning
 from .history import BASES, history
 from .training_status import summary as training_summary
 
+from gadmin.categories.taxonomy import GROUPS
+
 
 def specs(attributes):
     labels={'zero':'제로','lime':'라임','lemon':'레몬','original':'오리지널','black':'블랙','white':'화이트',
@@ -145,16 +147,31 @@ class ProductAdmin(admin.ModelAdmin):
 
 class AssignmentForm(forms.ModelForm):
     revision=forms.IntegerField(widget=forms.HiddenInput)
-
-    class Meta:
-        model=DealProduct
-        fields=['product']
+    confirm_extraction=forms.BooleanField(required=False,label='이 추출을 LLM 학습 정답으로 저장')
+    training_brand=forms.CharField(required=False,max_length=100,label='브랜드')
+    training_name=forms.CharField(required=False,max_length=160,label='상품명·제품군')
+    training_model=forms.CharField(required=False,max_length=120,label='모델 번호')
+    training_variant=forms.CharField(required=False,max_length=160,label='맛·색상 등 옵션')
+    training_category=forms.ChoiceField(required=False,label='대분류',choices=[
+        ('unknown','확인 안 됨'),*((key,value[0]) for key,value in GROUPS.items())])
 
     def __init__(self,*args,**kwargs):
         super().__init__(*args,**kwargs)
         self.fields['revision'].initial=self.instance.request_revision
         self.fields['product'].queryset=Product.objects.filter(is_active=True)
         self.fields['product'].help_text='저장하면 현재 제목의 상품 연결을 확정하고 학습 예제로 보관합니다. 빈 값은 연결을 해제합니다.'
+        self.fields['confirm_extraction'].help_text='체크한 경우에만 아래 내용을 운영자 확인 정답으로 저장하고 다음 LoRA 학습에 포함합니다.'
+        if not self.is_bound:
+            extraction=self.instance.extraction or {}
+            for field,key in [('training_brand','brand'),('training_name','name'),
+                              ('training_model','model'),('training_variant','variant')]:
+                self.initial[field]=extraction.get(key,'')
+            self.initial['training_category']=extraction.get('category') or 'unknown'
+
+    class Meta:
+        model=DealProduct
+        fields=['product','revision','confirm_extraction','training_brand','training_name',
+            'training_model','training_variant','training_category']
 
     def clean(self):
         data=super().clean()
@@ -163,6 +180,21 @@ class AssignmentForm(forms.ModelForm):
         current=DealProduct.objects.select_for_update().get(pk=self.instance.pk)
         if data.get('revision')!=current.request_revision:
             raise forms.ValidationError('게시물 제목 또는 연결이 바뀌었습니다. 새로고침 후 다시 확인하세요.')
+        if data.get('confirm_extraction'):
+            from .sft import valid_target
+            target={
+                'brand':data.get('training_brand','').strip(),
+                'name':data.get('training_name','').strip(),
+                'model':data.get('training_model','').strip(),
+                'variant':data.get('training_variant','').strip(),
+                'is_product':True,
+                'category':data.get('training_category') or 'unknown',
+            }
+            if not data.get('product'):
+                raise forms.ValidationError('LLM 정답을 저장하려면 연결할 상품을 먼저 선택하세요.')
+            if not valid_target(current.input_title,target):
+                raise forms.ValidationError('브랜드·상품명·모델·옵션을 제목 근거에 맞게 수정한 뒤 저장하세요.')
+            data['llm_target']=target
         return data
 
 
@@ -176,7 +208,11 @@ class AssignmentAdmin(admin.ModelAdmin):
     list_per_page=30
     ordering=['-requested_at']
     autocomplete_fields=['product']
-    fields=['input_title','product','revision','status','source','manual_override','details','suggestions','reason','processed_at']
+    fieldsets=[
+        (None,{'fields':['input_title','product','revision','status','source','manual_override','details','suggestions','reason','processed_at']}),
+        ('LLM 학습 정답 (선택)',{'description':'현재 추출값을 제목과 대조해 수정하세요. 체크하지 않으면 상품 연결만 저장합니다.',
+            'fields':['confirm_extraction',('training_brand','training_name'),('training_model','training_variant'),'training_category']}),
+    ]
     readonly_fields=['input_title','status','source','manual_override','details','suggestions','reason','processed_at']
     actions=['retry']
 
@@ -218,7 +254,9 @@ class AssignmentAdmin(admin.ModelAdmin):
             'operator_override':'운영자가 연결을 확인했습니다.'}.get(obj.last_error,obj.last_error or '정상')
 
     def save_model(self,request,obj,form,change):
-        jobs.manual_assign(obj.pk,form.cleaned_data['product'],request.user.get_username(),form.cleaned_data['revision'])
+        jobs.manual_assign(obj.pk,form.cleaned_data['product'],request.user.get_username(),
+            form.cleaned_data['revision'],llm_target=form.cleaned_data.get('llm_target'),
+            extraction_reviewed=bool(form.cleaned_data.get('confirm_extraction')))
 
     @admin.action(description='자동 상품 분석 다시 요청',permissions=['change'])
     def retry(self,request,queryset):

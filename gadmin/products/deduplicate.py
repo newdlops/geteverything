@@ -3,7 +3,7 @@
 Every historical price is interpreted using its own title. A current assignment
 must never relabel older revisions after a title changed to a different product.
 """
-from collections import defaultdict
+from collections import Counter, defaultdict
 import hashlib
 import json
 import os
@@ -37,17 +37,30 @@ def interpretation(title, extraction=None):
     return None, 'unchanged'
 
 
-def deduplicate(*, apply=False, backup=None):
+def reference_title(ref):
+    row=ref['row']
+    return row['input_title'] if ref['kind']=='job' else (row['input'] or {}).get('subject','')
+
+
+def deduplicate(*, apply=False, backup=None, product_ids=None):
     if apply and not backup:raise ValueError('Applying a repair requires an exclusive backup path.')
     from .jobs import VERSION
     with transaction.atomic():
         catalog.lock()
-        products={row.pk:row for row in Product.objects.all()}
-        protected={row.pk for row in products.values() if row.verified}
+        scoped_ids={uuid.UUID(str(pk)) for pk in product_ids} if product_ids is not None else None
+        product_keys=dict(Product.objects.values_list('identity_key','pk'))
+        active_keys=set(Product.objects.filter(is_active=True).values_list('identity_key',flat=True))
+        selected_products=Product.objects.filter(pk__in=scoped_ids) if scoped_ids is not None else Product.objects.all()
+        products={row.pk:row for row in selected_products}
+        missing=scoped_ids-set(products) if scoped_ids is not None else set()
+        if missing:raise ValueError('Unknown product id in repair scope.')
+        active_before=Product.objects.filter(is_active=True).count()
+        protected=set(Product.objects.filter(verified=True).values_list('pk',flat=True))
         protected.update(DealProduct.objects.filter(manual_override=True).values_list('product_id',flat=True))
         protected.update(ProductPrice.objects.filter(deal__product_assignment__manual_override=True).values_list('product_id',flat=True))
         protected.update(ProductMatchExample.objects.exclude(product=None).values_list('product_id',flat=True))
-        eligible={pk for pk,row in products.items() if row.is_active and pk not in protected}
+        eligible={pk for pk,row in products.items() if row.is_active and pk not in protected
+                  and (scoped_ids is None or pk in scoped_ids)}
         # All writers take the catalog lock before assignments. The crawler takes
         # assignment then price locks and never needs the catalog lock.
         affected_deals=set(DealProduct.objects.filter(product_id__in=eligible).values_list('pk',flat=True))
@@ -70,9 +83,9 @@ def deduplicate(*, apply=False, backup=None):
             data,reason=interpretation(title,extraction)
             references.append({'kind':'price','row':row,'data':data,'reason':reason,'product':row['product_id']})
             if reason=='unchanged':preserve.add(row['product_id'])
-        owners={row.identity_key:row for row in products.values()}
+        owners=product_keys
         observed={identity.signature(ref['data']) for ref in references if ref['data']}
-        observed.update(row.identity_key for row in products.values() if row.is_active)
+        observed.update(active_keys)
         for ref in references:
             data=ref['data']
             ref['group_data']=data
@@ -80,12 +93,34 @@ def deduplicate(*, apply=False, backup=None):
             keys=identity.container_keys(data)
             known=[kind for kind,key in keys.items() if kind and key in observed]
             if len(known)==1:ref['group_data']=identity.with_container(data,known[0])
+        # The same normalized title can be split when the extractor partitions
+        # its words differently between brand/name/variant. Only collapse those
+        # outputs when the entire title alias and every title-grounded identity
+        # fact agree; title aliases retain model, flavor, size, and packaging.
+        aliases=defaultdict(list)
+        for ref in references:
+            if ref['data']:
+                aliases[identity.cache_hash(reference_title(ref))].append(ref)
+        for group in aliases.values():
+            signatures={identity.signature(ref['group_data']) for ref in group}
+            if len(signatures)<2 or any(identity.offer_issue(reference_title(ref)) for ref in group):continue
+            title_facts={encoded(identity.facts(reference_title(ref))) for ref in group}
+            if len(title_facts)!=1:continue
+            if any(identity.canonical_data(ref['data']).get('attributes',{}) != identity.facts(reference_title(ref))
+                   for ref in group):continue
+            by_signature=defaultdict(set)
+            for ref in group:by_signature[identity.signature(ref['group_data'])].add(ref['row']['deal_id'])
+            winner=min(signatures,key=lambda key:(-len(by_signature[key]),key))
+            representative=next(ref['group_data'] for ref in group if identity.signature(ref['group_data'])==winner)
+            for ref in group:
+                ref['group_data']=representative
+                ref['alias_data']=representative
         # Never rewrite an operator decision, including a protected owner of the
         # destination key. Preserve an entire source if any title is ambiguous.
         while True:
             blocked={identity.signature(ref['group_data']) for ref in references if ref['data'] and
                      (ref['product'] in preserve or (identity.signature(ref['group_data']) in owners and
-                      owners[identity.signature(ref['group_data'])].pk not in eligible))}
+                      owners[identity.signature(ref['group_data'])] not in eligible))}
             previous=set(preserve)
             preserve.update(ref['product'] for ref in references if ref['data'] and identity.signature(ref['group_data']) in blocked)
             if preserve==previous:break
@@ -127,7 +162,7 @@ def deduplicate(*, apply=False, backup=None):
             fields={'product_id':target,'status':'ready' if target else 'review',
                     'processor_version':VERSION,'last_error':'' if target else ref['reason']}
             if target:
-                fields['extraction']=identity.canonical_data(ref['data'])
+                fields['extraction']=identity.canonical_data(ref.get('alias_data') or ref['data'])
                 fields['input_hash']=identity.cache_hash(row['input_title'])
             if any(row.get(key)!=value for key,value in fields.items()):
                 job_updates[row['deal_id']]={**fields,'request_revision':row['request_revision']+1,
@@ -138,8 +173,8 @@ def deduplicate(*, apply=False, backup=None):
                          'identity_key':hashlib.sha256(('archived-product:'+str(pk)).encode()).hexdigest()}
         updates={pk:values for pk,values in updates.items() if pk not in products or
                  any(getattr(products[pk],key)!=value for key,value in values.items())}
-        summary={'applied':apply,'active_before':sum(row.is_active for row in products.values()),
-                 'active_after':sum(row.is_active for row in products.values())+
+        summary={'applied':apply,'active_before':active_before,
+                 'active_after':active_before+
                     sum(int(values['is_active'])-int(products[pk].is_active if pk in products else False) for pk,values in updates.items()),
                  'merged':sum(bool(row.get('merged_into_id')) for row in updates.values()),
                  'archived_invalid':sum(not row['is_active'] and not row.get('merged_into_id') for row in updates.values()),
@@ -148,7 +183,11 @@ def deduplicate(*, apply=False, backup=None):
                  'prices_moved':sum(bool(target) for target in price_updates.values()),
                  'prices_detached':sum(not target for target in price_updates.values()),
                  'prices_checked':len(price_rows),'price_payload_sha256':price_digest(price_rows),
-                 'protected_products':len(protected-{None}),'preserved_ambiguous':len(preserve)}
+                 'protected_products':len(protected-{None}),'preserved_ambiguous':len(preserve),
+                 'scope_product_ids':sorted(map(str,scoped_ids)) if scoped_ids is not None else None,
+                 'merged_ids':[[str(pk),str(values['merged_into_id'])] for pk,values in updates.items()
+                               if values.get('merged_into_id')],
+                 'created_ids':[str(pk) for pk in updates if pk not in products]}
         if not apply:return summary
         path=Path(backup)
         with path.open('x',encoding='utf-8') as handle:
